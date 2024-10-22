@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/success', function () {
+    return 'Pagamento realizado com sucesso!';
+});
+
+Route::get('/cancel', function () {
+    return 'O pagamento foi cancelado.';
 });
