@@ -1,0 +1,95 @@
+.login-container {
+    background-color: #272a2d;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+/* Header */
+.header h1 {
+    color: #eb5b38;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.header p {
+    color: #e6e4dc;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Formulário de login */
+.login-form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    color: #e6e4dc;
+    margin-bottom: 5px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #347ccb;
+    border-radius: 5px;
+    background-color: #e6e4dc;
+    color: #272a2d;
+    font-size: 16px;
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #555;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #eb5b38;
+    outline: none;
+}
+
+/* Botão de login */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #eb5b38;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #d04b2b;
+}
+
+/* Footer do formulário */
+.form-footer {
+    margin-top: 15px;
+}
+
+.form-footer a {
+    color: #347ccb;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+.form-footer p {
+    color: #e6e4dc;
+    font-size: 14px;
+}
