@@ -1,5 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\PaymentController;
 
 Route::post('/checkout', [PaymentController::class, 'checkout']);
