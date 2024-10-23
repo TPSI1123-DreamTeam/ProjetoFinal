@@ -11,7 +11,7 @@
         </ul>
         <div class="login">
             <a href="/login">Login</a>
-            <p>Ainda não tens conta? <a href="/registo">Registo</a></p>
+            <p>Ainda não tens conta? <a href="/register">Registo</a></p>
         </div>
     </nav>
 </header>

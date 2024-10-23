@@ -13,7 +13,12 @@
                 <h1>PRIME TIME EVENTS</h1>
                 <p>Creating Memories</p>
             </div>
-            <form action="/register" method="POST" class="register-form">
+            <form action="{{ route('register') }}" method="POST" class="register-form">
+            @csrf
+            <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Digite o seu name" required>
+                </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Digite o seu email" required>
@@ -21,6 +26,10 @@
                 <div class="form-group">
                     <label for="password">Palavra-passe</label>
                     <input type="password" id="password" name="password" placeholder="Digite a sua palavra-passe" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">confirme palavra-passe</label>
+                    <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Digite a sua palavra-passe" required>
                 </div>
                 <div class="form-group">
                     <label for="birthdate">Data de Nascimento</label>

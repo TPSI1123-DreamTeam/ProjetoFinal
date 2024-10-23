@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registo | PRIME TIME EVENTS</title>
+    <title>Login | PRIME TIME EVENTS</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-    <div class="register-container">
-        <div class="register-box">
+    <div class="login-container">
+        <div class="login-box">
             <div class="header">
                 <h1>PRIME TIME EVENTS</h1>
                 <p>Creating Memories</p>
             </div>
-            <form action="/register" method="POST" class="register-form">
+            <form action="{{ route('login') }}" method="POST" class="login-form">
+            @csrf
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Digite o seu email" required>
@@ -23,18 +24,11 @@
                     <input type="password" id="password" name="password" placeholder="Digite a sua palavra-passe" required>
                 </div>
                 <div class="form-group">
-                    <label for="birthdate">Data de Nascimento</label>
-                    <input type="date" id="birthdate" name="birthdate" required>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="register-button">Registar</button>
+                    <button type="submit" class="login-button">Entrar</button>
                 </div>
                 <div class="form-footer">
-                    <p>Já tens conta? <a href="/login">Entra aqui</a></p>
-                    <p>Ou entra com:</p>
-                    <div class="google-login">
-                        <a href="/auth/google" class="google-button">Entrar com Google</a>
-                    </div>
+                    <p>Ainda não tens conta? <a href="/register">Regista-te aqui</a></p>
+                    <p><a href="/forgot-password">Esqueceu-se da palavra-passe?</a></p>
                 </div>
             </form>
         </div>
