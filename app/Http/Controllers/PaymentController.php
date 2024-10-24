@@ -11,32 +11,31 @@ class PaymentController extends Controller
 {
     public function checkout(Request $request)
     {
-        // Configura a API Key do Stripe
-        Stripe::setApiKey(env('STRIPE_SK'));
+    // Configura a API Key do Stripe
+    \Stripe\Stripe::setApiKey(env('STRIPE_SK'));
 
-        // Cria uma nova sessão de checkout
-        $checkout_session = StripeSession::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'eur',
-                    'product_data' => [
-                        'name' => 'Produto de Exemplo',
-                    ],
-                    'unit_amount' => 2000000, // 2000000 euros
+    // Recebe o valor do formulário e converte para inteiro (em cêntimos)
+    $amount = (int) $request->input('amount');
+
+    // Cria uma nova sessão de checkout
+    $checkout_session = \Stripe\Checkout\Session::create([
+        'payment_method_types' => ['card'],
+        'line_items' => [[
+            'price_data' => [
+                'currency' => 'eur',
+                'product_data' => [
+                    'name' => 'Bilhete de Concerto',
                 ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => env('APP_URL') . '/success',
-            'cancel_url' => env('APP_URL') . '/cancel',
-        ]);
+                'unit_amount' => $amount, // Valor em cêntimos
+            ],
+            'quantity' => 1,
+        ]],
+        'mode' => 'payment',
+        'success_url' => route('checkout.success'),
+        'cancel_url' => route('checkout.cancel'),
+    ]);
 
-        // Retorna a URL de checkout criada pelo Stripe
-        return response()->json([
-            'id' => $checkout_session->id,
-            'checkout_url' => $checkout_session->url,
-        ]);
+    // Retorna a URL de checkout criada pelo Stripe
+    return redirect()->away($checkout_session->url);
     }
-
 }
