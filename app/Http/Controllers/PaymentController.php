@@ -11,6 +11,7 @@ class PaymentController extends Controller
 {
     public function checkout(Request $request)
     {
+        
     // Configura a API Key do Stripe
     \Stripe\Stripe::setApiKey(env('STRIPE_SK'));
 
