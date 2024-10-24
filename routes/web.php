@@ -4,9 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
 
-Route::get('/quimbarreiros', function () {
-    return view('quim_barreiros');
-})->name('quimbarreiros');
+Route::get('/checkoutest', function () {
+    return view('checkoutest');
+})->name('checkoutest');
 
 
 // Rota para o método checkout do PaymentController

@@ -13,6 +13,10 @@
                 <h2>Concerto: Quim Barreiros</h2>
             </div>
             <div class="card-body">
+                <p class="card-text">
+                    Venha assistir ao concerto do grande Quim Barreiros! Prepare-se para uma noite de música e diversão.
+                </p>
+                <p><strong>Preço do bilhete:</strong> 30€</p>
                 <form action="{{ url('/checkout') }}" method="GET">
                     @csrf
                     <input type="hidden" name="amount" value="3000">
