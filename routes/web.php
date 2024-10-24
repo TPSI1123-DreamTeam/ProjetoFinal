@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\PaymentController;
 
 Route::get('/checkoutest', function () {
     return view('checkoutest');
