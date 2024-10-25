@@ -1,16 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/checkoutest', function () {
-    return view('checkoutest');
-})->name('checkoutest');
-
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Rota para o método checkout do PaymentController
-
 Route::get('/checkout', [PaymentController::class, 'checkout']);
 
 Route::get('/checkout/success', function () {
@@ -21,17 +19,24 @@ Route::get('/checkout/cancel', function () {
     return 'Pagamento cancelado!';
 })->name('checkout.cancel');
 
+Route::get('/checkoutest', function () {
+    return view('checkoutest');
+})->name('checkoutest');
 
 
+// Rota para o método checkout do PaymentController
+
+
+///// ::::: LOGIN :::::: ///////
 Route::get('/login', function () {
     return view('login.login');
 });
 
-Route::get('/register', function (Request $request) {
-
-    
+Route::get('/register', function (Request $request) {    
     return view('register.register');
 });
+
+///// ::::: LOGIN :::::: ///////
 
 Route::get('/admin', function () {
     return view('admin');
