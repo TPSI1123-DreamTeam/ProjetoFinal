@@ -1,24 +1,27 @@
 header {
-    background-color: #232323;
+    background-color: #272a2d;
     padding: 10px 0;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}
-
-.logo img {
-    height: 50px;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
+    margin-left: 25px;
+    margin-right: 50px;
 }
 
 .nav-links li {
@@ -32,8 +35,12 @@ header {
     position: relative;
 }
 
-.nav-links a.active {
+.nav-links a:hover {
     color: #FF7B47;
+}
+
+.nav-links a.active {
+    color: #fff;
 }
 
 .nav-links a.active::after {
@@ -60,9 +67,22 @@ header {
 .login p {
     font-size: 12px;
     color: #b0b0b0;
+    margin-top: 10px;
 }
 
 .login p a {
     color: #fff;
-    text-decoration: underline;
+}
+
+.login a:hover {
+    color: #FF7B47;
+}
+.logo {
+    display: inline-block;
+}
+.logo img {
+    max-width: 100px;
+    height: auto;
+    margin: 0;
+    padding: 0;
 }
