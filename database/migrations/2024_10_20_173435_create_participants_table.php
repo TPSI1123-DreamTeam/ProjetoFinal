@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->string('email');
             $table->boolean('confirmation')->nullable();
             $table->timestamps();
             $table->softDeletes();

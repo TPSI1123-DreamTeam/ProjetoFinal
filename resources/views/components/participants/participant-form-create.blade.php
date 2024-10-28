@@ -53,14 +53,37 @@
     </div>
    <br>
 
+   <div class="form-group">
+    <label for="phone">Email</label>
+    <input
+    type="text"
+    id="email"
+    name="email"
+    autocomplete="email"
+    placeholder="Digite o email do participante"
+    class="form-control
+    @error('email') is-invalid @enderror"
+    value="{{ old('email') }}"
+    required
+    aria-describedby="emailHelp"
+    value="test">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
+    @error('email')
+    <span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
+    </span>
+    @enderror
+    </div>
+   <br>
+
 
     <br>
     <div>
         <label for="confirmation">Presença Confirmada?</label><br>
-        <input type="radio" id="yes" name="confirmation" value="1">
-        <label for="yes">Sim</label>
         <input type="radio" id="no" name="confirmation" value="0">
         <label for="no">Não</label>
+        <input type="radio" id="yes" name="confirmation" value="1">
+        <label for="yes">Sim</label>
     </div>
     <button type="submit" class="mt-2 mb-5 btn btn-primary">Submit</button>
 

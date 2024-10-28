@@ -6,6 +6,9 @@ use App\Models\Participant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreParticipantRequest;
 use App\Http\Requests\UpdateParticipantRequest;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ParticipantsExport;
+use App\Imports\ParticipantsImport;
 
 class ParticipantController extends Controller
 {
@@ -80,5 +83,19 @@ class ParticipantController extends Controller
     {
         Participant::whereNotNull('id')->delete();
         return redirect('participants')->with('status','Apagou TUTO!');
+    }
+
+    // EXCEL FUNCTIONS
+
+    public function export()
+    {
+        return Excel::download(new ParticipantsExport, 'participants.xlsx');
+    }
+
+    public function import()
+    {
+        Excel::import(new ParticipantsImport, request()->file('file'));
+
+        return redirect('/')->with('success', 'All good!');
     }
 }

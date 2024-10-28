@@ -22,6 +22,7 @@ class ParticipantFactory extends Factory
         return [
             'name'  => 'teste',
             'phone' => '912345678', //$faker->numberBetween($min = 910000000, $max = 999999999),
+            'email' => 'emailtest@email.com',
         'confirmation'   => true //$faker->boolean
         ];
     }
