@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | PRIME TIME EVENTS</title>
-    @vite('resources/css/app.css')
+    @vite('resources/css/login.css')
 </head>
 <body>
     <div class="wrapper">
@@ -38,6 +38,5 @@
             </div>
         </div>
     </div>
-    @vite('resources/js/app.js')
 </body>
 </html>
