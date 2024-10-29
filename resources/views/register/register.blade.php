@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registo | PRIME TIME EVENTS</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite('resources/css/app.css')
 </head>
 <body>
-    <div class="register-container">
+    <div class="wrapper">
+    <video autoplay muted loop id="myVideo">
+            <source src="{{ asset ('videos/Welcome-vid.mp4') }}" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="register-container">
         <div class="register-box">
             <div class="header">
                 <h1>PRIME TIME EVENTS</h1>
@@ -39,5 +44,7 @@
             </form>
         </div>
     </div>
+    </div>
+    @vite('resources/js/app.js')
 </body>
 </html>
