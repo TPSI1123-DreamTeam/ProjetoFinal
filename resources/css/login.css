@@ -1,23 +1,54 @@
+/* Container principal */
 .login-container {
-    background-color: #272a2d;
-    padding: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 110%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    gap: 30px;
+}
+
+/* Linha de sombra entre logotipo e formulário */
+.divider {
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.2); /* Cor e opacidade da linha */
+    height: 80%; /* Altura da linha */
+}
+
+/* Logo */
+.logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img {
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+    display: block;
+}
+
+/* Formulário */
+.form-section {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Caixa de login */
+.login-box {
+    background-color: transparent;
+    padding: 50px;
+    width: 100%;
+    max-width: 500px;
     text-align: center;
-}
-
-/* Header */
-.header h1 {
-    color: #eb5b38;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.header p {
-    color: #e6e4dc;
-    margin-top: 10px;
-    font-style: italic;
 }
 
 /* Formulário de login */
@@ -94,7 +125,24 @@ input[type="password"]:focus {
     color: #e6e4dc;
     font-size: 14px;
 }
+.back-home {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: border-color 0.3s, color 0.3s;
+}
 
+.back-home:hover {
+    color: #d04b2b;
+}
+
+/* Video de fundo */
 #myVideo {
     position: absolute;
     top: 0;
@@ -112,5 +160,5 @@ input[type="password"]:focus {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1; 
+    z-index: -1;
 }
