@@ -4,10 +4,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
-
+///// ::::: PUBLIC VIEWS :::::: ///////
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/event', [EventController::class, 'public'])->name('events.public');
+Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('events.publicDetail');
+// Route::get('/event', function () {
+//     return view('events');
+// });
+
+///// ::::: PUBLIC VIEWS :::::: ///////
 
 // Rota para o método checkout do PaymentController
 Route::get('/checkout', [PaymentController::class, 'checkout']);
@@ -56,7 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    ///// ::::: LOGIN :::::: ///////
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
   
 });
