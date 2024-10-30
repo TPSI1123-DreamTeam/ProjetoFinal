@@ -4,20 +4,23 @@
     overflow: hidden;
     margin: 0 auto;
     min-height: 300px;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente o contêiner */
+    align-items: center; /* Centraliza verticalmente o contêiner */
 }
 
 .carousel-container {
     display: flex;
-    transition: transform 0.5s ease;
+    transition: all 0.5s ease;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* Centraliza os cards no contêiner */
+    align-items: center; /* Alinha os cards no centro verticalmente */
 }
 
 .card {
     width: 200px;
     height: 250px;
-    margin: 0 2px;
+    margin: 0 10px; /* Ajuste a margem se necessário */
     background-size: cover;
     background-position: center; 
     border-radius: 10px; 
@@ -28,4 +31,13 @@
 .card.selected {
     transform: scale(1.1); 
     opacity: 1;
+}
+
+.arrow {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10; /* Garante que as setas fiquem acima dos cards */
+    padding: 10px; /* Adiciona espaço ao redor das setas */
 }

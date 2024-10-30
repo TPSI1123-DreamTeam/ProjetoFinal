@@ -1,36 +1,35 @@
-const cards = document.querySelectorAll('.card');
-const leftArrow = document.querySelector('.left-arrow');
-const rightArrow = document.querySelector('.right-arrow');
+const carouselContainer = document.querySelector('.carousel-container');
+const cards = Array.from(document.querySelectorAll('.card'));
+const totalCards = cards.length;
 let currentIndex = 0;
 
-// Função para atualizar o carousel
-function updateCarousel() {
-    const cardWidth = 200; // largura do card
-    const cardMargin = 10; // margem entre os cards
+// Função para atualizar a exibição dos cards
+function updateCards() {
+    // Remove todas as classes 'selected'
+    cards.forEach(card => card.classList.remove('selected'));
 
+    // Adiciona a classe 'selected' ao card atual
+    cards[currentIndex].classList.add('selected');
+
+    // Reorganiza os cards para que o card atual fique no centro
+    const halfVisible = Math.floor(totalCards / 2);
     cards.forEach((card, index) => {
-        card.classList.remove('selected'); // Remove a classe 'selected' de todos os cards
-        
-        // Ajusta a posição X considerando apenas a largura do card e a margem
-        card.style.transform = `translateX(${(index - currentIndex) * (cardWidth + 2 * cardMargin)}px)`; 
+        // Ajusta a ordem para que o card selecionado fique no meio
+        card.style.order = (currentIndex - halfVisible + index + totalCards) % totalCards;
     });
-    cards[currentIndex].classList.add('selected'); // Adiciona a classe 'selected' ao card central
 }
 
-// Função para ir para o próximo card
-function nextCard() {
-    currentIndex = (currentIndex + 1) % cards.length; // Move para o próximo card
-    updateCarousel();
-}
+// Navegar para a esquerda
+document.querySelector('.left-arrow').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + totalCards) % totalCards; // Move para o card anterior
+    updateCards();
+});
 
-// Função para ir para o card anterior
-function prevCard() {
-    currentIndex = (currentIndex - 1 + cards.length) % cards.length; // Move para o card anterior
-}
+// Navegar para a direita
+document.querySelector('.right-arrow').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % totalCards; // Move para o próximo card
+    updateCards();
+});
 
-// Adiciona eventos de clique para as setas
-rightArrow.addEventListener('click', nextCard);
-leftArrow.addEventListener('click', prevCard);
-
-// Inicializa o carousel
-updateCarousel();
+// Inicializa a exibição
+updateCards();
