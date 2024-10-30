@@ -1,0 +1,31 @@
+.carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    min-height: 300px;
+}
+
+.carousel-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 200px;
+    height: 250px;
+    margin: 0 2px;
+    background-size: cover;
+    background-position: center; 
+    border-radius: 10px; 
+    transition: transform 0.5s ease;
+    opacity: 0.7; 
+}
+
+.card.selected {
+    transform: scale(1.1); 
+    opacity: 1;
+}

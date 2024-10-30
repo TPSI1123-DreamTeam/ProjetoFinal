@@ -45,6 +45,16 @@ Route::get('/register', function (Request $request) {
     return view('register.register');
 });
 
+///// ::::: CONTACT :::::: ///////
+Route::get('/contact', function () {
+    return view('pages.contact.contact');
+});
+
+///// ::::: ABOUT :::::: ///////
+Route::get('/about', function () {
+    return view('pages.about.about');
+});
+
 ///// ::::: LOGIN :::::: ///////
 
 Route::get('/admin', function () {

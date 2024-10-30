@@ -2,6 +2,7 @@
 @import 'footer.css';
 @import 'login.css';
 @import 'register.css';
+@import 'carouselEvent.css';
 
 * {
     margin: 0;
@@ -10,6 +11,7 @@
 }
 
 html, body {
+    background-color: #E6E4DC;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -26,5 +28,6 @@ html, body {
 }
 
 .content {
+    margin-top: 25px;
     flex: 1;
 }
