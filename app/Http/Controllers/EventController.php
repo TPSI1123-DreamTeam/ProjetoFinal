@@ -19,6 +19,25 @@ class EventController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function public()
+    {
+        $events = Event::where('type', 'publico')->get();
+        return view('pages.events.public', ['events' => $events]);
+    }
+
+
+      /**
+     * Display a listing of the resource.
+     */
+    public function publicDetail(Event $event)
+    {
+        $event = Event::find($event->id);
+        return view('pages.events.public-detail', ['event' => $event]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
