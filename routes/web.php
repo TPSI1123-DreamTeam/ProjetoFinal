@@ -17,20 +17,6 @@ Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('ev
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
 
-// Rota para o método checkout do PaymentController
-Route::get('/checkout', [PaymentController::class, 'checkout']);
-
-Route::get('/checkout/success', function () {
-    return 'Pagamento efetuado com sucesso!';
-})->name('checkout.success');
-
-Route::get('/checkout/cancel', function () {
-    return 'Pagamento cancelado!';
-})->name('checkout.cancel');
-
-Route::get('/checkoutest', function () {
-    return view('checkoutest');
-})->name('checkoutest');
 
 
 // Rota para o método checkout do PaymentController
@@ -76,7 +62,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     ///// ::::: LOGIN :::::: ///////
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
-  
+    // Rota para o método checkout do PaymentController
+    Route::get('/checkout/{event}', [PaymentController::class, 'checkout']);
+    
+    Route::get('/checkout/success', [PaymentController::class, 'checkout'], 
+    function () {
+        return 'Pagamento efetuado com sucesso!';
+    })->name('checkout.success');
+    
+    Route::get('/checkout/cancel', [PaymentController::class, 'checkout'],
+     function () {
+        return 'Pagamento cancelado!';
+    })->name('checkout.cancel');
+    
 });
 
 require __DIR__.'/auth.php';
