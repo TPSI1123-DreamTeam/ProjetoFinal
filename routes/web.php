@@ -8,6 +8,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Rota para a página de contacto
+
+Route::get('/contact', function () {
+   return view('contact');
+})->name('contact');
+// Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
+
+Route::post('/contact', 'App\Http\Controllers\ContactFormController@submit');
+
 // Rota para o método checkout do PaymentController
 Route::get('/checkout', [PaymentController::class, 'checkout']);
 
