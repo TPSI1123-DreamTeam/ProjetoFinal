@@ -86,3 +86,15 @@ Route::get('/participants/{participant}/edit', 'App\Http\Controllers\Participant
 Route::put('/participants/{participant}', 'App\Http\Controllers\ParticipantController@update');
 Route::delete('/participants/{participant}', 'App\Http\Controllers\ParticipantController@destroy');
 Route::delete('/participants', 'App\Http\Controllers\ParticipantController@eliminate');
+
+
+///// ::::: INVITATIONS :::::: ///////
+
+Route::get('/invitations', 'App\Http\Controllers\InvitationController@index');
+Route::get('/invitations/create', 'App\Http\Controllers\InvitationController@create');
+Route::post('/invitations', 'App\Http\Controllers\InvitationController@store');
+Route::get('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@show');
+Route::get('/invitations/{invitation}/edit', 'App\Http\Controllers\InvitationController@edit');
+Route::put('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@update');
+Route::delete('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@destroy');
+Route::delete('/invitations', 'App\Http\Controllers\InvitationController@eliminate');

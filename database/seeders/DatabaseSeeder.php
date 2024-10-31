@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         ]);*/
 
         $this->call([ParticipantSeeder::class,]);
+        $this->call([InvitationSeeder::class,]);
     }
 }
