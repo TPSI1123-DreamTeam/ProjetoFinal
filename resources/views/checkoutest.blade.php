@@ -1,4 +1,3 @@
-<!-- resources/views/quim_barreiros.blade.php -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -10,6 +9,8 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header bg-primary text-white">
+                <!-- Passar o nome do evento -->
+                <input type="hidden" name="event" value="Concerto: Quim Barreiros">
                 <h2>Concerto: Quim Barreiros</h2>
             </div>
             <div class="card-body">
@@ -19,6 +20,8 @@
                 <p><strong>Preço do bilhete:</strong> 30€</p>
                 <form action="{{ url('/checkout') }}" method="GET">
                     @csrf
+                    <!-- Nome do evento -->
+                    <input type="hidden" name="event" value="Concerto: Quim Barreiros">
                     <input type="hidden" name="amount" value="3000">
                     <button type="submit" class="btn btn-success">
                         Comprar Bilhete
