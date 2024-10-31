@@ -1,43 +1,87 @@
-.carousel {
-    position: relative;
-    width: 100%;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #eee;
+}
+
+.card-wrapper {
+    max-width: 1100px;
+    margin: 0 60px 35px;
+    padding: 20px 10px;
     overflow: hidden;
-    margin: 0 auto;
-    min-height: 300px;
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente o contêiner */
-    align-items: center; /* Centraliza verticalmente o contêiner */
 }
 
-.carousel-container {
-    display: flex;
-    transition: all 0.5s ease;
-    flex-direction: row;
-    justify-content: center; /* Centraliza os cards no contêiner */
-    align-items: center; /* Alinha os cards no centro verticalmente */
+.card-list .card-item {
+    list-style: none;
 }
 
-.card {
-    width: 200px;
-    height: 250px;
-    margin: 0 10px; /* Ajuste a margem se necessário */
-    background-size: cover;
-    background-position: center; 
-    border-radius: 10px; 
-    transition: transform 0.5s ease;
-    opacity: 0.7; 
+.card-item.swiper-slide-next .card-link {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+    z-index: 2;
 }
 
-.card.selected {
-    transform: scale(1.1); 
+.card-item .card-link {
+    transform: scale(0.9);
+    transition: transfrom 0.3s ease;
+}
+
+.card-list .card-item .card-link {
+    user-select: none;
+    display: block;
+    background-color: #272A2D;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 2px solid #272A2D;
+    box-shadow: 0 10px 10px rgba(0,0,0, 0.05);
+    transition: 0.2s ease;
+}
+
+.card-list .card-item .card-link:active {
+    cursor: grabbing;
+}
+
+.card-list .card-item .card-link:hover {
+    border-color: #EB5B38;
+}
+
+.card-list .card-link .card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.card-wrapper .swiper-pagination-bullet {
+    height: 13px;
+    width: 13px;
+    opacity: 0.5;
+    background: #EB5B38;
+}
+
+.card-wrapper .swiper-pagination-bullet-active {
     opacity: 1;
 }
 
-.arrow {
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 10; /* Garante que as setas fiquem acima dos cards */
-    padding: 10px; /* Adiciona espaço ao redor das setas */
+.card-wrapper .swiper-slide-button {
+    color: #EB5B38;
+    margin-top: -35px;
+}
+
+@media screen and (max-width: 768px) {
+    .card-wrapper {
+        margin: 0 10px 25px;
+    }
+
+    .card-wrapper .swiper-slide-button {
+        display: none;
+    }
 }
