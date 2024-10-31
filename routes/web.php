@@ -81,16 +81,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Rota para o método checkout do PaymentController
     Route::get('/checkout/{event}', [PaymentController::class, 'checkout']);
-    
-    Route::get('/checkout/success', [PaymentController::class, 'checkout'], 
+
+    Route::get('/checkout/success', [PaymentController::class, 'checkout'],
     function () {
         return 'Pagamento efetuado com sucesso!';
     })->name('checkout.success');
-    
+
     Route::get('/checkout/cancel', [PaymentController::class, 'checkout'],
      function () {
         return 'Pagamento cancelado!';
     })->name('checkout.cancel');
+
   
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
@@ -117,9 +118,27 @@ Route::get('/participants/{participant}/edit', 'App\Http\Controllers\Participant
 Route::put('/participants/{participant}', 'App\Http\Controllers\ParticipantController@update');
 Route::delete('/participants/{participant}', 'App\Http\Controllers\ParticipantController@destroy');
 Route::delete('/participants', 'App\Http\Controllers\ParticipantController@eliminate');
+
+
+///// ::::: INVITATIONS :::::: ///////
+
+Route::get('/invitations', 'App\Http\Controllers\InvitationController@index');
+Route::get('/invitations/create', 'App\Http\Controllers\InvitationController@create');
+Route::post('/invitations', 'App\Http\Controllers\InvitationController@store');
+Route::get('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@show');
+Route::get('/invitations/{invitation}/edit', 'App\Http\Controllers\InvitationController@edit');
+Route::put('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@update');
+Route::delete('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@destroy');
+Route::delete('/invitations', 'App\Http\Controllers\InvitationController@eliminate');
+///// ::::: EVENTS :::::: ///////
+
+// Route::middleware('auth')->group(function () {
+
+
 ///// ::::: EXAMPLES FOR TEST :::::: ///////
 
 // Route::middleware('auth')->group(function () {    
+
 // });
 
 // Route::get('/events', function () {
