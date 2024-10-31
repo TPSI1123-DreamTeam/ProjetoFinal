@@ -57,8 +57,8 @@ Route::get('/about', function () {
     return view('pages.about.about');
 });
 
-///// ::::: LOGIN :::::: ///////
 
+///// ::::: ROUTES WITH AUTH  :::::: ///////
 Route::get('/admin', function () {
     return view('admin');
 })->middleware(['auth', 'verified'])->name('admin');
@@ -72,12 +72,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+///// ::::: ROUTES WITH AUTH - BELLOW :::::: ///////
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    
+    ///// ::::: USER PROFILE :::::: ///////
+    Route::get('/profile',    [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile',  [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    ///// ::::: LOGIN :::::: ///////
-    Route::get('/events', [EventController::class, 'index'])->name('events.index');
     // Rota para o método checkout do PaymentController
     Route::get('/checkout/{event}', [PaymentController::class, 'checkout']);
 
@@ -91,6 +92,10 @@ Route::middleware('auth')->group(function () {
         return 'Pagamento cancelado!';
     })->name('checkout.cancel');
 
+  
+    ///// ::::: EVENTS :::::: ///////
+    Route::get('/events',        [EventController::class, 'index'])->name('events.index');
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');  
 });
 
 require __DIR__.'/auth.php';
@@ -128,6 +133,11 @@ Route::delete('/invitations', 'App\Http\Controllers\InvitationController@elimina
 ///// ::::: EVENTS :::::: ///////
 
 // Route::middleware('auth')->group(function () {
+
+
+///// ::::: EXAMPLES FOR TEST :::::: ///////
+
+// Route::middleware('auth')->group(function () {    
 
 // });
 
