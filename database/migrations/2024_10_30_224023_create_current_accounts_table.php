@@ -11,26 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('current_accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');   
-            $table->timestamp('start_date', precision: 0)->nullable();
-            $table->timestamp('end_date', precision: 0)->nullable();
-            $table->string('type');    // public, private
+            $table->string('description');
             $table->decimal('amount', 10, 2);
+            $table->string('form_of_payment');     
+            $table->int('payment_id');  // will be a constrained
+            $table->int('event_id');    // will be a constrained
+            $table->boolean('status');
+            $table->string('currency'); // eur - by default
             $table->timestamps();
         });
     }
-
-    //supplierID
-    //guestID
-    //templateEventID
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('current_accounts');
     }
 };
