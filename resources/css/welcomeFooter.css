@@ -1,7 +1,7 @@
 .footer {
-    background-color: #272A2D;
+    background-color: rgba(35, 35, 35, 0.3);
     color: #fff;
-    padding: 5px 0; /* Reduz o padding */
+    padding: 10px 0;
     text-align: center;
     font-family: Arial, sans-serif;
     margin-top: auto;
@@ -20,23 +20,23 @@
 }
 
 .footer-content p {
-    margin: 3px 0; /* Reduz a margem */
-    font-size: 10px; /* Diminui o tamanho da fonte */
+    margin: 5px 0;
+    font-size: 12px;
 }
 
 .footer-icons {
-    margin: 5px 0; /* Reduz a margem */
+    margin: 10px 0;
     color: #e6e4dc;
 }
 
 .footer-icons a {
-    margin: 0 5px; /* Reduz a margem entre os ícones */
+    margin: 0 8px;
     display: inline-block;
 }
 
 .footer-icons img {
-    width: 20px; /* Reduz a largura dos ícones */
-    height: 20px; /* Reduz a altura dos ícones */
+    width: 30px;
+    height: 30px;
     filter: invert(100%);
     transition: transform 0.3s ease;
 }
@@ -46,9 +46,9 @@
 }
 
 .footer-icons i {
-    font-size: 20px; /* Diminui o tamanho da fonte dos ícones */
+    font-size: 30px;
     color: #fff;
-    margin: 0 5px; /* Reduz a margem entre os ícones */
+    margin: 0 8px;
     transition: transform 0.3s ease;
 }
 
