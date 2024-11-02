@@ -3,15 +3,15 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Faker\Generator as Faker;
+use App\Models\Participant;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Participant>
  */
 class ParticipantFactory extends Factory
 {
+    protected $model = Participant::class;
+
     /**
      * Define the model's default state.
      *
@@ -20,12 +20,10 @@ class ParticipantFactory extends Factory
     public function definition(): array
     {
         return [
-            // Exemplo de Factory para teste de inserção de dados
-            
-            'name'  => 'teste',
-            'phone' => '912345678', //$faker->numberBetween($min = 910000000, $max = 999999999),
-            'email' => 'emailtest@email.com',
-        'confirmation'   => true //$faker->boolean
+            'name'         => fake()->name(),
+            'phone'        => (string) fake()->numberBetween(912345678, 936456789),
+            'email'        => fake()->unique()->safeEmail(),
+            'confirmation' => (string) fake()->numberBetween(0, 1),
         ];
     }
 }

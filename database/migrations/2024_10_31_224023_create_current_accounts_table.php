@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('description');
             $table->decimal('amount', 10, 2);
             $table->string('form_of_payment');     
-            $table->int('payment_id');  // will be a constrained
-            $table->int('event_id');    // will be a constrained
+            $table->integer('payment_id');  // will be a constrained
+            $table->integer('event_id');    // will be a constrained
             $table->boolean('status');
             $table->string('currency'); // eur - by default
             $table->timestamps();
