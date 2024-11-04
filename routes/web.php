@@ -2,6 +2,7 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -41,7 +42,7 @@ Route::get('/login', function () {
     return view('login.login');
 });
 
-Route::get('/register', function (Request $request) {    
+Route::get('/register', function (Request $request) {
     return view('register.register');
 });
 
@@ -76,7 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     ///// ::::: LOGIN :::::: ///////
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
-  
+
 });
 
 require __DIR__.'/auth.php';
@@ -85,9 +86,19 @@ require __DIR__.'/auth.php';
 ///// ::::: EVENTS :::::: ///////
 
 // Route::middleware('auth')->group(function () {
-    
+
 // });
 
 // Route::get('/events', function () {
 //     // ...
 // })->middleware('auth:api');
+
+///// ::::: Suppliers :::::: ///////
+Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
+Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
+Route::get('/suppliers/{supplier}', [SupplierController::class, 'show'])->name('suppliers.show');
+Route::get('/suppliers/{supplier}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
+Route::put('/suppliers/{supplier}', [SupplierController::class, 'update'])->name('suppliers.update');
+Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+
