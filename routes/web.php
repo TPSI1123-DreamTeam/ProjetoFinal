@@ -2,6 +2,7 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -36,6 +37,20 @@ Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('ev
 
 
 // Rota para o método checkout do PaymentController
+Route::get('/checkout', [PaymentController::class, 'checkout']);
+
+Route::get('/checkout/success', function () {
+    return 'Pagamento efetuado com sucesso!';
+})->name('checkout.success');
+
+Route::get('/checkout/cancel', function () {
+    return 'Pagamento cancelado!';
+})->name('checkout.cancel');
+
+Route::get('/checkoutest', function () {
+    return view('checkoutest');
+})->name('checkoutest');
+
 
 
 ///// ::::: LOGIN :::::: ///////
@@ -80,17 +95,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
     // Rota para o método checkout do PaymentController
     Route::get('/checkout/{event}', [PaymentController::class, 'checkout']);
-    
-    Route::get('/checkout/success', [PaymentController::class, 'checkout'], 
+
+    Route::get('/checkout/success', [PaymentController::class, 'checkout'],
     function () {
         return 'Pagamento efetuado com sucesso!';
     })->name('checkout.success');
-    
+
     Route::get('/checkout/cancel', [PaymentController::class, 'checkout'],
      function () {
         return 'Pagamento cancelado!';
     })->name('checkout.cancel');
-    
+
 });
 
 require __DIR__.'/auth.php';
@@ -116,9 +131,20 @@ Route::delete('/participants', 'App\Http\Controllers\ParticipantController@elimi
 ///// ::::: EVENTS :::::: ///////
 
 // Route::middleware('auth')->group(function () {
-    
+
 // });
 
 // Route::get('/events', function () {
 //     // ...
 // })->middleware('auth:api');
+
+
+///// ::::: Suppliers :::::: ///////
+Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
+Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
+Route::get('/suppliers/{supplier}', [SupplierController::class, 'show'])->name('suppliers.show');
+Route::get('/suppliers/{supplier}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
+Route::put('/suppliers/{supplier}', [SupplierController::class, 'update'])->name('suppliers.update');
+Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
+
