@@ -20,6 +20,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-20 23:07:33",
             "type"       => "publico",
             "amount"     => "30.00",
+            "image"      => "Corroios.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -28,6 +29,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-21 23:07:33",
             "type"       => "privado",
             "amount"     => "70.00",
+            "image"      => "eventoPublicoNosAlive.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -36,6 +38,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-24 23:07:33",
             "type"       => "privado",
             "amount"     => "60.00",
+            "image"      => "Corroios.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -44,6 +47,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-24 23:07:33",
             "type"       => "publico",
             "amount"     => "35.00",
+            "image"      => "eventoPublicoNosAlive.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -52,6 +56,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-26 23:07:33",
             "type"       => "publico",
             "amount"     => "15.00",
+            "image"      => "Corroios.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -60,6 +65,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-27 23:07:33",
             "type"       => "publico",
             "amount"     => "30.00",
+            "image"      => "eventoPublicoNosAlive.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -68,6 +74,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-30 23:07:33",
             "type"       => "publico",
             "amount"     => "45.00",
+            "image"      => "Corroios.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -76,6 +83,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-24 23:07:33",
             "type"       => "privado",
             "amount"     => "100.00",
+            "image"      => "eventoPublicoNosAlive.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -84,6 +92,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-10-24 23:07:33",
             "type"       => "privado",
             "amount"     => "150.00",
+            "image"      => "Corroios.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -92,6 +101,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-11-01 23:07:33",
             "type"       => "publico",
             "amount"     => "55.00",
+            "image"      => "eventoPublicoNosAlive.jpg",
         ]);
 
         DB::Table('events')->insert([
@@ -100,6 +110,7 @@ class EventSeeder extends Seeder
             "end_date"   => "2024-11-02 23:07:33",
             "type"       => "publico",
             "amount"     => "25.00",
+            "image"      => "Corroios.jpg",
         ]);
     }
 }
