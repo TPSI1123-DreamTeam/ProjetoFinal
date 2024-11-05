@@ -23,7 +23,7 @@ body {
     list-style: none;
 }
 
-.card-item.swiper-slide-next .card-link {
+.card-item.swiper-slide-active .card-link {
     transform: scale(1.1);
     transition: transform 0.3s ease;
     z-index: 2;

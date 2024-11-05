@@ -1,5 +1,5 @@
 @extends('master.main')
 @section('content')
-    @component('components.events.event-public-list', ['events' => $events])
+    @component('components.events.public-events-show', ['events' => $events])
     @endcomponent
 @endsection

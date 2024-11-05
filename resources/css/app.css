@@ -29,9 +29,11 @@ html, body {
 }
 
 .content {
-    margin-top: 25px;
     flex: 1;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: space-around;
+    flex-wrap: wrap;
 }
