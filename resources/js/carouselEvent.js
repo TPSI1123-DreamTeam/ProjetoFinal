@@ -39,19 +39,24 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateEventDetails(activeSlide) {
         const link = activeSlide.querySelector('.card-link'); // Pega o link do slide ativo
         const eventName = link.getAttribute('data-name');
-        const eventDescription = link.getAttribute('data-description');
-        const eventLocation = link.getAttribute('data-location');
+        //const eventDescription = link.getAttribute('data-description');
+        //const eventLocation = link.getAttribute('data-location');
         const eventStartDate = link.getAttribute('data-start-date');
         const eventAmount = link.getAttribute('data-amount');
-        const eventAvailability = link.getAttribute('data-availability');
+        const eventImage = link.getAttribute('data-image');
+            const myArray = eventImage.split("/images");
+            let word = myArray[1];
+            console.log(word)
 
         // Atualiza a div event-details
         document.getElementById('event-title').textContent = eventName;
-        document.getElementById('event-description').textContent = eventDescription;
-        document.getElementById('event-location').textContent = eventLocation;
+        //document.getElementById('event-description').textContent = eventDescription;
+        //document.getElementById('event-location').textContent = eventLocation;
         document.getElementById('event-start-date').textContent = eventStartDate;
         document.getElementById('event-amount').textContent = eventAmount;
-        document.getElementById('event-availability').textContent = eventAvailability;
+        const image = document.getElementById('card-imageId');
+        const url = 'images' + word;
+        image.setAttribute('src', url);
     }
 
     // Chama a função uma vez para garantir que o primeiro slide tenha seus dados exibidos

@@ -10,8 +10,9 @@
                        data-location="{{$event->location}}"
                        data-start-date="{{$event->start_date}}"
                        data-amount="{{$event->amount}}"
-                       data-availability="{{$event->availability}}">                       
-                        <img src="{{ asset('images/'.$event->image ) }}" alt="Evento" class="card-image">
+                       data-availability="{{$event->availability}}"
+                       data-image="{{ asset('images/' . $event->image) }}">
+                       <img src="{{ asset('images/' . $event->image) }}" alt="Evento" class="card-image">
                     </a>
                 </li>
             @endforeach
@@ -22,11 +23,27 @@
     </div>
 </div>
 
-<div id="event-details">
-    <h2 id="event-title"></h2>
-    <p id="event-description"></p>
-    <p><strong>Localização:</strong> <span id="event-location"></span></p>
-    <p><strong>Data:</strong> <span id="event-start-date"></span></p>
-    <p><strong>Preço:</strong> <span id="event-amount"></span></p>
-    <p><strong>Disponibilidade:</strong> <span id="event-availability"></span></p>
+<div class="event-details" id="event-details">
+    <div class="image">
+        <img src="" alt="Evento" class="card-image" id="card-imageId">
+    </div>
+    <div class="info">
+        <h2 id="event-title"></h2>
+        <p class="description">O Rock & Roll Festival é um evento cheio de energia que celebra a música rock com performances de bandas 
+            icónicas e novos talentos. Com um palco imponente, luzes vibrantes e uma atmosfera elétrica, 
+            é o local perfeito para fãs do rock aproveitarem concertos inesquecíveis, zonas de alimentação e merchandising exclusivo, 
+            num ambiente que exala a verdadeira essência do rock & roll.</p> <!--  id="event-description" adicionar depois -->
+            <div class="local-date">
+                <div>
+                    <strong>Localização</strong>
+                    <p>Sagres Campo Pequeno<!-- <span id="event-location"></span> --></p> 
+                </div>
+                <div>
+                    <strong>Data</strong> 
+                    <p><span id="event-start-date"></span></p>
+                </div>
+            </div>
+        <p class="price"><span id="event-amount"></span>€ p/ pessoa</p>
+        <a class="buy-now">Compra já!</a>
+    </div>
 </div>
