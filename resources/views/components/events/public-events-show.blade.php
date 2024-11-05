@@ -10,8 +10,8 @@
                        data-location="{{$event->location}}"
                        data-start-date="{{$event->start_date}}"
                        data-amount="{{$event->amount}}"
-                       data-availability="{{$event->availability}}">
-                        <img src="{{ asset('images/Corroios.jpg') }}" alt="Evento" class="card-image">
+                       data-availability="{{$event->availability}}">                       
+                        <img src="{{ asset('images/'.$event->image ) }}" alt="Evento" class="card-image">
                     </a>
                 </li>
             @endforeach

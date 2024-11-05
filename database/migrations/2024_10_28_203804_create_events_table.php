@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('end_date', precision: 0)->nullable();
             $table->string('type');    // public, private
             $table->decimal('amount', 10, 2);
+            $table->string('image'); 
             $table->timestamps();
         });
     }
