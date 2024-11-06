@@ -1,0 +1,97 @@
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #272A2D;
+    border-radius: 30px;
+    padding: 15px 35px 15px 35px;
+    color: #E6E4DC;
+    width: 80%;
+    margin: 20px 149.906px 50px 149.906px;
+    gap: 30px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}
+label {
+    text-align: center;
+}
+.search-input {
+    display: flex;
+    align-items: center;
+    background-color: #E6E4DC;
+    border-radius: 20px;
+    padding: 8px 12px;
+    color: #272A2D;
+    font-size: 14px;
+    flex: 1;
+    max-width: 200px;
+    margin-top: 35px;
+}
+
+.search-input input[type="text"] {
+    border: none;
+    background: none;
+    outline: none;
+    color: #272A2D;
+    font-size: 16px;
+    width: 100%;
+    text-decoration: underline;
+}
+
+.search-icon {
+    cursor: pointer;
+    font-size: 16px;
+    color: #272A2D;
+}
+
+.filter-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.filter-label {
+    font-size: 14px;
+    color: #E6E4DC;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.date-filter, .event-type, .availability {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.date-input {
+    background-color: #E6E4DC;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #272A2D;
+}
+
+.radio-label {
+    font-size: 14px;
+    color: #E6E4DC;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.radio-button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #EB5B38;
+    cursor: pointer;
+}
+
+.radio-button:hover {
+    cursor: pointer;
+    background-color: #c93510;
+}
