@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Payment;
+use App\Http\Controllers\PaymentController;
 
 return new class extends Migration
 {
@@ -13,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->string('stripe_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('event_id')->constrained();
             $table->string('name');
             $table->decimal('amount', 10, 2);
             $table->date('date');
