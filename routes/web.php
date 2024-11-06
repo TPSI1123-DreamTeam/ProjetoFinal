@@ -74,7 +74,7 @@ Route::get('/dashboard', function () {
 
 ///// ::::: ROUTES WITH AUTH - BELLOW :::::: ///////
 Route::middleware('auth')->group(function () {
-    
+
     ///// ::::: USER PROFILE :::::: ///////
     Route::get('/profile',    [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile',  [ProfileController::class, 'update'])->name('profile.update');
@@ -92,10 +92,10 @@ Route::middleware('auth')->group(function () {
         return 'Pagamento cancelado!';
     })->name('checkout.cancel');
 
-  
+
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
-    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');  
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
 });
 
 require __DIR__.'/auth.php';
@@ -122,14 +122,14 @@ Route::delete('/participants', 'App\Http\Controllers\ParticipantController@elimi
 
 ///// ::::: INVITATIONS :::::: ///////
 
-Route::get('/invitations', 'App\Http\Controllers\InvitationController@index');
-Route::get('/invitations/create', 'App\Http\Controllers\InvitationController@create');
-Route::post('/invitations', 'App\Http\Controllers\InvitationController@store');
-Route::get('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@show');
-Route::get('/invitations/{invitation}/edit', 'App\Http\Controllers\InvitationController@edit');
-Route::put('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@update');
-Route::delete('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@destroy');
-Route::delete('/invitations', 'App\Http\Controllers\InvitationController@eliminate');
+Route::get('/invitations', 'App\Http\Controllers\InvitationController@index');  // Rota para lista de convites
+Route::get('/invitations/create', 'App\Http\Controllers\InvitationController@create'); // Rota para criar um convite
+Route::post('/invitations', 'App\Http\Controllers\InvitationController@store'); // Rota para guardar um convite
+Route::get('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@show'); // Rota para mostrar um convite
+Route::get('/invitations/{invitation}/edit', 'App\Http\Controllers\InvitationController@edit'); // Rota para editar um convite
+Route::put('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@update'); // Rota para atualizar um convite
+Route::delete('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@destroy'); // Rota para eliminar um convite
+Route::delete('/invitations', 'App\Http\Controllers\InvitationController@eliminate'); // Rota para eliminar todos os convites
 ///// ::::: EVENTS :::::: ///////
 
 // Route::middleware('auth')->group(function () {
@@ -137,7 +137,7 @@ Route::delete('/invitations', 'App\Http\Controllers\InvitationController@elimina
 
 ///// ::::: EXAMPLES FOR TEST :::::: ///////
 
-// Route::middleware('auth')->group(function () {    
+// Route::middleware('auth')->group(function () {
 
 // });
 

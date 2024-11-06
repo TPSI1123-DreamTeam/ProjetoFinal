@@ -19,14 +19,20 @@
   <thead>
     <tr>
       <th scope="col">Tema</th>
+      <th scope="col">Descrição do evento</th>
+      <th scope="col">Imagem</th>
       <th scope="col">Data do evento</th>
+      <th scope="col">Local do evento</th>
     </tr>
   </thead>
   <tbody>
     @foreach ($invitations as $invitation)
     <tr>
-      <td>{{$invitation->theme}}</td>
+      <td>{{$invitation->title}}</td>
+      <td>{{$invitation->body}}</td>
+      <img src="{{ asset($invitation->image) }}">
       <td>{{$invitation->date}}</td>
+      <td>{{$invitation->place}}</td>
       <td style="width:210px;">{{$invitation->actions}}
         <div class="pr-1">
             <a href="{{url('invitations/' . $invitation->id)}}" type="button"
