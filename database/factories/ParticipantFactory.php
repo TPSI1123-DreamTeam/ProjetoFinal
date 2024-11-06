@@ -19,11 +19,13 @@ class ParticipantFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'name'         => fake()->name(),
-            'phone'        => (string) fake()->numberBetween(912345678, 936456789),
-            'email'        => fake()->unique()->safeEmail(),
-            'confirmation' => (string) fake()->numberBetween(0, 1),
-        ];
+        // return [
+        //     'name'         => fake()->name(),
+        //     'phone'        => (string) fake()->numberBetween(912345678, 936456789),
+        //     'email'        => fake()->unique()->safeEmail(),
+        //     'confirmation' => (string) fake()->numberBetween(0, 1),
+        // ];
+
+      
     }
 }
