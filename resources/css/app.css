@@ -1,9 +1,8 @@
 @import 'header.css';
 @import 'footer.css';
-@import 'login.css';
-@import 'register.css';
 @import 'carouselEvent.css';
 @import 'publicEventInfo.css';
+@import 'searchBar.css';
 
 * {
     margin: 0;
@@ -40,4 +39,5 @@ html, body {
     align-items: center;
     align-content: space-around;
     flex-wrap: wrap;
+    margin-top: 40px;
 }

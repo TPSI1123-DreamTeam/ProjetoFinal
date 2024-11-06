@@ -1,30 +1,39 @@
+.title-event-category {
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 100px 0;
+}
+
 .event-details {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     justify-items: center;
     align-items: center;
     width: 100%;
-    gap: 50px;
+    margin-top: 40px;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 150px;
+    justify-content: center;
 }
 
 .event-details .image {
-    width: 100%; /* A imagem vai ocupar toda a largura da div */
-    height: 100%; /* A imagem vai ocupar toda a altura da div */
-    overflow: hidden; /* Garante que a imagem não saia da div */
-    border-radius: 25px; /* Adiciona borda arredondada */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    width: 100%; 
+    height: 110%;
+    overflow: hidden;
+    border: none;
+    outline: none;
+    border-radius: 25px; 
+    box-shadow: 7px 5px 7px rgba(0, 0, 0, 0.2);
     max-width: 420px;
-    max-height: 620px;
+    max-height: 600px;
 }
 
 .event-details .image img {
     width: 100%;
-    height: 100%;
-    object-fit: contain; /* Mantém a proporção da imagem sem cortá-la */
-}
-
-.event-details .info {
-    justify-self: start; /* Alinha a .info à esquerda */
+    height: 110%;
+    object-fit: contain;
 }
 
 .event-details .info h2 {
@@ -33,22 +42,36 @@
     margin-bottom: 40px;
 }
 .event-details .info .description {
+    display: flex;
     text-align: center;
     margin-bottom: 40px;
-    padding-right: 50px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 750px;
 }
 
 .local-date {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     margin-bottom: 40px;
-    justify-items: center;
+    justify-items: start;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.local,
+.date {
+    text-align: center;
 }
 
 .price {
     display: flex;
     justify-content: center;
     margin-bottom: 40px
+}
+
+.buy-button {
+    display: flex;
+    justify-content: center;
 }
 
 .buy-now {
@@ -62,7 +85,6 @@
     text-align: center;
     font-family: Arial, sans-serif;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-    margin-top: 40px;
 }
 
 .buy-now:hover {

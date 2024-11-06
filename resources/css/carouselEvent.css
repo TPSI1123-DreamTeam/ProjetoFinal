@@ -1,19 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: #eee;
-}
-
 .container.swiper {
-    margin-bottom: 40px; /* Ajuste para aumentar o espaço entre o swiper e a div dos detalhes do evento */
+    margin-bottom: 100px;
 }
 
 .card-wrapper {
