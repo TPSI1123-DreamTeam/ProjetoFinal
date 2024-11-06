@@ -26,4 +26,5 @@ class Event extends Model
 
         return $this->belongsToMany(Participant::class);
     }
+
 }

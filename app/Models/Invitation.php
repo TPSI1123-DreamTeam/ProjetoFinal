@@ -19,3 +19,5 @@ class Invitation extends Model
         'date'
     ];
 }
+
+

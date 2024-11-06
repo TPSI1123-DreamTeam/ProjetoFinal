@@ -13,7 +13,7 @@ class PaymentController extends Controller
     public function checkout(Request $request, Event $event)
     {
         // Configura a API Key do Stripe
-        \Stripe\Stripe::setApiKey(env('STRIPE_SK'));
+        \Stripe\Stripe::setApiKey(env('STRIPE_TEST_SK'));
 
         // Obtém o ID do evento e o valor do pagamento
         $event = Event::findOrFail($event->id);
@@ -22,6 +22,16 @@ class PaymentController extends Controller
         // Converte o valor para cêntimos
         $amountCents = $amount * 100;
 
+        $payment = new Payment();
+        $payment->stripe_id = 0;
+        $payment->user_id = auth()->id();
+        $payment->event_id = $event->id;
+        $payment->name = $event->name;
+        $payment->amount = $event->amount;
+        $payment->status = false; // O pagamento ainda foi confirmado
+        $payment->date = now(); // Utiliza o método now() para obter a data atual
+        $payment->save();
+        
         // Cria uma nova sessão de checkout
         $checkout_session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
@@ -34,61 +44,28 @@ class PaymentController extends Controller
                     'unit_amount' => $amountCents,
                 ],
                 'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => route('checkout.success', ['session_id' => '{CHECKOUT_SESSION_ID}']),
+                ]],
+                'mode' => 'payment',
+                'success_url' => route('success', ['session_id' => '{CHECKOUT_SESSION_ID}', 'payment' => $payment->id]),
             'cancel_url' => route('checkout.cancel')
         ]);
-
-        // Armazena os dados do pagamento no banco de dados
-        $payment = new Payment();
-        $payment->stripe_id = $checkout_session->id;
-        $payment->user_id = auth()->id();
-        $payment->event_id = $event->id;
-        $payment->name = $event->name;
-        $payment->amount = $amount;
-        $payment->status = false; // O pagamento ainda não foi confirmado
-        $payment->date = now(); // Utiliza o método now() para obter a data atual
-        $payment->save();
-
+        // dd($checkout_session);
         // Redireciona para a página de pagamento do Stripe
+        //$paymentId = $request->input('payment');
+        Payment::where('id', $payment->id)->update(['stripe_id' => $checkout_session->id]);
+
         return redirect($checkout_session->url);
+
     }
 
+    
     public function success(Request $request)
     {
-        // Configura a API Key do Stripe
-        \Stripe\Stripe::setApiKey(env('STRIPE_SK'));
-
-        // Obtém o ID da sessão de checkout a partir da URL
-        $sessionId = $request->input('session_id');
-
-        try {
-            // Recupera a sessão de checkout do Stripe
-            $session = \Stripe\Checkout\Session::retrieve($sessionId);
-
-            // Verifica o status do pagamento
-            if ($session->payment_status === 'paid') {
-                // Atualiza o status do pagamento no banco de dados
-                $payment = Payment::where('stripe_id', $session->id)->first();
-
-                if ($payment) {
-                    $payment->status = true;
-                    $payment->save();
-                } else {
-                    Log::warning('Pagamento não encontrado para a sessão: ' . $sessionId);
-                }
-
-                // Redireciona para a página de sucesso do checkout
-                return redirect()->route('checkout.success')->with('message', 'Pagamento realizado com sucesso!');
-            } else {
-                // Redireciona para a página de cancelamento do checkout
-                return redirect()->route('checkout.cancel')->with('error', 'Pagamento não foi realizado.');
-            }
-        } catch (\Exception $e) {
-            // Trata erros durante a recuperação da sessão de checkout
-            Log::error('Erro ao processar pagamento: ' . $e->getMessage());
-            return redirect()->route('checkout.cancel')->with('error', 'Ocorreu um erro ao processar o pagamento.');
-        }
+        // Obtém o ID do pagamento a partir da URL
+        $paymentId = $request->input('payment');
+        Payment::where('id', $paymentId)->update(['status' => true]);
+        return redirect()->route('dashboard')->with('message', 'Pagamento realizado com sucesso!');
+        
     }
+    
 }
