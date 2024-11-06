@@ -20,3 +20,5 @@ class Invitation extends Model
         'place'
     ];
 }
+
+

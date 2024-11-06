@@ -61,4 +61,6 @@ class UserSeeder extends Seeder
         $user->roles()->attach(1);
 
     }
+
+    
 }

@@ -2,6 +2,7 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -18,13 +19,6 @@ Route::get('/contact', function () {
 
 Route::post('/contact', 'App\Http\Controllers\ContactFormController@submit');
 
-// Rota para o método checkout do PaymentController
-Route::get('/checkout', [PaymentController::class, 'checkout']);
-
-Route::get('/checkout/success', function () {
-    return 'Pagamento efetuado com sucesso!';
-})->name('checkout.success');
-
 Route::get('/event', [EventController::class, 'public'])->name('events.public');
 Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('events.publicDetail');
 // Route::get('/event', function () {
@@ -32,10 +26,6 @@ Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('ev
 // });
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
-
-
-
-// Rota para o método checkout do PaymentController
 
 
 ///// ::::: LOGIN :::::: ///////
@@ -68,9 +58,9 @@ Route::get('/users', function () {
 })->middleware(['auth', 'verified'])->name('users');
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 ///// ::::: ROUTES WITH AUTH - BELLOW :::::: ///////
 Route::middleware('auth')->group(function () {
@@ -79,6 +69,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile',    [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile',  [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    ///// ::::: PAYMENTS :::::: ///////
+    Route::get('/checkout/{event}', [PaymentController::class, 'checkout'])->name('checkout');
+    Route::get('success', [PaymentController::class, 'success'])->name('success');
+    Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
+
     // Rota para o método checkout do PaymentController
     Route::get('/checkout/{event}', [PaymentController::class, 'checkout']);
 
@@ -91,7 +87,6 @@ Route::middleware('auth')->group(function () {
      function () {
         return 'Pagamento cancelado!';
     })->name('checkout.cancel');
-
 
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
