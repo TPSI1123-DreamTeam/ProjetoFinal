@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
-            $table->string('theme');
-            $table->string('color');
-            $table->string('body');
-            $table->string('date');
+            $table->string('title')->nullable();
+            $table->string('body')->nullable();
+            $table->string('image')->nullable();
+            $table->string('date')->nullable();
+            $table->string('place')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

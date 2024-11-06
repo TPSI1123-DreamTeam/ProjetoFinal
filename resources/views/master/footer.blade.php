@@ -1,4 +1,3 @@
-<footer class="footer">
     <div class="footer-content">
         <p>Siga-nos nas redes sociais!</p>
         <div class="footer-icons">
@@ -14,4 +13,3 @@
         </div>
         <p>Copyright 2024 | TPS11.23 Grupo Projeto Final</p>
     </div>
-</footer>

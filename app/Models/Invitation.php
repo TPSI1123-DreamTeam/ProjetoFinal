@@ -13,10 +13,11 @@ class Invitation extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'theme',
-        'color',
+        'title',
         'body',
-        'date'
+        'image',
+        'date',
+        'place'
     ];
 }
 

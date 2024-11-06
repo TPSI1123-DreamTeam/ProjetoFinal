@@ -3,25 +3,25 @@
 
 
 
-<form method="POST" action="{{ url('invitations/') }}">
+<form method="POST" action="{{ url('invitations/') }}" enctype="multipart/form-data">
     @csrf
 
     <div class="form-group">
-        <label for="name">Tema</label>
+        <label for="name">Título</label>
         <input
         type="text"
-        id="theme"
-        name="theme"
-        autocomplete="theme"
-        placeholder="Type your theme"
+        id="title"
+        name="title"
+        autocomplete="title"
+        placeholder="Type your title"
         class="form-control
-        @error('theme') is-invalid @enderror"
-        value="{{ old('theme') }}"
+        @error('title') is-invalid @enderror"
+        value="{{ old('title') }}"
         required
-        aria-describedby="themeHelp"
+        aria-describedby="titleHelp"
         value="test">
-        <small id="themeHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-        @error('theme')
+        <small id="titleHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
+        @error('title')
         <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
         </span>
@@ -30,21 +30,45 @@
        <br>
 
        <div class="form-group">
-        <label for="phone">Color</label>
+        <label for="name">Texto do Convite</label>
         <input
         type="text"
-        id="color"
-        name="color"
-        autocomplete="color"
+        id="body"
+        name="body"
+        autocomplete="body"
+        placeholder="Type your body"
+        class="form-control
+        @error('body') is-invalid @enderror"
+        value="{{ old('body') }}"
+        required
+        aria-describedby="bodyHelp"
+        value="test">
+        <small id="bodyHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
+        @error('body')
+        <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+        </div>
+       <br>
+
+       <div class="form-group">
+        <label for="phone">Imagem do Convite</label>
+        <label>Escolher Imagem:</label>
+        <input
+        type="file"
+        id="image"
+        name="image"
+        autocomplete="image"
         placeholder="Codigo HEX cor [ Ex: #FFFFFF] "
         class="form-control
-        @error('color') is-invalid @enderror"
-        value="{{ old('color') }}"
+        @error('image') is-invalid @enderror"
+        value="{{ old('image') }}"
         required
-        aria-describedby="phoneHelp"
+        aria-describedby="imageHelp"
         value="test">
-        <small id="phoneHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-        @error('phone')
+        <small id="imageHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
+        @error('image')
         <span class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
         </span>
@@ -97,6 +121,29 @@
         @enderror
         </div>
         <br>
+
+        <div class="form-group">
+            <label for="phone">Local do Evento</label>
+            <input
+            type="text"
+            id="place"
+            name="place"
+            autocomplete="place"
+            placeholder="Onde ocorrerá o evento?"
+            class="form-control
+            @error('place') is-invalid @enderror"
+            value="{{ old('place') }}"
+            required
+            aria-describedby="placeHelp"
+            value="test">
+            <small id="placeHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
+            @error('place')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+            <br>
     <button type="submit" class="mt-2 mb-5 btn btn-primary">Submit</button>
 
     </form>
