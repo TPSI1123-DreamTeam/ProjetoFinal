@@ -17,7 +17,7 @@ class EventSeeder extends Seeder
         DB::Table('events')->insert([
             "name"          => "Concerto",
             "category"      => "Concerto",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-20 23:07:33",
             "end_date"      => "2024-10-20 23:07:33",
@@ -29,7 +29,7 @@ class EventSeeder extends Seeder
         DB::Table('events')->insert([
             "name"          => "Casamento",
             "category"      => "Casamento",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-21 23:07:33",
             "end_date"      => "2024-10-21 23:07:33",
@@ -41,7 +41,7 @@ class EventSeeder extends Seeder
         DB::Table('events')->insert([
             "name"          => "Workshop Comporativo",
             "category"      => "Workshop",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-24 23:07:33",
             "end_date"      => "2024-10-24 23:07:33",
@@ -53,31 +53,31 @@ class EventSeeder extends Seeder
         DB::Table('events')->insert([
             "name"          => "Workshop - Finanças",
             "category"      => "Workshop",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-24 23:07:33",
             "end_date"      => "2024-10-24 23:07:33",
             "type"          => "publico",
             "amount"        => "35.00",
-            "image"         => "eventoPublicoNosAlive.jpg",
+            "image"         => "Workshop1.jpg",
         ]);
 
         DB::Table('events')->insert([
             "name"          => "Teatro",
             "category"      => "Teatro",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-26 23:07:33",
             "end_date"      => "2024-10-26 23:07:33",
             "type"          => "publico",
             "amount"        => "15.00",
-            "image"         => "Corroios.jpg",
+            "image"         => "teatro1.jpg",
         ]);
 
         DB::Table('events')->insert([
             "name"          => "Concerto",
             "category"      => "Concerto",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-27 23:07:33",
             "end_date"      => "2024-10-27 23:07:33",
@@ -89,31 +89,31 @@ class EventSeeder extends Seeder
         DB::Table('events')->insert([
             "name"          => "Festival",
             "category"      => "Festival",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-30 23:07:33",
             "end_date"      => "2024-10-30 23:07:33",
             "type"          => "publico",
             "amount"        => "45.00",
-            "image"         => "Corroios.jpg",
+            "image"         => "RockMusic.jpg",
         ]);
 
         DB::Table('events')->insert([
             "name"          => "Festival",
             "category"      => "Festival",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-24 23:07:33",
             "end_date"      => "2024-10-24 23:07:33",
             "type"          => "publico",
             "amount"        => "100.00",
-            "image"         => "eventoPublicoNosAlive.jpg",
+            "image"         => "Rock.jpg",
         ]);
 
         DB::Table('events')->insert([
             "name"          => "Casamento",
             "category"      => "Casamento",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-10-24 23:07:33",
             "end_date"      => "2024-10-24 23:07:33",
@@ -125,25 +125,25 @@ class EventSeeder extends Seeder
         DB::Table('events')->insert([
             "name"          => "Teatro",
             "category"      => "Teatro",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-11-01 23:07:33",
             "end_date"      => "2024-11-01 23:07:33",
             "type"          => "publico",
             "amount"        => "55.00",
-            "image"         => "eventoPublicoNosAlive.jpg",
+            "image"         => "teatro2.jfif",
         ]);
 
         DB::Table('events')->insert([
             "name"          => "Concerto",
             "category"      => "Concerto",
-            "description"   => fake()->realText(rand(100, 200)),
+            "description"   => fake()->realText(rand(500,700)),
             "localization"  => fake()->country(),
             "start_date"    => "2024-11-02 23:07:33",
             "end_date"      => "2024-11-02 23:07:33",
             "type"          => "publico",
             "amount"        => "25.00",
-            "image"         => "Corroios.jpg",
+            "image"         => "RockP.jfif",
         ]);
     }
 }

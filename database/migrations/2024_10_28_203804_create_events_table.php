@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');   
             $table->string('category');   
-            $table->string('description');   
+            $table->text('description');   
             $table->string('localization');   
             $table->timestamp('start_date', precision: 0)->nullable();
             $table->timestamp('end_date', precision: 0)->nullable();
