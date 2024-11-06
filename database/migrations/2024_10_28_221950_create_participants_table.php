@@ -20,6 +20,13 @@ return new class extends Migration
             $table->integer('user_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
+        });       
+
+        Schema::create('event_participant', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('event_id')->constrained('events');
+            $table->foreignId('participant_id')->constrained('participants');
+            $table->timestamps();
         });
     }
 
@@ -27,7 +34,8 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    {
-        Schema::dropIfExists('participants');
+    {    
+        Schema::dropIfExists('participants');  
+        Schema::dropIfExists('event_participant');      
     }
 };
