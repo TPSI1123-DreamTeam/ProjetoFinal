@@ -15,7 +15,8 @@ class Supplier extends Model
 
     protected $fillable = [
         'name',
-        'contact'
+        'contact',
+        'email'
     ];
 
     public function events(): BelongsToMany{
