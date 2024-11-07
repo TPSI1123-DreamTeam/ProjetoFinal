@@ -27,4 +27,8 @@ class Event extends Model
         return $this->belongsToMany(Participant::class);
     }
 
+    public function suppliers(): BelongsToMany{
+
+        return $this->belongsToMany(Supplier::class);
+    }
 }

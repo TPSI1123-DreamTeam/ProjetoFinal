@@ -18,7 +18,7 @@ class ParticipantSeeder extends Seeder
         // ->count(200)
         // ->create();
 
-        for ($i = 0; $i < 20000; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
 
             $participant = Participant::create([
                 'name'         => fake()->name(),
