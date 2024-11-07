@@ -3,30 +3,37 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ParticipantController;
+use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
 Route::get('/', function () {
-    return view('welcome');
+       return view('welcome');
 });
 
-// Rota para a página de contacto
+///// ::::: ABOUT :::::: ///////
+Route::get('/about', function () {
+    return view('pages.about.about');
+});
 
+///// ::::: CONTACT :::::: ///////
 Route::get('/contact', function () {
-   return view('contact');
-})->name('contact');
-// Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
+    return view('pages.contact.contact');
+});
+
+//  DESENVOLVIMENTO DO VASCO - GIL IMPLEMENTAR CSS NA ROTA ABAIXO
+// Route::get('/contact', function () {
+//     return view('contact');
+//  })->name('contact');
+ // Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
 
 Route::post('/contact', 'App\Http\Controllers\ContactFormController@submit');
-
-Route::get('/event', [EventController::class, 'public'])->name('events.public');
+Route::get('/event',         [EventController::class, 'public'])->name('events.public');
 Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('events.publicDetail');
-// Route::get('/event', function () {
-//     return view('events');
-// });
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
-
 
 ///// ::::: LOGIN :::::: ///////
 Route::get('/login', function () {
@@ -37,16 +44,7 @@ Route::get('/register', function (Request $request) {
     return view('register.register');
 });
 
-///// ::::: CONTACT :::::: ///////
-Route::get('/contact', function () {
-    return view('pages.contact.contact');
-});
-
-///// ::::: ABOUT :::::: ///////
-Route::get('/about', function () {
-    return view('pages.about.about');
-});
-
+///// ::::: LOGIN :::::: ///////
 
 ///// ::::: ROUTES WITH AUTH  :::::: ///////
 Route::get('/admin', function () {
@@ -91,51 +89,41 @@ Route::middleware('auth')->group(function () {
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    
+    ///// ::::: PARTICIPANTS :::::: ///////
+    Route::get('/participants', [ParticipantController::class, 'index']);
+    Route::get('/participants/create',[ParticipantController::class, 'create']);
+    Route::post('/participants', [ParticipantController::class, 'store']);
+    Route::get('participants/export', [ParticipantController::class, 'export']);
+    //Route::get('participants', [ParticipantController::class, 'index'])->name('participants.index');
+    Route::post('participants/import',[ParticipantController::class, 'import'])->name('participants.import');
+    Route::get('/participants/{participant}', [ParticipantController::class, 'show']);
+    Route::get('/participants/{participant}/edit',[ParticipantController::class, 'edit']);
+    Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
+    Route::delete('/participants/{participant}',[ParticipantController::class, 'destroy']);
+    Route::delete('/participants', [ParticipantController::class, 'eliminate']);
+
+    ///// ::::: INVITATIONS :::::: ///////
+    Route::get('/invitations', [InvitationController::class,'index']);
+    Route::get('/invitations/create', [InvitationController::class, 'create']);
+    Route::post('/invitations', [InvitationController::class,'store']);
+    Route::get('/invitations/{invitation}', [InvitationController::class,'show']);
+    Route::get('/invitations/{invitation}/edit',[InvitationController::class,'edit']);
+    Route::put('/invitations/{invitation}', [InvitationController::class,'update']);
+    Route::delete('/invitations/{invitation}',[InvitationController::class,'destroy']);
+    Route::delete('/invitations', [InvitationController::class,'eliminate']);
+
+    ///// ::::: SUPPLIERS :::::: ///////
+    Route::get('/suppliers', [SupplierController::class,'index']);
+    Route::get('/suppliers/create', [SupplierController::class, 'create']);
+    Route::post('/suppliers', [SupplierController::class,'store']);
+    Route::get('/suppliers/{supplier}', [SupplierController::class,'show']);
+    Route::get('/suppliers/{supplier}/edit',[SupplierController::class,'edit']);
+    Route::put('/suppliers/{supplier}', [SupplierController::class,'update']);
+    Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
+    Route::delete('/suppliers', [SupplierController::class,'eliminate']);
+    
+    ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
 
 require __DIR__.'/auth.php';
-
-
-///// ::::: PARTICIPANTS :::::: ///////
-
-Route::get('/participants', 'App\Http\Controllers\ParticipantController@index');
-Route::get('/participants/create', 'App\Http\Controllers\ParticipantController@create');
-Route::post('/participants', 'App\Http\Controllers\ParticipantController@store');
-
-Route::get('participants/export', 'App\Http\Controllers\ParticipantController@export');
-
-Route::get('participants', 'App\Http\Controllers\ParticipantController@index')->name('participants.index');
-Route::post('participants/import', 'App\Http\Controllers\ParticipantController@import')->name('participants.import');
-
-
-Route::get('/participants/{participant}', 'App\Http\Controllers\ParticipantController@show');
-Route::get('/participants/{participant}/edit', 'App\Http\Controllers\ParticipantController@edit');
-Route::put('/participants/{participant}', 'App\Http\Controllers\ParticipantController@update');
-Route::delete('/participants/{participant}', 'App\Http\Controllers\ParticipantController@destroy');
-Route::delete('/participants', 'App\Http\Controllers\ParticipantController@eliminate');
-
-
-///// ::::: INVITATIONS :::::: ///////
-
-Route::get('/invitations', 'App\Http\Controllers\InvitationController@index');  // Rota para lista de convites
-Route::get('/invitations/create', 'App\Http\Controllers\InvitationController@create'); // Rota para criar um convite
-Route::post('/invitations', 'App\Http\Controllers\InvitationController@store'); // Rota para guardar um convite
-Route::get('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@show'); // Rota para mostrar um convite
-Route::get('/invitations/{invitation}/edit', 'App\Http\Controllers\InvitationController@edit'); // Rota para editar um convite
-Route::put('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@update'); // Rota para atualizar um convite
-Route::delete('/invitations/{invitation}', 'App\Http\Controllers\InvitationController@destroy'); // Rota para eliminar um convite
-Route::delete('/invitations', 'App\Http\Controllers\InvitationController@eliminate'); // Rota para eliminar todos os convites
-///// ::::: EVENTS :::::: ///////
-
-// Route::middleware('auth')->group(function () {
-
-
-///// ::::: EXAMPLES FOR TEST :::::: ///////
-
-// Route::middleware('auth')->group(function () {
-
-// });
-
-// Route::get('/events', function () {
-//     // ...
-// })->middleware('auth:api');

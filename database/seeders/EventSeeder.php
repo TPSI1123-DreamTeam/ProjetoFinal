@@ -147,9 +147,3 @@ class EventSeeder extends Seeder
         ]);
     }
 }
-
-
-
-// $table->string('category');   
-// $table->string('description');   
-// $table->string('localization'); 
