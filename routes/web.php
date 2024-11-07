@@ -93,18 +93,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     ///// ::::: LOGIN :::::: ///////
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
-    // Rota para o método checkout do PaymentController
-    Route::get('/checkout/{event}', [PaymentController::class, 'checkout']);
-
-    Route::get('/checkout/success', [PaymentController::class, 'checkout'],
-    function () {
-        return 'Pagamento efetuado com sucesso!';
-    })->name('checkout.success');
-
-    Route::get('/checkout/cancel', [PaymentController::class, 'checkout'],
-     function () {
-        return 'Pagamento cancelado!';
-    })->name('checkout.cancel');
 
 });
 
@@ -137,14 +125,3 @@ Route::delete('/participants', 'App\Http\Controllers\ParticipantController@elimi
 // Route::get('/events', function () {
 //     // ...
 // })->middleware('auth:api');
-
-
-///// ::::: Suppliers :::::: ///////
-Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
-Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
-Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
-Route::get('/suppliers/{supplier}', [SupplierController::class, 'show'])->name('suppliers.show');
-Route::get('/suppliers/{supplier}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
-Route::put('/suppliers/{supplier}', [SupplierController::class, 'update'])->name('suppliers.update');
-Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy'])->name('suppliers.destroy');
-
