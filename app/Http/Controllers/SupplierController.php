@@ -13,8 +13,9 @@ class SupplierController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-     
+    {        
+        $suppliers = Supplier::orderBy('id')->paginate(15);
+        return view('pages.suppliers.index', ['suppliers' => $suppliers]);
     }
 
     /**
@@ -38,7 +39,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+        return view('pages.suppliers.show', ['supplier' => $supplier]);
     }
 
     /**
@@ -46,7 +47,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('pages.suppliers.edit', ['supplier' => $supplier]);
     }
 
     /**
@@ -54,7 +55,13 @@ class SupplierController extends Controller
      */
     public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
-        //
+        $update            = Supplier::find($supplier->id);
+        $update->name      = $request->name;
+        $update->email     = $request->email;
+        $update->contact   = $request->contact;
+        $update->save();
+
+        return redirect('suppliers')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
 
     /**
@@ -62,6 +69,14 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        try {
+            $supplier = Supplier::findOrFail($supplier->id);
+            $supplier->delete();
+            return redirect('suppliers')->with('status','Deleted successfully!')->with('class', 'alert-success');
+        } catch (ModelNotFoundException $exception) {
+            return redirect('suppliers')->with('status','Not Founded!')->with('class', 'alert-danger');
+        } catch (Exception $exception) {
+            return redirect('suppliers')->with('status','Error!')->with('class', 'alert-danger');
+        }
     }
 }

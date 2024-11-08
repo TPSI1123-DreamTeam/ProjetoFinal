@@ -1,7 +1,5 @@
 @extends('master.main')
-
 @section('content')
-    @component('components.contact.contact')
+    @component('components.users.users-list', ['users' => $users])
     @endcomponent
 @endsection
-

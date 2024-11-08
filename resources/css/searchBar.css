@@ -1,6 +1,6 @@
 .search-bar {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     background-color: #272A2D;
     border-radius: 30px;
     padding: 15px 35px 15px 35px;
@@ -10,12 +10,10 @@
     gap: 30px;
     flex-direction: row;
     flex-wrap: wrap;
-    align-content: center;
     justify-content: space-between;
+    margin-top: 40px;
 }
-label {
-    text-align: center;
-}
+
 .search-input {
     display: flex;
     align-items: center;
@@ -26,7 +24,7 @@ label {
     font-size: 14px;
     flex: 1;
     max-width: 200px;
-    margin-top: 35px;
+    margin-top: 26px;
 }
 
 .search-input input[type="text"] {
@@ -51,17 +49,34 @@ label {
     gap: 10px;
 }
 
-.filter-label {
+.filter-label-title,
+.filter-label-event,
+.filter-label-filter,
+.filter-label-availability {
     font-size: 14px;
     color: #E6E4DC;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.event-date-filter,
+.event-type-filter,
+.event-availability-filter {
+    display: flex;
     text-align: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.event-availability-filter {
+    position: relative !important;
+    top: 0 !important;
 }
 
 .date-filter, .event-type, .availability {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 

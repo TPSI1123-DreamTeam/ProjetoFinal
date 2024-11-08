@@ -3,6 +3,7 @@
 @import 'carouselEvent.css';
 @import 'publicEventInfo.css';
 @import 'searchBar.css';
+@import 'contact.css';
 
 * {
     margin: 0;
@@ -21,6 +22,12 @@ html, body {
     flex-direction: column;
     overflow-x: hidden;
     font-family: sans-serif;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 .wrapper {
@@ -39,5 +46,4 @@ html, body {
     align-items: center;
     align-content: space-around;
     flex-wrap: wrap;
-    margin-top: 40px;
 }

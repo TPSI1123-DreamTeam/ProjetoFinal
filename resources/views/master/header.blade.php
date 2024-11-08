@@ -19,7 +19,7 @@
         @if( isset(Auth::user()->name) )    
 
         <div class="">    
-            <span>{{ Auth::user()->name }}<br>
+        <a href="/dashboard">{{ Auth::user()->name }}</a></span>
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

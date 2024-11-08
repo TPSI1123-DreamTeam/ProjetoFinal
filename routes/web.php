@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -24,12 +25,11 @@ Route::get('/contact', function () {
 });
 
 //  DESENVOLVIMENTO DO VASCO - GIL IMPLEMENTAR CSS NA ROTA ABAIXO
-// Route::get('/contact', function () {
-//     return view('contact');
-//  })->name('contact');
- // Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
+ Route::get('/contact', function () {
+     return view('pages.contact.contact');
+    })->name('contact');
+ Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact');
 
-Route::post('/contact', 'App\Http\Controllers\ContactFormController@submit');
 Route::get('/event',         [EventController::class, 'public'])->name('events.public');
 Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('events.publicDetail');
 
@@ -73,19 +73,6 @@ Route::middleware('auth')->group(function () {
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
 
-    // Rota para o método checkout do PaymentController
-    Route::get('/checkout/{event}', [PaymentController::class, 'checkout']);
-
-    Route::get('/checkout/success', [PaymentController::class, 'checkout'],
-    function () {
-        return 'Pagamento efetuado com sucesso!';
-    })->name('checkout.success');
-
-    Route::get('/checkout/cancel', [PaymentController::class, 'checkout'],
-     function () {
-        return 'Pagamento cancelado!';
-    })->name('checkout.cancel');
-
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
@@ -124,6 +111,23 @@ Route::middleware('auth')->group(function () {
     Route::put('/suppliers/{supplier}', [SupplierController::class,'update']);
     Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
     Route::delete('/suppliers', [SupplierController::class,'eliminate']);
+
+    ///// ::::: DASHBOARD :::::: ///////
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard-index');
+    Route::get('/dashboard', [DashboardController::class, 'AdminDashboard'])->name('dashboard-admin');
+    Route::get('/dashboard', [DashboardController::class, 'ManagerDashboard'])->name('dashboard-manager');
+    Route::get('/dashboard', [DashboardController::class, 'OwnerDashboard'])->name('dashboard-owner');
+    Route::get('/dashboard', [DashboardController::class, 'UserDashboard'])->name('dashboard-user');
+
+    ///// ::::: SUPPLIERS :::::: ///////
+    Route::get('/users', [UserController::class,'index']);
+    Route::get('/users/create', [UserController::class, 'create']);
+    Route::post('/users', [UserController::class,'store']);
+    Route::get('/users/{user}', [UserController::class,'show']);
+    Route::get('/users/{user}/edit',[UserController::class,'edit']);
+    Route::put('/users/{user}', [UserController::class,'update']);
+    Route::delete('/users/{user}',[UserController::class,'destroy']);
+    Route::delete('/users', [UserController::class,'eliminate']);
 
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
