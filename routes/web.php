@@ -24,12 +24,11 @@ Route::get('/contact', function () {
 });
 
 //  DESENVOLVIMENTO DO VASCO - GIL IMPLEMENTAR CSS NA ROTA ABAIXO
-// Route::get('/contact', function () {
-//     return view('contact');
-//  })->name('contact');
- // Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact.submit');
+ Route::get('/contact', function () {
+     return view('pages.contact.contact');
+    })->name('contact');
+ Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact');
 
-Route::post('/contact', 'App\Http\Controllers\ContactFormController@submit');
 Route::get('/event',         [EventController::class, 'public'])->name('events.public');
 Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('events.publicDetail');
 

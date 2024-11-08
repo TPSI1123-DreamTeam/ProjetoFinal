@@ -16,6 +16,7 @@
     flex-direction: row;
     gap: 150px;
     justify-content: center;
+    margin-bottom: 40px;
 }
 
 .event-details .image {
