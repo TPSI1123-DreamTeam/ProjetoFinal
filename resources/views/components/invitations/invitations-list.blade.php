@@ -42,6 +42,10 @@
             <a href="{{url('invitations/' . $invitation->id . '/edit')}}" type="button"
             class="btn btn-success" style="background-color: blue; float:center">Editar</a>
             </div>
+            <div class="pr-1">
+                <a href="{{url('invitations/' . $invitation->id . '/pageSendEmail')}}" type="button"
+                class="btn btn-success" style=" float:center">Enviar Email</a>
+                </div>
             <form method="POST" action="{{ url('invitations/' . $invitation->id) }}">
                 @csrf
                 @method('DELETE')

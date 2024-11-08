@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateInvitationRequest;
 use Illuminate\Http\Request;
 use App\Mail\InvitationMail;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\Attachment;
 
 class InvitationController extends Controller
 {
@@ -110,9 +111,13 @@ class InvitationController extends Controller
             'place' => 'required|min:3|max:255',
        ], $messages);
 
+       $attachedFile = $request->validate([
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif',
+       ]);
+
         // Process the data (e.g., validation, sending email)
 
-        Mail::to('Vasco.Sousa.T0127548@edu.atec.pt')->send(new InvitationMail($validatedData));
+        Mail::to('Vasco.Sousa.T0127548@edu.atec.pt')->send(new InvitationMail($validatedData, $attachedFile));
         // Here you will handle the form submission, like validating input and sending emails.
         return redirect('invitations')->with('success', 'Convite Enviado!');
     }
