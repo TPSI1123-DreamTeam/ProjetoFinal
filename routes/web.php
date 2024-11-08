@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -108,6 +109,17 @@ Route::middleware('auth')->group(function () {
     Route::put('/suppliers/{supplier}', [SupplierController::class,'update']);
     Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
     Route::delete('/suppliers', [SupplierController::class,'eliminate']);
+
+
+    ///// ::::: SUPPLIERS :::::: ///////
+    Route::get('/users', [UserController::class,'index']);
+    Route::get('/users/create', [UserController::class, 'create']);
+    Route::post('/users', [UserController::class,'store']);
+    Route::get('/users/{user}', [UserController::class,'show']);
+    Route::get('/users/{user}/edit',[UserController::class,'edit']);
+    Route::put('/users/{user}', [UserController::class,'update']);
+    Route::delete('/users/{user}',[UserController::class,'destroy']);
+    Route::delete('/users', [UserController::class,'eliminate']);
     
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
