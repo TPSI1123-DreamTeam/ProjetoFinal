@@ -35,7 +35,7 @@ class ContactFormController extends Controller
 
         // Process the data (e.g., validation, sending email)
 
-        Mail::to('Vasco.Sousa.T0127548@edu.atec.pt')->send(new ContactMail($validatedData));
+        Mail::to('gil_costa97@outlook.pt')->send(new ContactMail($validatedData));
         // Here you will handle the form submission, like validating input and sending emails.
         return back()->with('success', 'Obrigado pela sua mensagem!');
     }

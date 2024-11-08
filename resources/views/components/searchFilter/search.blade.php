@@ -6,7 +6,7 @@
     </div>
 
     <!-- Filtro por Data -->
-     <div>
+     <div class="event-date-filter">
      <label class="filter-label-title">Filtrar por data:</label>
      <div class="filter-section">
         
@@ -42,8 +42,8 @@
     
 
     <!-- Disponibilidade -->
-     <div>
-        <label class="filter-label">Disponibilidade:</label>
+     <div class="event-availability-filter">
+        <label class="filter-label-availability">Disponibilidade:</label>
         <div class="filter-section availability">
             <label class="radio-label"><span class="radio-button"></span> Disponível</label>
             <label class="radio-label"><span class="radio-button"></span> Esgotado</label>
