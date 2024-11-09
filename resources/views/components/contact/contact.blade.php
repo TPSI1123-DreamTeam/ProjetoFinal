@@ -13,7 +13,7 @@
                 </div>
                 <div class="text">
                     <h3>Morada</h3>
-                    <p>Quinta da Marqueza - Palmela, Parque Industrial da Volkswagen Autoeuropa,<br> 2950-557 Q.ta do Anjo</p>
+                    <p>Quinta da Marqueza - Palmela, <br>Parque Industrial da Volkswagen Autoeuropa,<br> 2950-557 Q.ta do Anjo</p>
                 </div>
                 <div class="icon">
                     <i class="fa-solid fa-phone"></i>
@@ -32,23 +32,23 @@
             </div>
         </div>
         <div class="contactForm">
-            <form action="{{ route('contact') }}" method="POST">
+            <form action="{{ url('/contact') }}" method="POST">
                 @csrf
-                <h2>Enviar Mensagem</h2>
+                <h2>Entre em contacto connosco!</h2>
                 <div class="inputBox">
-                    <input type="text" name="" required>
+                    <input type="text" name="name" id="name" required>
                     <span>Nome Completo</span>
                 </div>
                 <div class="inputBox">
-                    <input type="email" name="" required>
+                    <input type="email" name="email" id="email" required>
                     <span>Email</span>
                 </div>
                 <div class="inputBox">
-                    <textarea name="" id="" cols="30" rows="10" required></textarea>
+                    <textarea name="message" id="message" cols="30" rows="10" required></textarea>
                     <span>Escreve a tua mensagem...</span>
                 </div>
                 <div class="inputBox">
-                    <input type="submit" name="" value="Send">
+                    <input type="submit" name="" value="Submeter">
                 </div>
             </form>
         </div>

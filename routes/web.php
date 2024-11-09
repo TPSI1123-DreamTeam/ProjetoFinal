@@ -36,9 +36,9 @@ Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('ev
 ///// ::::: PUBLIC VIEWS :::::: ///////
 
 ///// ::::: LOGIN :::::: ///////
-Route::get('/login', function () {
-    return view('login.login');
-});
+// Route::get('/login', function () {
+//     return view('login.login');
+// });
 
 Route::get('/register', function (Request $request) {
     return view('register.register');
