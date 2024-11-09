@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const swiper = new Swiper('.card-wrapper', {
         loop: true,
         spaceBetween: 20,
-        slidesPerView: 5,
+        slidesPerView: 5, // padrão para telas grandes
         centeredSlides: true,
         initialSlide: 3,
 
@@ -18,14 +18,17 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         breakpoints: {
+            // Para telas com largura acima de 1300px
+            1300: {
+                slidesPerView: 5,
+            },
+            // Para telas com largura abaixo de 1300px e acima de 800px
+            800: {
+                slidesPerView: 3,
+            },
+            // Para telas com largura abaixo de 800px
             0: {
-                slidesPerView: 1
-            },
-            768: {
-                slidesPerView: 3
-            },
-            1024: {
-                slidesPerView: 5
+                slidesPerView: 1,
             },
         },
 
@@ -46,8 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const eventStartDate = link.getAttribute('data-start-date');
         const eventAmount = link.getAttribute('data-amount');
         const eventImage = link.getAttribute('data-image');
-            const myArray = eventImage.split("/images");
-            let word = myArray[1];
+        const myArray = eventImage.split("/images");
+        let word = myArray[1];
 
         // Atualiza a div event-details
         document.getElementById('event-category').textContent = eventCategory;

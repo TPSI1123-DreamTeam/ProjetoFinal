@@ -32,5 +32,11 @@
         
     </div>
     @vite('resources/js/fadeInTitle.js')
+    <script>
+        function toggleMenu() {
+        document.querySelector('.nav-links').classList.toggle('active');
+        document.querySelector('.hamburger').classList.toggle('active');
+    }
+    </script>
 </body>
 </html>
