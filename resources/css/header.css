@@ -104,3 +104,9 @@
 .login a:hover {
     color: #EB5B38;
 }
+
+@media screen and (max-width: 1250px) {
+    .header {
+        width: 100%;
+    }
+}

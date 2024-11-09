@@ -1,9 +1,9 @@
 <section class="contact">
     <div class="contact-content">
         <h2>Contacta-nos!</h2>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-            Quibusdam eaque eligendi debitis earum. Alias hic assumenda, odio perspiciatis fugiat placeat mollitia, ut, 
-            obcaecati labore nulla et doloribus explicabo consequuntur amet?</p>
+        <p>Tens dúvidas ou precisas de assistência para organizar o teu próximo evento? <br>
+            A nossa equipa está pronta para ajudar! <br> Entra em contacto connosco para obter mais informações sobre os nossos serviços, 
+            esclarecer questões ou receber suporte personalizado.</p>
     </div>
     <div class="contact-container">
         <div class="contactInfo">
@@ -34,7 +34,8 @@
         <div class="contactForm">
             <form action="{{ url('/contact') }}" method="POST">
                 @csrf
-                <h2>Entre em contacto connosco!</h2>
+                <h2>Entra em contacto connosco!</h2>
+                <br>
                 <div class="inputBox">
                     <input type="text" name="name" id="name" required>
                     <span>Nome Completo</span>
