@@ -8,9 +8,7 @@
 <body>
     <p>Title: {{ $details['title'] }}</p>
     <p>Body: {{ $details['body'] }}</p>
-     {{ $details['image'] }}
-     {{ $attachedFile = $details['image'] }}
-     <img src="{{ $message->embed($details['image']) }}">
+    <img src="{{ $message->embed($details['image']) }}">
     <p>Date: {{ $details['date'] }}</p>
     <p>Place: {{ $details['place'] }}</p>
 </body>
