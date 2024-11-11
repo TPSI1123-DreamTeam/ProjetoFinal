@@ -58,9 +58,6 @@ class InvitationMail extends Mailable
      */
     public function attachments(): array
     {
-        return [
-           // Attachment::fromPath($this->attachedFile),
-           // Attachment::fromStorage(),
-        ];
+        return [];
     }
 }

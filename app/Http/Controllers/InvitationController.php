@@ -96,7 +96,6 @@ class InvitationController extends Controller
         $messages = [
             'title.required' => 'Introduza um título!',
             'body.required' => 'Introduza descrição do convite!',
-            'image.email' => 'Introduza uma imagem!',
             'date.email' => 'Introduza a data do evento!',
             'place.required' => 'Introduza o nome do local do evento!',
         ];
@@ -111,13 +110,13 @@ class InvitationController extends Controller
             'place' => 'required|min:3|max:255',
        ], $messages);
 
-       $attachedFile = $request->validate([
-            'image' => 'required|image|mimes:jpeg,jpg,png,gif',
-       ]);
+      // $attachedFile = $request->validate([
+        //    'image' => 'required|image|mimes:jpeg,jpg,png,gif',
+      // ]);
 
         // Process the data (e.g., validation, sending email)
 
-        Mail::to('Vasco.Sousa.T0127548@edu.atec.pt')->send(new InvitationMail($validatedData, $attachedFile));
+        Mail::to('primetimeventstpsip@gmail.com')->send(new InvitationMail($validatedData));
         // Here you will handle the form submission, like validating input and sending emails.
         return redirect('invitations')->with('success', 'Convite Enviado!');
     }

@@ -56,7 +56,6 @@
 
        <div class="form-group">
         <label for="image">Imagem do Convite</label>
-        <label>Escolher Imagem:</label>
         <input
         type="file"
         id="image"
@@ -79,7 +78,7 @@
         </div>
        <br>
         <img src="{{ asset($invitation->image) }}">
-        
+
        <div class="form-group">
         <label for="date">Data</label>
         <input
