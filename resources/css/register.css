@@ -33,10 +33,11 @@ html, body {
     background-color: rgba(0, 0, 0, 0.6);
     width: 100%;
     max-width: 1200px;
-    margin: auto;
-    padding: 30px;
     border-radius: 10px;
     gap: 30px;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Linha de sombra entre logotipo e formulário */
@@ -52,6 +53,7 @@ html, body {
     justify-content: center;
     align-items: center;
     width: 500px;
+    margin-left: 25px;
 }
 
 /* Imagem do logotipo */
@@ -65,7 +67,7 @@ html, body {
 /* Caixa de registo */
 .register-box {
     background-color: transparent;
-    padding: 50px;
+    padding: 35px;
     width: 100%;
     max-width: 500px;
     text-align: center;
@@ -141,8 +143,8 @@ input[type="password"]:focus {
 }
 
 .form-footer a:hover {
-    color: #d04b2b;
-    text-decoration: underline;
+    color: #347ccb;
+    text-decoration: none;
 }
 
 .form-footer p {

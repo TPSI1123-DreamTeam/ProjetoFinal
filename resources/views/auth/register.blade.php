@@ -56,8 +56,6 @@
         </div>
     </div>
 </div>
-<footer class="footer">
     @include('master.welcomeFooter')
-</footer>
 </body>
 </html>
