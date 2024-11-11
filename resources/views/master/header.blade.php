@@ -2,6 +2,16 @@
     <div class="logo">
         <img src="{{ asset('images/Logotipo.png') }}" alt="Logotipo">
     </div>
+
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+        <label for="menu-toggle" class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        
     <nav class="nav">
         <a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Página Inicial</a>
         <div class="dropdown-container">
