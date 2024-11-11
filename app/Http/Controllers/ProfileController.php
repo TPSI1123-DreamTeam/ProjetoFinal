@@ -16,6 +16,8 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        
+        //return view('components.dashboard.dashboard-user')->with(['user' => $user, 'payments' => $payments]);
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
