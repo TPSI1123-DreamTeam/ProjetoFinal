@@ -4,8 +4,8 @@
     box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
+body {
+    height: 100dvh;
     margin: 0;
     padding: 0;
     display: flex;
@@ -189,4 +189,180 @@ input[type="password"]:focus {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: -1;
+}
+
+@media (max-width: 878px) {
+    .register-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        width: 650px;
+    }
+    .logo-section {
+        margin: 25px 0 0 0;
+    }
+
+    .logo-img {
+        width: 40%;
+    }
+
+    .register-box {
+        padding: 10px;
+    }
+    #myVideo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+    }
+
+    .video-overlay {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .wrapper {
+        width: 100vw;
+        height: 100vh;
+    }
+    .back-home {
+        right: 0;
+        bottom: 0;
+        position: relative;
+    }
+}
+
+@media (max-width: 650px) {
+    .logo-img {
+        margin: 0;
+    }
+    .register-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+    }
+    .register-box{
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    .register-form {
+        width: 300px;
+    }
+    .form-group {
+        max-width: 300px;
+        width: 100%;
+    }
+    .back-home {
+        margin-top: 25px;
+        right: 0;
+        position: relative;
+    }
+    #myVideo {
+        width: 100vw;
+        height: 100dvh;
+        object-fit: cover;
+    }
+
+    .video-overlay {
+        width: 100vw;
+        height: 100dvh;
+    }
+
+    .wrapper {
+        width: 100vw;
+        height: 100dvh;
+    }
+}
+
+@media (max-width: 500px) {
+    .register-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+    }
+    .register-box{
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    .logo-img {
+        margin: 0;
+    }
+    .register-form {
+        width: 300px;
+    }
+    .form-group {
+        max-width: 300px;
+        width: 100%;
+    }
+    .back-home {
+        margin-top: 25px;
+        right: 0;
+        position: relative;
+    }
+    #myVideo {
+        width: 100vw;
+        height: 100dvh;
+        object-fit: cover;
+    }
+
+    .video-overlay {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .wrapper {
+        width: 100vw;
+        height: 100dvh;
+    }
+}
+
+@media (max-width: 650px) {
+    .logo-section {
+        width: auto;
+    }
+    #myVideo {
+        width: 100vw;
+        height: 100dvh;
+        object-fit: cover;
+    }
+
+    .video-overlay {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .wrapper {
+        width: 100vw;
+        height: 100dvh;
+    }
+    .register-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+    .register-box{
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    .logo-img {
+        margin: 0;
+    }
+    .register-form {
+        width: 200px;
+    }
+    .form-group {
+        max-width: 200px;
+        width: 100%;
+    }
 }

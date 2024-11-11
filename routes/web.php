@@ -114,10 +114,10 @@ Route::middleware('auth')->group(function () {
 
     ///// ::::: DASHBOARD :::::: ///////
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard-index');
+    Route::get('/dashboard', [DashboardController::class, 'UserDashboard'])->name('dashboard-user');
     Route::get('/dashboard', [DashboardController::class, 'AdminDashboard'])->name('dashboard-admin');
     Route::get('/dashboard', [DashboardController::class, 'ManagerDashboard'])->name('dashboard-manager');
     Route::get('/dashboard', [DashboardController::class, 'OwnerDashboard'])->name('dashboard-owner');
-    Route::get('/dashboard', [DashboardController::class, 'UserDashboard'])->name('dashboard-user');
 
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/users', [UserController::class,'index']);

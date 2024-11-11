@@ -9,16 +9,33 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
+.menu-toggle {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
 .logo {
     display: flex;
     align-items: center;
+    max-width: 100px;
+    width: 40%;
 }
 
 .logo img {
-    width: 40%;
-    height: auto;
-    margin-right: 10px;
-    padding: 5px;
+    width: 100%;
 }
 
 .nav {
@@ -105,8 +122,87 @@
     color: #EB5B38;
 }
 
-@media screen and (max-width: 1250px) {
-    .header {
-        width: 100%;
+@media (max-width: 1400px) {
+    .wrapper {
+        width: 100vw;
+        height: 100vh;
+    }
+    
+}
+
+@media (max-width: 992px) {
+    .wrapper {
+        width: 100vw;
+        height: 100vh;
+    }
+    .nav {
+        gap: 10px;
+    }
+
+    .nav a {
+        padding: 8px;
+    }
+
+    .login a:first-child {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 602px) {
+    .wrapper {
+        width: 100vw;
+        height: 100vh;
+    }
+    .nav {
+        display: none;
+    }
+
+    .menu-toggle:checked + .hamburger + .nav-links {
+        display: flex;
+        padding: 10px;
+        gap: 15px;
+        position: absolute;
+        top: 18%;
+        left: 45%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .hamburger {
+        display: block;
+    }
+    
+    .menu-toggle:checked + .hamburger span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .menu-toggle:checked + .hamburger span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle:checked + .hamburger span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    .dropdown-container {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        background-color: #272A2D;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .dropdown-menu a {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .logo img {
+        width: 30%;
     }
 }

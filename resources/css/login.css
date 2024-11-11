@@ -241,6 +241,49 @@ input[type="password"]:focus {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+@media (max-width: 800px) {
+    .login-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        max-width: 500px;
+    }
+
+    .logo-section {
+        margin: 0;
+    }
+
+    .logo-img {
+        width: 60%;
+    }
+
+    .login-box {
+        padding: 10px;
+    }
+
+    .back-home {
+        position: relative;
+        right: 0;
+    }
+
+    #myVideo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+    }
+
+    .video-overlay {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .wrapper {
+        width: 100vw;
+        height: 100vh;
+    }
+}
+
 @media (max-width: 600px) {
     #myVideo {
         width: 100vw;
@@ -256,5 +299,15 @@ input[type="password"]:focus {
     .wrapper {
         width: 100vw;
         height: 100vh;
+    }
+}
+
+@media (max-width: 500px) {
+    .login-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        max-width: 300px;
     }
 }
