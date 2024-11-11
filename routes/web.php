@@ -56,27 +56,24 @@ Route::get('/users', function () {
 })->middleware(['auth', 'verified'])->name('users');
 
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
 ///// ::::: ROUTES WITH AUTH - BELLOW :::::: ///////
 Route::middleware('auth')->group(function () {
-
+    
     ///// ::::: USER PROFILE :::::: ///////
     Route::get('/profile',    [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile',  [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     ///// ::::: PAYMENTS :::::: ///////
     Route::get('/checkout/{event}', [PaymentController::class, 'checkout'])->name('checkout');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
-
+    
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
-
+    
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
     Route::get('/participants/create',[ParticipantController::class, 'create']);
@@ -89,7 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
     Route::delete('/participants/{participant}',[ParticipantController::class, 'destroy']);
     Route::delete('/participants', [ParticipantController::class, 'eliminate']);
-
+    
     ///// ::::: INVITATIONS :::::: ///////
     Route::get('/invitations', [InvitationController::class,'index']);
     Route::get('/invitations/create', [InvitationController::class, 'create']);
@@ -101,7 +98,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/invitations', [InvitationController::class,'eliminate']);
     Route::get('/invitations/{invitation}/pageSendEmail', [InvitationController::class,'pageSendEmail']);
     Route::post('/invitations', [InvitationController::class,'submit']);
-
+    
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers', [SupplierController::class,'index']);
     Route::get('/suppliers/create', [SupplierController::class, 'create']);
@@ -111,14 +108,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/suppliers/{supplier}', [SupplierController::class,'update']);
     Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
     Route::delete('/suppliers', [SupplierController::class,'eliminate']);
-
+    
     ///// ::::: DASHBOARD :::::: ///////
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard-index');
     Route::get('/dashboard', [DashboardController::class, 'UserDashboard'])->name('dashboard-user');
     Route::get('/dashboard', [DashboardController::class, 'AdminDashboard'])->name('dashboard-admin');
     Route::get('/dashboard', [DashboardController::class, 'ManagerDashboard'])->name('dashboard-manager');
     Route::get('/dashboard', [DashboardController::class, 'OwnerDashboard'])->name('dashboard-owner');
-
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/users', [UserController::class,'index']);
     Route::get('/users/create', [UserController::class, 'create']);
