@@ -33,10 +33,12 @@ html, body {
     background-color: rgba(0, 0, 0, 0.6);
     width: 110%;
     max-width: 1200px;
-    margin: auto;
-    padding: 30px;
+    padding: 15px;
     border-radius: 10px;
     gap: 30px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
 }
 
 /* Linha de sombra entre logotipo e formulário */
@@ -51,6 +53,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 15px;
 }
 
 .logo-img {
@@ -138,19 +141,22 @@ input[type="password"]:focus {
     margin-top: 15px;
 }
 
-.form-footer a {
-    color: #347ccb;
-    text-decoration: none;
-}
-
 .form-footer a:hover {
     text-decoration: underline;
 }
 
-.form-footer p {
+.form-footer p,
+.form-footer a {
+    text-decoration: none;
     color: #e6e4dc;
     font-size: 14px;
 }
+
+.form-footer a:hover {
+    text-decoration: none;
+    color: #347ccb;
+}
+
 .back-home {
     position: absolute;
     bottom: 20px;
@@ -187,4 +193,68 @@ input[type="password"]:focus {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: -1;
+}
+
+.google-login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #EB5B38;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.google-login-button i {
+    font-size: 18px;
+}
+
+.google-login-button:hover {
+    background-color: #c1351d;
+}
+
+.or-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.or-divider span {
+    font-size: 16px;
+    color: #e6e4dc;
+    margin: 0 10px;
+}
+
+.or-divider::before,
+.or-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 600px) {
+    #myVideo {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+    }
+
+    .video-overlay {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .wrapper {
+        width: 100vw;
+        height: 100vh;
+    }
 }
