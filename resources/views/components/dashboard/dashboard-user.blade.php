@@ -40,13 +40,13 @@
                                     </thead>
                                     <tbody>
                                         @if (isset($payments))
-                                        @foreach ($payments as $payment)
+                                        <!-- @foreach ($payments as $payment)
                                         <tr class="border-b border-gray-300">
                                             <td class="px-4 py-2">{{ $payment->created_at->format('d/m/Y') }}</td>
                                             <td class="px-4 py-2">{{ $payment->name }}</td>
                                             <td class="px-4 py-2">{{ $payment->amount }}</td>
                                         </tr>
-                                        @endforeach
+                                        @endforeach -->
                                         @endif
                                     </tbody>
                                 </table>

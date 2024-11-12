@@ -113,11 +113,11 @@ Route::middleware('auth')->group(function () {
     ///// ::::: DASHBOARD :::::: ///////
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
     
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard-index');
-    Route::get('/dashboard', [DashboardController::class, 'UserDashboard'])->name('dashboard-user');
-    Route::get('/dashboard', [DashboardController::class, 'AdminDashboard'])->name('dashboard-admin');
-    Route::get('/dashboard', [DashboardController::class, 'ManagerDashboard'])->name('dashboard-manager');
-    Route::get('/dashboard', [DashboardController::class, 'OwnerDashboard'])->name('dashboard-owner');
+    //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard-index');
+    // Route::get('/dashboard', [DashboardController::class, 'UserDashboard'])->name('dashboard-user');
+    // Route::get('/dashboard', [DashboardController::class, 'AdminDashboard'])->name('dashboard-admin');
+    // Route::get('/dashboard', [DashboardController::class, 'ManagerDashboard'])->name('dashboard-manager');
+    // Route::get('/dashboard', [DashboardController::class, 'OwnerDashboard'])->name('dashboard-owner');
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/users', [UserController::class,'index']);
     Route::get('/users/create', [UserController::class, 'create']);
