@@ -2,7 +2,7 @@
 
 @section('content')
 
-@component('components.dashboard.dashboard-user')
+@component('components.dashboard.dashboard-participant')
 @endcomponent
 
 @endsection
