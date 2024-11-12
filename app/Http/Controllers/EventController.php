@@ -28,6 +28,16 @@ class EventController extends Controller
     }
 
 
+       /**
+     * Display a listing of the resource.
+     */
+    public function private()
+    {
+        //$events = Event::where('type', 'publico')->get();
+        return view('pages.events.private');
+    }
+
+
       /**
      * Display a listing of the resource.
      */
@@ -41,9 +51,10 @@ class EventController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
+    { 
         return view('pages.events.create');
     }
+    
 
     /**
      * Store a newly created resource in storage.

@@ -31,8 +31,9 @@ Route::get('/contact', function () {
     })->name('contact');
  Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact');
 
-Route::get('/event',         [EventController::class, 'public'])->name('events.public');
-Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('events.publicDetail');
+Route::get('/event/public', [EventController::class, 'public'])->name('events.public');
+Route::get('/event/private',[EventController::class, 'private'])->name('events.private');
+//Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('events.publicDetail');
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
 
@@ -73,7 +74,7 @@ Route::middleware('auth')->group(function () {
     
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
-    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::get('/events/create', [EventController::class,'create']);
     
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
