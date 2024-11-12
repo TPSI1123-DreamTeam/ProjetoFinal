@@ -110,3 +110,132 @@
     cursor: pointer;
     background-color: #c93510;
 }
+
+@media (max-width: 1535px) {
+    .search-bar {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        align-items: center;
+        width: 500px;
+    }
+}
+
+@media (max-width: 1242px) {
+    .search-input {
+        max-width: 400px;
+    }
+
+    .container.swiper {
+        max-width: 800px;
+    }
+
+    .title-event-category {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 850px) {
+    .container.swiper {
+        max-width: 600px;
+    }
+    .title-event-category {
+        font-size: 1.5rem;
+    }
+
+    .event-details .image {
+        width: 80%;
+        height: 90%;
+    }
+
+    .event-details .info {
+        width: 500px;
+    }
+    .title-event-category {
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 800px) {
+    .search-bar {
+        margin: 20px 0 10px 0;
+        width: 80%;
+    }
+    .title-event-category {
+        margin-bottom: 50px;
+    }
+
+    .container.swiper {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 400px;
+    }
+    .swiper {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .event-details .image {
+        width: 55%;
+        height: 65%;
+    }
+    .date-filter, .event-type, .availability {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 500px) {
+    .search-bar {
+        margin: 20px 0 10px 0;
+        width: 80%;
+    }
+
+    .event-date-filter {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container.swiper {
+        width: 350px;
+    }
+
+    .event-details .image {
+        width: 50%;
+        height: 60%;
+    }
+
+    .event-details .info {
+        width: 350px;
+    }
+    .filter-section .from-date,
+    .filter-section .to-date {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        flex-wrap: wrap;
+    }
+    .title-event-category {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 350px) {
+    .event-details .info {
+        width: 300px;
+    }
+    .container.swiper {
+        margin-bottom: 25px;
+        width: 250px;
+    }
+    .title-event-category {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

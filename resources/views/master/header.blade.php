@@ -4,12 +4,11 @@
     </div>
 
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
-
-        <label for="menu-toggle" class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
+    <label for="menu-toggle" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
 
         
     <nav class="nav">
