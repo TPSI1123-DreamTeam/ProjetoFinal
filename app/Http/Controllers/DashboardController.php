@@ -13,24 +13,24 @@ use App\Models\Participant;
 use App\Models\Invitation;
 use App\Models\Supplier;
 use App\Models\Role;
-
 use Illuminate\Support\Facades\Auth;
 
 
 class DashboardController extends Controller
 {
-
     public function index()
-    {
-        switch (Auth::user()->role) 
-        {
-            case 'admin':
-                return $this->AdminDashboard();
-            case 'manager':
+    {        
+        $roles = Auth::user()->role_id; 
+
+        switch($roles) 
+        {  
+            case 1:
+                return $this->AdminDashboard();   
+            case 2:
                 return $this->ManagerDashboard();
-            case 'owner':
-                return $this->OwnerDashboard();
-            default:
+            case 3:
+                return $this->OwnerDashboard();        
+            case 4:       
                 return $this->UserDashboard();
         }
     }
@@ -44,9 +44,12 @@ class DashboardController extends Controller
      }
 
      public function ManagerDashboard()
-     {
+     {       
          $user = Auth::user();
-         $payments = Payment::where('user_id', $user->id)->get();
+
+
+         //$payments = Payment::where('user_id', $user->id)->get();
+         $payments = "";
          return view('pages.dashboard.manager')->with(['user' => $user, 'payments' => $payments]);
 
      }

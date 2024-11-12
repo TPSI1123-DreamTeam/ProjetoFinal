@@ -6,7 +6,7 @@
                 <li class="card-item swiper-slide">
                     <a href="#" class="card-link" 
                        eventId="{{$event->id}}" 
-                       data-category="{{$event->category}}"
+                       data-category="{{$event->category->description}}"
                        data-name="{{$event->name}}"
                        data-description="{{$event->description}}"
                        data-location="{{$event->localization}}"
