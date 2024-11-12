@@ -11,23 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('participants', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email');
-            $table->boolean('confirmation')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });       
+        // Schema::create('participants', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('name');
+        //     $table->string('phone');
+        //     $table->string('email');
+        //     $table->boolean('confirmation')->nullable();
+        //     $table->integer('user_id')->nullable();
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });       
 
-        Schema::create('event_participant', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('event_id')->constrained('events');
-            $table->foreignId('participant_id')->constrained('participants');
-            $table->timestamps();
-        });
+        // Schema::create('event_participant', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('event_id')->constrained('events');
+        //     $table->foreignId('participant_id')->constrained('participants');
+        //     $table->timestamps();
+        // });
     }
 
     /**

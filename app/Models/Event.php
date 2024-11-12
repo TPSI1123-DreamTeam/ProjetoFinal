@@ -22,13 +22,22 @@ class Event extends Model
         'image'
     ];
 
-    public function participants(): BelongsToMany{
+    public function users(): BelongsToMany{
 
-        return $this->belongsToMany(Participant::class);
+        return $this->belongsToMany(User::class);
     }
 
     public function suppliers(): BelongsToMany{
 
         return $this->belongsToMany(Supplier::class);
+    }
+
+    public function category(){  
+        return $this->belongsTo(Category::class);
+    }
+
+    public function current_account(): HasOne
+    {
+        return $this->hasOne(CurrentAccount::class);
     }
 }
