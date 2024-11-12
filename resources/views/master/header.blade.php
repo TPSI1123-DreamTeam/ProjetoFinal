@@ -14,10 +14,10 @@
     <nav class="nav">
         <a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Página Inicial</a>
         <div class="dropdown-container">
-            <a href="/event" class="dropdown-toggle {{ request()->is('event') ? 'active' : '' }}" id="event-toggle">Eventos</a>
+            <a href="/event/public" class="dropdown-toggle {{ request()->is('event') ? 'active' : '' }}" id="event-toggle">Eventos</a>
             <div class="dropdown-menu" id="dropdown-menu">
-                <a href="/event" class="{{ request()->is('event/public') ? 'active' : '' }}">Eventos Públicos</a>
-                <a href="/event" class="{{ request()->is('event/custom') ? 'active' : '' }}">Faz o teu próprio evento!</a>
+                <a href="/event/public" class="{{ request()->is('event/public') ? 'active' : '' }}">Eventos Públicos</a>
+                <a href="/event/private" class="{{ request()->is('event/private') ? 'active' : '' }}">Faz o teu próprio evento!</a>
             </div>
         </div>
         <a href="/about" class="{{ request()->is('about') ? 'active' : '' }}">Sobre Nós</a>
