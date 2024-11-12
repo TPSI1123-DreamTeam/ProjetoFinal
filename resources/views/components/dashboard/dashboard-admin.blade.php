@@ -7,6 +7,8 @@
                             <h1 class="text-3xl font-semibold text-gray-900 mb-4">Bem-vindo, {{ Auth::user()->name }}!</h3>
                             <h2 class="text-gray-700 mt-4">Aqui está um resumo rápido do seu perfil e histórico de pagamentos recentes.</h2>
                         </div>
+
+                        <h1>Entre em contacto connosco!</h1>
     
                         <!-- Resumo do Perfil -->
                         <div class="bg-white shadow-lg rounded-lg p-8 border border-gray-200">
