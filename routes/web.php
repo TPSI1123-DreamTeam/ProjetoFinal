@@ -7,6 +7,7 @@ use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -126,6 +127,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/users/{user}', [UserController::class,'update']);
     Route::delete('/users/{user}',[UserController::class,'destroy']);
     Route::delete('/users', [UserController::class,'eliminate']);
+
+    ///// ::::: CATEGORIES :::::: ///////
+    Route::get('/categories', [CategoryController::class,'index']);
+    Route::get('/categories/create', [CategoryController::class, 'create']);
+    Route::post('/categories', [CategoryController::class,'store']);
+    Route::get('/categories/{category}', [CategoryController::class,'show']);
+    Route::get('/categories/{category}/edit',[CategoryController::class,'edit']);
+    Route::put('/categories/{category}', [CategoryController::class,'update']);
+    Route::delete('/categories/{category}',[CategoryController::class,'destroy']);
+    Route::delete('/categories', [CategoryController::class,'eliminate']);
 
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });

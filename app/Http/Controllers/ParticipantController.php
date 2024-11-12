@@ -82,7 +82,7 @@ class ParticipantController extends Controller
     public function eliminate(Participant $participant)
     {
         Participant::whereNotNull('id')->delete();
-        return redirect('participants')->with('status','Apagou TUTO!');
+        return redirect('participants')->with('status','Todas os participantes foram Removidos!');
     }
 
     // EXCEL FUNCTIONS  //
