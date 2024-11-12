@@ -17,6 +17,9 @@
         <tr style="background-color:#343a40">
             <th scope="col">ID</th>
             <th scope="col">Name</th>
+            <th scope="col">Participants</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Forenecedor</th>
             <th scope="col">Start date</th>
             <th scope="col">End date</th>
             <th scope="col">Type</th>
@@ -29,6 +32,13 @@
             <tr>
                 <th>{{$event->id}}</th>
                 <td>{{$event->name}}</td>
+                <td>{{ @count($event->users)}}</td>
+                <td>{{$event->category->description}}</td>
+                <td>
+                @foreach($event->suppliers as $supplier)
+                <ul>{{$supplier->name}}</ul>
+                @endforeach
+                </td>
                 <td>{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
                 <td>{{ date('Y-m-d', strtotime($event->end_date)) }}</td>
                 <td>{{$event->type}}</td>

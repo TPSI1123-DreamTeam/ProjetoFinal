@@ -5,7 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
-
+use App\Models\User;
+use App\Models\Event;
 
 class EventSeeder extends Seeder
 {
@@ -14,136 +15,79 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::Table('events')->insert([
-            "name"          => "Concerto",
-            "category"      => "Concerto",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-20 23:07:33",
-            "end_date"      => "2024-10-20 23:07:33",
-            "type"          => "publico",
-            "amount"        => "30.00",
-            "image"         => "Corroios.jpg",
-        ]);
+        $arrayCategory = [
+            0 => [
+                'description' => 'Concerto',
+                'image'       => 'Corroios.jpg',
+                'id'          => 1
+            ],
+            1 => [
+                'description' => 'Casamento',
+                'image'       => 'eventoPublicoNosAlive.jpg',
+                'id'          => 2
+            ],
+            2 => [
+                'description' => 'Workshop',
+                'image'       => 'Workshop1.jpg',
+                'id'          => 3
+            ],
+            3 => [
+                'description' => 'Teatro',
+                'image'       => 'teatro1.jpg',
+                'id'          => 4
+            ],
+            4 => [
+                'description' => 'Festival',
+                'image'       => 'RockMusic.jpg',
+                'id'          => 5
+            ],
+            5 => [
+                'description' => 'Evento Corporativo',
+                'image'       => 'Workshop1.jpg',
+                'id'          => 6
+            ],
+            6 => [
+                'description' => 'Festas Privadas',
+                'image'       => 'RockMusic.jpg',
+                'id'          => 7
+            ],
+        ];
 
-        DB::Table('events')->insert([
-            "name"          => "Casamento",
-            "category"      => "Casamento",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-21 23:07:33",
-            "end_date"      => "2024-10-21 23:07:33",
-            "type"          => "privado",
-            "amount"        => "70.00",
-            "image"         => "eventoPublicoNosAlive.jpg",
-        ]);
+        $arrayManager = [
+            0 => 1, //gil
+            1 => 3 //pedro
+        ];
 
-        DB::Table('events')->insert([
-            "name"          => "Workshop Comporativo",
-            "category"      => "Workshop",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-24 23:07:33",
-            "end_date"      => "2024-10-24 23:07:33",
-            "type"          => "privado",
-            "amount"        => "60.00",
-            "image"         => "Corroios.jpg",
-        ]);
+        $arrayType = [
+            0 => "publico", //gil
+            1 => "privado" //pedro
+        ];
 
-        DB::Table('events')->insert([
-            "name"          => "Workshop - Finanças",
-            "category"      => "Workshop",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-24 23:07:33",
-            "end_date"      => "2024-10-24 23:07:33",
-            "type"          => "publico",
-            "amount"        => "35.00",
-            "image"         => "Workshop1.jpg",
-        ]);
+        for ($i = 0; $i < 30; $i++) {
 
-        DB::Table('events')->insert([
-            "name"          => "Teatro",
-            "category"      => "Teatro",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-26 23:07:33",
-            "end_date"      => "2024-10-26 23:07:33",
-            "type"          => "publico",
-            "amount"        => "15.00",
-            "image"         => "teatro1.jpg",
-        ]);
+            $categoryRandom = rand(0,6);
+            $managerRandom  = rand(0,1);
+            $typeRandom     = rand(0,1);
 
-        DB::Table('events')->insert([
-            "name"          => "Concerto",
-            "category"      => "Concerto",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-27 23:07:33",
-            "end_date"      => "2024-10-27 23:07:33",
-            "type"          => "publico",
-            "amount"        => "30.00",
-            "image"         => "eventoPublicoNosAlive.jpg",
-        ]);
+            $date = fake()->dateTimeBetween('-1 week', '+1 week');
 
-        DB::Table('events')->insert([
-            "name"          => "Festival",
-            "category"      => "Festival",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-30 23:07:33",
-            "end_date"      => "2024-10-30 23:07:33",
-            "type"          => "publico",
-            "amount"        => "45.00",
-            "image"         => "RockMusic.jpg",
-        ]);
-
-        DB::Table('events')->insert([
-            "name"          => "Festival",
-            "category"      => "Festival",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-24 23:07:33",
-            "end_date"      => "2024-10-24 23:07:33",
-            "type"          => "publico",
-            "amount"        => "100.00",
-            "image"         => "Rock.jpg",
-        ]);
-
-        DB::Table('events')->insert([
-            "name"          => "Casamento",
-            "category"      => "Casamento",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-10-24 23:07:33",
-            "end_date"      => "2024-10-24 23:07:33",
-            "type"          => "privado",
-            "amount"        => "150.00",
-            "image"         => "Corroios.jpg",
-        ]);
-
-        DB::Table('events')->insert([
-            "name"          => "Teatro",
-            "category"      => "Teatro",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-11-01 23:07:33",
-            "end_date"      => "2024-11-01 23:07:33",
-            "type"          => "publico",
-            "amount"        => "55.00",
-            "image"         => "teatro2.jfif",
-        ]);
-
-        DB::Table('events')->insert([
-            "name"          => "Concerto",
-            "category"      => "Concerto",
-            "description"   => fake()->realText(rand(500,700)),
-            "localization"  => fake()->country(),
-            "start_date"    => "2024-11-02 23:07:33",
-            "end_date"      => "2024-11-02 23:07:33",
-            "type"          => "publico",
-            "amount"        => "25.00",
-            "image"         => "RockP.jfif",
-        ]);
+            $event = Event::create([
+                'name'          => $arrayCategory[$categoryRandom]['description'],
+                'category_id'   => $arrayCategory[$categoryRandom]['id'],
+                'image'         => $arrayCategory[$categoryRandom]['image'],
+                'description'   => fake()->realText(rand(500,700)),
+                'localization'  => fake()->city(),
+                'start_date'    => $date,
+                'end_date'      => $date,
+                'type'          => $arrayType[$typeRandom],
+                'amount'        => rand(1000,20000),
+                'owner_id'      => rand(1,100),
+                'manager_id'    => $arrayManager[$managerRandom]               
+            ]);
+       
+   
+            $users = User::inRandomOrder()->take(rand(20, 50))->pluck('id');
+            $event->users()->attach($users);
+        }   
     }
 }
