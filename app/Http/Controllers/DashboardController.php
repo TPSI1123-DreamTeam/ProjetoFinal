@@ -31,24 +31,21 @@ class DashboardController extends Controller
             case 3:
                 return $this->OwnerDashboard();        
             case 4:       
-                return $this->UserDashboard();
+                return $this->ParticipantDashboard();
         }
     }
 
 
      public function AdminDashboard()
      {
-         $user = Auth::user();
-         $payments = Payment::where('user_id', $user->id)->get();
-         return view('pages.dashboard.admin')->with(['user' => $user, 'payments' => $payments]);
+        $user = Auth::user();
+        $payments = "";
+        return view('pages.dashboard.admin')->with(['user' => $user, 'payments' => $payments]);
      }
 
      public function ManagerDashboard()
      {       
          $user = Auth::user();
-
-
-         //$payments = Payment::where('user_id', $user->id)->get();
          $payments = "";
          return view('pages.dashboard.manager')->with(['user' => $user, 'payments' => $payments]);
 
@@ -56,18 +53,17 @@ class DashboardController extends Controller
 
      public function OwnerDashboard()
      {
-         $user = Auth::user();
-         $payments = Payment::where('user_id', $user->id)->get();
-         return view('pages.dashboard.owner')->with(['user' => $user, 'payments' => $payments]);
+        $user = Auth::user();
+        $payments = "";
+        return view('pages.dashboard.owner')->with(['user' => $user, 'payments' => $payments]);
 
      }
 
-    public function UserDashboard()
+    public function ParticipantDashboard()
     {
         $user = Auth::user();
-        $payments = Payment::where('user_id', $user->id)->get();
-        return view('pages.dashboard.user')->with(['user' => $user, 'payments' => $payments]);
-        
+        $payments = "";
+        return view('pages.dashboard.participant')->with(['user' => $user, 'payments' => $payments]);
     }
 }
 
