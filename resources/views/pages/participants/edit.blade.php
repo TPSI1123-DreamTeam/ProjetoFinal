@@ -18,7 +18,7 @@
     placeholder="Type your name"
     class="form-control
     @error('name') is-invalid @enderror"
-    value="{{$participant->name}}">
+    value="{{$participant->name}}"
     required
     aria-describedby="nameHelp"
     value="test">
