@@ -48,15 +48,12 @@
                                 <td class="px-4 py-2 border-b border-gray-200 text-sm">{{ $user->name }}</td>
                                 <td class="px-4 py-2 border-b border-gray-200 text-sm">{{ $user->email }}</td>
                                 <td class="px-4 py-2 border-b border-gray-200 text-sm">
-                                    @if($user->role_id == 1)
-                                        Administrador
-                                    @elseif($user->role_id == 2)
-                                        Gestor de Eventos
-                                    @elseif($user->role_id == 3)
-                                        Proprietário de Evento
-                                    @else
-                                        Participante
-                                    @endif
+                                @switch($user->role_id)
+                                    @case(1) Administrador @break
+                                    @case(2) Gestor de Eventos @break
+                                    @case(3) Proprietário de Evento @break
+                                    @case(4) Participante @break
+                                    @endswitch
                                 </td>
                                 <td class="px-4 py-2 border-b border-gray-200 text-sm">
                                     <a href="{{ route('users.edit', $user->id) }}" class="text-blue-600 hover:text-blue-800 mr-2">Editar</a>
