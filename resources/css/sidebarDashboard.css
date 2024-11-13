@@ -1,0 +1,92 @@
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2b2f38;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #444;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.user-info {
+    text-align: center;
+}
+
+.user-info p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.user-info span {
+    color: #b3b3b3;
+    font-size: 0.9em;
+}
+
+.menu h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.menu ul li {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+.menu ul li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    background-color: #3b3f47;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.menu ul li a:hover {
+    background-color: #4a4f57;
+}
+
+.logout-button {
+    margin-top: auto;
+    padding: 10px 20px;
+    background-color: #3b3f47;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #4a4f57;
+}
+
+.user-info a {
+    text-decoration: none;
+    color: white;
+}

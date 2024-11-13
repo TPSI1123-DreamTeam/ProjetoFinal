@@ -23,7 +23,7 @@ class EventSeeder extends Seeder
             ],
             1 => [
                 'description' => 'Casamento',
-                'image'       => 'eventoPublicoNosAlive.jpg',
+                'image'       => 'Casamento.png',
                 'id'          => 2
             ],
             2 => [
@@ -43,12 +43,12 @@ class EventSeeder extends Seeder
             ],
             5 => [
                 'description' => 'Evento Corporativo',
-                'image'       => 'Workshop1.jpg',
+                'image'       => 'Workshop-Corporativo.webp',
                 'id'          => 6
             ],
             6 => [
-                'description' => 'Festas Privadas',
-                'image'       => 'RockMusic.jpg',
+                'description' => 'Evento Privado',
+                'image'       => 'Festas-Privadas.jpg',
                 'id'          => 7
             ],
         ];
