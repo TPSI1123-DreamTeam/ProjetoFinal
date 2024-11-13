@@ -25,33 +25,6 @@
                                 Editar Perfil
                             </a>
                         </div>
-    
-                        <!-- Histórico de Pagamentos -->
-                        <div class="bg-white shadow-lg rounded-lg p-8 border border-gray-200">
-                            <h3 class="text-3xl font-semibold text-gray-900 mb-4">Histórico de Pagamentos</h3>
-                            <div class="bg-gray-100 p-4 rounded-lg shadow-inner overflow-y-auto max-h-80">
-                                <table class="w-full text-center table-auto">
-                                    <thead>
-                                        <tr class="bg-gray-200 border-b border-gray-300">
-                                            <th class="px-4 py-2 text-gray-800 font-semibold">Data</th>
-                                            <th class="px-4 py-2 text-gray-800 font-semibold">Nome</th>
-                                            <th class="px-4 py-2 text-gray-800 font-semibold">Montante (€)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if (isset($payments))
-                                        <!-- @foreach ($payments as $payment)
-                                        <tr class="border-b border-gray-300">
-                                            <td class="px-4 py-2">{{ $payment->created_at->format('d/m/Y') }}</td>
-                                            <td class="px-4 py-2">{{ $payment->name }}</td>
-                                            <td class="px-4 py-2">{{ $payment->amount }}</td>
-                                        </tr>
-                                        @endforeach -->
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </main>
