@@ -46,10 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const eventStartDate = link.getAttribute('data-start-date');
         const eventAmount = link.getAttribute('data-amount');
         const eventImage = link.getAttribute('data-image');
-        const myArray = eventImage.split("/images");
-        let word = myArray[1];
-        console.log(eventImage)
-        console.log(word)
+
         document.getElementById('event-category').textContent = eventCategory;
         document.getElementById('event-title').textContent = eventName;
         document.getElementById('event-description').textContent = eventDescription;
@@ -57,8 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('event-start-date').textContent = eventStartDate;
         document.getElementById('event-amount').textContent = eventAmount;
         const image = document.getElementById('card-imageId');
-        const url = 'images' + word;
+        const url = eventImage;
         image.setAttribute('src', url);
+
         const stripeBtn = document.getElementById('stripe-btn');
         const stripeUrl = '/checkout/' + eventId;
         stripeBtn.setAttribute('href', stripeUrl)

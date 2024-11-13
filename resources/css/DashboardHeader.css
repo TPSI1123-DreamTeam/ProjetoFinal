@@ -1,0 +1,83 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #272A2D;
+    padding: 10px 20px;
+    color: #E6E4DC;
+    width: 100vw;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.menu-toggle {
+    display: none;
+}
+
+.hamburger {
+    display: block;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    max-width: 100px;
+    width: 40%;
+}
+
+.logo img {
+    width: 100%;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav a {
+    color: #E6E4DC;
+    text-decoration: none;
+    padding: 10px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.login {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.login a:first-child {
+    font-size: 20px;
+}
+
+.login a {
+    color: #E6E4DC;
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 10px;
+}
+
+.login span {
+    color: #E6E4DC;
+    font-size: 10px;
+}
+
+.login a:hover {
+    color: #EB5B38;
+}
+
+.user-name a {
+    font-size: 1rem;
+}

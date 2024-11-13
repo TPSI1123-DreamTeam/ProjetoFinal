@@ -40,14 +40,14 @@ class DashboardController extends Controller
      {
         $user = Auth::user();
         $payments = "";
-        return view('pages.dashboard.admin')->with(['user' => $user, 'payments' => $payments]);
+        return view('DashboardMaster.main')->with(['user' => $user, 'payments' => $payments]);
      }
 
      public function ManagerDashboard()
      {       
          $user = Auth::user();
          $payments = "";
-         return view('pages.dashboard.manager')->with(['user' => $user, 'payments' => $payments]);
+         return view('DashboardMaster.main')->with(['user' => $user, 'payments' => $payments]);
 
      }
 
@@ -55,7 +55,7 @@ class DashboardController extends Controller
      {
         $user = Auth::user();
         $payments = "";
-        return view('pages.dashboard.owner')->with(['user' => $user, 'payments' => $payments]);
+        return view('DashboardMaster.main')->with(['user' => $user, 'payments' => $payments]);
 
      }
 
@@ -63,7 +63,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $payments = "";
-        return view('pages.dashboard.participant')->with(['user' => $user, 'payments' => $payments]);
+        return view('DashboardMaster.main')->with(['user' => $user, 'payments' => $payments]);
     }
 }
 
