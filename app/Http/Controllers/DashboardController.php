@@ -38,15 +38,9 @@ class DashboardController extends Controller
 
      public function AdminDashboard()
      {
-        $user = Auth::user();
         
-        // Lista de utilizadores com permissão de gestão
         $users = User::all();
-
-        return view('pages.dashboard.admin')->with([
-            'user' => $user,
-            'users' => $users,
-        ]);
+        return view('pages.dashboard.admin', ['users' => $users]);
      }
 
      public function ManagerDashboard()

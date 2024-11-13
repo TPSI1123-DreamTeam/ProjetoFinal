@@ -1,3 +1,4 @@
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <main class="flex-1 p-8 bg-gray-100 overflow-y-auto">
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid gap-6 grid-cols-1 md:grid-cols-2">
