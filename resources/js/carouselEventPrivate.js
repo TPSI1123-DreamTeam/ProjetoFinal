@@ -43,14 +43,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const eventName = link.getAttribute('data-name');
         const eventDescription = link.getAttribute('data-description');
         const eventImage = link.getAttribute('data-image');
-        const myArray = eventImage.split("images");
-        let word = myArray[1];
 
         //document.getElementById('event-category').textContent = eventCategory;
         document.getElementById('event-title-private').textContent = eventName;
         document.getElementById('event-description-private').textContent = eventDescription;
-        const image = document.getElementById('card-imageId-private');
-        const url = 'images' + word;
+        const image = document.getElementById('card-imageId');
+        const url = eventImage;
         image.setAttribute('src', url);
     }
 
