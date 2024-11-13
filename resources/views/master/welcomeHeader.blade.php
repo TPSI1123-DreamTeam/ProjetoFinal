@@ -14,7 +14,7 @@
 
         <ul class="nav-links">
             <li><a href="{{ url('/') }}" class="active">Página Inicial</a></li>
-            <li><a href="{{ url('/event') }}">Eventos</a></li>
+            <li><a href="{{ url('/event/public') }}">Eventos</a></li>
             <li><a href="{{ url('/about') }}">Sobre Nós</a></li>
             <li><a href="{{ url('/contact') }}">Contacto</a></li>
         </ul>

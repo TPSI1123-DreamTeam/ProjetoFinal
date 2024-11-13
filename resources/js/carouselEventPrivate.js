@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const swiper = new Swiper('.card-wrapper', {
+    const swiper = new Swiper('.card-wrapper-private', {
         loop: true,
         spaceBetween: 20,
         slidesPerView: 5,
@@ -37,31 +37,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function updateEventDetails(activeSlide) {
-        const link = activeSlide.querySelector('.card-link');
+        const link = activeSlide.querySelector('.card-link-private');
         const eventId = link.getAttribute('eventId');
-        const eventCategory = link.getAttribute('data-category');
+        //const eventCategory = link.getAttribute('data-category');
         const eventName = link.getAttribute('data-name');
         const eventDescription = link.getAttribute('data-description');
-        const eventLocation = link.getAttribute('data-location');
-        const eventStartDate = link.getAttribute('data-start-date');
-        const eventAmount = link.getAttribute('data-amount');
         const eventImage = link.getAttribute('data-image');
-        const myArray = eventImage.split("/images");
+        const myArray = eventImage.split("images");
         let word = myArray[1];
-        console.log(eventImage)
-        console.log(word)
-        document.getElementById('event-category').textContent = eventCategory;
-        document.getElementById('event-title').textContent = eventName;
-        document.getElementById('event-description').textContent = eventDescription;
-        document.getElementById('event-location').textContent = eventLocation;
-        document.getElementById('event-start-date').textContent = eventStartDate;
-        document.getElementById('event-amount').textContent = eventAmount;
-        const image = document.getElementById('card-imageId');
+
+        //document.getElementById('event-category').textContent = eventCategory;
+        document.getElementById('event-title-private').textContent = eventName;
+        document.getElementById('event-description-private').textContent = eventDescription;
+        const image = document.getElementById('card-imageId-private');
         const url = 'images' + word;
         image.setAttribute('src', url);
-        const stripeBtn = document.getElementById('stripe-btn');
-        const stripeUrl = '/checkout/' + eventId;
-        stripeBtn.setAttribute('href', stripeUrl)
     }
 
     updateEventDetails(swiper.slides[swiper.activeIndex]);

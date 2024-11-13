@@ -2,8 +2,10 @@
 @import 'footer.css';
 @import 'carouselEvent.css';
 @import 'publicEventInfo.css';
+@import 'privateEventInfo.css';
 @import 'searchBar.css';
 @import 'contact.css';
+@import 'carouselEventPrivate.css';
 
 * {
     margin: 0;
