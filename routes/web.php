@@ -114,19 +114,14 @@ Route::middleware('auth')->group(function () {
     ///// ::::: DASHBOARD :::::: ///////
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
     
-    //Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard-index');
-    // Route::get('/dashboard', [DashboardController::class, 'UserDashboard'])->name('dashboard-user');
-    // Route::get('/dashboard', [DashboardController::class, 'AdminDashboard'])->name('dashboard-admin');
-    // Route::get('/dashboard', [DashboardController::class, 'ManagerDashboard'])->name('dashboard-manager');
-    // Route::get('/dashboard', [DashboardController::class, 'OwnerDashboard'])->name('dashboard-owner');
-    ///// ::::: SUPPLIERS :::::: ///////
-    Route::get('/users', [UserController::class,'index']);
-    Route::get('/users/create', [UserController::class, 'create']);
-    Route::post('/users', [UserController::class,'store']);
-    Route::get('/users/{user}', [UserController::class,'show']);
-    Route::get('/users/{user}/edit',[UserController::class,'edit']);
-    Route::put('/users/{user}', [UserController::class,'update']);
-    Route::delete('/users/{user}',[UserController::class,'destroy']);
+    ///// ::::: USERS :::::: ///////
+    Route::get('/users', [UserController::class,'index'])->name('users');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class,'store'])->name('users.store');
+    Route::get('/users/{user}', [UserController::class,'show'])->name('users.show');
+    Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class,'update'])->name('users.update');
+    Route::delete('/users/{user}',[UserController::class,'destroy'])->name('users.destroy');
     Route::delete('/users', [UserController::class,'eliminate']);
 
     ///// ::::: CATEGORIES :::::: ///////

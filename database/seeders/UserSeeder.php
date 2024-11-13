@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
             'phone'      => (string) fake()->numberBetween(912345678, 936456789),
             'password'   => Hash::make('123123123'),
             'image'      => $imagesArray[4],
-            'role_id'    => 4          
+            'role_id'    => 1          
         ]);
 
         // $roles = Role::find(4); // role - USER 1, Manager 2, admin 3
@@ -84,7 +84,7 @@ class UserSeeder extends Seeder
             'phone'      => (string) fake()->numberBetween(912345678, 936456789),
             'password'   => Hash::make('123123123'),
             'image'      => $imagesArray[4],
-            'role_id'    => 4               
+            'role_id'    => 3               
         ]);
 
         // $roles = Role::find(4); // role - USER 1, Manager 2, admin 3

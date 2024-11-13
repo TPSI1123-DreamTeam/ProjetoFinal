@@ -38,32 +38,61 @@ class DashboardController extends Controller
 
      public function AdminDashboard()
      {
-        $user = Auth::user();
-        $payments = "";
-        return view('DashboardMaster.main')->with(['user' => $user, 'payments' => $payments]);
+        
+        $users = User::all();
+        return view('pages.dashboard.admin', ['users' => $users]);
      }
 
      public function ManagerDashboard()
-     {       
-         $user = Auth::user();
-         $payments = "";
-         return view('DashboardMaster.main')->with(['user' => $user, 'payments' => $payments]);
+     {
+
+        $user = Auth::user();
+        
+        // Lista de eventos para gestão e ações específicas para manager
+        $events = Event::all();
+        $suppliers = Supplier::all(); // Adicionar e editar fornecedores (sem remover)
+        
+        return view('pages.dashboard.manager')->with([
+            'user' => $user,
+            'events' => $events,
+            'suppliers' => $suppliers,
+        ]);
 
      }
 
      public function OwnerDashboard()
      {
         $user = Auth::user();
-        $payments = "";
-        return view('DashboardMaster.main')->with(['user' => $user, 'payments' => $payments]);
+        
+        // Lista de participantes e eventos com permissões completas para o proprietário do evento
+        //$participants = Participant::all();
+        $events = Event::all();
+        $suppliers = Supplier::all();
+        $payments = Payment::all(); // Histórico e gestão de pagamentos
+
+        return view('pages.dashboard.owner')->with([
+            'user' => $user,
+            //'participants' => $participants,
+            'events' => $events,
+            'suppliers' => $suppliers,
+            'payments' => $payments,
+        ]);
 
      }
 
     public function ParticipantDashboard()
     {
         $user = Auth::user();
-        $payments = "";
-        return view('DashboardMaster.main')->with(['user' => $user, 'payments' => $payments]);
+        
+        // Lista de eventos em que o utilizador está presente e histórico de pagamentos
+        //$events = Event::where('participants.user_id', $user->id)->get();
+        //$payments = Payment::where('user_id', $user->id)->get();
+
+        return view('pages.dashboard.participant')->with([
+            'user' => $user,
+            //'events' => $events,
+            //'payments' => $payments,
+        ]);
     }
 }
 
