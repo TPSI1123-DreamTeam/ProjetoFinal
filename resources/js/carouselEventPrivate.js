@@ -39,17 +39,21 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateEventDetails(activeSlide) {
         const link = activeSlide.querySelector('.card-link-private');
         const eventId = link.getAttribute('eventId');
-        //const eventCategory = link.getAttribute('data-category');
+        const eventCategory = link.getAttribute('data-category');
         const eventName = link.getAttribute('data-name');
         const eventDescription = link.getAttribute('data-description');
         const eventImage = link.getAttribute('data-image');
 
-        //document.getElementById('event-category').textContent = eventCategory;
         document.getElementById('event-title-private').textContent = eventName;
         document.getElementById('event-description-private').textContent = eventDescription;
         const image = document.getElementById('card-imageId');
         const url = eventImage;
         image.setAttribute('src', url);
+
+        const createEvent = document.getElementById('reserve-now');
+        const urlReservation = '/event/private/' + eventCategory;
+        createEvent.setAttribute('href', urlReservation);
+        console.log(createEvent)
     }
 
     updateEventDetails(swiper.slides[swiper.activeIndex]);

@@ -31,6 +31,6 @@
     </div>
 </div>
 <div class="reserve-button">
-            <a href="#" class="reserve-now">Reserva Já!</a>
+            <a href="" class="reserve-now" id="reserve-now">Reserva Já!</a>
     </div>
 @vite('resources/js/carouselEventPrivate.js')
