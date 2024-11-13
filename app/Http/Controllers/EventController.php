@@ -33,8 +33,8 @@ class EventController extends Controller
      */
     public function private()
     {
-        //$events = Event::where('type', 'publico')->get();
-        return view('pages.events.private');
+        $events = Event::where('type', 'privado')->get();
+        return view('pages.events.private', ['events' => $events]);
     }
 
 

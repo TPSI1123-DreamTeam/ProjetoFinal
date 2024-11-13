@@ -48,3 +48,4 @@
         </div>
     </div>
 </div>
+@vite('resources/js/carouselEvent.js')
