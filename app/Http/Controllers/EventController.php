@@ -51,10 +51,10 @@ class EventController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    { 
+    {
         return view('pages.events.create');
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -94,5 +94,15 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         //
+    }
+
+    public function eventsbyowner()
+    {
+        $userId = auth()->user()->id;
+
+        $events = Event::where('owner_id', $userId)->get();
+
+       // dd($events);
+        return view('pages.events.owner', ['events' => $events]);
     }
 }
