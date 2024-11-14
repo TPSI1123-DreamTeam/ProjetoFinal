@@ -8,6 +8,7 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -75,6 +76,7 @@ Route::middleware('auth')->group(function () {
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create', [EventController::class,'create']);
+
     Route::get('/events/eventsbyowner', [EventController::class,'eventsbyowner']);
 
     ///// ::::: PARTICIPANTS :::::: ///////
@@ -139,3 +141,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+///// ::::: Google Auth :::::: ///////
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::get('/login/google/dob', [GoogleController::class, 'showDobForm'])->name('user.dob');
+Route::post('/login/google/dob', [GoogleController::class, 'storeDob']);
