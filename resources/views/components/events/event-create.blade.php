@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="d-flex align-items-center">
-        <p class="text-sm/6 font-semibold text-gray-900">Create Event ///// RECEBE A CATEGORIA SELECIONADA NO ECRA ANTERIOR </p>
+        <p class="text-sm/6 font-semibold text-gray-900">Create Event - Formulário para {{ $category->description }}</p>
     </div>
     <br>
     <!-- RECEBE A CATEGORIA SELECIONADA NO ECRA ANTERIOR -->
@@ -17,7 +17,7 @@
             <label for="inputEmail4">Nome do Evento</label> 
             <input type="text" class="form-control" name="name" id="name" placeholder="Nome do Evento">
             <input type="hidden" name="owner_id"    id="owner_id" value="{{ Auth::User()->id }}" >
-            <input type="hidden" name="category_id" id="category_id" value="1" >
+            <input type="hidden" name="category_id" id="category_id" value="{{ $category->id }}" >
             <input type="hidden" name="amount"  id="amount" value="0" >
             </div>
             <div class="form-group col-md-6">
@@ -37,16 +37,16 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inputAddress2">Hora Inicio do Evento</label>
-                <input type="time" class="form-control" name="start_time" id="start_time" placeholder="">
+                <input type="time" class="form-control" name="start_time" id="start_time" placeholder="" disabled>
             </div>
 
             <div class="form-group col-md-4">
                 <label for="inputAddress2">Data Fim do Evento</label>
-                <input type="date" class="form-control" name="end_date" id="end_date" placeholder="">
+                <input type="date" class="form-control" name="end_date" id="end_date" placeholder="" >
             </div>
             <div class="form-group col-md-2">
                 <label for="inputAddress2">Hora Fim do Evento</label>
-                <input type="time" class="form-control" name="end_time" id="end_time" placeholder="">
+                <input type="time" class="form-control" name="end_time" id="end_time" placeholder="" disabled>
             </div>
         </div>
 
@@ -61,28 +61,28 @@
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers1" aria-label="Checkbox for following text input"> Locação de espaços
+                <input type="checkbox" name="suppliers1" aria-label="Checkbox for following text input" disabled> Locação de espaços
             </div>
             <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers2" aria-label="Checkbox for following text input"> Catering
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers3" aria-label="Checkbox for following text input"> Decoração
-            </div>
-            <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers4" aria-label="Checkbox for following text input"> Entretenimento
+                <input type="checkbox" name="suppliers2" aria-label="Checkbox for following text input" disabled> Catering
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers5" aria-label="Checkbox for following text input"> Serviços técnicos
+                <input type="checkbox" name="suppliers3" aria-label="Checkbox for following text input" disabled> Decoração
             </div>
             <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers6" aria-label="Checkbox for following text input"> Produção e logística'
+                <input type="checkbox" name="suppliers4" aria-label="Checkbox for following text input" disabled> Entretenimento
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="checkbox" name="suppliers5" aria-label="Checkbox for following text input" disabled> Serviços técnicos
+            </div>
+            <div class="form-group col-md-6">
+                <input type="checkbox" name="suppliers6" aria-label="Checkbox for following text input" disabled> Produção e logística'
             </div>
         </div>  
 
@@ -91,10 +91,12 @@
                 <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
             </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="inputGroupFileAddon01">
+                <input type="file" class="custom-file-input" id="image" name="image" aria-describedby="inputGroupFileAddon01" disabled>
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
             </div>
         </div>
+
+
 
         <br>
         <button type="submit" class="btn btn-success">Registar Evento</button>
