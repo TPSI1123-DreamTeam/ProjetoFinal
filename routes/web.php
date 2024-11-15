@@ -11,6 +11,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 
+
+
 ///// ::::: PUBLIC VIEWS :::::: ///////
 Route::get('/', function () {
        return view('welcome');
@@ -74,9 +76,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
 
     ///// ::::: EVENTS :::::: ///////
-    Route::get('/events',        [EventController::class, 'index'])->name('events.index');
-    Route::get('/events/create', [EventController::class,'create']);
 
+    Route::get('/events',                   [EventController::class, 'index'])->name('events.index');
+    Route::get('/events/create/{id}', [EventController::class,'create'])->name('events.create');
+    Route::post('/events',                  [EventController::class, 'store']);
+    //Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');    
     Route::get('/events/eventsbyowner', [EventController::class,'eventsbyowner']);
 
     ///// ::::: PARTICIPANTS :::::: ///////

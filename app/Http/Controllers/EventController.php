@@ -6,6 +6,9 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Models\Category;
+use App\Models\Supplier;
+
 
 class EventController extends Controller
 {
@@ -37,6 +40,7 @@ class EventController extends Controller
         return view('pages.events.private', ['events' => $events]);
     }
 
+ 
 
       /**
      * Display a listing of the resource.
@@ -50,9 +54,42 @@ class EventController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('pages.events.create');
+
+    public function create(Event $event, $categoryId)
+    { 
+        //$categories = Category::find($categoryId);
+        $category   = Category::find($categoryId);
+        //$title      = $category->description;
+
+        switch ($categoryId) {
+            case '1':
+                $form = "create";          
+                break;
+            case '2':
+                $form = "create";        
+                break;
+            case '3':
+                $form = "create";   
+                break;
+            case '4':
+                $form = "create";          
+                break;
+            case '5':
+                $form = "create";         
+                break;
+            case '6':
+                $form = "create";              
+                break;
+            case '7':
+                $form = "create";              
+                break;
+            
+            default:
+                $form = "create";              
+                break;
+        }
+        
+        return view('pages.events.'.$form, ['category' => $category]);
     }
 
 
@@ -61,7 +98,12 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        //dd($request);
+        $validated = $request->validated(); 
+        //dd($request->owner_id);
+
+        Event::create($validated);
+        return redirect('events')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
 
     /**
@@ -96,13 +138,16 @@ class EventController extends Controller
         //
     }
 
-    public function eventsbyowner()
+
+
+    public function createprivate(Request $request)
     {
-        $userId = auth()->user()->id;
+        dd($request);
+        //$validated = $request->validated(); 
+        //dd($request->owner_id);
 
-        $events = Event::where('owner_id', $userId)->get();
 
-       // dd($events);
-        return view('pages.events.owner', ['events' => $events]);
+        //Event::create($validated);
+        //return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
 }

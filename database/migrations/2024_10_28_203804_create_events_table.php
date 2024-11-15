@@ -13,18 +13,19 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('name');   
-            //$table->string('category');   
-            $table->text('description');   
-            $table->string('localization');   
-            $table->timestamp('start_date', precision: 0)->nullable();
-            $table->timestamp('end_date', precision: 0)->nullable();
+            $table->string('name')->nullable(); 
+            $table->text('description')->nullable();   
+            $table->string('localization')->nullable();   
+            $table->date('start_date')->nullable();
+            //$table->time('start_time')->nullable();
+            $table->date('end_date')->nullable();
+            //$table->time('end_time')->nullable();
             $table->string('type');    // public, private
-            $table->decimal('amount', 10, 2);
-            $table->string('image'); 
-            $table->integer('owner_id');
-            $table->integer('manager_id');  
-            $table->foreignId('category_id')->constrained();
+            $table->decimal('amount', 10, 2)->nullable();
+            $table->string('image')->nullable(); 
+            $table->integer('owner_id')->nullable();
+            $table->integer('manager_id')->nullable();  
+            $table->foreignId('category_id')->constrained()->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
