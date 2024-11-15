@@ -54,6 +54,7 @@ class EventController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
     public function create(Event $event, $categoryId)
     { 
         //$categories = Category::find($categoryId);
@@ -87,15 +88,10 @@ class EventController extends Controller
                 $form = "create";              
                 break;
         }
-
-        //$cat = Category::where('id',$category);
-        //dd($category->description);
-
-
         
         return view('pages.events.'.$form, ['category' => $category]);
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -143,6 +139,7 @@ class EventController extends Controller
     }
 
 
+
     public function createprivate(Request $request)
     {
         dd($request);
@@ -152,6 +149,5 @@ class EventController extends Controller
 
         //Event::create($validated);
         //return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
-
     }
 }

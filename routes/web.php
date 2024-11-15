@@ -8,6 +8,7 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -63,24 +64,25 @@ Route::get('/users', function () {
 
 ///// ::::: ROUTES WITH AUTH - BELLOW :::::: ///////
 Route::middleware('auth')->group(function () {
-    
+
     ///// ::::: USER PROFILE :::::: ///////
     Route::get('/profile',    [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile',  [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
     ///// ::::: PAYMENTS :::::: ///////
     Route::get('/checkout/{event}', [PaymentController::class, 'checkout'])->name('checkout');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
-    
+
     ///// ::::: EVENTS :::::: ///////
+
     Route::get('/events',                   [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create/{id}', [EventController::class,'create'])->name('events.create');
     Route::post('/events',                  [EventController::class, 'store']);
+    //Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');    
+    Route::get('/events/eventsbyowner', [EventController::class,'eventsbyowner']);
 
-    Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');
-    
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
     Route::get('/participants/create',[ParticipantController::class, 'create']);
@@ -93,7 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
     Route::delete('/participants/{participant}',[ParticipantController::class, 'destroy']);
     Route::delete('/participants', [ParticipantController::class, 'eliminate']);
-    
+
     ///// ::::: INVITATIONS :::::: ///////
     Route::get('/invitations', [InvitationController::class,'index']);
     Route::get('/invitations/create', [InvitationController::class, 'create']);
@@ -105,7 +107,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/invitations', [InvitationController::class,'eliminate']);
     Route::get('/invitations/{invitation}/pageSendEmail', [InvitationController::class,'pageSendEmail']);
     Route::post('/invitations', [InvitationController::class,'submit']);
-    
+
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers', [SupplierController::class,'index']);
     Route::get('/suppliers/create', [SupplierController::class, 'create']);
@@ -115,10 +117,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/suppliers/{supplier}', [SupplierController::class,'update']);
     Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
     Route::delete('/suppliers', [SupplierController::class,'eliminate']);
-    
+
     ///// ::::: DASHBOARD :::::: ///////
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
-    
+
     ///// ::::: USERS :::::: ///////
     Route::get('/users', [UserController::class,'index'])->name('users');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -143,3 +145,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+///// ::::: Google Auth :::::: ///////
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+Route::get('/login/google/dob', [GoogleController::class, 'showDobForm'])->name('user.dob');
+Route::post('/login/google/dob', [GoogleController::class, 'storeDob']);
