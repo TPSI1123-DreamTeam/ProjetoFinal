@@ -61,7 +61,14 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        //dd($request);
+        $validated = $request->validated(); 
+        //dd($request->owner_id);
+
+
+        Event::create($validated);
+        return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
+
     }
 
     /**

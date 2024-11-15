@@ -10,6 +10,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
+
+
 ///// ::::: PUBLIC VIEWS :::::: ///////
 Route::get('/', function () {
        return view('welcome');
@@ -75,6 +77,7 @@ Route::middleware('auth')->group(function () {
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',        [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create', [EventController::class,'create']);
+    Route::post('/events',       [EventController::class, 'store']);
     
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
