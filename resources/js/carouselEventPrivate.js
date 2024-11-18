@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         image.setAttribute('src', url);
 
         const createEvent = document.getElementById('reserve-now');
-        const urlReservation = '/event/private/' + eventCategory;
+        const urlReservation = '/events/create/' + eventCategory;
         createEvent.setAttribute('href', urlReservation);
         console.log(createEvent)
     }
