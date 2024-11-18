@@ -13,7 +13,7 @@
                 <span></span>
             </label>
         </div>
-        <a href="#">Editar Perfil</a>
+        <a href="{{ route('profile.edit') }}">Editar Perfil</a>
         <i class='bx bx-chat' ></i>
         <i class='bx bx-bell'></i>
     </nav>

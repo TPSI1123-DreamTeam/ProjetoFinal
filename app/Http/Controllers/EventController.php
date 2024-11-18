@@ -6,6 +6,11 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Supplier;
+
+
 
 class EventController extends Controller
 {
@@ -37,6 +42,7 @@ class EventController extends Controller
         return view('pages.events.private', ['events' => $events]);
     }
 
+ 
 
       /**
      * Display a listing of the resource.
@@ -50,18 +56,62 @@ class EventController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+
+    public function create(Event $event, $categoryId)
     { 
-        return view('pages.events.create');
+        $suppliers = Supplier::all();//
+        //$suppliers = Supplier::distinct()->pluck('name');
+        $category  = Category::find($categoryId);
+        $categories= Category::all();
+
+        //dd($event);
+
+        switch ($categoryId) {
+            case '1':
+                $form = "create";          
+                break;
+            case '2':
+                $form = "create";        
+                break;
+            case '3':
+                $form = "create";   
+                break;
+            case '4':
+                $form = "create";          
+                break;
+            case '5':
+                $form = "create";         
+                break;
+            case '6':
+                $form = "create";              
+                break;
+            case '7':
+                $form = "create";              
+                break;
+            
+            default:
+                $form = "create";              
+                break;
+        }
+        
+        return view('pages.events.'.$form, ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories]);
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEventRequest $request)
-    {
-        //
+    public function store(StoreEventRequest $request)//Request $formrequest
+    {       
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images/events/'), $imageName);
+        $request->image = 'images/events/'.$imageName;
+
+        $validated = $request->validated(); 
+
+        $createdEvent = Event::create($validated);
+
+        return redirect('/dashboard')->with('status','Item created successfully!')->with('class', 'alert-success');
     }
 
     /**
@@ -94,5 +144,18 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         //
+    }
+
+
+
+    public function createprivate(Request $request)
+    {
+        dd($request);
+        //$validated = $request->validated(); 
+        //dd($request->owner_id);
+
+
+        //Event::create($validated);
+        //return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
 }

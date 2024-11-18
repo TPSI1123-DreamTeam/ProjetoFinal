@@ -1,54 +1,170 @@
-<div class="carousel">
-    <button class="arrow left-arrow">&lt;</button>
-    <div class="carousel-container">
-        <div class="card" id="Workshop" title="Workshop"  style="background-image: url('{{ asset('images/eventoPublicoNosAlive.jpg') }}');"></div>
-        <div class="card" id="Concerto" title="Concerto" style="background-image: url('{{ asset('images/eventoPublicoNosAlive.jpg') }}');"></div>
-        <div class="card" id="Festival" title="Festival" style="background-image: url('{{ asset('images/eventoPublicoNosAlive.jpg') }}');"></div>
-        <div class="card" id="Musical" title="Musical" style="background-image: url('{{ asset('images/eventoPublicoNosAlive.jpg') }}');"></div>
-        <div class="card" id="Teatro" title="Teatro" style="background-image: url('{{ asset('images/eventoPublicoNosAlive.jpg') }}');"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<div class="container">
+    <div class="d-flex align-items-center mt-5">
+        <h1>Formulário para o seu evento</h1>   
     </div>
-    <button class="arrow right-arrow">&gt;</button>
+    <br>
+    <!-- RECEBE A CATEGORIA SELECIONADA NO ECRA ANTERIOR -->
+    <form  method="POST" action="{{ url('/events') }}" enctype="multipart/form-data" class="mt-2">
+        @csrf
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="inputEmail4">Nome do Evento</label> 
+            <input type="text" class="form-control" name="name" id="name" placeholder="Nome do Evento" required>
+            <input type="hidden" name="owner_id"    id="owner_id" value="{{ Auth::User()->id }}" >
+            <input type="hidden" name="category_id" id="category_id" value="{{ $category->id }}" >
+            <input type="hidden" name="amount"  id="amount" value="0" >
+            <input type="hidden" name="event_confirmation"  id="event_confirmation" value="0" >
+            </div>
+            <div class="form-group col-md-4">
+            <label for="inputlocalization">Localização</label>
+            <input type="text" class="form-control" name="localization"  id="localization" value="{{ old('localization') }}" placeholder="Localização do evento" required>
+            </div>
+
+            <div class="form-group col-md-2">
+            <label for="number_of_participants">Nº de Participantes</label>
+            <input type="number" class="form-control" name="number_of_participants"  id="number_of_participants" value="{{ old('number_of_participants') }}" min="30" max="100000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-7">
+                <label for="inputAddress">Descrição do Evento</label>
+                <input type="text-area" class="form-control" name="description"  id="description" placeholder="Breve descrição para ser apresentada no portal" value="{{ old('description') }}" required>
+            </div>
+
+             <div class="form-group col-md-5">               
+                <label class="" for="inputGroupSelect01">Categoria</label>
+                <select id="type" name="type"  class="form-control" required>
+                    <option disabled>Selecione a categoria:</option>
+                    @foreach ($categories as $item)
+                        <option value="{{ $item->id }}" @if( $item->id == $category->id) selected @endif >{{ $item->description }}</option>
+                    @endforeach
+                </select>       
+              </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputAddress2">Data Inicio do Evento</label>
+                <input type="date" class="form-control" name="start_date" id="start_date" value="{{ old('start_date') }}"  placeholder="" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputAddress2">Hora Inicio do Evento</label>
+                <input type="time" class="form-control" name="start_time" id="start_time" value="{{ old('start_time') }}" placeholder="" required>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="inputAddress2">Data Fim do Evento</label>
+                <input type="date" class="form-control" name="end_date" id="end_date" value="{{ old('end_date') }}"  placeholder="" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputAddress2">Hora Fim do Evento</label>
+                <input type="time" class="form-control" name="end_time" id="end_time" value="{{ old('end_time') }}"  placeholder="" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputState">Tipo de Evento</label>
+            <select id="type" name="type"  class="form-control" required>
+                <option disabled>Escolher o tipo de evento...</option>
+                <option value="Publico">Público</option>
+                <option value="Privado">Privado</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="checkbox" name="suppliers1" aria-label="Checkbox for following text input" disabled> Locação de espaços
+            </div>
+            <div class="form-group col-md-6">
+                <input type="checkbox" name="suppliers2" aria-label="Checkbox for following text input" disabled> Catering
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="checkbox" name="suppliers3" aria-label="Checkbox for following text input" disabled> Decoração
+            </div>
+            <div class="form-group col-md-6">
+                <input type="checkbox" name="suppliers4" aria-label="Checkbox for following text input" disabled> Entretenimento
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="checkbox" name="suppliers5" aria-label="Checkbox for following text input" disabled> Serviços técnicos
+            </div>
+            <div class="form-group col-md-6">
+                <input type="checkbox" name="suppliers6" aria-label="Checkbox for following text input" disabled> Produção e logística'
+            </div>
+        </div>  
+
+
+        <!-- <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Serviços</label>
+                </div>
+                <select class="custom-select"
+                    id="actor_movie"
+                    name="actor_movie[]"
+                    multiple>
+                    <option disabled>Selecione os Serviços:</option>
+                    @foreach ($suppliers as $supplier)
+                        <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                    @endforeach
+                  </select>                
+              </div>
+  -->
+
+        <div class="input-group mb-3 mt-2">
+            <!-- <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            </div> -->
+            <div class="custom-file">
+                <!-- <input type="file" class="custom-file-input" id="image" name="image" >
+                <label class="custom-file-label" for="image"> </label> -->
+            <!-- </div> -->
+
+            <!-- <label for="phone">Imagem do Convite</label> -->
+            <label>Escolher Imagem:</label>
+            <input
+            type="file"
+            id="image"
+            name="image"
+            autocomplete="image"
+            placeholder=" "
+            class="form-control
+            @error('image') is-invalid @enderror"
+            value="{{ old('image') }}"
+            required
+            aria-describedby="imageHelp"
+            value="test">
+            <small id="imageHelp" class="form-text text-muted"></small>
+            @error('image')
+            <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+            </div>
+     
+        </div>
+
+
+
+        <br>
+        <button type="submit" class="btn btn-success">Registar Evento</button>
+        <br>
+
+    </form>
+    <br>
+    <br>
+    <br>
 </div>
 
 
-<form  method="POST" action="{{ url('/events') }}">
-    @csrf
-    @method('PUT')
-    <div class="space-y-12">
-
-    <div class="border-b border-gray-900/10 pb-12">
-    <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="" alt="">   
-    <div class="border-b border-gray-900/10 pb-12">
-      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-        <div class="sm:col-span-3">
-          <label for="first-name" class="block text-sm/6 font-medium text-gray-900">Nome</label>
-          <div class="mt-2">
-            <input type="text" name="name" value=" "  id="name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
-          </div>
-        </div>
-
-        <div class="sm:col-span-3">
-          <label for="last-name" class="block text-sm/6 font-medium text-gray-900">Telefone</label>
-          <div class="mt-2">
-            <input type="text" name="contact" id="contact" value=" "  autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
-          </div>
-        </div>
-
-        <div class="sm:col-span-4">
-          <label for="email" class="block text-sm/6 font-medium text-gray-900">Email</label>
-          <div class="mt-2">
-            <input id="email" name="email" type="email" value=" "  autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
-          </div>
-        </div>        
-    </div>
-
-    <div class="border-b border-gray-900/10 pb-12">     
-      <p class="mt-1 text-sm/6 text-gray-600">We'll always let you know about important changes, but you pick what else you want to hear about.</p>    
-    </div>
-  </div>
-
-  <div class="mt-6 flex items-center justify-end gap-x-6">
-    <button type="button" class="text-sm/6 font-semibold text-gray-900" href="{{url('/events')}}">Back to users List</button>
-    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
-  </div>
-</form>
