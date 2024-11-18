@@ -99,7 +99,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/invitations/{invitation}',[InvitationController::class,'destroy']);
     Route::delete('/invitations', [InvitationController::class,'eliminate']);
     Route::get('/invitations/{invitation}/pageSendEmail', [InvitationController::class,'pageSendEmail']);
-    Route::post('/invitations', [InvitationController::class,'submit']);
+    Route::post('/invitations/submit', [InvitationController::class,'submit']);
     
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers', [SupplierController::class,'index']);
