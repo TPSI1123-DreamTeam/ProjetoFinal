@@ -6,8 +6,10 @@ use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Supplier;
+
 
 
 class EventController extends Controller
@@ -57,9 +59,12 @@ class EventController extends Controller
 
     public function create(Event $event, $categoryId)
     { 
-        //$categories = Category::find($categoryId);
-        $category   = Category::find($categoryId);
-        //$title      = $category->description;
+        $suppliers = Supplier::all();//
+        //$suppliers = Supplier::distinct()->pluck('name');
+        $category  = Category::find($categoryId);
+        $categories= Category::all();
+
+        //dd($event);
 
         switch ($categoryId) {
             case '1':
@@ -89,21 +94,24 @@ class EventController extends Controller
                 break;
         }
         
-        return view('pages.events.'.$form, ['category' => $category]);
+        return view('pages.events.'.$form, ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories]);
     }
 
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEventRequest $request)
-    {
-        //dd($request);
-        $validated = $request->validated(); 
-        //dd($request->owner_id);
+    public function store(StoreEventRequest $request)//Request $formrequest
+    {       
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images/events/'), $imageName);
+        $request->image = 'images/events/'.$imageName;
 
-        Event::create($validated);
-        return redirect('events')->with('status','Item edited successfully!')->with('class', 'alert-success');
+        $validated = $request->validated(); 
+
+        $createdEvent = Event::create($validated);
+
+        return redirect('/dashboard')->with('status','Item created successfully!')->with('class', 'alert-success');
     }
 
     /**

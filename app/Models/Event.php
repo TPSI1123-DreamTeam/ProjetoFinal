@@ -27,11 +27,14 @@ class Event extends Model
         'category_id',
         'owner_id',
         'manager_id',
+        'number_of_participants',
+        'event_confirmation',
     ];
 
     protected $casts = [        
         'owner_id'      => 'integer',
         'category_id'   => 'integer',
+        //'start_time'    => 'date_format:Y-m-d H:i|after:now'
     ];
 
     public function users(): BelongsToMany{
