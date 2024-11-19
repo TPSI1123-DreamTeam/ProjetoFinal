@@ -29,11 +29,13 @@ class Event extends Model
         'manager_id',
         'number_of_participants',
         'event_confirmation',
+        'services_default_array'
     ];
 
     protected $casts = [        
         'owner_id'      => 'integer',
         'category_id'   => 'integer',
+        //'suppliers' => 'array'
         //'start_time'    => 'date_format:Y-m-d H:i|after:now'
     ];
 

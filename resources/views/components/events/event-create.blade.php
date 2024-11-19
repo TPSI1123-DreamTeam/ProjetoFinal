@@ -80,28 +80,28 @@
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers1" aria-label="Checkbox for following text input" disabled> Locação de espaços
+                <input type="checkbox" id="suppliers[]" name="suppliers[]" value="1"> Locação de espaços
             </div>
             <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers2" aria-label="Checkbox for following text input" disabled> Catering
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers3" aria-label="Checkbox for following text input" disabled> Decoração
-            </div>
-            <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers4" aria-label="Checkbox for following text input" disabled> Entretenimento
+                <input type="checkbox" id="suppliers[]" name="suppliers[]" value="2"> Catering
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers5" aria-label="Checkbox for following text input" disabled> Serviços técnicos
+                <input type="checkbox" id="suppliers[]" name="suppliers[]" value="3"> Decoração
             </div>
             <div class="form-group col-md-6">
-                <input type="checkbox" name="suppliers6" aria-label="Checkbox for following text input" disabled> Produção e logística'
+                <input type="checkbox" id="suppliers[]" name="suppliers[]" value="4"> Entretenimento
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <input type="checkbox" id="suppliers[]" name="suppliers[]" value="5"> Serviços técnicos
+            </div>
+            <div class="form-group col-md-6">
+                <input type="checkbox" id="suppliers[]" name="suppliers[]" value="6"> Produção e logística
             </div>
         </div>  
 

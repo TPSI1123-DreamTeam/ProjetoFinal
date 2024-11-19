@@ -101,18 +101,89 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEventRequest $request)//Request $formrequest
-    {       
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('images/events/'), $imageName);
-        $request->image = 'images/events/'.$imageName;
+    //public function store(StoreEventRequest $request)//Request $formrequest
+    public function store(Request $request)//: RedirectResponse
+    {    
 
-        $validated = $request->validated(); 
+        //dd($request);
+        
+        $validated = $request->validate([
+            'name'                   => 'required|string|max:255',
+            'description'            => 'required|string|max:255',
+            'localization'           => 'required|string|max:255',            
+            'start_date'             => 'date|after:now',
+            'end_date'               => 'date|after:now',
+            'owner_id'               => 'integer',
+            'category_id'            => 'integer',
+            'type'                   => 'string|max:255',
+            'amount'                 => 'between:0,999999.99',
+            'start_time'             => 'date_format:H:i',
+            'end_time'               => 'date_format:H:i|after:start_time',
+            'number_of_participants' => 'nullable|integer',
+            'image'                  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'event_confirmation'     => 'nullable|boolean',
+            'suppliers'              => 'nullable',
+        ]);
 
-        $createdEvent = Event::create($validated);
+        //dd($request);
+
+        if($request->has('image')){
+            $file = $request->file('image');
+            $imageName = time().'.'.$request->image->extension();
+            $path = 'images/events/';
+
+            $request->image->move(public_path('images/events/'), $imageName);
+        }
+
+        //dd($validated);
+
+        Event::create([
+            'description'            => $request->description,
+            'localization'           => $request->localization,            
+            'start_date'             => $request->start_date,
+            'name'                   => $request->name,
+            'end_date'               => $request->end_date,
+            'owner_id'               => $request->owner_id,
+            'category_id'            => $request->category_id, 
+            'type'                   => $request->type,
+            'amount'                 => $request->amount,
+            'start_time'             => $request->start_time,
+            'end_time'               => $request->number_of_participants,
+            'number_of_participants' => $request->integer,
+            'image'                  => $path.$imageName,
+            'event_confirmation'     => $request->event_confirmation,
+            'services_default_array' => json_encode($request->suppliers)
+        ]);
+
+        //dd($validated);
+
+
+        // $validated = $request->validated(); 
+
+        // $createdEvent = Event::create($validated);
+
+        // $imageName = time().'.'.$request->image->extension();
+        // $request->image->move(public_path('images/events/'), $imageName);
+        // $request->image = 'images/events/'.$imageName;
 
         return redirect('/dashboard')->with('status','Item created successfully!')->with('class', 'alert-success');
     }
+
+
+    /**
+ * Store a new blog post.
+ */
+// public function store(Request $request): RedirectResponse
+// {
+//     $validated = $request->validate([
+//         'title' => 'required|unique:posts|max:255',
+//         'body' => 'required',
+//     ]);
+ 
+//     // The blog post is valid...
+ 
+//     return redirect('/posts');
+// }
 
     /**
      * Display the specified resource.
