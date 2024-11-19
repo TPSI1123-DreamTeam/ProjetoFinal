@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->nullable();
             $table->integer('number_of_participants')->nullable();
             $table->boolean('event_confirmation')->default(false);
+            $table->json('services_default_array')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

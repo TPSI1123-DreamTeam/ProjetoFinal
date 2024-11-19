@@ -34,7 +34,7 @@ class StoreEventRequest extends FormRequest
             'start_time'             => 'date_format:H:i',
             'end_time'               => 'date_format:H:i|after:start_time',
             'number_of_participants' => 'nullable|integer',
-            'image'                  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            //image'                  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'event_confirmation'     => 'nullable|boolean',
         ];
     }
