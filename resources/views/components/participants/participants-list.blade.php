@@ -63,10 +63,14 @@
   <tbody>
     @foreach ($participants as $participant)
     <tr>
+        {{-- {{$participant}} --}}
       <td>{{$participant->name}}</td>
       <td>{{$participant->phone}}</td>
       <td>{{$participant->email}}</td>
-      <td>@if ($participant->confirmation) Sim @else Não @endif</td>
+      {{-- <td>@if ($participant->confirmation) Sim @else Não @endif --}}
+       <td> {{$participant->events}}
+
+      </td>
       <td style="width:210px;">{{$participant->actions}}
         <div class="pr-1">
             <a href="{{url('participants/' . $participant->id)}}" type="button"

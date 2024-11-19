@@ -32,7 +32,7 @@ class Event extends Model
         'services_default_array'
     ];
 
-    protected $casts = [        
+    protected $casts = [
         'owner_id'      => 'integer',
         'category_id'   => 'integer',
         //'suppliers' => 'array'
@@ -41,7 +41,7 @@ class Event extends Model
 
     public function users(): BelongsToMany{
 
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'event_user');
     }
 
     public function suppliers(): BelongsToMany{
@@ -49,7 +49,7 @@ class Event extends Model
         return $this->belongsToMany(Supplier::class);
     }
 
-    public function category(){  
+    public function category(){
         return $this->belongsTo(Category::class);
     }
 
