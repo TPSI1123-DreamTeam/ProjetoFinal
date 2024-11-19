@@ -103,9 +103,7 @@ class EventController extends Controller
      */
     //public function store(StoreEventRequest $request)//Request $formrequest
     public function store(Request $request)//: RedirectResponse
-    {    
-
-        //dd($request);
+    {           
         
         $validated = $request->validate([
             'name'                   => 'required|string|max:255',
@@ -124,9 +122,7 @@ class EventController extends Controller
             'event_confirmation'     => 'nullable|boolean',
             'suppliers'              => 'nullable',
         ]);
-
-        //dd($request);
-
+       
         if($request->has('image')){
             $file = $request->file('image');
             $imageName = time().'.'.$request->image->extension();
@@ -134,8 +130,6 @@ class EventController extends Controller
 
             $request->image->move(public_path('images/events/'), $imageName);
         }
-
-        //dd($validated);
 
         Event::create([
             'description'            => $request->description,
@@ -148,42 +142,17 @@ class EventController extends Controller
             'type'                   => $request->type,
             'amount'                 => $request->amount,
             'start_time'             => $request->start_time,
-            'end_time'               => $request->number_of_participants,
-            'number_of_participants' => $request->integer,
+            'end_time'               => $request->end_time,
+            'number_of_participants' => $request->number_of_participants,
             'image'                  => $path.$imageName,
             'event_confirmation'     => $request->event_confirmation,
             'services_default_array' => json_encode($request->suppliers)
         ]);
-
-        //dd($validated);
-
-
-        // $validated = $request->validated(); 
-
-        // $createdEvent = Event::create($validated);
-
-        // $imageName = time().'.'.$request->image->extension();
-        // $request->image->move(public_path('images/events/'), $imageName);
-        // $request->image = 'images/events/'.$imageName;
+       
 
         return redirect('/dashboard')->with('status','Item created successfully!')->with('class', 'alert-success');
     }
 
-
-    /**
- * Store a new blog post.
- */
-// public function store(Request $request): RedirectResponse
-// {
-//     $validated = $request->validate([
-//         'title' => 'required|unique:posts|max:255',
-//         'body' => 'required',
-//     ]);
- 
-//     // The blog post is valid...
- 
-//     return redirect('/posts');
-// }
 
     /**
      * Display the specified resource.
