@@ -25,17 +25,17 @@
     <div class="menu">
         <h2>Dashboard Menu</h2>
         <ul>
-        @switch(Auth::user()->role_id)
-                @case(1)
+        @switch(Auth::user()->role_id)  {{-- Switch Case relevante aos roles do user  --}}
+                @case(1) {{-- Admin  --}}
                     <li><a href="{{ route('users') }}">Lista de Users&nbsp; <span>&gt;</span></a></li>
                     @break
-                @case(2)
+                @case(2)  {{-- Manager  --}}
                     <li><a href="#">Gerir Eventos&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Lista de Fornecedores&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Editar Custo de Evento&nbsp; <span>&gt;</span></a></li>
                     @break
-                @case(3)
-                    <li><a href="#">Lista de Participantes&nbsp; <span>&gt;</span></a></li>
+                @case(3)   {{-- Owner  --}}
+                    <li><a href="{{ url('/participants') }}">Lista de Participantes&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
                     {{-- <li><a href="#">Lista de Fornecedores&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Editar Custo de Evento&nbsp; <span>&gt;</span></a></li> --}}
@@ -44,7 +44,7 @@
                     <li><a href="#">Relatórios&nbsp; <span>&gt;</span></a></li>
                     @break
 
-                @case(4)
+                @case(4)   {{-- Participante  --}}
                     <li><a href="#">Lista de Eventos Associados&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Histórico de Pagamentos&nbsp; <span>&gt;</span></a></li>
                     @break

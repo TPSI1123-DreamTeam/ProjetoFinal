@@ -9,6 +9,10 @@ use App\Http\Requests\UpdateParticipantRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ParticipantsExport;
 use App\Imports\ParticipantsImport;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Models\Event;
 
 class ParticipantController extends Controller
 {
@@ -17,7 +21,12 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        $participants = Participant::orderBy('id')->paginate(15);
+        $ownerId = Auth::user()->id;
+
+        $participants = User::with(['events' => function ($query) use ($ownerId) {
+            $query->where('owner_id', $ownerId);
+        }])->paginate(15);
+       // dd($participants);
         return view('pages.participants.index', ['participants' => $participants]);
     }
 

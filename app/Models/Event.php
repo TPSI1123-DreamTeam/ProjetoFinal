@@ -31,7 +31,7 @@ class Event extends Model
         'event_confirmation',
     ];
 
-    protected $casts = [        
+    protected $casts = [
         'owner_id'      => 'integer',
         'category_id'   => 'integer',
         //'start_time'    => 'date_format:Y-m-d H:i|after:now'
@@ -39,7 +39,7 @@ class Event extends Model
 
     public function users(): BelongsToMany{
 
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'event_user');
     }
 
     public function suppliers(): BelongsToMany{
@@ -47,7 +47,7 @@ class Event extends Model
         return $this->belongsToMany(Supplier::class);
     }
 
-    public function category(){  
+    public function category(){
         return $this->belongsTo(Category::class);
     }
 
