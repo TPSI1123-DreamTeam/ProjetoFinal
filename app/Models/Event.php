@@ -35,13 +35,12 @@ class Event extends Model
     protected $casts = [
         'owner_id'      => 'integer',
         'category_id'   => 'integer',
-        //'suppliers' => 'array'
-        //'start_time'    => 'date_format:Y-m-d H:i|after:now'
+    
     ];
 
     public function users(): BelongsToMany{
 
-        return $this->belongsToMany(User::class, 'event_user');
+        return $this->belongsToMany(User::class,'event_user')->withPivot('confirmation');
     }
 
     public function suppliers(): BelongsToMany{
