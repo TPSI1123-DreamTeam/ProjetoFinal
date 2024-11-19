@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Participant;
+use App\Models\User;
+use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreParticipantRequest;
 use App\Http\Requests\UpdateParticipantRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ParticipantsExport;
 use App\Imports\ParticipantsImport;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\Event;
+use Illuminate\Http\Request;
 
 class ParticipantController extends Controller
 {
@@ -23,11 +23,11 @@ class ParticipantController extends Controller
     {
         $ownerId = Auth::user()->id;
 
-        $participants = User::with(['events' => function ($query) use ($ownerId) {
-            $query->where('owner_id', $ownerId);
-        }])->paginate(15);
-       // dd($participants);
-        return view('pages.participants.index', ['participants' => $participants]);
+        $query   = Event::query();
+        $query->where('owner_id',$ownerId);
+        $events = $query->get(); 
+        
+        return view('pages.participants.index', ['participants' => null, 'events' => $events]);
     }
 
     /**
@@ -106,5 +106,19 @@ class ParticipantController extends Controller
         Excel::import(new ParticipantsImport, request()->file('file'));
 
         return redirect('participants')->with('success', 'All good!');
+    }
+
+
+    public function searchEvents(Request $request)
+    {
+        $ownerId = Auth::user()->id;
+        $query   = Event::query();
+        $query->where('owner_id',$ownerId);
+        $events = $query->get();
+
+        $participants = Event::find($request->search);
+        
+        return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
+
     }
 }

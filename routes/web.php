@@ -141,6 +141,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/categories/{category}',[CategoryController::class,'destroy']);
     Route::delete('/categories', [CategoryController::class,'eliminate']);
 
+
+    Route::post('/searchEvents', [ParticipantController::class,'searchEvents']);
+
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
 
