@@ -19,18 +19,18 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function index()
-    {        
-        $roles = Auth::user()->role_id; 
+    {
+        $roles = Auth::user()->role_id;
 
-        switch($roles) 
-        {  
+        switch($roles)
+        {
             case 1:
-                return $this->AdminDashboard();   
+                return $this->AdminDashboard();
             case 2:
                 return $this->ManagerDashboard();
             case 3:
-                return $this->OwnerDashboard();        
-            case 4:       
+                return $this->OwnerDashboard();
+            case 4:
                 return $this->ParticipantDashboard();
         }
     }
@@ -38,7 +38,7 @@ class DashboardController extends Controller
 
      public function AdminDashboard()
      {
-        
+
         $users = User::all();
         return view('pages.dashboard.admin', ['users' => $users]);
      }
@@ -47,11 +47,11 @@ class DashboardController extends Controller
      {
 
         $user = Auth::user();
-        
+
         // Lista de eventos para gestão e ações específicas para manager
         $events = Event::all();
         $suppliers = Supplier::all(); // Adicionar e editar fornecedores (sem remover)
-        
+
         return view('pages.dashboard.manager')->with([
             'user' => $user,
             'events' => $events,
@@ -63,7 +63,7 @@ class DashboardController extends Controller
      public function OwnerDashboard()
      {
         $user = Auth::user();
-        
+
         // Lista de participantes e eventos com permissões completas para o proprietário do evento
         //$participants = Participant::all();
         $events = Event::all();
@@ -83,7 +83,7 @@ class DashboardController extends Controller
     public function ParticipantDashboard()
     {
         $user = Auth::user();
-        
+
         // Lista de eventos em que o utilizador está presente e histórico de pagamentos
         //$events = Event::where('participants.user_id', $user->id)->get();
         //$payments = Payment::where('user_id', $user->id)->get();
@@ -93,6 +93,12 @@ class DashboardController extends Controller
             //'events' => $events,
             //'payments' => $payments,
         ]);
+    }
+
+    public function ParticipantList()
+    {
+        
+
     }
 }
 

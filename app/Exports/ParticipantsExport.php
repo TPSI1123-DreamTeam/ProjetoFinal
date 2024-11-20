@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Participant;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ParticipantsExport implements FromCollection
@@ -12,6 +13,6 @@ class ParticipantsExport implements FromCollection
     */
     public function collection()
     {
-        return Participant::all();
+        return User::all();
     }
 }

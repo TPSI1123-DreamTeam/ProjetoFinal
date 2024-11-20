@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Participant;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class ParticipantsImport implements ToModel

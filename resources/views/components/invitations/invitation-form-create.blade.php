@@ -77,29 +77,6 @@
        <br>
 
        <div class="form-group">
-        <label for="phone">Descrição do convite</label>
-        <input
-        type="text"
-        id="body"
-        name="body"
-        autocomplete="body"
-        placeholder="Do que se trata o evento"
-        class="form-control
-        @error('body') is-invalid @enderror"
-        value="{{ old('body') }}"
-        required
-        aria-describedby="bodyHelp"
-        value="test">
-        <small id="bodyHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-        @error('body')
-        <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-        </div>
-       <br>
-
-       <div class="form-group">
         <label for="phone">Data</label>
         <input
         type="text"

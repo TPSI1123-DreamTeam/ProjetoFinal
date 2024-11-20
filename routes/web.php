@@ -106,7 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/invitations/{invitation}',[InvitationController::class,'destroy']);
     Route::delete('/invitations', [InvitationController::class,'eliminate']);
     Route::get('/invitations/{invitation}/pageSendEmail', [InvitationController::class,'pageSendEmail']);
-    Route::post('/invitations', [InvitationController::class,'submit']);
+    Route::post('/invitations/submit', [InvitationController::class,'submit']);
 
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers', [SupplierController::class,'index']);
@@ -140,6 +140,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/categories/{category}', [CategoryController::class,'update']);
     Route::delete('/categories/{category}',[CategoryController::class,'destroy']);
     Route::delete('/categories', [CategoryController::class,'eliminate']);
+
+
+    Route::post('/searchEvents', [ParticipantController::class,'searchEvents']);
 
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });

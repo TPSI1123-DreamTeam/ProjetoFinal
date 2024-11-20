@@ -27,16 +27,20 @@ class Event extends Model
         'category_id',
         'owner_id',
         'manager_id',
+        'number_of_participants',
+        'event_confirmation',
+        'services_default_array'
     ];
 
-    protected $casts = [        
+    protected $casts = [
         'owner_id'      => 'integer',
         'category_id'   => 'integer',
+    
     ];
 
     public function users(): BelongsToMany{
 
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class,'event_user')->withPivot('confirmation');
     }
 
     public function suppliers(): BelongsToMany{
@@ -44,7 +48,7 @@ class Event extends Model
         return $this->belongsToMany(Supplier::class);
     }
 
-    public function category(){  
+    public function category(){
         return $this->belongsTo(Category::class);
     }
 

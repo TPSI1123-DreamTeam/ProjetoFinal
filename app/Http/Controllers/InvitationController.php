@@ -83,7 +83,7 @@ class InvitationController extends Controller
 
     public function pageSendEmail(Invitation $invitation)
     {
-        return view('pages.invitations.email', ['invitation' => $invitation]);
+        return view('pages.invitations.email', ['invitation' => $invitation]);             
     }
 
     public function submit(Request $request)
