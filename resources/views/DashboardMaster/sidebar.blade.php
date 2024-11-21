@@ -36,7 +36,7 @@
                     @break
                 @case(3)
                     <li><a href="{{ url('/participants') }}">Lista de Participantes&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="#">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ url('/events') }}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
                     {{-- <li><a href="#">Lista de Fornecedores&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Editar Custo de Evento&nbsp; <span>&gt;</span></a></li> --}}
                     <li><a href="#">Carregar Convite&nbsp; <span>&gt;</span></a></li>
