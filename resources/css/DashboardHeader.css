@@ -16,6 +16,7 @@
 .hamburger {
     display: block;
     cursor: pointer;
+    position: relative;
 }
 
 .hamburger span {
@@ -24,7 +25,23 @@
     height: 3px;
     background-color: #fff;
     margin: 5px 0;
-    transition: 0.4s;
+    transition: 0.4s ease-in-out;
+}
+
+.menu-open .hamburger span:nth-child(1) {
+    transform: rotate(45deg);
+    position: absolute;
+    top: 8px;
+}
+
+.menu-open .hamburger span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-open .hamburger span:nth-child(3) {
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 8px;
 }
 
 .logo {
