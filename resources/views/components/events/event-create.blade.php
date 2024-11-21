@@ -19,6 +19,7 @@
             <input type="hidden" name="owner_id"    id="owner_id"    value="{{ Auth::User()->id }}" >
             <input type="hidden" name="category_id" id="category_id" value="{{ $category->id }}" >
             <input type="hidden" name="amount"      id="amount" value="0" >
+            <input type="hidden" name="ticket_amount" id="ticket_amount" value="0" >
             <input type="hidden" name="event_confirmation"  id="event_confirmation" value="0" >
             </div>
 

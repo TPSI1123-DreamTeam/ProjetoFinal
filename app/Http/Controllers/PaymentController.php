@@ -31,7 +31,7 @@ class PaymentController extends Controller
         // Obtém o ID do evento e o valor do pagamento
         $user = auth()->user();
         $event = Event::findOrFail($event->id);
-        $amount = $event->amount;
+        $amount = $event->ticket_amount;
 
         // Converte o valor para cêntimos
         $amountCents = $amount * 100;
@@ -41,7 +41,7 @@ class PaymentController extends Controller
         $payment->stripe_id = 0;
         $payment->user_id = $user->id;
         $payment->name = $event->name;
-        $payment->amount = $event->amount;
+        $payment->amount = $event->ticket_amount;
         $payment->status = false; // O pagamento ainda foi confirmado
         $payment->date = now(); // Utiliza o método now() para obter a data atual
         $payment->save();
