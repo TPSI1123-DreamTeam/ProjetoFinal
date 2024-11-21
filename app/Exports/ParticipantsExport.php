@@ -4,15 +4,30 @@ namespace App\Exports;
 
 use App\Models\Participant;
 use App\Models\User;
+use App\Models\Event;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class ParticipantsExport implements FromCollection
+use Maatwebsite\Excel\Concerns\WithProperties;
+
+class ParticipantsExport implements WithProperties
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    public function properties(): array
     {
-        return User::all();
+        return [
+            'creator'        => $participants->name,
+            'lastModifiedBy' => 'Patrick Brouwers',
+            'title'          => 'Invoices Export',
+            'description'    => 'Latest Invoices',
+            'subject'        => 'Invoices',
+            'keywords'       => 'invoices,export,spreadsheet',
+            'category'       => 'Invoices',
+            'manager'        => 'Patrick Brouwers',
+            'company'        => 'Maatwebsite',
+        ];
     }
 }
