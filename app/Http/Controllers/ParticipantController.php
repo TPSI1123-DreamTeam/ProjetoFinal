@@ -114,7 +114,7 @@ class ParticipantController extends Controller
 
 
        // dd($participants->users);
-        return Excel::download(new ParticipantsExport($number), 'participants.xlsx');
+        return Excel::download(new ParticipantsExport($participants->users), 'participants.xlsx');
     }
 
     public function import()
@@ -137,4 +137,6 @@ class ParticipantController extends Controller
         return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
 
     }
+
+
 }
