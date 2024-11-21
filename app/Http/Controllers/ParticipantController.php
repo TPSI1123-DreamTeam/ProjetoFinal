@@ -117,11 +117,14 @@ class ParticipantController extends Controller
         return Excel::download(new ParticipantsExport($participants->users), 'participants.xlsx');
     }
 
-    public function import()
+    public function import(Request $request)
     {
-        Excel::import(new ParticipantsImport, request()->file('file'));
+       $participants = Excel::toArray(new ParticipantsImport(), request()->file('file'));
+        dd($participants);
 
-        return redirect('participants')->with('success', 'All good!');
+
+        return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
+       // return redirect('participants')->with('success', 'All good!');
     }
 
 
