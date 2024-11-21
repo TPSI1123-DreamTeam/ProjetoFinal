@@ -18,16 +18,16 @@
         </div>
 
         @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
-        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">                  
+        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
             <form class="form-inline my-2 my-lg-0">
             <a class="nav-link" href="{{url('participants/export/' . $participants->id)}}">Export</a>
-             </form>       
+             </form>
 
             <form method="POST" action="{{url('participants/import')}}" enctype="multipart/form-data">
                 @csrf
                <div class="mt-2">
                 <label>Escolher Ficheiro:</label>
-                <input type="file" name="file" class="form-control">
+                <input type="file" id="ExcelFile" name="file" class="form-control">
                </div>
                <div class="mt-2">
                 <button class="btn btn-success">Submeter</button>
