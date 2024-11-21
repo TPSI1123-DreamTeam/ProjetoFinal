@@ -11,7 +11,7 @@
                        data-description="{{$event->description}}"
                        data-location="{{$event->localization}}"
                        data-start-date="{{$event->start_date}}"
-                       data-amount="{{$event->amount}}"
+                       data-amount="{{$event->ticket_amount}}"
                        data-availability="{{$event->availability}}"
                        data-image="{{ asset('images/' . $event->image) }}">
                        <img src="{{ asset('images/' . $event->image) }}" alt="Evento" class="card-image">

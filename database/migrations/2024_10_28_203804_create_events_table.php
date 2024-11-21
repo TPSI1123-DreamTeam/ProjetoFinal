@@ -22,6 +22,7 @@ return new class extends Migration
             $table->time('end_time')->nullable();
             $table->string('type')->default('private'); // public, private
             $table->decimal('amount', 10, 2)->nullable();
+            $table->decimal('ticket_amount', 10, 2)->nullable();
             $table->string('image')->nullable(); 
             $table->integer('owner_id')->nullable();
             $table->integer('manager_id')->nullable();  

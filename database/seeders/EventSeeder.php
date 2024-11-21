@@ -71,6 +71,10 @@ class EventSeeder extends Seeder
 
             $date = fake()->dateTimeBetween('-1 week', '+1 week');
 
+            $amount       = rand(1000,20000);
+            $usersRandom  = rand(20, 50);
+            $ticketAmount = (($amount / $usersRandom) *1.5);
+
             $event = Event::create([
                 'name'          => $arrayCategory[$categoryRandom]['description'],
                 'category_id'   => $arrayCategory[$categoryRandom]['id'],
@@ -80,13 +84,15 @@ class EventSeeder extends Seeder
                 'start_date'    => $date,
                 'end_date'      => $date,
                 'type'          => $arrayType[$typeRandom],
-                'amount'        => rand(1000,20000),
+                'amount'        => $amount,
+                'ticket_amount' => $ticketAmount,
                 'owner_id'      => rand(1,100),
+                'number_of_participants'  => $usersRandom,
                 'manager_id'    => $arrayManager[$managerRandom]               
             ]);
        
    
-            $users = User::inRandomOrder()->take(rand(20, 50))->pluck('id');
+            $users = User::inRandomOrder()->take($usersRandom)->pluck('id');
             $event->users()->attach($users);
         }   
     }

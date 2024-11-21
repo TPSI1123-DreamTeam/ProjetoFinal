@@ -2,28 +2,28 @@
     <div class="row align-items-center">
         <div class="col-md-6 mt-3">
             <div class="mb-3">
-                <h5 class="card-title">Participantes no Evento Selecionado<span class="text-muted fw-normal ms-2">
-                @if(isset($participants) && $participants->users && $participants->users->isNotEmpty() && isset($participants->users))
-                    ({{ count($participants->users) }})
+                <h5 class="card-title">Eventos<span class="text-muted fw-normal ms-2">
+                @if(isset($events) && $events->isNotEmpty())
+                    ({{ count($events) }})
                 @else
                     (0)
                 @endif
                 </span></h5>
                 <h6 class="card-title">
-                  @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
-                  Evento: {{ $participants->name }} - Data: {{ $participants->start_date }} - Hora: {{ date('H:i', strtotime($participants->start_time)) }}
+                  @if(isset($events) && $events->isNotEmpty())
+                  Evento: {{ $events->name }} - Data: {{ $events->start_date }} - Hora: {{ date('H:i', strtotime($events->start_time)) }}
                   @endif
                  <span class="text-muted fw-normal ms-2"></h6>
             </div>
         </div>
 
-        @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
+        @if(isset($events) && $events->isNotEmpty())
         <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">                  
             <form class="form-inline my-2 my-lg-0">
-            <a class="nav-link" href="{{url('participants/export/' . $participants->id)}}">Export</a>
+            <a class="nav-link" href="{{url('events/export/' . $events->id)}}">Export</a>
              </form>       
 
-            <form method="POST" action="{{url('participants/import')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{url('events/import')}}" enctype="multipart/form-data">
                 @csrf
                <div class="mt-2">
                 <label>Escolher Ficheiro:</label>
@@ -76,8 +76,8 @@
                         </thead>
                         <tbody>
 
-                        @if( !empty($participants) )
-                        @foreach ($participants->users as $participant)
+                        @if( !empty($events) )
+                        @foreach ($events->users as $participant)
                              <tr>
                                 <th scope="row" class="">{{ $loop->iteration }}
                                 </th>

@@ -29,7 +29,8 @@ class Event extends Model
         'manager_id',
         'number_of_participants',
         'event_confirmation',
-        'services_default_array'
+        'services_default_array',
+        'ticket_amount'
     ];
 
     protected $casts = [

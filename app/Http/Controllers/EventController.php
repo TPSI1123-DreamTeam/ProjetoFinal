@@ -27,6 +27,8 @@ class EventController extends Controller
         $events = $query->get();
         $suppliers = Supplier::all();
 
+       // dd($events);
+
         return view('pages.events.index', ['events' => $events, 'suppliers' => $suppliers]);
     }
 
@@ -124,6 +126,7 @@ class EventController extends Controller
             'number_of_participants' => 'nullable|integer',           
             'event_confirmation'     => 'nullable|boolean',
             'suppliers'              => 'nullable',
+            'ticket_amount'          => 'between:0,999999.99',
         ]);
 
         $event = Event::create([
@@ -140,6 +143,7 @@ class EventController extends Controller
             'end_time'               => $request->end_time,
             'number_of_participants' => $request->number_of_participants,
             'event_confirmation'     => $request->event_confirmation,
+            'ticket_amount'          => $request->ticket_amount,
             'services_default_array' => json_encode($request->suppliers)
         ]);
 
