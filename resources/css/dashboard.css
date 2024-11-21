@@ -58,3 +58,20 @@ body::-webkit-scrollbar {
     justify-content: flex-start;
     align-items: center;
 }
+
+.sidebar.hidden {
+    position: relative;
+    display: none;
+}
+
+.sidebar.hidden + .after-content {
+    width: 100%;
+}
+
+.linha-divisoria {
+    border: none;
+    border-top: 2px solid #EB5B38;
+    margin: 20px 0;
+    width: 70%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
