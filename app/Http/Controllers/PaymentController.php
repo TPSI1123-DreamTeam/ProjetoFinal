@@ -6,10 +6,23 @@ use Stripe\Checkout\Session as StripeSession;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Payment;
+use App\Models\User;
 use Log;
 
 class PaymentController extends Controller
 {
+    public function list()
+    {
+
+        $user = auth()->user();
+    
+        $payments = Payment::where('user_id', $user->id)->paginate(10);
+    
+        return view('pages.payments.index', ['payments' => $payments, 'user' => $user]);
+
+        
+    }
+
     public function checkout(Request $request, Event $event)
     {
         // Configura a API Key do Stripe
@@ -26,13 +39,12 @@ class PaymentController extends Controller
         // Cria um novo pagamento
         $payment = new Payment();
         $payment->stripe_id = 0;
+        $payment->user_id = $user->id;
         $payment->name = $event->name;
         $payment->amount = $event->amount;
         $payment->status = false; // O pagamento ainda foi confirmado
         $payment->date = now(); // Utiliza o método now() para obter a data atual
         $payment->save();
-
-        $currentAccount = new CurrentAccount();
         
         
         // Cria uma nova sessão de checkout

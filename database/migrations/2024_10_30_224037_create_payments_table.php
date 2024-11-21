@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('stripe_id');            
             // $table->foreignId('event_id')->constrained('events');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('name');
             $table->decimal('amount', 10, 2);
             $table->date('date');

@@ -47,15 +47,20 @@
                     @break
 
                 @case(4)   {{-- Participante  --}}
-                    <li><a href="#">Meus Eventos&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="#">Histórico de Pagamentos&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ url('/events') }}">Meus Eventos&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ url('/payment-list') }}">Histórico de Pagamentos&nbsp; <span>&gt;</span></a></li>
                     @break
-            @endswitch
+                    @endswitch
+                    <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="logout-button">Logout</button>
+                    </form>
+
+                    <form method="GET" action="{{ url('/') }}">
+                    <button type="submit" class="logout-button">Regressar à Página Principal</button>
+                    </form>
 
         </ul>
     </div>
-    <form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit" class="logout-button">Logout</button>
     </form>
 </div>
