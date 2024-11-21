@@ -33,8 +33,7 @@ class StoreEventRequest extends FormRequest
             'amount'                 => 'between:0,999999.99',
             'start_time'             => 'date_format:H:i',
             'end_time'               => 'date_format:H:i|after:start_time',
-            'number_of_participants' => 'nullable|integer',
-            //image'                  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'number_of_participants' => 'nullable|integer',         
             'event_confirmation'     => 'nullable|boolean',
         ];
     }

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use Illuminate\Http\Request;
+use App\Models\Event;
 use App\Models\Category;
 use App\Models\Supplier;
+use App\Models\SupplierType;
 
 
 
@@ -20,7 +21,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
-        return view('pages.events.index', ['events' => $events]);
+        return view('pages.events.index', ['events' => $events, 'suppliers' => $suppliers]);
     }
 
     /**
@@ -59,13 +60,6 @@ class EventController extends Controller
 
     public function create(Event $event, $categoryId)
     { 
-        $suppliers = Supplier::all();//
-        //$suppliers = Supplier::distinct()->pluck('name');
-        $category  = Category::find($categoryId);
-        $categories= Category::all();
-
-        //dd($event);
-
         switch ($categoryId) {
             case '1':
                 $form = "create";          
@@ -93,18 +87,22 @@ class EventController extends Controller
                 $form = "create";              
                 break;
         }
+
+        $SupplierType = SupplierType::all();
+        $suppliers    = Supplier::all();
+        $category     = Category::find($categoryId);
+        $categories   = Category::all();
         
-        return view('pages.events.'.$form, ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories]);
+        return view('pages.events.'.$form, ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories, 'SupplierType' => $SupplierType]);
     }
 
 
     /**
      * Store a newly created resource in storage.
      */
-    //public function store(StoreEventRequest $request)//Request $formrequest
-    public function store(Request $request)//: RedirectResponse
-    {           
-        
+    public function store(Request $request)
+    {        
+               
         $validated = $request->validate([
             'name'                   => 'required|string|max:255',
             'description'            => 'required|string|max:255',
@@ -117,25 +115,16 @@ class EventController extends Controller
             'amount'                 => 'between:0,999999.99',
             'start_time'             => 'date_format:H:i',
             'end_time'               => 'date_format:H:i|after:start_time',
-            'number_of_participants' => 'nullable|integer',
-            'image'                  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'number_of_participants' => 'nullable|integer',           
             'event_confirmation'     => 'nullable|boolean',
             'suppliers'              => 'nullable',
         ]);
-       
-        if($request->has('image')){
-            $file = $request->file('image');
-            $imageName = time().'.'.$request->image->extension();
-            $path = 'images/events/';
 
-            $request->image->move(public_path('images/events/'), $imageName);
-        }
-
-        Event::create([
+        $event = Event::create([
+            'name'                   => $request->name,
             'description'            => $request->description,
             'localization'           => $request->localization,            
             'start_date'             => $request->start_date,
-            'name'                   => $request->name,
             'end_date'               => $request->end_date,
             'owner_id'               => $request->owner_id,
             'category_id'            => $request->category_id, 
@@ -144,10 +133,22 @@ class EventController extends Controller
             'start_time'             => $request->start_time,
             'end_time'               => $request->end_time,
             'number_of_participants' => $request->number_of_participants,
-            'image'                  => $path.$imageName,
             'event_confirmation'     => $request->event_confirmation,
             'services_default_array' => json_encode($request->suppliers)
         ]);
+
+
+        if($request->has('image')){
+            $file      = $request->file('image');
+            $imageName = time().'.'.$request->image->extension();
+            $path      = 'images/events/'.$event->id;
+
+            $request->image->move(public_path($path), $imageName);
+        }
+
+        $update = Event::find($event->id);
+        $update->image = $imageName;
+        $update->save();
        
 
         return redirect('/dashboard')->with('status','Item created successfully!')->with('class', 'alert-success');
@@ -193,7 +194,6 @@ class EventController extends Controller
         dd($request);
         //$validated = $request->validated(); 
         //dd($request->owner_id);
-
 
         //Event::create($validated);
         //return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
