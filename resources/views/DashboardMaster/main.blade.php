@@ -22,7 +22,6 @@
                 @yield('content')
             </div>
         </main>
-        
     </div>
     @vite('resources/js/toggle-sidebar.js')
 </body>

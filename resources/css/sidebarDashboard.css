@@ -1,6 +1,6 @@
 .sidebar {
     width: 250px;
-    height: 100vh;
+    height: 100;
     background-color: #2b2f38;
     color: white;
     display: flex;
@@ -94,4 +94,9 @@
 .user-info a {
     text-decoration: none;
     color: white;
+}
+
+form {
+    margin: auto;
+    margin-bottom: 0;
 }
