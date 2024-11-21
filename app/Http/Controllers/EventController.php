@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Category;
@@ -20,8 +21,12 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
-        $suppliers    = Supplier::all();
+        $ownerId = Auth::user()->id;
+        $query   = Event::query();
+        $query->where('owner_id',$ownerId);
+        $events = $query->get();
+        $suppliers = Supplier::all();
+
         return view('pages.events.index', ['events' => $events, 'suppliers' => $suppliers]);
     }
 
@@ -149,8 +154,7 @@ class EventController extends Controller
 
         $update = Event::find($event->id);
         $update->image = $imageName;
-        $update->save();
-       
+        $update->save();       
 
         return redirect('/dashboard')->with('status','Item created successfully!')->with('class', 'alert-success');
     }
