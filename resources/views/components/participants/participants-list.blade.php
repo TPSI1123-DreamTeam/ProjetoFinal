@@ -21,10 +21,11 @@
             </div>
         </div>
 
-        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+        @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
+        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">                  
             <form class="form-inline my-2 my-lg-0">
             <a class="nav-link" href="{{url('participants/export/' . $participants->id)}}">Export</a>
-             </form>
+             </form>       
 
             <form method="POST" action="{{url('participants/import')}}" enctype="multipart/form-data">
                 @csrf
@@ -37,6 +38,7 @@
                </div>
             </form>
         </div>
+        @endif
 
           <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
 
