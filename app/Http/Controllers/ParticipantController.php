@@ -13,6 +13,11 @@ use App\Imports\ParticipantsImport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
 class ParticipantController extends Controller
 {
@@ -25,8 +30,8 @@ class ParticipantController extends Controller
 
         $query   = Event::query();
         $query->where('owner_id',$ownerId);
-        $events = $query->get(); 
-        
+        $events = $query->get();
+
         return view('pages.participants.index', ['participants' => null, 'events' => $events]);
     }
 
@@ -96,9 +101,20 @@ class ParticipantController extends Controller
 
     // EXCEL FUNCTIONS  //
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new ParticipantsExport, 'participants.xlsx');
+        $url = $request->server('PATH_INFO'); // Encontra o número após a última barra
+        if (preg_match('/\/(\d+)$/', $url, $matches)) {
+            $number = (int) $matches[1];
+            //echo $number;
+        }
+
+
+        $participants = Event::find($number);
+
+
+       // dd($participants->users);
+        return Excel::download(new ParticipantsExport($number), 'participants.xlsx');
     }
 
     public function import()
@@ -117,7 +133,7 @@ class ParticipantController extends Controller
         $events = $query->get();
 
         $participants = Event::find($request->search);
-        
+
         return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
 
     }

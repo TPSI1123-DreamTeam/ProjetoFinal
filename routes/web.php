@@ -80,14 +80,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/events',                   [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create/{id}', [EventController::class,'create'])->name('events.create');
     Route::post('/events',                  [EventController::class, 'store']);
-    //Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');    
+    //Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');
     Route::get('/events/eventsbyowner', [EventController::class,'eventsbyowner']);
 
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
     Route::get('/participants/create',[ParticipantController::class, 'create']);
     Route::post('/participants', [ParticipantController::class, 'store']);
-    Route::get('participants/export', [ParticipantController::class, 'export']);
+   // Route::get('participants/export', [ParticipantController::class, 'export']);
+    Route::get('participants/export/{event}', [ParticipantController::class, 'export']);
     //Route::get('participants', [ParticipantController::class, 'index'])->name('participants.index');
     Route::post('participants/import',[ParticipantController::class, 'import'])->name('participants.import');
     Route::get('/participants/{participant}', [ParticipantController::class, 'show']);

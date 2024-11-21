@@ -11,19 +11,36 @@
                     ({{ count($participants->users) }})
                 @else
                     (0)
-                @endif             
+                @endif
                 </span></h5>
                 <h6 class="card-title">
                   @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
                   Evento: {{ $participants->name }} - Data: {{ $participants->start_date }} - Hora: {{ date('H:i', strtotime($participants->start_time)) }}
-                  @endif  
+                  @endif
                  <span class="text-muted fw-normal ms-2"></h6>
-            </div> 
+            </div>
         </div>
 
-          <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">   
-            
-            
+        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+            <form class="form-inline my-2 my-lg-0">
+            <a class="nav-link" href="{{url('participants/export/' . $participants->id)}}">Export</a>
+             </form>
+
+            <form method="POST" action="{{url('participants/import')}}" enctype="multipart/form-data">
+                @csrf
+               <div class="mt-2">
+                <label>Escolher Ficheiro:</label>
+                <input type="file" name="file" class="form-control">
+               </div>
+               <div class="mt-2">
+                <button class="btn btn-success">Submeter</button>
+               </div>
+            </form>
+        </div>
+
+          <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+
+
             <div class="col-md-6 ">
               <div class="form-group">
                 <form action="/searchEvents" method="POST">
@@ -34,14 +51,15 @@
                       @foreach ($events as $event)
                       <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
                       @endforeach
-                      
+
                     </select>
                     <button type="submit" class="btn btn-primary" >Search</button>
                   </div>
                 </form>
-              </div>  
+              </div>
             </div>
         </div>
+
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -49,7 +67,7 @@
                 <div class="table-responsive">
                     <table class="table project-list-table table-nowrap align-middle table-borderless">
                         <thead>
-                            <tr>                               
+                            <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Contacto</th>
@@ -60,15 +78,15 @@
                         </thead>
                         <tbody>
 
-                        @if( !empty($participants) )               
-                        @foreach ($participants->users as $participant)               
+                        @if( !empty($participants) )
+                        @foreach ($participants->users as $participant)
                              <tr>
-                                <th scope="row" class="">{{ $loop->iteration }}                                   
+                                <th scope="row" class="">{{ $loop->iteration }}
                                 </th>
                                 <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" /><a href="#" class="text-body">{{$participant->name}} </a></td>
                                 <td><span class="badge badge-soft-success mb-0">{{$participant->phone}}</span></td>
                                 <td>{{$participant->email}}</td>
-                                <td>{{$participant->pivot->confirmation}}</td>
+                                <td>@if ($participant->pivot->confirmation) Sim @else Não  @endif</td>
                                 <td>
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item">
@@ -87,7 +105,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                          @endif                           
+                          @endif
                         </tbody>
                     </table>
                 </div>
@@ -100,16 +118,16 @@
         </div>
         <div class="col-sm-6">
             <div class="float-sm-end">
-                <ul class="pagination mb-sm-0">            
-              </ul>                
+                <ul class="pagination mb-sm-0">
+              </ul>
             </div>
-        </div>   
-    </div> 
+        </div>
+    </div>
 </div>
 
 <style>
 body{
-  
+
   margin-top:20px;
   background-color:#eee;
 }
