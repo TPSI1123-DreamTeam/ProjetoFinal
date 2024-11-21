@@ -2,6 +2,7 @@
 @import 'DashboardHeader.css';
 @import 'front-dashboard.css';
 @import 'dateTime.css';
+@import 'payments-history.css';
 
 * {
     margin: 0;
