@@ -1,0 +1,86 @@
+.front-dashboard-wrapper {
+    padding: 3rem 0;
+}
+
+.front-dashboard-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .front-dashboard-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.front-dashboard-card {
+    display: flex;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.front-dashboard-card h1, .front-dashboard-card h3 {
+    margin-bottom: 1rem;
+    color: #1a202c;
+    font-weight: 600;
+}
+
+.front-dashboard-card h2 {
+    margin-top: 1rem;
+    color: #4a5568;
+}
+
+.front-dashboard-profile-summary {
+    background-color: #edf2f7;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+    width: 100%;
+}
+
+.front-dashboard-profile-summary .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.front-dashboard-profile-summary .row:last-child {
+    margin-bottom: 0;
+}
+
+.front-dashboard-profile-summary .label {
+    color: #4a5568;
+}
+
+.front-dashboard-profile-summary .value {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.edit-profile-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #4c51bf;
+    color: #ffffff;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+}
+
+.edit-profile-btn:hover {
+    background-color: #434190;
+}

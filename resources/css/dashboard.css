@@ -1,5 +1,7 @@
 @import 'sidebarDashboard.css';
 @import 'DashboardHeader.css';
+@import 'front-dashboard.css';
+@import 'dateTime.css';
 
 * {
     margin: 0;
@@ -38,9 +40,21 @@ body::-webkit-scrollbar {
 .content {
     flex: 1;
     display: flex;
+}
+
+.container {
+    width: 100% !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    top: 0 !important;
+}
+
+.after-content {
+    margin: 0 auto;
+    display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
     justify-content: flex-start;
     align-items: center;
-    align-content: space-around;
-    flex-wrap: wrap;
 }
