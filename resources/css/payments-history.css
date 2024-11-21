@@ -1,0 +1,57 @@
+.payments-header {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Títulos e Textos */
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937; /* text-gray-900 */
+    margin: 0;
+    padding: 0 0 1rem 0;
+}
+
+p {
+    font-size: 1rem;
+    color: #374151; /* text-gray-700 */
+    line-height: 1.5;
+    max-width: 900px;
+    text-align: justify;
+    margin-bottom: 25px;
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db; /* border-gray-300 */
+}
+
+th, td {
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    padding: 0.5rem;
+    text-align: left;
+    font-size: 1rem;
+}
+
+th {
+    font-weight: 700;
+    color: white; 
+    background-color: #EB5B38;
+}
+
+td {
+    color: #1f2937; /* text-gray-900 */
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff; /* bg-white */
+}
+
+tr:nth-child(even) {
+    background-color: #f9fafb; /* bg-gray-50 */
+}

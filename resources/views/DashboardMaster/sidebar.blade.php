@@ -51,16 +51,15 @@
                     <li><a href="{{ url('/payment-list') }}">Histórico de Pagamentos&nbsp; <span>&gt;</span></a></li>
                     @break
                     @endswitch
-                    <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="logout-button">Logout</button>
-                    </form>
-
-                    <form method="GET" action="{{ url('/') }}">
-                    <button type="submit" class="logout-button">Regressar à Página Principal</button>
-                    </form>
-
         </ul>
     </div>
-    </form>
+    <div class="buttons-dashboard">
+        <form method="GET" action="{{ url('/') }}">
+            <button type="submit" class="logout-button">Voltar</button>
+        </form>
+        <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
 </div>

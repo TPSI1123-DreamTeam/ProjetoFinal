@@ -96,7 +96,11 @@
     color: white;
 }
 
-form {
+.buttons-dashboard {
+    gap: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     margin: auto;
     margin-bottom: 0;
 }
