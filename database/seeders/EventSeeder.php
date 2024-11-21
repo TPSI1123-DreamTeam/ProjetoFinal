@@ -68,26 +68,24 @@ class EventSeeder extends Seeder
             $categoryRandom = rand(0,6);
             $managerRandom  = rand(0,1);
             $typeRandom     = rand(0,1);
-
-            $date = fake()->dateTimeBetween('-1 week', '+1 week');
-
-            $randomAmount = rand(1000,20000);
-            $randomUsers  = rand(20, 50);
-            $ticketAmount =  ($randomAmount / $randomUsers) / 2;
+            $date           = fake()->dateTimeBetween('-1 week', '+1 week');
+            $randomAmount   = rand(1000,20000);
+            $randomUsers    = rand(20, 50);
+            $ticketAmount   = ($randomAmount / $randomUsers) / 3;
 
             $event = Event::create([
-                'name'          => $arrayCategory[$categoryRandom]['description'],
-                'category_id'   => $arrayCategory[$categoryRandom]['id'],
-                'image'         => $arrayCategory[$categoryRandom]['image'],
-                'description'   => fake()->realText(rand(500,700)),
-                'localization'  => fake()->city(),
-                'start_date'    => $date,
-                'end_date'      => $date,
-                'type'          => $arrayType[$typeRandom],
-                'amount'        => $randomAmount,
-                'ticket_amount' => $ticketAmount,
-                'owner_id'      => rand(1,100),
-                'manager_id'    => $arrayManager[$managerRandom],               
+                'name'                   => $arrayCategory[$categoryRandom]['description'],
+                'category_id'            => $arrayCategory[$categoryRandom]['id'],
+                'image'                  => $arrayCategory[$categoryRandom]['image'],
+                'description'            => fake()->realText(rand(500,700)),
+                'localization'           => fake()->city(),
+                'start_date'             => $date,
+                'end_date'               => $date,
+                'type'                   => $arrayType[$typeRandom],
+                'amount'                 => $randomAmount,
+                'ticket_amount'          => $ticketAmount,
+                'owner_id'               => rand(1,100),
+                'manager_id'             => $arrayManager[$managerRandom],               
                 'number_of_participants' => $randomUsers
             ]);
        
