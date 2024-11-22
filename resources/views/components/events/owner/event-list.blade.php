@@ -1,9 +1,9 @@
 <div class="flex-1 p-8 overflow-y-auto">
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
  
- <div class="container-fluid">
+ <div class="container">
      <div class="d-flex align-items-center">
-         <p class="text-sm/6 font-bold text-gray-900">Event List</p>
+         <p class="text-sm/6 font-bold text-gray-900">Lista de Eventos</p>
      </div>
  </div>
  <table class="min-w-full bg-white border mt-5">
@@ -32,10 +32,12 @@
              <td class="border border-gray-300 px-4 py-2">{{ $event->amount }}€</td>
              <td class="border border-gray-300 px-4 py-2">{{ $event->event_status }}</td>
              <td class="border border-gray-300 px-4 py-2">
-                <a  href="{{ url('event/' . $event->id) }}" >
+                <a  href="{{ url('events/owner/' . $event->id) }}" >
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Ver</button>
                 </a>
-                 <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"><a  href="{{ url('event/' . $event->id) }}" ></a>Editar</button>
+                <a  href="{{ url('events/owner/' . $event->id . '/edit') }}" >
+                    <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">Editar</button>
+                </a>
                  <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
                  @if( $event->event_status != 'ativo') disabled @endif > <a  href="{{ url('event/' . $event->id) }}" ></a>Cancelar</button>
              </td>             

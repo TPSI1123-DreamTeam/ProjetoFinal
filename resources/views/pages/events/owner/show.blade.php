@@ -1,5 +1,5 @@
 @extends('DashboardMaster.main')
 @section('content')
-    @component('components.events.owner.event-show', ['events' => $events])
+    @component('components.events.owner.event-show', ['event' => $event])
     @endcomponent
 @endsection

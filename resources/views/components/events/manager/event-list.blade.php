@@ -32,13 +32,15 @@
              <td class="border border-gray-300 px-4 py-2">{{ $event->amount }}€</td>
              <td class="border border-gray-300 px-4 py-2">{{ $event->event_status }}</td>
              <td class="border border-gray-300 px-4 py-2">
-                <a  href="{{ url('event/' . $event->id) }}" >
+                <a  href="{{ url('events/manager/' . $event->id) }}" >
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Ver</button>
                 </a>
-                 <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full"><a  href="{{ url('event/' . $event->id) }}" ></a>Editar</button>
+                <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
+                    <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">Editar</button>
+                </a>
                  <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
                  @if( $event->event_status != 'ativo') disabled @endif > <a  href="{{ url('event/' . $event->id) }}" ></a>Cancelar</button>
-             </td>             
+             </td>               
             </tr>
          @endforeach
      </tbody>

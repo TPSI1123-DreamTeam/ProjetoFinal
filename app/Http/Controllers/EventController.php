@@ -30,7 +30,6 @@ class EventController extends Controller
         return view('pages.events.index', ['events' => $events, 'suppliers' => $suppliers]);
     }
 
-
     /**
     * Display a listing of the resource.
     */
@@ -211,12 +210,94 @@ class EventController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function showbyowner(Event $event)
+    {
+        $AuthUser = Auth::user(); // (role_id == 3) => owner
+
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id == 3 &&  $AuthUser->id === $event->owner_id ){
+            $event = Event::find($event->id);
+            return view('pages.events.owner.show', ['event' => $event]);
+        }else{
+            return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
+        }
+    }
+
+            /**
+     * Display the specified resource.
+     */
+    public function showbymanager(Event $event)
+    {
+        $AuthUser = Auth::user(); // (role_id == 3) => owner
+
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
+            $event = Event::find($event->id);
+            return view('pages.events.manager.show', ['event' => $event]);
+        }else{
+            return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
+        }
+    }
+
+
+            /**
+     * Display the specified resource.
+     */
+    public function showbyadmin(Event $event)
+    {
+        $AuthUser = Auth::user(); // (role_id == 3) => owner
+
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id == 1){
+            $event = Event::find($event->id);
+            return view('pages.events.admin.show', ['event' => $event]);
+        }else{
+            return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
+        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Event $event)
     {
         //
     }
+
+     /**
+     * Display the specified resource.
+     */
+    public function editbyowner(Event $event)
+    {
+        $AuthUser = Auth::user(); // (role_id == 3) => owner
+
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id == 3 &&  $AuthUser->id === $event->owner_id ){
+            $event = Event::find($event->id);
+            return view('pages.events.owner.edit', ['event' => $event]);
+        }else{
+            return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
+        }
+    }
+
+            /**
+     * Display the specified resource.
+     */
+    public function editbymanager(Event $event)
+    {
+        $AuthUser = Auth::user(); // (role_id == 3) => owner
+
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
+            $event = Event::find($event->id);
+            return view('pages.events.manager.edit', ['event' => $event]);
+        }else{
+            return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
+        }
+    }
+
 
     /**
      * Update the specified resource in storage.
