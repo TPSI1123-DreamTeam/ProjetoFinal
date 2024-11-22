@@ -24,10 +24,50 @@ class EventController extends Controller
         $ownerId = Auth::user()->id;
         $query   = Event::query();
         $query->where('owner_id',$ownerId);
-        $events = $query->get();
+        $events = $query->paginate(15);
         $suppliers = Supplier::all();
 
         return view('pages.events.index', ['events' => $events, 'suppliers' => $suppliers]);
+    }
+
+
+    /**
+    * Display a listing of the resource.
+    */
+    public function eventsbyowner()
+    {
+        $ownerId = Auth::user()->id;
+        $query   = Event::query();
+        $query->where('owner_id',$ownerId);
+        $events = $query->paginate(15);
+        $suppliers = Supplier::all();
+
+        return view('pages.events.owner.index', ['events' => $events, 'suppliers' => $suppliers]);
+    }
+
+        /**
+    * Display a listing of the resource.
+    */
+    public function eventsbymanager()
+    {
+        $manager_id = Auth::user()->id;
+        $query   = Event::query();
+        $query->where('manager_id',$manager_id);
+        $events = $query->paginate(15);
+        $suppliers = Supplier::all();
+
+        return view('pages.events.manager.index', ['events' => $events, 'suppliers' => $suppliers]);
+    }
+
+
+        /**
+    * Display a listing of the resource.
+    */
+    public function eventsbyadmin()
+    {    
+        $events =  Event::paginate(15);
+        $suppliers = Supplier::all();
+        return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers]);
     }
 
     /**

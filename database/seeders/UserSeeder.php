@@ -33,9 +33,6 @@ class UserSeeder extends Seeder
             'role_id'    => 2
         ]);
 
-        // $roles = Role::find(2); // role - USER 1, Manager 2, admin 3
-        // $user->roles()->attach(2);
-
         $user = User::create([
             'name'       => 'Rafael Rodrigues',
             'email'      => 'rafael@atec.pt',
@@ -44,12 +41,6 @@ class UserSeeder extends Seeder
             'image'      => $imagesArray[4],
             'role_id'    => 1          
         ]);
-
-        // $roles = Role::find(4); // role - USER 1, Manager 2, admin 3
-        // $user->roles()->attach(4);
-
-        // $events = Event::inRandomOrder()->take(rand(1, 3))->pluck('id');
-        // $user->events()->attach($events);
 
         $user = User::create([
             'name'       => 'Pedro Ferreira',
@@ -60,23 +51,14 @@ class UserSeeder extends Seeder
             'role_id'    => 2               
         ]);
 
-        // $roles = Role::find(2); // role - USER 1, Manager 2, admin 3
-        // $user->roles()->attach(2);
-
         $user = User::create([
             'name'       => 'Vasco Sousa',
             'email'      => 'vasco@atec.pt',
             'phone'      => (string) fake()->numberBetween(912345678, 936456789),
             'password'   => Hash::make('123123123'),
             'image'      => $imagesArray[4],
-            'role_id'    => 4               
+            'role_id'    => 3               
         ]);
-
-        // $roles = Role::find(4); // role - USER 1, Manager 2, admin 3
-        // $user->roles()->attach(4);
-
-        // $events = Event::inRandomOrder()->take(rand(1, 3))->pluck('id');
-        // $user->events()->attach($events);
 
         $user = User::create([
             'name'       => 'Eliezer Rangel',
@@ -87,15 +69,6 @@ class UserSeeder extends Seeder
             'role_id'    => 3               
         ]);
 
-        // $roles = Role::find(4); // role - USER 1, Manager 2, admin 3
-        // $user->roles()->attach(4);
-
-        // $events = Event::inRandomOrder()->take(rand(1, 3))->pluck('id');
-        // $user->events()->attach($events);
-
-
-        // EXTRA USERS - PARTICIPANTS //
-
         for ($i = 0; $i < 50; $i++) {
 
             $participant = User::create([
@@ -105,16 +78,7 @@ class UserSeeder extends Seeder
                 'password'     => Hash::make('123123123'),
                 'image'        => $imagesArray[rand(0, 5)],
                 'role_id'      => 4  
-            ]);
-
-            // $roles = Role::find(4); // role - USER 1, Manager 2, admin 3
-            // $participant->roles()->attach(4);
-
-            //$events = Event::find(rand(1,11));
-            // $events = Event::inRandomOrder()->take(rand(1, 3))->pluck('id');
-            // $participant->events()->attach($events);
+            ]); 
         }
-    }
-
-    
+    }    
 }
