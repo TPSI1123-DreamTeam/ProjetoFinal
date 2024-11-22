@@ -79,7 +79,9 @@ Route::middleware('auth')->group(function () {
     //Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');
     Route::get('/events/eventsbyowner', [EventController::class,'eventsbyowner']);
     Route::get('/eventsbyparticipant', [EventController::class,'eventsbyparticipant']);
+    Route::get('/eventsforadmin', [EventController::class,'admin']) ->name('eventsforadmin');
 
+    
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
     Route::get('/participants/create',[ParticipantController::class, 'create']);
