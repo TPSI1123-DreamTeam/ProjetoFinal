@@ -23,16 +23,11 @@ Route::get('/about', function () {
     return view('pages.about.about');
 });
 
-///// ::::: CONTACT :::::: ///////
-Route::get('/contact', function () {
-    return view('pages.contact.contact');
-});
-
 //  DESENVOLVIMENTO DO VASCO - GIL IMPLEMENTAR CSS NA ROTA ABAIXO
  Route::get('/contact', function () {
      return view('pages.contact.contact');
     })->name('contact');
- Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact');
+ Route::post('/contact', [ContactFormController::class, 'submit']);
 
 Route::get('/event/public', [EventController::class, 'public'])->name('events.public');
 Route::get('/event/private',[EventController::class, 'private'])->name('events.private');
