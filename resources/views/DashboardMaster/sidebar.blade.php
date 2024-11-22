@@ -28,17 +28,17 @@
         @switch(Auth::user()->role_id)  {{-- Switch Case relevante aos roles do user  --}}
                 @case(1) {{-- Admin  --}}
                     <li><a href="{{ route('users') }}">Lista de Users&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="{{ route('events.index')}}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ url('/events/admin') }}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Relatorios&nbsp; <span>&gt;</span></a></li>
                     @break
                 @case(2)  {{-- Manager  --}}
-                    <li><a href="#">Gerir Eventos&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ url('/events/manager') }}">Gerir Eventos&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Lista de Fornecedores&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Editar Custo de Evento&nbsp; <span>&gt;</span></a></li>
                     @break
                 @case(3) {{-- Owner --}}
                     <li><a href="{{ url('/participants') }}">Lista de Participantes&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="{{ url('/events') }}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ url('/events/owner') }}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
                     {{-- <li><a href="#">Lista de Fornecedores&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Editar Custo de Evento&nbsp; <span>&gt;</span></a></li> --}}
                     <li><a href="#">Carregar Convite&nbsp; <span>&gt;</span></a></li>

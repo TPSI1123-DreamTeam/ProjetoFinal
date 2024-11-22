@@ -3,13 +3,13 @@
  
  <div class="container-fluid">
      <div class="d-flex align-items-center">
-         <p class="text-sm/6 font-bold text-gray-900">Event List</p>
+         <p class="text-sm/6 font-bold text-gray-900">Manager Event List</p>
      </div>
  </div>
  <table class="min-w-full bg-white border mt-5">
      <thead>
-         <tr class="bg-gray-100">
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Nº</th>
+         <tr class="bg-gray-100">          
+            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">ID</th>
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Nome do Evento</th>
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Participantes</th>            
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Descrição</th>
@@ -22,8 +22,8 @@
      </thead>
      <tbody>
          @foreach($events as $event)
-         <tr class="odd:bg-white even:bg-gray-50">
-             <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration }}</td>
+         <tr class="odd:bg-white even:bg-gray-50">             
+             <td class="border border-gray-300 px-4 py-2">{{ $event->id }}</td>
              <td class="border border-gray-300 px-4 py-2">{{ $event->name }}</td>
              <td class="border border-gray-300 px-4 py-2">{{ @count($event->users) }}</td>
              <td class="border border-gray-300 px-4 py-2">{{ $event->category->description }}</td>

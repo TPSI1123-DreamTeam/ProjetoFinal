@@ -82,7 +82,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/create/{id}', [EventController::class,'create'])->name('events.create');
     Route::post('/events',                  [EventController::class, 'store']);
     //Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');
-    Route::get('/events/eventsbyowner', [EventController::class,'eventsbyowner']);
+    Route::get('/events/owner',   [EventController::class,'eventsbyowner']);
+    Route::get('/events/manager', [EventController::class,'eventsbymanager']);
+    Route::get('/events/admin',   [EventController::class,'eventsbyadmin']);
 
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
