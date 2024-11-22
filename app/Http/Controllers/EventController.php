@@ -199,4 +199,14 @@ class EventController extends Controller
         //Event::create($validated);
         //return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
+
+    public function eventsbyparticipant()
+    {
+        $user = auth()->user();
+
+        $events = $user->events()->distinct()->get();
+
+        return view('pages.events.participant', ['events' => $events]);
+    }
+
 }
