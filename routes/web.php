@@ -79,6 +79,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/owner',      [EventController::class,'eventsbyowner']);  // LIST EVENTS
     Route::get('/events/manager',    [EventController::class,'eventsbymanager']);// LIST EVENTS
     Route::get('/events/admin',      [EventController::class,'eventsbyadmin']);  // LIST EVENTS
+    Route::get('/events/owner/{event}',   [EventController::class,'showbyowner']);
+    Route::get('/events/manager/{event}', [EventController::class,'showbymanager']);
+    Route::get('/events/admin/{event}',   [EventController::class,'showbyadmin']);
+    Route::get('/events/owner/{event}/edit',   [EventController::class,'editbyowner']);
+    Route::get('/events/manager/{event}/edit', [EventController::class,'editbymanager']);
 
 
     

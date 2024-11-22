@@ -94,7 +94,7 @@
             </div>
 
             <div>
-            <a href="/events/manager"> <button type="button" class="btn btn-primary mt-5">Voltar a lista de eventos</button></a>   
+            <a href="/events/admin"> <button type="button" class="btn btn-primary mt-5">Voltar a lista de eventos</button></a>   
             </div>
         </form>
     </div>
