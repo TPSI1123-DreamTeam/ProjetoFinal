@@ -73,12 +73,28 @@ Route::middleware('auth')->group(function () {
 
     ///// ::::: EVENTS :::::: ///////
 
+<<<<<<< HEAD
+    Route::get('/events',                   [EventController::class, 'index'])->name('events.index');
+    Route::get('/events/create/{id}', [EventController::class,'create'])->name('events.create');
+    Route::post('/events',                  [EventController::class, 'store']);
+    //Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');
+    Route::get('/events/owner',   [EventController::class,'eventsbyowner']);
+    Route::get('/events/manager', [EventController::class,'eventsbymanager']);
+    Route::get('/events/admin',   [EventController::class,'eventsbyadmin']);
+    Route::get('/events/owner/{event}',   [EventController::class,'showbyowner']);
+    Route::get('/events/manager/{event}', [EventController::class,'showbymanager']);
+    Route::get('/events/admin/{event}',   [EventController::class,'showbyadmin']);
+    Route::get('/events/owner/{event}/edit',   [EventController::class,'editbyowner']);
+    Route::get('/events/manager/{event}/edit', [EventController::class,'editbymanager']);
+
+=======
     Route::get('/events',            [EventController::class, 'index'])->name('events.index'); // LIST EVENTS
     Route::get('/events/create/{id}',[EventController::class,'create'])->name('events.create');
     Route::post('/events',           [EventController::class, 'store']);
     Route::get('/events/owner',      [EventController::class,'eventsbyowner']);  // LIST EVENTS
     Route::get('/events/manager',    [EventController::class,'eventsbymanager']);// LIST EVENTS
     Route::get('/events/admin',      [EventController::class,'eventsbyadmin']);  // LIST EVENTS
+>>>>>>> 83a5ef00ad04fa100e3b8150e00c5ba1132f736b
 
 
     
