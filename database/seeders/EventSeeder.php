@@ -63,6 +63,14 @@ class EventSeeder extends Seeder
             1 => "privado" //pedro
         ];
 
+        $arrayEventStatus = [
+            0 => "pendente", 
+            1 => "ativo", 
+            2 => "cancelado", 
+            3 => "recusado", 
+            4 => "concluido" 
+        ];
+
         for ($i = 0; $i < 30; $i++) {
 
             $categoryRandom = rand(0,6);
@@ -72,6 +80,7 @@ class EventSeeder extends Seeder
             $randomAmount   = rand(1000,20000);
             $randomUsers    = rand(20, 50);
             $ticketAmount   = ($randomAmount / $randomUsers) / 3;
+            $startTime      = rand(10,23).":00:00";
 
             $event = Event::create([
                 'name'                   => $arrayCategory[$categoryRandom]['description'],
@@ -80,13 +89,15 @@ class EventSeeder extends Seeder
                 'description'            => fake()->realText(rand(500,700)),
                 'localization'           => fake()->city(),
                 'start_date'             => $date,
+                'start_time'             => $startTime,
                 'end_date'               => $date,
                 'type'                   => $arrayType[$typeRandom],
                 'amount'                 => $randomAmount,
                 'ticket_amount'          => $ticketAmount,
-                'owner_id'               => rand(1,100),
+                'owner_id'               => rand(4,5),
                 'manager_id'             => $arrayManager[$managerRandom],               
-                'number_of_participants' => $randomUsers
+                'number_of_participants' => $randomUsers,
+                'event_status'           => $arrayEventStatus[rand(0,4)]
             ]);
        
    

@@ -3,7 +3,7 @@
  
  <div class="container-fluid">
      <div class="d-flex align-items-center">
-         <p class="text-sm/6 font-bold text-gray-900">Event List</p>
+         <p class="text-sm/6 font-bold text-gray-900">Admin Event List</p>
      </div>
  </div>
  <table class="min-w-full bg-white border mt-5">
