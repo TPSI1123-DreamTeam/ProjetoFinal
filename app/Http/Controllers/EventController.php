@@ -207,7 +207,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return view('pages.events.show', ['event' => $event]);
     }
 
     /**
@@ -215,7 +215,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('pages.events.edit', ['event' => $event]);
     }
 
     /**
@@ -223,7 +223,7 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+
     }
 
     /**
@@ -245,4 +245,21 @@ class EventController extends Controller
         //Event::create($validated);
         //return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
+
+    public function eventsbyparticipant()
+    {
+        $user = auth()->user();
+
+        $events = $user->events()->distinct()->get();
+
+        return view('pages.events.participant', ['events' => $events]);
+    }
+
+    public function admin()
+    {
+        $events = Event::all();
+        return view('pages.events.admin', ['events' => $events]);
+    }
+
+
 }

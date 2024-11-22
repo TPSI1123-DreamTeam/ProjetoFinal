@@ -23,16 +23,11 @@ Route::get('/about', function () {
     return view('pages.about.about');
 });
 
-///// ::::: CONTACT :::::: ///////
-Route::get('/contact', function () {
-    return view('pages.contact.contact');
-});
-
 //  DESENVOLVIMENTO DO VASCO - GIL IMPLEMENTAR CSS NA ROTA ABAIXO
  Route::get('/contact', function () {
      return view('pages.contact.contact');
     })->name('contact');
- Route::post('/contact', [ContactFormController::class, 'submit'])->name('contact');
+ Route::post('/contact', [ContactFormController::class, 'submit']);
 
 Route::get('/event/public', [EventController::class, 'public'])->name('events.public');
 Route::get('/event/private',[EventController::class, 'private'])->name('events.private');
@@ -78,14 +73,15 @@ Route::middleware('auth')->group(function () {
 
     ///// ::::: EVENTS :::::: ///////
 
-    Route::get('/events',                   [EventController::class, 'index'])->name('events.index');
-    Route::get('/events/create/{id}', [EventController::class,'create'])->name('events.create');
-    Route::post('/events',                  [EventController::class, 'store']);
-    //Route::get('/events/createprivate/{id}', [EventController::class,'create'])->name('events.createprivate');
-    Route::get('/events/owner',   [EventController::class,'eventsbyowner']);
-    Route::get('/events/manager', [EventController::class,'eventsbymanager']);
-    Route::get('/events/admin',   [EventController::class,'eventsbyadmin']);
+    Route::get('/events',            [EventController::class, 'index'])->name('events.index'); // LIST EVENTS
+    Route::get('/events/create/{id}',[EventController::class,'create'])->name('events.create');
+    Route::post('/events',           [EventController::class, 'store']);
+    Route::get('/events/owner',      [EventController::class,'eventsbyowner']);  // LIST EVENTS
+    Route::get('/events/manager',    [EventController::class,'eventsbymanager']);// LIST EVENTS
+    Route::get('/events/admin',      [EventController::class,'eventsbyadmin']);  // LIST EVENTS
 
+
+    
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
     Route::get('/participants/create',[ParticipantController::class, 'create']);
