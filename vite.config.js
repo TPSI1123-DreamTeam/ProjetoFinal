@@ -12,7 +12,11 @@ export default defineConfig({
                 'resources/css/login.css',
                 'resources/css/register.css',
                 'resources/css/app.css', 
-                'resources/js/app.js'
+                'resources/js/app.js',
+                'resources/js/fadeInTitle.js',
+                'resources/js/carouselEvent.js',
+                'resources/js/carouselEventPrivate.js',
+                'resources/js/toggle-sidebar.js'
             ],
             refresh: true,
         }),
