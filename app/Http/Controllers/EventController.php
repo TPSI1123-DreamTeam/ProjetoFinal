@@ -147,26 +147,10 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {        
-               
-        $validated = $request->validate([
-            'name'                   => 'required|string|max:255',
-            'description'            => 'required|string|max:255',
-            'localization'           => 'required|string|max:255',            
-            'start_date'             => 'date|after:now',
-            'end_date'               => 'date|after:now',
-            'owner_id'               => 'integer',
-            'category_id'            => 'integer',
-            'type'                   => 'string|max:255',
-            'amount'                 => 'between:0,999999.99',
-            'ticket_amount'           => 'between:0,999999.99',
-            'start_time'             => 'date_format:H:i',
-            'end_time'               => 'date_format:H:i|after:start_time',
-            'number_of_participants' => 'nullable|integer',           
-            'event_confirmation'     => 'nullable|boolean',
-            'suppliers'              => 'nullable',
-        ]);
+    public function store(StoreEventRequest $request)
+    {      
+        // Fields validations now will be returned from  StoreEventRequest  
+        $owner_id = Auth::user()->id;
 
         $event = Event::create([
             'name'                   => $request->name,
@@ -174,19 +158,19 @@ class EventController extends Controller
             'localization'           => $request->localization,            
             'start_date'             => $request->start_date,
             'end_date'               => $request->end_date,
-            'owner_id'               => $request->owner_id,
+            'owner_id'               => $owner_id,
             'category_id'            => $request->category_id, 
             'type'                   => $request->type,
-            'amount'                 => $request->amount,
-            'ticket_amount'          => $request->ticket_amount,
+            'amount'                 => "0.00",
+            'ticket_amount'          => "0.00",
             'start_time'             => $request->start_time,
             'end_time'               => $request->end_time,
             'number_of_participants' => $request->number_of_participants,
-            'event_confirmation'     => $request->event_confirmation,
+            'event_confirmation'     => false,
             'services_default_array' => json_encode($request->suppliers)
         ]);
 
-
+        // check and store image
         if($request->has('image')){
             $file      = $request->file('image');
             $imageName = time().'.'.$request->image->extension();
@@ -195,6 +179,7 @@ class EventController extends Controller
             $request->image->move(public_path($path), $imageName);
         }
 
+        // save image
         $update = Event::find($event->id);
         $update->image = $imageName;
         $update->save();       
