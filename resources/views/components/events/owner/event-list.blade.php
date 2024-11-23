@@ -11,10 +11,10 @@
          <tr class="bg-gray-100">
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Nº</th>
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Nome do Evento</th>
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Participantes</th>            
+            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Participantes /<br>Registados</th>            
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Descrição</th>
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Data</th>
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Hora de Ínicio</th>
+            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Hora</th>
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Custo Estimado</th>       
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Estado do Evento</th>       
             <th class="border border-gray-300 px-4 py-2 text-center font-bold text-gray-700">Ações</th>
@@ -23,9 +23,9 @@
      <tbody>
          @foreach($events as $event)
          <tr class="odd:bg-white even:bg-gray-50">
-             <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration }}</td>
+             <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration + $events->firstItem() - 1 }}</td>
              <td class="border border-gray-300 px-4 py-2">{{ $event->name }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ @count($event->users) }}</td>
+             <td class="border border-gray-300 px-4 py-2 text-center" >{{ $event->number_of_participants }} / {{ @count($event->users) }}</td>
              <td class="border border-gray-300 px-4 py-2">{{ $event->category->description }}</td>
              <td class="border border-gray-300 px-4 py-2">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
              <td class="border border-gray-300 px-4 py-2">{{ date('H:i', strtotime($event->start_time))}}</td>
