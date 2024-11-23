@@ -31,7 +31,7 @@ class StoreEventRequest extends FormRequest
             'end_time'               => 'required|date_format:H:i|after:start_time',
             'category_id'            => 'required|integer',
             'type'                   => 'required|string|max:255',
-            'number_of_participants' => 'nullable|integer',           
+            'number_of_participants' => 'required|integer',           
             'suppliers'              => 'nullable',
             //'owner_id'               => 'integer',
             //'amount'                 => 'between:0,999999.99',
