@@ -177,12 +177,14 @@ class EventController extends Controller
             $path      = 'images/events/'.$event->id;
 
             $request->image->move(public_path($path), $imageName);
+
+            // save image
+            $update = Event::find($event->id);
+            $update->image = $imageName;
+            $update->save();      
         }
 
-        // save image
-        $update = Event::find($event->id);
-        $update->image = $imageName;
-        $update->save();       
+ 
 
         return redirect('/dashboard')->with('status','Item created successfully!')->with('class', 'alert-success');
     }
@@ -202,11 +204,12 @@ class EventController extends Controller
     public function showbyowner(Event $event)
     {
         $AuthUser = Auth::user(); // (role_id == 3) => owner
+        $category = Category::find($event->category_id);
 
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id == 3 &&  $AuthUser->id === $event->owner_id ){
             $event = Event::find($event->id);
-            return view('pages.events.owner.show', ['event' => $event]);
+            return view('pages.events.owner.show', ['event' => $event, 'category' => $category]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
         }
