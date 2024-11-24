@@ -73,9 +73,9 @@ Route::middleware('auth')->group(function () {
 
     ///// ::::: EVENTS :::::: ///////
 
-    Route::get('/events',            [EventController::class, 'index'])->name('events.index'); // LIST EVENTS
+    Route::get('/events',            [EventController::class,'index'])->name('events.index'); // LIST EVENTS
     Route::get('/events/create/{id}',[EventController::class,'create'])->name('events.create');
-    Route::post('/events',           [EventController::class, 'store']);
+    Route::post('/events',           [EventController::class,'store']);
     Route::get('/events/owner',      [EventController::class,'eventsbyowner']);  // LIST EVENTS
     Route::get('/events/manager',    [EventController::class,'eventsbymanager']);// LIST EVENTS
     Route::get('/events/admin',      [EventController::class,'eventsbyadmin']);  // LIST EVENTS
@@ -148,6 +148,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/searchEvents', [ParticipantController::class,'searchEvents']);
+    Route::get('/searchEventsByOwner', [EventController::class,'searchEventsByOwner']);
 
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
