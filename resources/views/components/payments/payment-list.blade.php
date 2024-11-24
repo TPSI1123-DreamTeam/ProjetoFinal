@@ -1,11 +1,11 @@
-    <div class="payments-header">
-        <h1>Histórico de Pagamentos</h1>
-            <p>Bem-vindo ao seu histórico de pagamentos! Aqui pode consultar todas as transações realizadas no nosso site de eventos. 
-                Verifique os detalhes dos eventos adquiridos, as datas de pagamento e os valores. 
-                Este registo permite-lhe acompanhar as suas compras de forma simples e organizada, garantindo transparência e controlo sobre os seus gastos. 
-                Caso tenha dúvidas sobre alguma transação, a nossa equipa está disponível para ajudar através da secção de contacto.</p>
-    </div>
-    <div class="linha-divisoria"></div>
+<div class="content-header">
+    <h1>Histórico de Pagamentos</h1>
+        <p>Bem-vindo ao seu histórico de pagamentos! Aqui pode consultar todas as transações realizadas no nosso site de eventos. 
+            Verifique os detalhes dos eventos adquiridos, as datas de pagamento e os valores. 
+            Este registo permite-lhe acompanhar as suas compras de forma simples e organizada, garantindo transparência e controlo sobre os seus gastos. 
+            Caso tenha dúvidas sobre alguma transação, a nossa equipa está disponível para ajudar através da secção de contacto.</p>
+</div>
+<div class="linha-divisoria"></div>
 <table>
     <thead>
         <tr>
