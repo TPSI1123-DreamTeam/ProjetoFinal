@@ -40,7 +40,7 @@ class EventController extends Controller
         $Category = Category::all();
         $events   = Event::where('owner_id', $ownerId)->orderBy('id', 'desc')->paginate(15);  
         $formFields = array();
-        
+
         return view('pages.events.owner.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
     }
 
@@ -125,8 +125,7 @@ class EventController extends Controller
        // return redirect()->route('pages.events.owner.index');
     }
 
-
-        /**
+            /**
     * Display a listing of the resource.
     */
     public function eventsbymanager()
@@ -136,8 +135,107 @@ class EventController extends Controller
         $query->where('manager_id',$manager_id);
         $events = $query->paginate(15);
         $suppliers = Supplier::all();
+        $Category    = Category::all();
+        $formFields = array();
 
-        return view('pages.events.manager.index', ['events' => $events, 'suppliers' => $suppliers]);
+        return view('pages.events.manager.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
+
+    }
+
+
+        /**
+    * Display a listing of the resource.
+    */
+    public function searchEventsByManager(Request $request)
+    {
+        $manager_id  = Auth::user()->id;  
+        
+        if(Auth::user()->role_id == 2){       
+
+            $Category    = Category::all();
+
+            if ($request->has('pending') && $request->pending === 'pending') {
+                $events      = Event::where('manager_id', 0); 
+                $events->orderBy('id', 'desc');
+                $events = $events->paginate(15);
+                $formFields = array();
+                return view('pages.events.manager.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
+            }
+
+            $events      = Event::where('manager_id', $manager_id);             
+            
+            if ($request->has('event_name') && $request->event_name!==null) {
+                $events->where('name','like', '%'.$request->event_name.'%');
+            }
+
+            if ($request->has('participants1') && $request->participants1!==null && $request->participants2===null) {
+                $events->where('number_of_participants','>=', intval($request->participants1) );
+            }
+
+            if ($request->has('participants2') && $request->participants2!==null && $request->participants1===null) {
+                $events->where('number_of_participants','<=', intval($request->participants2) );
+            }
+
+            if ($request->participants2!==null && $request->participants1!==null) {
+                $events->where('number_of_participants','>=', intval($request->participants1) );
+                $events->where('number_of_participants','<=', intval($request->participants2) );
+            }
+
+            if ($request->has('category_id') && $request->category_id!==null) {
+                $events->where('category_id', $request->category_id );
+            } 
+            
+            if ($request->has('event_status') && $request->event_status!==null) {
+                $events->where('event_status', $request->event_status );
+            }
+            
+            if ($request->has('amount1') && $request->amount1!==null && $request->amount2===null) {
+                $events->where('amount','>=', $request->amount1);
+            }
+
+            if ($request->has('amount2') && $request->amount2!==null && $request->amount1===null) {
+                $events->where('amount','<=', $request->amount2);
+            }
+
+            if ($request->amount2!==null && $request->amount1!==null) {
+                $events->where('amount','>=', number_format($request->amount1, 2,',') );
+                $events->where('amount','<=', number_format($request->amount2, 2,',') );
+            }
+
+
+            if ($request->has('datepicker1') && $request->datepicker1!==null && $request->datepicker2===null) {
+                $events->where('start_date', '>=',$request->datepicker1);
+            }
+
+            if ($request->has('datepicker2') && $request->datepicker2!==null && $request->datepicker1===null) {
+                $events->where('start_date','<=', $request->datepicker2);
+            }
+
+            if ($request->datepicker2!==null && $request->datepicker1!==null) {
+                $events->where('start_date','>=', $request->datepicker1 );
+                $events->where('start_date','<=', $request->datepicker2 );
+            }      
+
+            $events->orderBy('id', 'desc');
+            $events = $events->paginate(15);
+    
+
+            $formFields = array();
+            $formFields['event_name']    = $request->event_name;
+            $formFields['participants1'] = $request->participants1;
+            $formFields['participants2'] = $request->participants2;
+            $formFields['category_id']   = $request->category_id;
+            $formFields['amount1']       = $request->amount1;
+            $formFields['amount2']       = $request->amount2;
+            $formFields['event_status']  = $request->event_status;
+            $formFields['datepicker1']   = $request->datepicker1;
+            $formFields['datepicker2']   = $request->datepicker2;
+
+
+            return view('pages.events.manager.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
+        }else{
+            return redirect('/dashboard');
+        }
     }
 
 

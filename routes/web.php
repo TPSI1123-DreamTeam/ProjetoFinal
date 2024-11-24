@@ -149,6 +149,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/searchEvents', [ParticipantController::class,'searchEvents']);
     Route::get('/searchEventsByOwner', [EventController::class,'searchEventsByOwner']);
+    Route::get('/searchEventsByManager', [EventController::class,'searchEventsByManager']);
 
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
