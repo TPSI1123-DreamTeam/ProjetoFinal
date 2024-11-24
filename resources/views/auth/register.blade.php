@@ -50,9 +50,9 @@
                     <div class="google-login">
                         <a href="/auth/google" class="google-button">Entrar com Google</a>
                     </div>
+                    <a href="/" class="back-home">Voltar à página inicial</a>
                 </div>
             </form>
-            <a href="/" class="back-home">Voltar à página inicial</a>
         </div>
     </div>
 </div>

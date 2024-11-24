@@ -1,4 +1,4 @@
-.payments-header {
+.content-header {
     margin-top: 25px;
     display: flex;
     align-items: center;
@@ -9,14 +9,14 @@
 h1 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1f2937; /* text-gray-900 */
+    color: #1f2937;
     margin: 0;
     padding: 0 0 1rem 0;
 }
 
 p {
     font-size: 1rem;
-    color: #374151; /* text-gray-700 */
+    color: #374151;
     line-height: 1.5;
     max-width: 900px;
     text-align: justify;
@@ -28,13 +28,14 @@ table {
     width: 100%;
     border-collapse: collapse;
     background-color: #ffffff;
-    border: 1px solid #d1d5db; /* border-gray-300 */
+    border: 1px solid #d1d5db;
+    margin: 15px;
 }
 
 th, td {
-    border: 1px solid #d1d5db; /* border-gray-300 */
+    border: 1px solid #d1d5db;
     padding: 0.5rem;
-    text-align: left;
+    text-align: center;
     font-size: 1rem;
 }
 
@@ -45,13 +46,13 @@ th {
 }
 
 td {
-    color: #1f2937; /* text-gray-900 */
+    color: #1f2937;
 }
 
 tr:nth-child(odd) {
-    background-color: #ffffff; /* bg-white */
+    background-color: #ffffff;
 }
 
 tr:nth-child(even) {
-    background-color: #f9fafb; /* bg-gray-50 */
+    background-color: #f9fafb;
 }

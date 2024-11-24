@@ -159,9 +159,6 @@ input[type="password"]:focus {
 
 /* Link "Voltar à página inicial" */
 .back-home {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
     color: white;
     font-size: 14px;
     text-decoration: none;
@@ -172,7 +169,7 @@ input[type="password"]:focus {
 }
 
 .back-home:hover {
-    color: #d04b2b;
+    color: #d04b2b !important;
 }
 
 /* Video de fundo */

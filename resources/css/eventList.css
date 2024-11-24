@@ -1,0 +1,48 @@
+.show-button {
+    background-color: #347CCB;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.show-button:hover {
+    background-color: #2b6cb0;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #EB5B38;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.edit-button:hover {
+    background-color: #c93510;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #c53030;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.cancel-button:hover {
+    background-color: #f56565;
+    cursor: pointer;
+}
+
+tbody tr td a {
+    text-decoration: none;
+}
