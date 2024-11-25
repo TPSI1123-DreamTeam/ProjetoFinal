@@ -136,6 +136,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/users/{user}', [UserController::class,'update'])->name('users.update');
     Route::delete('/users/{user}',[UserController::class,'destroy'])->name('users.destroy');
     Route::delete('/users', [UserController::class,'eliminate']);
+    Route::put('/users/{id}/update-role', [UserController::class, 'updateRole'])->name('users.update-role');
+    Route::post('/users/{id}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
 
     ///// ::::: CATEGORIES :::::: ///////
     Route::get('/categories', [CategoryController::class,'index']);

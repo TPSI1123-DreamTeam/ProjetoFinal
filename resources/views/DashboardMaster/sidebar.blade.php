@@ -27,7 +27,7 @@
         <ul>
         @switch(Auth::user()->role_id)  {{-- Switch Case relevante aos roles do user  --}}
                 @case(1) {{-- Admin  --}}
-                    <li><a href="{{ route('users') }}">Lista de Users&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ route('users') }}">Lista de Utilizadores&nbsp; <span>&gt;</span></a></li>
                     <li><a href="{{ url('/events/admin') }}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Relatorios&nbsp; <span>&gt;</span></a></li>
                     @break
