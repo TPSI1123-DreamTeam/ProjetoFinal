@@ -44,10 +44,20 @@
                 <form action="{{ route('users.reset-password', $user->id) }}" method="POST">
                     @csrf
                     @method('POST')
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-900">New Password</label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            required
+                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
                     <button type="submit" class="px-3 py-1 text-white bg-red-600 hover:bg-red-700 rounded-md text-sm shadow-sm">
                         Alterar senha
                     </button>
                 </form>
+
             </div>
         </li>
         @endforeach
