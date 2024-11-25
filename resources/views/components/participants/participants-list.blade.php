@@ -78,9 +78,20 @@
                                 <td>
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item">
-                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                                            <form action="{{ url('participants/' . $participant->id . '/editState') }}" method="GET">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <input hidden name="user" value="{{ $participant->id }}">
+                                                    <input hidden name="event" value="{{ $event->id }}">
+                                                    <input hidden name="confirmation" value="{{ $participant->pivot->confirmation }}">
+                                                    <i class="bx bx-pencil font-size-18"></i>
+                                                </button>
+                                            </form>
+
+                                            {{-- <a href="{{ url('participants/' . $participant . '/editState') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a> --}}
                                         </li>
                                         <li class="list-inline-item">
+
+                                            
                                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
                                         </li>
                                         <li class="list-inline-item dropdown">
@@ -119,7 +130,6 @@
     <label>Escolher Ficheiro:</label>
     <input type="file" id="ExcelFile" name="file" class="form-control">
    </div>
-   <input type="text" value="{{$emailsArray}}">
    <div class="mt-2">
     <button class="btn btn-success">Submeter</button>
    </div>
