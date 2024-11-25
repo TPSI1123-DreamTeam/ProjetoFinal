@@ -34,6 +34,11 @@ class ParticipantsImport implements ToCollection, WithHeadingRow
 
     public function collection(Collection $rows)
     {
-
+        return new Participant([
+                'name'     => $row[1],
+                'phone'    => $row[2],
+                'email' => $row[3],
+                'confirmation' => $row[4],
+               ]);
     }
 }

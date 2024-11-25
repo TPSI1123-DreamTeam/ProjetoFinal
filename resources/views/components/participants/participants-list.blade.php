@@ -23,16 +23,6 @@
             <a class="nav-link" href="{{url('participants/export/' . $participants->id)}}">Export</a>
              </form>
 
-            <form method="POST" action="{{url('participants/import')}}" enctype="multipart/form-data">
-                @csrf
-               <div class="mt-2">
-                <label>Escolher Ficheiro:</label>
-                <input type="file" id="ExcelFile" name="file" class="form-control">
-               </div>
-               <div class="mt-2">
-                <button class="btn btn-success">Submeter</button>
-               </div>
-            </form>
         </div>
         @endif
 
@@ -75,7 +65,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                            <?php $emailsArray = []; ?>
                         @if( !empty($participants) )
                         @foreach ($participants->users as $participant)
                              <tr>
@@ -83,7 +73,7 @@
                                 </th>
                                 <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" /><a href="#" class="text-body">{{$participant->name}} </a></td>
                                 <td><span class="badge badge-soft-success mb-0">{{$participant->phone}}</span></td>
-                                <td>{{$participant->email}}</td>
+                                <td>{{$participant->email}} <?php $emailsArray = $participant->email ?></td>
                                 <td>@if ($participant->pivot->confirmation) Sim @else Não  @endif</td>
                                 <td>
                                     <ul class="list-inline mb-0">
@@ -122,7 +112,19 @@
         </div>
     </div>
 </div>
-
+@if( !empty($event) )
+<form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data">
+    @csrf
+   <div class="mt-2">
+    <label>Escolher Ficheiro:</label>
+    <input type="file" id="ExcelFile" name="file" class="form-control">
+   </div>
+   <input type="text" value="{{$emailsArray}}">
+   <div class="mt-2">
+    <button class="btn btn-success">Submeter</button>
+   </div>
+</form>
+@endif
 <style>
 body{
 

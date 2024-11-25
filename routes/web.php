@@ -95,7 +95,8 @@ Route::middleware('auth')->group(function () {
    // Route::get('participants/export', [ParticipantController::class, 'export']);
     Route::get('participants/export/{event}', [ParticipantController::class, 'export']);
     //Route::get('participants', [ParticipantController::class, 'index'])->name('participants.index');
-    Route::post('participants/import',[ParticipantController::class, 'import'])->name('participants.import');
+  //  Route::post('participants/import',[ParticipantController::class, 'import'])->name('participants.import');
+    Route::post('participants/import/{id}',[ParticipantController::class, 'import'])->name('participants.import');
     Route::get('/participants/{participant}', [ParticipantController::class, 'show']);
     Route::get('/participants/{participant}/edit',[ParticipantController::class, 'edit']);
     Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
