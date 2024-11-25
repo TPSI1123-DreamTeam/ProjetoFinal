@@ -6,7 +6,6 @@
     <title>Registo | PRIME TIME EVENTS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite('resources/css/register.css')
-    @vite('resources/css/welcomeFooter.css')
 </head>
 <body>
 <div class="wrapper">
@@ -56,6 +55,5 @@
         </div>
     </div>
 </div>
-    @include('master.welcomeFooter')
 </body>
 </html>

@@ -1,0 +1,27 @@
+.save-button-profile {
+    background-color: #EB5B38 !important;
+    font-weight: 500 !important;
+}
+
+.save-button-profile:hover {
+    background-color: #d04b2b !important;
+    cursor: pointer !important;
+}
+
+h1 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    margin: 0 !important;
+    padding: 0 0 1rem 0 !important;
+    margin-top: 25px !important;
+}
+
+p {
+    font-size: 1rem !important;
+    color: #374151 !important;
+    line-height: 1.5 !important;
+    max-width: 900px !important;
+    text-align: justify !important;
+    margin-bottom: 25px !important;
+}
