@@ -95,7 +95,8 @@ Route::middleware('auth')->group(function () {
    // Route::get('participants/export', [ParticipantController::class, 'export']);
     Route::get('participants/export/{event}', [ParticipantController::class, 'export']);
     //Route::get('participants', [ParticipantController::class, 'index'])->name('participants.index');
-    Route::post('participants/import',[ParticipantController::class, 'import'])->name('participants.import');
+  //  Route::post('participants/import',[ParticipantController::class, 'import'])->name('participants.import');
+    Route::post('participants/import/{id}',[ParticipantController::class, 'import'])->name('participants.import');
     Route::get('/participants/{participant}', [ParticipantController::class, 'show']);
     Route::get('/participants/{participant}/edit',[ParticipantController::class, 'edit']);
     Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
@@ -136,6 +137,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/users/{user}', [UserController::class,'update'])->name('users.update');
     Route::delete('/users/{user}',[UserController::class,'destroy'])->name('users.destroy');
     Route::delete('/users', [UserController::class,'eliminate']);
+    Route::put('/users/{id}/update-role', [UserController::class, 'updateRole'])->name('users.update-role');
+    Route::post('/users/{id}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
 
     ///// ::::: CATEGORIES :::::: ///////
     Route::get('/categories', [CategoryController::class,'index']);

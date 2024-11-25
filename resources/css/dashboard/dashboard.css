@@ -4,6 +4,8 @@
 @import 'dateTime.css';
 @import 'payments-history.css';
 @import 'eventList.css';
+@import 'profile-edit.css';
+@import 'participant-list.css';
 
 * {
     margin: 0;
@@ -59,6 +61,7 @@ body::-webkit-scrollbar {
     align-content: center;
     justify-content: flex-start;
     align-items: center;
+    overflow: hidden;
 }
 
 .sidebar.hidden {

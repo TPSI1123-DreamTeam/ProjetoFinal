@@ -10,7 +10,7 @@
 }
 
 .menu-toggle {
-    display: none;
+    display: none !important;
 }
 
 .hamburger {

@@ -6,75 +6,41 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Roles;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function index()
-    {        
-        $users = User::orderBy('id')->paginate(15);
+    {
+        $users = User::orderBy('id')->paginate(5);
         return view('pages.users.index', ['users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function updateRole(Request $request, $id)
     {
-        //
+        $request->validate([
+            'role_id' => 'required|integer|in:1,2,3,4'
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->role_id = $request->input('role_id');
+        $user->save();
+
+        return redirect()->back()->with('status', 'Função atualizada com sucesso!')->with('class', 'alert-success');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreUserRequest $request)
+    public function resetPassword(Request $request, $id)
     {
-        //
+        $request->validate([
+            'password' => 'required|min:8',
+        ]);
+
+        $user = User::find($id);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->back()->with('status', 'Password atualizada com sucesso!')->with('class', 'alert-success');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        return view('pages.users.show', ['user' => $user]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        return view('pages.users.edit', ['user' => $user]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        $update            = User::find($user->id);
-        $update->name      = $request->name;
-        $update->email     = $request->email;
-        //$update->image     = $request->image;
-        $update->save();
-
-        return redirect('users')->with('status','Item edited successfully!')->with('class', 'alert-success');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        try {
-            $user = User::findOrFail($user->id);
-            $user->delete();
-            $user->roles()->detach();
-            return redirect('users')->with('status','Deleted successfully!')->with('class', 'alert-success');
-        } catch (ModelNotFoundException $exception) {
-            return redirect('users')->with('status','Not Founded!')->with('class', 'alert-danger');
-        } catch (Exception $exception) {
-            return redirect('users')->with('status','Error!')->with('class', 'alert-danger');
-        }
-    }
 }
