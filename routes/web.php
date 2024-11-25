@@ -99,9 +99,11 @@ Route::middleware('auth')->group(function () {
     Route::post('participants/import/{id}',[ParticipantController::class, 'import'])->name('participants.import');
     Route::get('/participants/{participant}', [ParticipantController::class, 'show']);
     Route::get('/participants/{participant}/edit',[ParticipantController::class, 'edit']);
+    Route::get('/participants/{participant}/editState', [ParticipantController::class, 'editState']);
     Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
     Route::delete('/participants/{participant}',[ParticipantController::class, 'destroy']);
     Route::delete('/participants', [ParticipantController::class, 'eliminate']);
+
 
     ///// ::::: INVITATIONS :::::: ///////
     Route::get('/invitations', [InvitationController::class,'index']);

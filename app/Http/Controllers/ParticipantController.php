@@ -217,5 +217,38 @@ class ParticipantController extends Controller
 
     }
 
+    public function editState(Request $request)
+    {
+       // dd($request);
+        if ($request->confirmation == false) {
+
+            $user = User::find($request->user);
+            $event = Event::find($request->event);
+
+            $pivot = $user->events()->where('event_id', $event->id)->first();
+
+            if ($pivot) {
+                // Alterna o valor do campo 'confirmed'
+                $pivot->pivot->confirmation = 1;
+                $pivot->pivot->save();  // Salva a alteração
+            }
+
+        } else if ($request->confirmation == true) {
+
+            $user = User::find($request->user);
+            $event = Event::find($request->event);
+
+            $pivot = $user->events()->where('event_id', $event->id)->first();
+
+            if ($pivot) {
+                // Alterna o valor do campo 'confirmed'
+                $pivot->pivot->confirmation = 0;
+                $pivot->pivot->save();  // Salva a alteração
+            }
+        }
+
+        return view('/participants');
+     //  return back();  // Redireciona de volta para a página anterior
+    }
 
 }
