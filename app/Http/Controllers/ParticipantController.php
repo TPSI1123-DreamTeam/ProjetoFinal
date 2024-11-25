@@ -117,10 +117,86 @@ class ParticipantController extends Controller
         return Excel::download(new ParticipantsExport($participants->users), 'participants.xlsx');
     }
 
-    public function import(Request $request)
+    public function import(Request $request, $emailsArray)
     {
-       $participants = Excel::toArray(new ParticipantsImport(), request()->file('file'));
+        $url = $request->server('PATH_INFO'); // Encontra o número após a última barra
+        if (preg_match('/\/(\d+)$/', $url, $matches)) {
+            $eventId = (int) $matches[1];
+            //echo $number;
+        }
+
+        // Receber o arquivo Excel enviado
+        $file = $request->file('file');
+
+        // Usar o método toArray para ler o Excel e convertê-lo para um array
+       // $data = Excel::toArray([], $file);
+
+       $participantsExcel = Excel::toArray(new ParticipantsImport(), $file);
+       // dd($emailsArray);
+        dd($participantsExcel);
+
+        $ownerId = Auth::user()->id;
+        $query   = Event::query();
+        $query->where('owner_id',$ownerId);
+        $events = $query->get();
+
+        $participantsDb = Event::find($eventId);
+
+        $users = [];
+       // dd($users);
+        $participantsD = [];
+        $tempParticipants[0] = 'N';
+        $tempParticipants[1] = 'Name';
+        $tempParticipants[2] = 'Phone';
+        $tempParticipants[3] = 'Email';
+        $tempParticipants[4] = 'Confirmation';
+
+        foreach ($participantsDb->users as $participant) {
+            // Tentativa de iterar user a user que está no evento específico para
+            // guardar num array
+            $tempParticipants[1] = $participantsDb->pivot->name;
+            $tempParticipants[2] = $participantsDb->pivot->$phone;
+            $tempParticipants[3] = $participantsDb->pivot->$email;
+            $tempParticipants[4] = $participantsDb->pivot->$confirmation;
+            $users = $tempParticipants;
+        }
+       dd($users);
+        $participants = [];
+
+
+        foreach ($participantsExcel as $excelParticipant) {
+            // Supondo que $excelParticipant seja um array associativo
+            $excelEmail = $excelParticipant['email'];  // Acessa o email do Excel
+
+            $foundMatch = false;  // Variável para verificar se encontrou uma correspondência
+
+            foreach ($participantsDb as $dbParticipant) {
+                // Supondo que $dbParticipant seja um objeto
+                if ($excelEmail === $dbParticipant->email) {
+                   // echo "Email encontrado: " . $excelEmail . "\n";
+                    $foundMatch = true;
+                    break;  // Sai do loop interno quando encontrar o email
+                }
+            }
+
+            // Se não encontrar nenhuma correspondência no banco de dados
+            if (!$foundMatch) {
+               // echo "Email não encontrado no banco de dados: " . $excelEmail . "\n";
+
+                // Adiciona o participante ao array $participants se o email for diferente
+                // Podemos adicionar a linha completa do participante Excel
+                $participants[] = $excelParticipant;  // Adiciona a linha ao array
+            }
+        }
+
+
         dd($participants);
+
+        // if ($participants == null) {
+        //     return ('Todos os participantes contidos no ficheiro já existem nesta lista de evento');
+        // } else {
+        //     return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
+        // }
 
 
         return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
