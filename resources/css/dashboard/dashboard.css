@@ -4,6 +4,7 @@
 @import 'dateTime.css';
 @import 'payments-history.css';
 @import 'eventList.css';
+@import 'profile-edit.css';
 
 * {
     margin: 0;

@@ -8,6 +8,15 @@
         </h2>
     </x-slot>
 
+    <h1>Edite o seu Perfil!</h1>
+
+    <p>
+    Bem-vindo à página de edição de perfil. Aqui podes atualizar as tuas informações pessoais, como nome, email, palavra-passe, 
+    para garantir que os teus dados estão sempre atualizados. 
+    Certifica-te de guardar as alterações antes de sair.
+    </p>
+
+    <div class="linha-divisoria"></div>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">

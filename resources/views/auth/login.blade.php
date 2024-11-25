@@ -6,7 +6,6 @@
     <title>Login | PRIME TIME EVENTS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite('resources/css/login.css')
-    @vite('resources/css/welcomeFooter.css')
 </head>
 <body>
 <div class="wrapper">
@@ -52,6 +51,5 @@
         <a href="/" class="back-home">Voltar à página inicial</a>
     </div>
 </div>
-    @include('master.welcomeFooter')
 </body>
 </html>
