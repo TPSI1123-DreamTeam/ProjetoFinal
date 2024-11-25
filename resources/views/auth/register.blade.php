@@ -48,11 +48,11 @@
                 <div class="form-footer">
                     <p>Já tens conta? <a href="/login">Entra aqui</a></p>
                     <div class="google-login">
-                        <a href="/auth/google" class="google-button">Entrar com Google</a>
+                        <a href="/login/google" class="google-button">Entrar com Google</a>
                     </div>
+                    <a href="/" class="back-home">Voltar à página inicial</a>
                 </div>
             </form>
-            <a href="/" class="back-home">Voltar à página inicial</a>
         </div>
     </div>
 </div>

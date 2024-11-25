@@ -502,7 +502,7 @@ class EventController extends Controller
 
         $events = $user->events()->distinct()->get();
 
-        return view('pages.events.participant', ['events' => $events]);
+        return view('pages.participants.participant-event-list', ['events' => $events]);
     }
 
     public function admin()

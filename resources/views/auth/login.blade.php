@@ -24,7 +24,7 @@
                 <form action="{{ route('login') }}" method="POST" class="login-form">
                     @csrf
                     <div class="form-group">
-                        <a type="button" class="google-login-button" href="/">
+                        <a type="button" class="google-login-button" href="/login/google">
                             Entrar com o Google <i class="fab fa-google"></i>
                         </a>
                     </div>

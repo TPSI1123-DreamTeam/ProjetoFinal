@@ -3,6 +3,19 @@
 
 @vite('resources/js/formListEventsManager.js')
 
+<div class="content-header">
+    <h1>Lista de Eventos</h1>
+        <p>Bem-vindo à página de gestão de eventos! 
+            Aqui pode visualizar todos os eventos disponíveis no nosso site, 
+            com acesso rápido a informações detalhadas como o nome do evento, data, local e estado. 
+            Esta ferramenta permite-lhe gerir os eventos de forma eficiente, 
+            podendo editar as informações de um evento para refletir alterações necessárias ou cancelar eventos quando aplicável. 
+            Mantenha a organização e o controlo sobre os seus eventos, 
+            garantindo a melhor experiência para os utilizadores do site.</p>
+
+</div>
+<div class="linha-divisoria"></div>
+
 <div class="flex-1 p-8 overflow-y-auto">    
     <p class="text-sm/6 font-bold text-gray-900">Lista de Eventos</p>  
    
@@ -138,7 +151,7 @@
          @endif
      </tbody>
  </table>
-</div>
+
 {{ $events->links() }}
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
