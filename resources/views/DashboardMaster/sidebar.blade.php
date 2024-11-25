@@ -47,7 +47,7 @@
                     @break
 
                 @case(4)   {{-- Participante  --}}
-                    <li><a href="{{ url('/eventsbyparticipant') }}">Meus Eventos&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ url('/participants/participant-event-list') }}">Meus Eventos&nbsp; <span>&gt;</span></a></li>
                     <li><a href="{{ url('/payment-list') }}">Histórico de Pagamentos&nbsp; <span>&gt;</span></a></li>
                     @break
                     @endswitch

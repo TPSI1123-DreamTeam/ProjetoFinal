@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/admin/{event}',   [EventController::class,'showbyadmin']);
     Route::get('/events/owner/{event}/edit',   [EventController::class,'editbyowner']);
     Route::get('/events/manager/{event}/edit', [EventController::class,'editbymanager']);
+    Route::get('/participants/participant-event-list', [EventController::class,'eventsbyparticipant']);
 
 
     
