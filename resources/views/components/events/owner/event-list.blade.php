@@ -3,8 +3,8 @@
 
 @vite('resources/js/formListEvents.js')
 
-<div class="flex-1 p-8 overflow-y-auto">    
-    <p class="text-sm/6 font-bold text-gray-900">Lista de Eventos</p>  
+<div class="event-wrapper">    
+    <h1>Lista de Eventos</h1>  
    
     <form action="/searchEventsByOwner" method="GET" class="grid grid-cols-4 gap-2 mt-5">
 
@@ -86,45 +86,45 @@
     </form>
 
 
- <table class="min-w-full bg-white border mt-5">
+ <table>
      <thead>
-         <tr class="bg-gray-100">
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Nº</th>
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Nome do Evento</th>
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Participantes /<br>Registados</th>            
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Categoria</th>
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Data</th>
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Hora</th>
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Custo Estimado</th>       
-            <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Estado do Evento</th>       
-            <th class="border border-gray-300 px-4 py-2 text-center font-bold text-gray-700">Ações</th>
+         <tr>
+            <th>Nº</th>
+            <th>Nome do Evento</th>
+            <th>Participantes /<br>Registados</th>            
+            <th>Categoria</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Custo Estimado</th>       
+            <th>Estado do Evento</th>       
+            <th>Ações</th>
          </tr>
      </thead>
      <tbody>
          @foreach($events as $event)
-         <tr class="odd:bg-white even:bg-gray-50">
-             <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration + $events->firstItem() - 1 }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ $event->name }}</td>
-             <td class="border border-gray-300 px-4 py-2 text-center" >{{ $event->number_of_participants }} / {{ @count($event->users) }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ $event->category->description }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ date('H:i', strtotime($event->start_time))}}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ number_format($event->amount, 2, ',', '.') }}€</td>
-             <td class="border border-gray-300 px-4 py-2">{{ $event->event_status }}</td>
-             <td class="border border-gray-300 px-4 py-2">
+         <tr>
+             <td>{{ $loop->iteration + $events->firstItem() - 1 }}</td>
+             <td>{{ $event->name }}</td>
+             <td>{{ $event->number_of_participants }} / {{ @count($event->users) }}</td>
+             <td>{{ $event->category->description }}</td>
+             <td>{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
+             <td>{{ date('H:i', strtotime($event->start_time))}}</td>
+             <td>{{ number_format($event->amount, 2, ',', '.') }}€</td>
+             <td>{{ $event->event_status }}</td>
+             <td>
                 <a  href="{{ url('events/owner/' . $event->id) }}" >
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Ver</button>
+                    <button class="show-button">Ver</button>
                 </a>
                 @if( $event->event_status == 'pendente') 
                     <a  href="{{ url('events/owner/' . $event->id . '/edit') }}" >
-                        <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">Editar</button>
+                        <button class="edit-button">Editar</button>
                     </a>
                     <a  href="{{ url('events/' . $event->id) }}" >
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Cancelar</button>
+                        <button class="cancel-button">Cancelar</button>
                     </a>
                 @else
-                    <button class="bg-yellow-200 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-full" title="Somente pode editar enquanto estiver pendente">Editar</button>
-                    <button class="bg-red-200 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full" title="Somente pode cancelar enquanto estiver pendente">Cancelar</button>
+                    <button class="edit-button" hidden title="Somente pode editar enquanto estiver pendente">Editar</button>
+                    <button class="cancel-button" hidden title="Somente pode cancelar enquanto estiver pendente">Cancelar</button>
                 @endif 
                  
              </td>             
