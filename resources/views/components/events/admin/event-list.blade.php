@@ -17,7 +17,6 @@
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Hora de Ínicio</th>
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Custo Estimado</th>       
             <th class="border border-gray-300 px-4 py-2 text-left font-bold text-gray-700">Estado do Evento</th>       
-            <th class="border border-gray-300 px-4 py-2 text-center font-bold text-gray-700">Ações</th>
          </tr>
      </thead>
      <tbody>
@@ -31,17 +30,6 @@
              <td class="border border-gray-300 px-4 py-2">{{ date('H:i', strtotime($event->start_time))}}</td>
              <td class="border border-gray-300 px-4 py-2">{{ $event->amount }}€</td>
              <td class="border border-gray-300 px-4 py-2">{{ $event->event_status }}</td>
-             <td class="border border-gray-300 px-4 py-2">
-                <a  href="{{ url('events/admin/' . $event->id) }}" >
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Ver</button>
-                </a>
-                <a  href="{{ url('events/admin/' . $event->id . '/edit') }}" >
-                    <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">Editar</button>
-                </a>
-                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-                 @if( $event->event_status != 'ativo') disabled @endif > <a  href="{{ url('event/' . $event->id) }}" ></a>Cancelar</button>
-             </td>               
-            </tr>
          @endforeach
      </tbody>
  </table>
