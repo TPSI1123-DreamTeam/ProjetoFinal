@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/participants/participant-event-list', [EventController::class,'eventsbyparticipant']);
 
 
-    
+
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
     Route::get('/participants/create',[ParticipantController::class, 'create']);
@@ -100,6 +100,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/participants/{participant}', [ParticipantController::class, 'show']);
     Route::get('/participants/{participant}/edit',[ParticipantController::class, 'edit']);
     Route::get('/participants/{participant}/editState', [ParticipantController::class, 'editState']);
+    Route::get('/participants/{participant}/detachParticipant', [ParticipantController::class, 'detachParticipant']);
     Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
     Route::delete('/participants/{participant}',[ParticipantController::class, 'destroy']);
     Route::delete('/participants', [ParticipantController::class, 'eliminate']);

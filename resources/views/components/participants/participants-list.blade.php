@@ -90,9 +90,16 @@
                                             {{-- <a href="{{ url('participants/' . $participant . '/editState') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a> --}}
                                         </li>
                                         <li class="list-inline-item">
+                                            <form action="{{ url('participants/' . $participant->id . '/detachParticipant') }}" method="GET">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <input hidden name="user" value="{{ $participant->id }}">
+                                                    <input hidden name="event" value="{{ $event->id }}">
+                                                    <input hidden name="confirmation" value="{{ $participant->pivot->confirmation }}">
+                                                    <i class="bx bx-trash-alt font-size-18"></i>
+                                                </button>
+                                            </form>
 
-                                            
-                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
+                                            {{-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a> --}}
                                         </li>
                                         <li class="list-inline-item dropdown">
                                             <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-vertical-rounded"></i></a>

@@ -219,7 +219,6 @@ class ParticipantController extends Controller
 
     public function editState(Request $request)
     {
-       // dd($request);
         if ($request->confirmation == false) {
 
             $user = User::find($request->user);
@@ -247,8 +246,24 @@ class ParticipantController extends Controller
             }
         }
 
-        return view('/participants');
-     //  return back();  // Redireciona de volta para a página anterior
+        return redirect()->to('/participants');
     }
+
+    public function detachParticipant(Request $request)
+    {
+            $user = User::find($request->user);
+            $event = Event::findOrFail($request->event);
+
+            $pivot = $user->events()->where('event_id', $event->id)->first();
+
+            // Remove o participante da relação
+            if ($pivot) {
+                $event->users()->detach($user);
+            }
+            
+            return redirect()->to('/participants');
+
+    }
+
 
 }
