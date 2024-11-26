@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use App\Models\SupplierType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
@@ -14,7 +15,7 @@ class SupplierController extends Controller
      */
     public function index()
     {        
-        $suppliers = Supplier::orderBy('id')->paginate(15);
+        $suppliers = Supplier::orderBy('id')->paginate(5);
         return view('pages.suppliers.index', ['suppliers' => $suppliers]);
     }
 
@@ -23,7 +24,8 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        $supplier_type = SupplierType::all();
+        return view('pages.suppliers.create', compact('supplier_type'));
     }
 
     /**
@@ -31,7 +33,31 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-        //
+            // Validação dos dados do fornecedor, utilizando a StoreSupplierRequest.
+            $validatedData = $request->validated();
+
+            // Criação do fornecedor
+            $supplier = Supplier::create([
+            'name'  => $request->name,
+            'email' => $request->email,
+            'contact' => $request->contact
+            ]);
+
+            if($request->has('image')){
+                $file      = $request->file('image');
+                $imageName = time().'.'.$request->image->extension();
+                $path      = 'images/suppliers/'.$supplier->id;
+    
+                $request->image->move(public_path($path), $imageName);
+    
+                // save image
+                $update = Supplier::find($supplier->id);
+                $update->image = $imageName;
+                $update->save();      
+            }
+
+            // Redirecionamento após sucesso
+            return redirect('/suppliers')->with('status','Item created successfully!')->with('class', 'alert-success');
     }
 
     /**

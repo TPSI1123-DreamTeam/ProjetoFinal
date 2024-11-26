@@ -23,4 +23,10 @@ class Supplier extends Model
 
         return $this->belongsToMany(Event::class);
     }
+
+    public function supplierType(): HasOne
+    {
+        return $this->hasOne(SupplierType::class);
+    }
+
 }

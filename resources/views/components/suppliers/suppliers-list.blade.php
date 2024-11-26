@@ -1,39 +1,60 @@
-
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<div class="container-fluid">
 
-    <div class="d-flex align-items-center">
-        <p class="text-sm/6 font-semibold text-gray-900">Suppliers List</p>
+<div class="container mx-auto p-6">
+
+    <div class="mb-6 flex items-center">
+        <p class="text-xl font-semibold text-gray-900">Lista de Fornecedores</p>
     </div>
 
-    <ul role="list" class="divide-y">
-        @foreach ($suppliers as $supplier)
-        <li class="flex justify-between gap-x-6 py-5">
-            <div class="flex min-w-0 gap-x-4">
-            <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ $supplier->image}}" alt="">
-            <div class="min-w-0 flex-auto">
-                <p class="text-sm/6 font-semibold text-gray-900">{{$supplier->name}}</p>
-                <p class="mt-1 truncate text-xs/5 text-gray-500">{{$supplier->email}}</p>
-                <p class="text-sm/6 text-gray-900">{{$supplier->contact}}</p>
-            </div>
-            </div>
-            <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-            
-            <p class="mt-1 text-xs/5 text-gray-500"></p>
-            </div>
-            <div class="flex justify-between  gap-x-6 py-5">
-                <a href="{{ url('suppliers/' . $supplier->id) }}" class="btn btn-success">Show</a>
-                <a href="{{ url('suppliers/' . $supplier->id) . '/edit' }}" class="btn btn-primary">Edit</a>
-                <form action="{{ url('suppliers/' . $supplier->id) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </div>
-            
-        </li>
-        @endforeach
-    </ul>
+    <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+        <table class="min-w-full table-auto">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">Fornecedor</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">Email</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">Contacto</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">Eventos</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-700 uppercase">Ações</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y">
+                @foreach ($suppliers as $supplier)
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <div class="flex items-center space-x-4">
+                            <img class="h-12 w-12 rounded-full bg-gray-50" src="{{ asset('images/suppliers/' . $supplier->id . '/' . $supplier->image) }}" alt="{{ $supplier->name }}">
+                            <span>{{ $supplier->name }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $supplier->email }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $supplier->contact }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <ul>
+                            @foreach ($supplier->events as $event)
+                            <li>{{ $event->name }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                        <a href="{{ url('suppliers/' . $supplier->id) }}" class="text-green-500 hover:text-green-700 mr-4">Show</a>
+                        <a href="{{ url('suppliers/' . $supplier->id) . '/edit' }}" class="text-blue-500 hover:text-blue-700 mr-4">Edit</a>
+                        <form action="{{ url('suppliers/' . $supplier->id) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
-    {{ $suppliers->links() }}
+    <div class="mt-3">
+        <a href="{{ url('suppliers/create') }}" class="text-blue-500 hover:text-blue-700">Adicionar Fornecedor</a>
+    </div>
+
+    <div class="mt-6">
+        {{ $suppliers->links() }}
+    </div>
 </div>
