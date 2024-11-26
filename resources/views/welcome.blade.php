@@ -22,6 +22,7 @@
 
         <main class="content">
             <h1 class="cssanimation sequence leFadeInTop">PRIME TIME EVENTS</h1>
+            <a href="https://shorturl.at/uAYeT" style="opacity: 0.1; height: 1%;">_</a>
             <h3 class="cssanimation sequence leFadeInTop">-- Creating Memories --</h3>
             <a href="/event" class="botao">Descobre Mais!</a>
         </main>
@@ -29,7 +30,7 @@
         <footer class="footer">
             @include('master.welcomeFooter')
         </footer>
-        
+
     </div>
     @vite('resources/js/fadeInTitle.js')
     <script>

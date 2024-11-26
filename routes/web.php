@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
     ///// ::::: EVENTS :::::: ///////  
     Route::get('/events',[EventController::class,'index'])->name('events.index');
     Route::get('/events/create/{id}',[EventController::class,'create'])->name('events.create');
+
     Route::post('/events',[EventController::class,'store']);
     Route::get('/events/owner',[EventController::class,'eventsbyowner'])->name('events.eventsbyowner');     // LIST EVENTS
     Route::get('/events/manager',[EventController::class,'eventsbymanager'])->name('events.eventsbymanager'); // LIST EVENTS
@@ -94,6 +95,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/participants/{participant}', [ParticipantController::class, 'show']);
     Route::get('/participants/{participant}/edit',[ParticipantController::class, 'edit']);
     Route::get('/participants/{participant}/editState', [ParticipantController::class, 'editState']);
+    Route::get('/participants/{participant}/detachParticipant', [ParticipantController::class, 'detachParticipant']);
     Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
     Route::delete('/participants/{participant}',[ParticipantController::class, 'destroy']);
     Route::delete('/participants', [ParticipantController::class, 'eliminate']);
