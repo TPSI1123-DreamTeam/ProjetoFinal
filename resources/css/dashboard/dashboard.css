@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import 'sidebarDashboard.css';
 @import 'DashboardHeader.css';
 @import 'front-dashboard.css';
@@ -6,14 +7,17 @@
 @import 'eventList.css';
 @import 'profile-edit.css';
 @import 'participant-list.css';
+@import 'show-event.css';
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
 
 html, body {
+    font-family: "Poppins", sans-serif;
     background-color: #E6E4DC !important;
     min-height: 100dvh;
     width: 100vw;
@@ -54,29 +58,29 @@ body::-webkit-scrollbar {
 }
 
 .after-content {
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: flex-start;
-    align-items: center;
-    overflow: hidden;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+    align-content: center !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    overflow: hidden !important;
 }
 
 .sidebar.hidden {
-    position: relative;
-    display: none;
+    position: relative !important;
+    display: none !important;
 }
 
 .sidebar.hidden + .after-content {
-    width: 100%;
+    width: 100% !important;
 }
 
 .linha-divisoria {
-    border: none;
-    border-top: 2px solid #EB5B38;
-    margin: 20px 0;
-    width: 70%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: none !important;
+    border-top: 2px solid #EB5B38 !important;
+    margin: 20px 0 !important;
+    width: 70% !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
