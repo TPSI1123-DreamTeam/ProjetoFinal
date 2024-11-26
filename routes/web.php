@@ -11,8 +11,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 
-
-
 ///// ::::: PUBLIC VIEWS :::::: ///////
 Route::get('/', function () {
        return view('welcome');
@@ -27,8 +25,8 @@ Route::get('/about', function () {
  Route::get('/contact', function () {
      return view('pages.contact.contact');
     })->name('contact');
- Route::post('/contact', [ContactFormController::class, 'submit']);
 
+Route::post('/contact', [ContactFormController::class, 'submit']);
 Route::get('/event/public', [EventController::class, 'public'])->name('events.public');
 Route::get('/event/private',[EventController::class, 'private'])->name('events.private');
 //Route::get('/event/{event}', [EventController::class, 'publicDetail'])->name('events.publicDetail');
@@ -56,7 +54,6 @@ Route::get('/users', function () {
 })->middleware(['auth', 'verified'])->name('users');
 
 
-
 ///// ::::: ROUTES WITH AUTH - BELLOW :::::: ///////
 Route::middleware('auth')->group(function () {
 
@@ -70,26 +67,23 @@ Route::middleware('auth')->group(function () {
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
     Route::get('/payment-list', [PaymentController::class, 'list']);
-
-    ///// ::::: EVENTS :::::: ///////
-
-    Route::get('/events',            [EventController::class,'index'])->name('events.index'); // LIST EVENTS
+   
+    ///// ::::: EVENTS :::::: ///////  
+    Route::get('/events',[EventController::class,'index'])->name('events.index');
     Route::get('/events/create/{id}',[EventController::class,'create'])->name('events.create');
-    Route::post('/events',           [EventController::class,'store']);
-    Route::get('/events/owner',      [EventController::class,'eventsbyowner']);  // LIST EVENTS
-    Route::get('/events/manager',    [EventController::class,'eventsbymanager']);// LIST EVENTS
-    Route::get('/events/admin',      [EventController::class,'eventsbyadmin']);  // LIST EVENTS
-    Route::get('/events/owner/{event}',   [EventController::class,'showbyowner']);
-    Route::get('/events/manager/{event}', [EventController::class,'showbymanager']);
-    Route::get('/events/admin/{event}',   [EventController::class,'showbyadmin']);
-    Route::get('/events/owner/{event}/edit',   [EventController::class,'editbyowner']);
-    Route::get('/events/manager/{event}/edit', [EventController::class,'editbymanager']);
-    Route::get('/participants/participant-event-list', [EventController::class,'eventsbyparticipant']);
-
-
+    Route::post('/events',[EventController::class,'store']);
+    Route::get('/events/owner',[EventController::class,'eventsbyowner'])->name('events.eventsbyowner');     // LIST EVENTS
+    Route::get('/events/manager',[EventController::class,'eventsbymanager'])->name('events.eventsbymanager'); // LIST EVENTS
+    Route::get('/events/admin',[EventController::class,'eventsbyadmin'])->name('events.eventsbyadmin');     // LIST EVENTS
+    Route::get('/events/owner/{event}',[EventController::class,'showbyowner'])->name('events.showbyowner');
+    Route::get('/events/manager/{event}',[EventController::class,'showbymanager'])->name('events.showbymanager');
+    Route::get('/events/admin/{event}',[EventController::class,'showbyadmin'])->name('events.showbyadmin');
+    Route::get('/events/owner/{event}/edit',[EventController::class,'editbyowner'])->name('events.editbyowner');
+    Route::get('/events/manager/{event}/edit',[EventController::class,'editbymanager'])->name('events.editbymanager');
+    Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
     
     ///// ::::: PARTICIPANTS :::::: ///////
-    Route::get('/participants', [ParticipantController::class, 'index']);
+    Route::get('/participants',[ParticipantController::class, 'index'])->name('participants.index');;
     Route::get('/participants/create',[ParticipantController::class, 'create']);
     Route::post('/participants', [ParticipantController::class, 'store']);
    // Route::get('participants/export', [ParticipantController::class, 'export']);
@@ -152,16 +146,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/categories/{category}',[CategoryController::class,'destroy']);
     Route::delete('/categories', [CategoryController::class,'eliminate']);
 
-
     Route::post('/searchEvents', [ParticipantController::class,'searchEvents']);
     Route::get('/searchEventsByOwner', [EventController::class,'searchEventsByOwner']);
     Route::get('/searchEventsByManager', [EventController::class,'searchEventsByManager']);
-
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
 
 require __DIR__.'/auth.php';
-
 ///// ::::: Google Auth :::::: ///////
 Route::get('/login/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('login/google/callback', [GoogleController::class, 'handleGoogleCallback']);
