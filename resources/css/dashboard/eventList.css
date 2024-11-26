@@ -65,16 +65,99 @@ p {
 .event-wrapper {
     display: flex;
     flex-direction: column;
-    flex: 1;
     padding: 8px;
 }
 
 .grid {
-    gap: 1rem !important;
-    width: 1333.99px !important;
-    margin: 0 15px 20px 0 !important;
+    margin: 0 0 20px 0 !important;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    align-items: start;
+    width: 900px;
 }
 
 .text-sm {
     margin-right: 0.5px !important;
 }
+
+.min-w-full {
+    margin: 0 !important;
+}
+
+.event-button-search,
+.event-button-pending,
+.event-button-export {
+    display: inline-block;
+    margin-top: 1rem !important;
+    padding: 0.5rem 1rem !important;
+    background-color: #EB5B38 !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+}
+
+.event-button-search {
+    background-color: #0000ff !important;
+}
+
+.event-button-search:hover {
+    background-color: #010191 !important;
+    cursor: pointer;
+}
+
+.event-button-export {
+    max-width: 167px;
+    background-color: #4eb51b !important;
+    cursor: pointer;
+}
+
+.event-button-export:hover {
+    background-color: #3a7d19 !important;
+    cursor: pointer;
+}
+
+.event-button-pending:hover{
+    background-color: #d04b2b !important;
+    cursor: pointer !important;
+} 
+
+.filter-search-event {
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.action-buttons {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-content: center !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+}
+
+.flex {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    align-content: center !important;
+    flex-wrap: wrap !important;
+}
+
+.left {
+    grid-column: 1;
+  }
+  
+  .right {
+    grid-column: 2;
+  }
