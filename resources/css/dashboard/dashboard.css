@@ -8,6 +8,7 @@
 @import 'profile-edit.css';
 @import 'participant-list.css';
 @import 'show-event.css';
+@import 'user-list.css';
 
 * {
     margin: 0;

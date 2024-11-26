@@ -1,0 +1,39 @@
+.list {    
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.card-user {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 5px;
+    border: 1px solid black;
+}
+
+h1 {
+    font-size: 2rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    margin: 15px 0 !important;
+    padding: 0 0 1rem 0 !important;
+    text-align: center !important;
+}
+
+.user-card-header,
+.user-card-header img {
+    width: 100%;
+}
+
+.user-nameEmail {
+    margin: 5px !important;
+}
+
+.user-role-change {
+    margin: 5px !important;
+}
