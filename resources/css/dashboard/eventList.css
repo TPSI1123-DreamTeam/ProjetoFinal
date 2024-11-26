@@ -48,7 +48,7 @@ tbody tr td a {
     font-size: 2rem !important;
     font-weight: 600 !important;
     color: #1f2937 !important;
-    margin: 0 !important;
+    margin: 15px 0 !important;
     padding: 0 0 1rem 0 !important;
     text-align: center;
 }
@@ -156,8 +156,15 @@ p {
 
 .left {
     grid-column: 1;
-  }
+}
   
-  .right {
-    grid-column: 2;
-  }
+.right {
+grid-column: 2;
+}
+
+.amount-of-pages {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px !important;
+}
+
