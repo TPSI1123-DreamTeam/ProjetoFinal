@@ -18,7 +18,7 @@ export default defineConfig({
                 'resources/js/carouselEventPrivate.js',
                 'resources/js/toggle-sidebar.js',
                 'resources/js/formListEvent.js',
-                'resources/js/formListEventManager.js',
+                // 'resources/js/formListEventManager.js',
                 'resources/js/form-create-event.js'
             ],
             refresh: true,
