@@ -19,4 +19,12 @@ class SupplierType extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function supplier(): HasMany
+    {
+        return $this->hasMany(Supplier::class);
+    }
+    
 }
+
+
