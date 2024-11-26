@@ -3,26 +3,23 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-<div class="container">
-    <div class="">
-        <div class="d-flex align-items-center mt-5">
-            <h1>Evento</h1>   
+<div class="container-show-event">
+    <div class="wrapper-show-event">
+        <div class="show-event-heading">
+            <h1>Evento</h1>
         </div>
         <br>
 
-        <form  method="POST" action="{{ url('/events') }}" enctype="multipart/form-data" class="mt-2">
+        <form  method="POST" action="{{ url('/events') }}" enctype="multipart/form-data" class="event-show">
             @csrf
 
-            <!-- <div class="card mb-3">
-                <img src="/images/{{ $event->image }}" class="card-img-top" alt="..." style="width: 18rem;">
+            <div class="card" style="width: 18rem;">
+                <img src="/images/{{ $event->image }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $event->name }}</h5>
-                    <p class="card-text">{{ $event->description }}</p>
-                    <p class="card-text"><small class="text-muted">{{ $event->localization }}</small></p>
+                    <h3>{{ $event->name }}</h3>
+                    <p class="card-text">{{ $event->localization }} - {{ $event->start_date }}</p>
                 </div>
-            </div> -->
-
-    
+            </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -85,16 +82,8 @@
                 </select>
             </div>
 
-            <div class="card" style="width: 18rem;">
-                <img src="/images/{{ $event->image }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h3>{{ $event->name }}</h3>
-                    <p class="card-text">{{ $event->localization }} - {{ $event->start_date }}</p>
-                </div>
-            </div>
-
             <div>
-            <a href="/events/manager"> <button type="button" class="btn btn-primary mt-5">Voltar a lista de eventos</button></a>   
+                <a href="/events/manager" class="go-back-btn">Voltar a lista de eventos</a>   
             </div>
         </form>
     </div>
