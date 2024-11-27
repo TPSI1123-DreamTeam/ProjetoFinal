@@ -12,10 +12,13 @@
                 <span></span>
                 <span></span>
             </label>
+            <a href="{{ route('profile.edit') }}" class="profile-edit">Editar Perfil</a>
         </div>
-        <a href="{{ route('profile.edit') }}">Editar Perfil</a>
-        <i class='bx bx-chat' ></i>
-        <i class='bx bx-bell'></i>
+
+        <div class="chat-bell-icons">
+            <i class='bx bx-chat' ></i>
+            <i class='bx bx-bell'></i>
+        </div>
     </nav>
     
     <div class="login">

@@ -34,15 +34,12 @@
                 @case(2)  {{-- Manager  --}}
                     <li><a href="{{ url('/events/manager') }}">Gerir Eventos&nbsp; <span>&gt;</span></a></li>
                     <li><a href="{{ url('/suppliers') }}">Lista de Fornecedores&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="#">Editar Custo de Evento&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="#">Relatórios&nbsp; <span>&gt;</span></a></li>
                     @break
                 @case(3) {{-- Owner --}}
                     <li><a href="{{ route('participants.index') }}">Lista de Participantes&nbsp; <span>&gt;</span></a></li>
                     <li><a href="{{ route('events.eventsbyowner') }}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
-                    {{-- <li><a href="#">Lista de Fornecedores&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="#">Editar Custo de Evento&nbsp; <span>&gt;</span></a></li> --}}
-                    <li><a href="#">Carregar Convite&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="#">Venda de Bilhetes&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="#">Criar Convite&nbsp; <span>&gt;</span></a></li>
                     <li><a href="#">Relatórios&nbsp; <span>&gt;</span></a></li>
                     @break
 

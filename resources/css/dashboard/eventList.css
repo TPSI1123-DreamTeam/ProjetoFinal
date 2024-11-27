@@ -79,6 +79,29 @@ p {
     width: 900px;
 }
 
+.title-hidder-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.event-input-list {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    width: 446px;
+}
+
+.event-wrapper .bx {
+    color: #EB5B38;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 128px;
+}
+
 .text-sm {
     margin-right: 0.5px !important;
 }
