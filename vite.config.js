@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/css/register.css',
                 'resources/css/client-side/app.css', 
                 'resources/js/app.js',
+                'resources/js/dropdownEvent.js',
                 'resources/js/fadeInTitle.js',
                 'resources/js/carouselEvent.js',
                 'resources/js/carouselEventPrivate.js',
