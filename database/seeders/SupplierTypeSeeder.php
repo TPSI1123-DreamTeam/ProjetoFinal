@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Suppliertype;
+use App\Models\SupplierType;
 
 class SupplierTypeSeeder extends Seeder
 {
