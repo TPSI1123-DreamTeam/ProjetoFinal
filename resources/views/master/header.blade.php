@@ -26,21 +26,20 @@
     
     <div class="login">
         @if( isset(Auth::user()->name) )    
-
-        <div class="">    
-        <a href="/dashboard">{{ Auth::user()->name }}</a></span>
-            <!-- Authentication -->
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-
-                <x-dropdown-link :href="route('logout')"
-                        onclick="event.preventDefault();
-                                    this.closest('form').submit();">
-                    {{ __('Log Out') }}
-                </x-dropdown-link>
-            </form>
+        <div class="dropdown">
+            <button class="dropdown-btn">
+                {{ Auth::user()->name }} <span class="arrow-down">▼</span>
+            </button>
+            <div class="dropdown-content">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/profile">Editar Perfil</a>
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
         </div>
-
         @else
         <div class="login">
             <a href="/login">Login</a>
@@ -49,4 +48,5 @@
         </div>
         @endif
     </div>
+    
 </header>

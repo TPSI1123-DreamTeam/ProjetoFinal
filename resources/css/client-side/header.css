@@ -102,10 +102,6 @@
     flex-direction: column;
 }
 
-.login a:first-child {
-    font-size: 20px;
-}
-
 .login a {
     color: #E6E4DC;
     text-decoration: none;
@@ -120,6 +116,62 @@
 
 .login a:hover {
     color: #EB5B38;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button */
+.dropdown-btn {
+    background-color: #272A2D;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Arrow style */
+.arrow-down {
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+/* Dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #272A2D;
+    min-width: 160px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+/* Dropdown content items */
+.dropdown-content a, .dropdown-content .logout-btn {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-size: 15px;
+}
+
+/* Hover effect */
+.dropdown-content a:hover, .dropdown-content .logout-btn:hover {
+    background-color: #f5f5f5;
+    color:#272A2D;
+}
+
+/* Show dropdown content on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 @media (max-width: 1400px) {
@@ -163,13 +215,13 @@
         flex-direction: column;
         gap: 15px;
         position: absolute;
-        top: 70px;
-        left: 50%;
+        top: 75px;
+        left: 46%;
         transform: translateX(-50%);
         background-color: #272A2D;
         padding: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        width: 90vw;
+        width: 250px;
         z-index: 10;
     }
 
