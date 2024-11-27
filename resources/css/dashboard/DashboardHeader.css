@@ -58,7 +58,19 @@
 .nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    width: 100%;
+    justify-content: space-between;
+    margin-right: 20px;
+}
+
+.profile-edit {
+    margin-left: 30px;
+}
+
+.chat-bell-icons {
+    display: flex;
+    justify-content: flex-end !important;
+    gap: 5px;
 }
 
 .nav a {
@@ -69,10 +81,25 @@
     transition: color 0.3s ease;
 }
 
+.hamburger {
+    position: absolute;
+    top: 35px;
+}
+
+.hamburguer-button {
+    display: flex;
+    margin-left: 70px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+
 .login {
     display: flex;
     text-align: center;
     flex-direction: column;
+    min-width: 150px;
 }
 
 .login a:first-child {
