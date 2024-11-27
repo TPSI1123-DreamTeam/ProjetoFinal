@@ -7,6 +7,7 @@ use App\Models\SupplierType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
+use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
@@ -15,7 +16,7 @@ class SupplierController extends Controller
      */
     public function index()
     {        
-        $suppliers = Supplier::orderBy('id')->paginate(5);
+        $suppliers = Supplier::with('supplierType')->paginate(10);
         return view('pages.suppliers.index', ['suppliers' => $suppliers]);
     }
 
@@ -24,8 +25,8 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $supplier_type = SupplierType::all();
-        return view('pages.suppliers.create', compact('supplier_type'));
+        $supplierTypes = SupplierType::all();
+        return view('pages.suppliers.create', compact('supplierTypes'));
     }
 
     /**
@@ -33,14 +34,16 @@ class SupplierController extends Controller
      */
     public function store(StoreSupplierRequest $request)
     {
-            // Validação dos dados do fornecedor, utilizando a StoreSupplierRequest.
-            $validatedData = $request->validated();
-
+        // Validação dos dados do fornecedor, utilizando a StoreSupplierRequest.
+        $validatedData = $request->validated();
+        
             // Criação do fornecedor
             $supplier = Supplier::create([
             'name'  => $request->name,
             'email' => $request->email,
-            'contact' => $request->contact
+            'contact' => $request->contact,
+            'supplier_type_id' => $request->supplier_type_id,
+            'status' => true
             ]);
 
             if($request->has('image')){
@@ -56,8 +59,9 @@ class SupplierController extends Controller
                 $update->save();      
             }
 
+
             // Redirecionamento após sucesso
-            return redirect('/suppliers')->with('status','Item created successfully!')->with('class', 'alert-success');
+            return redirect()->route('suppliers.index')->with('status', 'Fornecedor criado com sucesso!');
     }
 
     /**
@@ -93,16 +97,12 @@ class SupplierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Supplier $supplier)
-    {
-        try {
-            $supplier = Supplier::findOrFail($supplier->id);
-            $supplier->delete();
-            return redirect('suppliers')->with('status','Deleted successfully!')->with('class', 'alert-success');
-        } catch (ModelNotFoundException $exception) {
-            return redirect('suppliers')->with('status','Not Founded!')->with('class', 'alert-danger');
-        } catch (Exception $exception) {
-            return redirect('suppliers')->with('status','Error!')->with('class', 'alert-danger');
-        }
-    }
+
+     public function toggleStatus(Supplier $supplier)
+     {
+         $supplier->status = !$supplier->status;  // Alterna entre 1 e 0
+         $supplier->save();
+     
+         return redirect()->route('suppliers.index')->with('status', 'Fornecedor atualizado com sucesso!');
+     }
 }

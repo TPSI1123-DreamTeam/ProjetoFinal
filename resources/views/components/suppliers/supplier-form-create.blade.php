@@ -2,7 +2,7 @@
 
 <div class="container mx-auto mt-5">
     <h1 class="text-3xl font-bold mb-5">Criar Fornecedor</h1>
-    <form method="POST" action="{{ url('/suppliers') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('suppliers.store') }}" enctype="multipart/form-data">
         @csrf
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -33,18 +33,19 @@
             </div>
 
             <div>
-                <label for="event" class="block text-sm font-medium text-gray-700">Evento</label>
-                <select name="event_id" id="event" class="mt-1 p-2 w-full border border-gray-300 rounded-md @error('event_id') border-red-500 @enderror" required>
-                    <option value="">Selecione o Evento</option>
-                    @foreach ($supplier_types as $supplier_type)
-                        <option value="{{ $supplier_type->id }}" {{ old('supplier_type_id') == $supplier_type->id ? 'selected' : '' }}>{{ $supplier_type->name }}</option>
+                <label for="supplier_type_id" class="block text-sm font-medium text-gray-700">Tipo de Fornecedor</label>
+                <select name="supplier_type_id" id="supplier_type_id" class="mt-1 p-2 w-full border border-gray-300 rounded-md @error('supplier_type_id') border-red-500 @enderror" required>
+                    <option value="">Selecione o Tipo de Fornecedor</option>
+                    @foreach ($supplierTypes as $supplierType)
+                        <option value="{{ $supplierType->id }}" {{ old('supplier_type_id') == $supplierType->id ? 'selected' : '' }}>
+                        {{ $supplierType->name }}
+                        </option>
                     @endforeach
                 </select>
-                @error('event_id')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @error('supplier_type_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-        </div>
 
         <div class="mb-6">
             <label for="logo" class="block text-sm font-medium text-gray-700">Logo do Fornecedor</label>

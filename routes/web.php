@@ -114,14 +114,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/invitations/submit', [InvitationController::class,'submit']);
 
     ///// ::::: SUPPLIERS :::::: ///////
-    Route::get('/suppliers', [SupplierController::class,'index']);
+    Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('/suppliers/create', [SupplierController::class, 'create']);
-    Route::post('/suppliers', [SupplierController::class,'store'])->name('suppliers.store');;
+    Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
     Route::get('/suppliers/{supplier}', [SupplierController::class,'show']);
     Route::get('/suppliers/{supplier}/edit',[SupplierController::class,'edit']);
     Route::put('/suppliers/{supplier}', [SupplierController::class,'update']);
     Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
-    Route::delete('/suppliers', [SupplierController::class,'eliminate']);
+    Route::patch('/suppliers/{supplier}/toggle-status', [SupplierController::class, 'toggleStatus'])->name('suppliers.toggle-status');
 
     ///// ::::: DASHBOARD :::::: ///////
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
