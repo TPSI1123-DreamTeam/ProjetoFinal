@@ -33,6 +33,7 @@
 
     </div>
     @vite('resources/js/fadeInTitle.js')
+    @vite('resources/js/dropdownEvent.js')
     <script>
         function toggleMenu() {
         document.querySelector('.nav-links').classList.toggle('active');

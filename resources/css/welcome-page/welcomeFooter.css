@@ -61,7 +61,7 @@
 
 @media (max-width: 850px) {
     .footer {
-        position: relative;
+        position: fixed;
     }
 }
 
