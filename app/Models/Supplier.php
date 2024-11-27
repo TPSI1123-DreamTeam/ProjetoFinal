@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Supplier extends Model
 {
@@ -17,6 +18,8 @@ class Supplier extends Model
         'name',
         'contact',
         'email',
+        'supplier_type_id',
+        'status',
     ];
 
     public function events(): BelongsToMany{
@@ -24,9 +27,9 @@ class Supplier extends Model
         return $this->belongsToMany(Event::class);
     }
 
-    public function supplierType(): HasOne
+    public function supplierType(): BelongsTo
     {
-        return $this->hasOne(SupplierType::class);
+        return $this->belongsTo(SupplierType::class);
     }
 
 }

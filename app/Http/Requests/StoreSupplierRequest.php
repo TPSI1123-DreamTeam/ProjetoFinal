@@ -24,7 +24,8 @@ class StoreSupplierRequest extends FormRequest
         return [
             'name'  => 'required|string',
             'email' => 'required|string',
-            'contact' => 'required|string'
+            'contact' => 'required|string',
+            'supplier_type_id' => 'required|integer',
         ];
     }
 }

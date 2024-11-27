@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('contact');
             $table->string('email');
             $table->string('image')->nullable()->default(null);
+            $table->boolean('status')->default(true);
+            $table->foreignId('supplier_type_id')->constrained('supplier_types')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

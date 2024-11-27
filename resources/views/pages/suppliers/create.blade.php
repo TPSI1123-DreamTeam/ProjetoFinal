@@ -2,7 +2,7 @@
 
 @section('content')
 
-@component('components.suppliers.supplier-form-create' , ['supplier_type' => $supplier_type]);
+@component('components.suppliers.supplier-form-create', ['supplierTypes' => $supplierTypes])
 @endcomponent
 
 @endsection

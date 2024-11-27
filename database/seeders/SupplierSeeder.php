@@ -64,6 +64,7 @@ class SupplierSeeder extends Seeder
                 'contact' => (string) fake()->numberBetween(912345678, 936456789),                
                 'email'   => fake()->safeEmail(),
                 'image'   => $imagesArray[rand(0,5)],
+                'supplier_type_id' => rand(1,6)
             ]);
 
             $events = Event::inRandomOrder()->take(rand(1, 3))->pluck('id');
