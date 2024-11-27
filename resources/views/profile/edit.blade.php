@@ -7,7 +7,6 @@
             {{ __('Profile') }}
         </h2>
     </x-slot>
-
     <h1>Edite o seu Perfil!</h1>
 
     <p>
