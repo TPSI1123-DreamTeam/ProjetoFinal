@@ -136,6 +136,7 @@
    <div class="mt-2">
     <label>Escolher Ficheiro:</label>
     <input type="file" id="ExcelFile" name="file" class="form-control">
+    <input hidden name="event" value="{{ $event->id }}">
    </div>
    <div class="mt-2">
     <button class="btn btn-success">Submeter</button>
