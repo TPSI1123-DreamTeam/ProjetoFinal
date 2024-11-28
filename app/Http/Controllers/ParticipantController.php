@@ -117,90 +117,94 @@ class ParticipantController extends Controller
         return Excel::download(new ParticipantsExport($participants->users), 'participants.xlsx');
     }
 
-    public function import(Request $request, $emailsArray)
+    public function import(Request $request, $eventId)
     {
-        $url = $request->server('PATH_INFO'); // Encontra o número após a última barra
-        if (preg_match('/\/(\d+)$/', $url, $matches)) {
-            $eventId = (int) $matches[1];
-            //echo $number;
-        }
-
-        // Receber o arquivo Excel enviado
+        // Valida o ficheiro enviado
+        // $request->validate([
+        //     'file' => 'required|mimes:xlsx,csv',
+        // ]);
         $file = $request->file('file');
 
-        // Usar o método toArray para ler o Excel e convertê-lo para um array
-       // $data = Excel::toArray([], $file);
+        //dd($eventId);
+        // Obtém o evento
+        $event = Event::findOrFail($eventId);
 
-       $participantsExcel = Excel::toArray(new ParticipantsImport(), $file);
-       // dd($emailsArray);
-        dd($participantsExcel);
+        // Importa os dados do Excel
+        $rows = Excel::toArray([], $request->file('file'));
 
-        $ownerId = Auth::user()->id;
-        $query   = Event::query();
-        $query->where('owner_id',$ownerId);
-        $events = $query->get();
-
-        $participantsDb = Event::find($eventId);
-
-        $users = [];
-       // dd($users);
-        $participantsD = [];
-        $tempParticipants[0] = 'N';
-        $tempParticipants[1] = 'Name';
-        $tempParticipants[2] = 'Phone';
-        $tempParticipants[3] = 'Email';
-        $tempParticipants[4] = 'Confirmation';
-
-        foreach ($participantsDb->users as $participant) {
-            // Tentativa de iterar user a user que está no evento específico para
-            // guardar num array
-            $tempParticipants[1] = $participantsDb->pivot->name;
-            $tempParticipants[2] = $participantsDb->pivot->$phone;
-            $tempParticipants[3] = $participantsDb->pivot->$email;
-            $tempParticipants[4] = $participantsDb->pivot->$confirmation;
-            $users = $tempParticipants;
-        }
-       dd($users);
-        $participants = [];
+      // dd($rows);
 
 
-        foreach ($participantsExcel as $excelParticipant) {
-            // Supondo que $excelParticipant seja um array associativo
-            $excelEmail = $excelParticipant['email'];  // Acessa o email do Excel
+        // Obtém os participantes existentes no evento
+        $existingParticipants = $event->users->map(function ($user) {
+            return [
+                'nome' => strtolower(trim($user->name)),
+                'telefone' => strtolower(trim($user->phone)),
+                'email' => strtolower(trim($user->email)),
+                'confirmação' => strtolower(trim($user->pivot->confirmation)),
+            ];
+        });
 
-            $foundMatch = false;  // Variável para verificar se encontrou uma correspondência
+        $primeiroArray = collect($rows[0]);
+        $arrayComparacao = collect($existingParticipants);
 
-            foreach ($participantsDb as $dbParticipant) {
-                // Supondo que $dbParticipant seja um objeto
-                if ($excelEmail === $dbParticipant->email) {
-                   // echo "Email encontrado: " . $excelEmail . "\n";
-                    $foundMatch = true;
-                    break;  // Sai do loop interno quando encontrar o email
-                }
-            }
+        // Verificar diferenças: users do primeiro array que não estão no segundo
+        $diferencas = $primeiroArray->filter(function ($user) use ($arrayComparacao) {
+            return !$arrayComparacao->contains(function ($compUser) use ($user) {
+                return
+                    strtolower($compUser['nome']) === strtolower($user[1]) &&
+                    (string)$compUser['telefone'] === (string)$user[2] &&
+                    strtolower($compUser['email']) === strtolower($user[3]) &&
+                    $compUser['confirmação'] === ($user[4] === "Sim" ? "1" : "0");
+            });
+        });
 
-            // Se não encontrar nenhuma correspondência no banco de dados
-            if (!$foundMatch) {
-               // echo "Email não encontrado no banco de dados: " . $excelEmail . "\n";
+        // Resultado final
+       // dd($diferencas->values()->all());
 
-                // Adiciona o participante ao array $participants se o email for diferente
-                // Podemos adicionar a linha completa do participante Excel
-                $participants[] = $excelParticipant;  // Adiciona a linha ao array
-            }
-        }
+        $diferencas->shift(); // Remove a primeira linha do array que neste caso contém os dados do header (Dados não necessários)
+
+     //   dd($diferencas);
+
+         $emailsDiferencas = $diferencas->pluck(3)->toArray(); // Posição 3 contém o email no $diferencas
+
+     //   dd($emailsDiferencas);
+       // Consultar na base de dados se os users contidos em $emailsDiferencas existem. Se existem, são adicionados
+      //  ao array $usersExistentes já com as propriedades iguais ás da tabela nos quais os users estão contidos num evento
+        $usersExistentes = User::whereIn('email', $emailsDiferencas) // Filtrar pelos emails do $emailsDiferencas
+        ->get(['name', 'phone', 'email']) // Obter os campos desejados
+        ->map(function ($user) {
+        return [
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'email' => $user->email,
+            'confirmation' => "Não",
+        ];
+             })
+    ->toArray();
+
+      //  dd($usersExistentes);
+   //  dd($diferencas);
 
 
-        dd($participants);
 
-        // if ($participants == null) {
-        //     return ('Todos os participantes contidos no ficheiro já existem nesta lista de evento');
-        // } else {
-        //     return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
-        // }
+             // Adicionar os usuários ao evento
+    foreach ($diferencas as $user) {
+    // Buscar ou criar o usuário com base no email
+    $userModel = User::firstOrCreate(
+        ['email' => $user[3]], // Condição de busca
+        [
+            'name' => $user[1],  // Preencher os campos caso o usuário não exista
+            'phone' => $user[2],
+            'image' => $user[1], // $user[1] (nome) usado para testar na parte da imagem par não dar erro
+        ]
+    );
 
+    // Associar o user ao evento (se ainda não estiver associado)
+    $event->users()->syncWithoutDetaching([$userModel->id]);
+    }
 
-        return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
-       // return redirect('participants')->with('success', 'All good!');
+    return redirect()->to('/participants');
     }
 
 
@@ -260,7 +264,7 @@ class ParticipantController extends Controller
             if ($pivot) {
                 $event->users()->detach($user);
             }
-            
+
             return redirect()->to('/participants');
 
     }
