@@ -10,9 +10,9 @@
         </div>
         <br>
 
-        <form  method="POST" action="{{ url('/events') }}" enctype="multipart/form-data" class="mt-2">
+        <form  method="POST" action="{{ url('/events/'.$event->id) }}" enctype="multipart/form-data" class="mt-2">
+            @method('PUT')
             @csrf
-
 
             <div class="card" style="width: 18rem;">
                 <img src="/images/{{ $event->image }}" class="card-img-top" alt="...">
@@ -26,31 +26,33 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label for="inputEmail4">Nome do Evento</label> 
-                <input type="text"name="name" id="name" value="{{ $event->name }}"  class="form-control" disabled>
+                <input type="text"name="name" id="name" value="{{ $event->name }}"  class="form-control"  >
                 </div>
 
                 <div class="form-group col-md-4">
                 <label for="inputlocalization">Localização</label>
-                <input type="text" class="form-control" name="localization"  id="localization" value="{{ $event->localization }}"  disabled>
+                <input type="text" class="form-control" name="localization"  id="localization" value="{{ $event->localization }}"   >
                 </div>
 
                 <div class="form-group col-md-2">
                 <label for="number_of_participants">Participantes</label>
-                <input type="text" class="form-control" name="number_of_participants"  id="number_of_participants" value="{{ $event->number_of_participants }}" min="30" max="100000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" disabled>
+                <input type="text" class="form-control" name="number_of_participants"  id="number_of_participants" value="{{ $event->number_of_participants }}" min="30" max="100000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"  >
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-7">
                     <label for="inputAddress">Descrição do Evento</label>
-                    <input type="text-area" class="form-control" name="description"  id="description"  value="{{ $event->description }}" disabled>
+                    <input type="text-area" class="form-control" name="description"  id="description"  value="{{ $event->description }}"  >
                 </div>
 
                 <div class="form-group col-md-5">               
                     <label class="" for="inputGroupSelect01">Categoria</label>
-                    <select id="type" name="type"  class="form-control" disabled>
-                        <option disabled>Selecione a categoria:</option>
-                    
+                    <select id="category_id" name="category_id"  class="form-control"  >
+                        <option  >Selecione a categoria:</option>
+                        @foreach ($categories as $item)
+                        <option value="{{ $item->id }}" @if( $item->id == $event->category_id) selected @endif >{{ $item->description }}</option>
+                         @endforeach
                     </select>       
                 </div>
             </div>
@@ -58,34 +60,73 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inputAddress2">Data do Evento</label>
-                    <input type="date" class="form-control" name="start_date" id="start_date" value="{{ $event->start_date }}" disabled>
+                    <input type="date" class="form-control" name="start_date" id="start_date" value="{{ $event->start_date }}"  >
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputAddress2">Hora</label>
-                    <input type="time" class="form-control" name="start_time" id="start_time" value="{{   $event->start_time }}"   disabled>
+                    <input type="time" class="form-control" name="start_time" id="start_time"  value="{{ date('H:i', strtotime($event->start_time)) }}"    pattern="^([01][0-9]|2[0-3]):[0-5][0-9]$"  placeholder="HH:MM"    >
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="inputAddress2">Data do Fim do Vento</label>
-                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{   $event->end_date }}"    disabled>
+                    <input type="date" class="form-control" name="end_date" id="end_date" value="{{   $event->end_date }}"     >
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputAddress2">Hora</label>
-                    <input type="time" class="form-control" name="end_time" id="end_time" value="{{   $event->end_time }}"    disabled>
+                    <input type="time" class="form-control" name="end_time" id="end_time"  value="{{ date('H:i', strtotime($event->end_time)) }}" pattern="^([01][0-9]|2[0-3]):[0-5][0-9]$"   placeholder="HH:MM"   >
                 </div>
             </div>
+            
+        <div class="form-group">
+            <label for="inputState">Tipo de Evento</label>
+            <select id="type" name="type"  class="form-control @error('type') is-invalid @enderror"  >
+                <option disabled>Escolher o tipo de evento...</option>
+                <option value="Publico" @if($event->type == "Publico") selected @endif >Público</option>
+                <option value="Privado" @if($event->type == "Privado") selected @endif >Privado</option>
+            </select>
+            @error('type')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>  
 
-            <div class="form-group">
-                <label for="inputState">Tipo de Evento</label>
-                <select id="type" name="type"  class="form-control" disabled>
-                    <option disabled>Escolher o tipo de evento...</option>
-                    <option value="Publico">Público</option>
-                    <option value="Privado">Privado</option>
-                </select>
-            </div>
+            @php
+                $servicesArray = json_decode($event->services_default_array, true);
+            @endphp
+
+            @foreach($SupplierType as $type)
+
+                @if( ( $loop->iteration % 2) !== 0)
+                <div class="form-row">
+                @endif
+
+                <div class="form-group col-md-6">
+                    <input type="checkbox" id="suppliers[]" name="suppliers[]" value="{{$type->id}}" 
+                
+                    @if(!empty($servicesArray) && in_array($type->id, $servicesArray))
+                        checked
+                    @endif
+                    > {{  $type->name }}              
+                </div>
+
+                @if( ( $loop->iteration % 2) === 0)
+                </div>
+                @endif
+
+            @endforeach    
+
+            <div class="input-group mt-3">          
+                <div class="custom-file">              
+                    <label for="image">Imagem:</label>
+                    <input  type="file" id="image" name="image" class="form-control @error('image') is-invalid @enderror"> 
+                    @error('image')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror               
+                </div>     
+            </div> 
 
             <div>
-            <a href="/events/manager" class="go-back-btn">Voltar a lista de eventos</a>   
+                <a href="/events/manager" class="go-back-btn">Voltar a lista de eventos</a> 
+                <button type="submit" class="btn btn-success mt-5 mb-5">Atualizar Evento</button>        
             </div>
         </form>
     </div>

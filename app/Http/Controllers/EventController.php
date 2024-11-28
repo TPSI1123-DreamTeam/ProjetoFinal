@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Exports\EventsbyownerExport;
-use App\Http\Requests\StoreEventRequest;
-use App\Http\Requests\UpdateEventRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\SupplierType;
-
+use App\Exports\EventsbyownerExport;
+use Illuminate\Http\Request;
+use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\UpdateEventRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 
 class EventController extends Controller
@@ -244,10 +243,17 @@ class EventController extends Controller
     * Display a listing of the resource.
     */
     public function eventsbyadmin()
-    {    
-        $events =  Event::paginate(15);
-        $suppliers = Supplier::all();
-        return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers]);
+    {   
+        $AuthUser = Auth::user(); 
+
+        if($AuthUser->role_id == 1 ){
+
+            $events =  Event::paginate(15);
+            $suppliers = Supplier::all();
+            return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers]);
+        }else{
+            return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
+        }  
     }
 
 
@@ -409,11 +415,17 @@ class EventController extends Controller
 
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
+
             $event = Event::find($event->id);
-            return view('pages.events.manager.show', ['event' => $event]);
+            $category     = Category::find($event->category_id);
+            $SupplierType = SupplierType::all();
+            $suppliers    = Supplier::all();
+
+
+            return view('pages.events.manager.show', ['event' => $event, 'category' => $category, 'suppliers' => $suppliers, 'SupplierType' => $SupplierType]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
-        }
+        }           
     }
 
 
@@ -422,9 +434,8 @@ class EventController extends Controller
      */
     public function showbyadmin(Event $event)
     {
-        $AuthUser = Auth::user(); // (role_id == 3) => owner
-
-        // user roles is owner and he is the event (to show) owner
+        $AuthUser = Auth::user(); 
+        
         if($AuthUser->role_id == 1){
             $event = Event::find($event->id);
             return view('pages.events.admin.show', ['event' => $event]);
@@ -470,7 +481,9 @@ class EventController extends Controller
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
             $event = Event::find($event->id);
-            return view('pages.events.manager.edit', ['event' => $event]);
+            $SupplierType = SupplierType::all();
+            $categories   = Category::all();
+            return view('pages.events.manager.edit', ['event' => $event, 'categories' => $categories, 'SupplierType' => $SupplierType]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
         }
@@ -483,35 +496,45 @@ class EventController extends Controller
     public function update(UpdateEventRequest $request, Event $event)
     { 
 
-        $event                         = Event::find($event->id);
-        $event->name                   = $request->name;
-        $event->description            = $request->description;
-        $event->localization           = $request->localization;
-        $event->start_date             = $request->start_date;
-        $event->end_date               = $request->end_date;
-        $event->start_time             = $request->start_time;
-        $event->end_time               = $request->end_time;
-        $event->category_id            = $request->category_id;
-        $event->type                   = $request->type;
-        $event->number_of_participants = $request->number_of_participants;
-        $event->services_default_array = json_encode($request->suppliers);
-        $event->save(); 
+        //dd($event);
 
-        // check and store image
-        if($request->has('image') && $request->file('image')){
-            $file      = $request->file('image');
-            $imageName = time().'.'.$request->image->extension();
-            $path      = 'images/events/'.$event->id;
+        // only can update: owner and manager
+        $AuthUser = Auth::user();
 
-            $request->image->move(public_path($path), $imageName);
-            // save image
-            $update = Event::find($event->id);
-            $update->image = $imageName;
-            $update->save();    
+        if($AuthUser->id === $event->manager_id || $AuthUser->id === $event->owner_id){
+
+            $event                         = Event::find($event->id);
+            $event->name                   = $request->name;
+            $event->description            = $request->description;
+            $event->localization           = $request->localization;
+            $event->start_date             = $request->start_date;
+            $event->end_date               = $request->end_date;
+            $event->start_time             = $request->start_time;
+            $event->end_time               = $request->end_time;
+            $event->category_id            = $request->category_id;
+            $event->type                   = $request->type;
+            $event->number_of_participants = $request->number_of_participants;
+            $event->services_default_array = json_encode($request->suppliers);
+            $event->save(); 
+
+            // check and store image
+            if($request->has('image') && $request->file('image')){
+                $file      = $request->file('image');
+                $imageName = time().'.'.$request->image->extension();
+                $path      = 'images/events/'.$event->id;
+
+                $request->image->move(public_path($path), $imageName);
+                // save image
+                $update = Event::find($event->id);
+                $update->image = $imageName;
+                $update->save();    
+            }
+
+            // /events/owner/26/edit
+            return redirect('/events/manager/'.$event->id.'/edit')->with('status','Item edited successfully!')->with('class', 'alert-success');
+        }else{
+            return redirect('/dashboard')->with('status','Something is not write!')->with('class', 'alert-danger');
         }
-
-        // /events/owner/26/edit
-        return redirect('/events/owner/'.$event->id.'/edit')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
 
     /**
@@ -530,16 +553,22 @@ class EventController extends Controller
     {
         $AuthUser = Auth::user(); 
         // user roles is owner and he is the event (to show) owner
-        if($AuthUser->id === $event->manager_id || $AuthUser->id === $event->owner_id || ($AuthUser->id === 2 && $event->manager_id === null)){
+        if($AuthUser->id === $event->manager_id || $AuthUser->id === $event->owner_id || ($AuthUser->role_id === 2 && $event->manager_id === null)){
 
             $event               = Event::find($event->id);
             $event->event_status = "cancelado";        
             $event->save(); 
 
-            return redirect('/events/owner/')->with('status','Item edited successfully!')->with('class', 'alert-success');
-        }
+            if($AuthUser->role_id === 3){
+                return redirect('/events/owner/')->with('status','Item edited successfully!')->with('class', 'alert-success');
+            }else{
+                if($AuthUser->role_id === 2){
+                    return redirect('/events/manager/')->with('status','Item edited successfully!')->with('class', 'alert-success');
+                }
+            }
+        }   
 
-        return redirect('/events/owner/')->with('status','Something is not write!')->with('class', 'alert-danger');
+        return redirect('/dashboard')->with('status','Something is not write!')->with('class', 'alert-danger');
     }
 
 
@@ -565,17 +594,40 @@ class EventController extends Controller
 
     public function admin()
     {
-        $events = Event::all();
-        return view('pages.events.admin', ['events' => $events]);
+        $AuthUser = Auth::user(); 
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id === 1 ){
+            $events = Event::all();
+            return view('pages.events.admin', ['events' => $events]);
+        }
     }
 
 
     public function exportbyowner() 
     {         
-        $user = auth()->user(); 
-        //dd($user->id);
-        return (new EventsbyownerExport($user->id))->download('events.xlsx');
-        //return Excel::download(new EventsbyownerExport, 'events.xlsx');
+        $AuthUser = Auth::user(); 
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id === 3 ){
+
+            return (new EventsbyownerExport($AuthUser->id))->download('events.xlsx');
+        }
+       
+    }
+
+    public function updatestatus(Event $event){
+
+        $AuthUser = Auth::user(); 
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id === 2 ){
+
+            $event               = Event::find($event->id);
+            $event->event_status = "pendente";        
+            $event->save(); 
+
+            return redirect('/events/manager/')->with('status','Item edited successfully!')->with('class', 'alert-success');
+        }   
+
+        return redirect('/dashboard')->with('status','Something is not write!')->with('class', 'alert-danger');
     }
 
 }

@@ -141,17 +141,34 @@
              <td class="border border-gray-300 px-4 py-2">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
              <td class="border border-gray-300 px-4 py-2">{{ date('H:i', strtotime($event->start_time))}}</td>
              <td class="border border-gray-300 px-4 py-2">{{ number_format($event->amount, 2, ',', '.') }}€</td>
-             <td class="border border-gray-300 px-4 py-2">{{ $event->event_status }}</td>
-             <td class="border border-gray-300 px-4 py-2">
+             <td class="border border-gray-300 px-4 py-2">{{ $event->event_status }}
+             @if( $event->event_status == 'cancelado')              
+                <div>
+                    <form action="{{ route('events.updatestatus', $event->id) }}" method="POST" class="inline">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="text-green-500 hover:text-green-700">Ativar </button>                           
+                    </form>
+                </div>
+             @endif()
+
+             </td>
+             <td class="border border-gray-300 px-4 py-2">             
                 <a  href="{{ url('events/manager/' . $event->id) }}" >
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Ver</button>
                 </a>
                 <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
                     <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">Editar</button>
                 </a>
-                <a  href="{{ url('events/' . $event->id) }}" >
+                @if($event->event_status!='cancelado' && $event->event_status!='recusado')
+                <form action="{{url('events/'. $event->id)}}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <a  href="{{ url('events/' . $event->id) }}" >
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Cancelar</button>
-                </a>  
+                    </a>
+                </form>
+                @endif                      
              </td>             
             </tr>
          @endforeach
