@@ -30,27 +30,39 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {   
-        // dd($request);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'birthdate' => ['required', 'date'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'birthdate' => $request->birthdate,
-        ]);
+        $existingUser = User::where('email', $request->email)->first();
+
+        if ($existingUser) {
+            return redirect()
+                ->route('login') 
+                ->withInput(['email' => $request->email]) // Passar o email para a sessão
+                ->withErrors(['email' => 'O email já está registado. Por favor, faça login.']);
+        } else{
         
-        $user->roles()->attach(4);
 
-        event(new Registered($user));
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'birthdate' => $request->birthdate,
+            ]);
+        
+            $user->roles()->attach(3);
 
-        Auth::login($user);
+            event(new Registered($user));
 
-        return redirect(route('index', absolute: false));
+            Auth::login($user);
+        }
+
+
+        return redirect(route('dashboard', absolute: false));
+    
     }
 }
