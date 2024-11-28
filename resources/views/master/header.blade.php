@@ -1,6 +1,6 @@
 <header class="header">
     <div class="logo">
-        <img src="{{ asset('images/Logotipo.png') }}" alt="Logotipo">
+        <a href="/"><img src="{{ asset('images/Logotipo.png') }}" alt="Logotipo"></a>
     </div>
 
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -14,7 +14,7 @@
     <nav class="nav">
         <a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Página Inicial</a>
         <div class="dropdown-container">
-            <a href="/event/public" class="dropdown-toggle {{ request()->is('event') ? 'active' : '' }}" id="event-toggle">Eventos</a>
+            <a href="" class="dropdown-toggle {{ request()->is('event*') ? 'active' : '' }}" id="event-toggle">Eventos</a>
             <div class="dropdown-menu" id="dropdown-menu">
                 <a href="/event/public" class="{{ request()->is('event/public') ? 'active' : '' }}">Eventos Públicos</a>
                 <a href="/event/private" class="{{ request()->is('event/private') ? 'active' : '' }}">Faz o teu próprio evento!</a>
