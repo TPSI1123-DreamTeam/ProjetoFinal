@@ -55,3 +55,16 @@
     background-color: #c93510;
     cursor: pointer;
 }
+
+@media (max-width: 1400px) {
+    .event-details-private {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1300px) {
+    .container-private .swiper {
+        width: 950px !important;
+    }
+}
