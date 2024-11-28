@@ -383,12 +383,17 @@ class EventController extends Controller
     public function showbyowner(Event $event)
     {
         $AuthUser = Auth::user(); // (role_id == 3) => owner
-        $category = Category::find($event->category_id);
+    
 
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id == 3 &&  $AuthUser->id === $event->owner_id ){
-            $event = Event::find($event->id);
-            return view('pages.events.owner.show', ['event' => $event, 'category' => $category]);
+
+            $event        = Event::find($event->id);
+            $category     = Category::find($event->category_id);
+            $SupplierType = SupplierType::all();
+            $suppliers    = Supplier::all();
+
+            return view('pages.events.owner.show', ['event' => $event, 'category' => $category, 'suppliers' => $suppliers, 'SupplierType' => $SupplierType]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
         }
@@ -444,8 +449,11 @@ class EventController extends Controller
 
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id == 3 &&  $AuthUser->id === $event->owner_id ){
-            $event = Event::find($event->id);
-            return view('pages.events.owner.edit', ['event' => $event]);
+
+            $SupplierType = SupplierType::all();
+            $categories   = Category::all();
+            $event        = Event::find($event->id);
+            return view('pages.events.owner.edit', ['event' => $event, 'categories' => $categories, 'SupplierType' => $SupplierType]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
         }
@@ -472,8 +480,37 @@ class EventController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateEventRequest $request, Event $event)
-    {
+    { 
 
+        $event                         = Event::find($event->id);
+        $event->name                   = $request->name;
+        $event->description            = $request->description;
+        $event->localization           = $request->localization;
+        $event->start_date             = $request->start_date;
+        $event->end_date               = $request->end_date;
+        $event->start_time             = $request->start_time;
+        $event->end_time               = $request->end_time;
+        $event->category_id            = $request->category_id;
+        $event->type                   = $request->type;
+        $event->number_of_participants = $request->number_of_participants;
+        $event->services_default_array = json_encode($request->suppliers);
+        $event->save(); 
+
+        // check and store image
+        if($request->has('image') && $request->file('image')){
+            $file      = $request->file('image');
+            $imageName = time().'.'.$request->image->extension();
+            $path      = 'images/events/'.$event->id;
+
+            $request->image->move(public_path($path), $imageName);
+            // save image
+            $update = Event::find($event->id);
+            $update->image = $imageName;
+            $update->save();    
+        }
+
+        // /events/owner/26/edit
+        return redirect('/events/owner/'.$event->id.'/edit')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
 
     /**
@@ -481,7 +518,27 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+
+       
+    }
+
+       /**
+     * Remove the specified resource from storage.
+     */
+    public function deleteevent(Event $event)
+    {
+        $AuthUser = Auth::user(); 
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->id === $event->manager_id || $AuthUser->id === $event->owner_id || ($AuthUser->id === 2 && $event->manager_id === null)){
+
+            $event               = Event::find($event->id);
+            $event->event_status = "cancelado";        
+            $event->save(); 
+
+            return redirect('/events/owner/')->with('status','Item edited successfully!')->with('class', 'alert-success');
+        }
+
+        return redirect('/events/owner/')->with('status','Something is not write!')->with('class', 'alert-danger');
     }
 
 

@@ -117,11 +117,16 @@
                     <a  href="{{ url('events/owner/' . $event->id . '/edit') }}" >
                         <button class="edit-button">Editar</button>
                     </a>
-                    <a  href="{{ url('events/' . $event->id) }}" >
-                        <button class="cancel-button">Cancelar</button>
-                    </a>
+                    
+                    <form action="{{url('events/'. $event->id)}}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <a  href="{{ url('events/' . $event->id) }}" >
+                            <button class="cancel-button">Cancelar</button>
+                        </a>
+                    </form>
                 @else
-                    <button class="edit-button" hidden title="Somente pode editar enquanto estiver pendente">Editar</button>
+                    <button class="edit-button"   hidden title="Somente pode editar enquanto estiver pendente">Editar</button>
                     <button class="cancel-button" hidden title="Somente pode cancelar enquanto estiver pendente">Cancelar</button>
                 @endif 
                  

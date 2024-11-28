@@ -11,7 +11,7 @@ class UpdateEventRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'                   => 'nullable|string|max:255',
+            'description'            => 'nullable|string',
+            'localization'           => 'nullable|string|max:255',            
+            'start_date'             => 'nullable|date|after_or_equal:today',
+            'end_date'               => 'nullable|date|after_or_equal:start_date',
+            'start_time'             => 'nullable|date_format:H:i',
+            'end_time'               => 'nullable|date_format:H:i',
+            'category_id'            => 'nullable|integer',
+            'type'                   => 'nullable|string|max:255',
+            'number_of_participants' => 'nullable|integer',           
+            'suppliers'              => 'nullable',
+            'services_default_array' => 'nullable',
         ];
     }
 }
