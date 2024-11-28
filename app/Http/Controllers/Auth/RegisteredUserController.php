@@ -45,12 +45,12 @@ class RegisteredUserController extends Controller
             'birthdate' => $request->birthdate,
         ]);
         
-        $user->roles()->attach(3);
+        $user->roles()->attach(4);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('index', absolute: false));
     }
 }
