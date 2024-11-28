@@ -84,11 +84,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/admin/{event}',[EventController::class,'showbyadmin'])->name('events.showbyadmin');
     Route::get('/events/owner/{event}/edit',[EventController::class,'editbyowner'])->name('events.editbyowner');
     Route::get('/events/manager/{event}/edit',[EventController::class,'editbymanager'])->name('events.editbymanager');
-    Route::put('/events/{event}', [EventController::class,'update']);
+    Route::put('/events/{event}', [EventController::class,'update'])->name('events.update');
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
 
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
+    Route::patch('/events/{event}/updatestatus', [EventController::class, 'updatestatus'])->name('events.updatestatus');
 
 
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);

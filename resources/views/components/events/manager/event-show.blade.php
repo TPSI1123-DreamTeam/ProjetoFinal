@@ -82,6 +82,32 @@
                 </select>
             </div>
 
+            <div class="form-group">
+            @php
+                $servicesArray = json_decode($event->services_default_array, true);
+            @endphp
+
+            @foreach($SupplierType as $type)
+
+                @if( ( $loop->iteration % 2) !== 0)
+                <div class="form-row">
+                @endif
+
+                <div class="form-group col-md-6">
+                    <input disabled type="checkbox" id="suppliers[]" name="suppliers[]" value="{{$type->id}}" 
+                
+                    @if(!empty($servicesArray) && in_array($type->id, $servicesArray))
+                        checked
+                    @endif
+                    > {{  $type->name }}              
+                </div>
+
+                @if( ( $loop->iteration % 2) === 0)
+                </div>
+                @endif
+
+            @endforeach
+
             <div>
                 <a href="/events/manager" class="go-back-btn">Voltar a lista de eventos</a>   
             </div>
