@@ -1,4 +1,4 @@
-<section>
+<section class="update-profile">
     <header>
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Informações de perfil') }}

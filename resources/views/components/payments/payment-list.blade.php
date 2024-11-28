@@ -1,6 +1,11 @@
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
 <div class="content-header">
-    <h1>Histórico de Pagamentos</h1>
-        <p>Bem-vindo ao seu histórico de pagamentos! Aqui pode consultar todas as transações realizadas no nosso site de eventos. 
+<div class="title-hidder-div">
+        <h1>Histórico de Pagamentos</h1>
+        <button type="button" id="hidder"><i class='bx bx-help-circle bx-tada' ></i></button>
+    </div>
+        <p id="hidden">Bem-vindo ao seu histórico de pagamentos! Aqui pode consultar todas as transações realizadas no nosso site de eventos. 
             Verifique os detalhes dos eventos adquiridos, as datas de pagamento e os valores. 
             Este registo permite-lhe acompanhar as suas compras de forma simples e organizada, garantindo transparência e controlo sobre os seus gastos. 
             Caso tenha dúvidas sobre alguma transação, a nossa equipa está disponível para ajudar através da secção de contacto.</p>
@@ -29,3 +34,5 @@
     </tbody>
 </table>
 </div>
+
+@vite('resources/js/hidder.js')

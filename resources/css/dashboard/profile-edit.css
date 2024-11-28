@@ -8,20 +8,53 @@
     cursor: pointer !important;
 }
 
-h1 {
-    font-size: 1.5rem !important;
-    font-weight: 600 !important;
-    color: #1f2937 !important;
-    margin: 0 !important;
-    padding: 0 0 1rem 0 !important;
-    margin-top: 25px !important;
+.profile-header-wrapper .bx {
+    color: #EB5B38;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 120px;
 }
 
-p {
-    font-size: 1rem !important;
-    color: #374151 !important;
-    line-height: 1.5 !important;
-    max-width: 900px !important;
-    text-align: justify !important;
-    margin-bottom: 25px !important;
+.title-hidder-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
+
+.bx:hover {
+    cursor: pointer;
+}
+
+.max-w-2xl {
+    margin: 0 auto !important;
+}
+
+.update-profile {
+    margin: 0 auto;
+}
+
+section p {
+    display: contents !important;
+}
+
+
+@media (max-width: 768px) {
+    .title-hidder-div  {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .profile-header-wrapper .bx {
+        position: relative;
+        top: auto;
+    }
+
+    .profile-header-wrapper .title-hidder-div h1 {
+        margin-bottom: 0 !important;
+    }
+}
+

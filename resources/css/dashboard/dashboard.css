@@ -65,7 +65,7 @@ body::-webkit-scrollbar {
     flex-wrap: wrap !important;
     align-content: center !important;
     justify-content: flex-start !important;
-    align-items: center !important;
+    align-items: stretch !important;
     overflow: hidden !important;
 }
 
@@ -81,7 +81,43 @@ body::-webkit-scrollbar {
 .linha-divisoria {
     border: none !important;
     border-top: 2px solid #EB5B38 !important;
-    margin: 20px 0 !important;
-    width: 70% !important;
+    margin: 0 auto !important;
+    margin-top: 20px !important;
+    width: 930px !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+@media (max-width: 1190px) {
+    .linha-divisoria {
+        width: 650px !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 860px) {
+    .linha-divisoria {
+        width: 550px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        width: 100%;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 560px) {
+    .linha-divisoria {
+        width: 350px !important;
+    }
+}
+
+@media (max-width: 358px) {
+    .linha-divisoria {
+        width: 250px !important;
+    }
 }
