@@ -10,7 +10,7 @@
             <h6 class="mb-0">ID do Evento:{{ $event->id }}</h6>
         </div>    
         @if( $event->image ) 
-        <img src="/images/{{ $event->image }}" class="card-img-top" alt="..." style="width: 15rem; height: 10rem; border-radius: 8px;">
+        <img src="/images/events/{{$event->id}}/{{$event->image}}" class="card-img-top" alt="..." style="width: 15rem; height: 10rem; border-radius: 8px;">
         @else    
         <img src="/images/noimage_default.jpg" class="card-img-top" alt="..." style="width: 15rem; border-radius: 8px;">
         @endif 
@@ -71,6 +71,32 @@
             <input type="text" class="form-control" name="type" id="type" value="{{ $event->type }}" disabled>        
         </div> 
 
+        <div class="form-group">
+        @php
+            $servicesArray = json_decode($event->services_default_array, true);
+        @endphp
+
+        @foreach($SupplierType as $type)
+
+            @if( ( $loop->iteration % 2) !== 0)
+            <div class="form-row">
+            @endif
+
+            <div class="form-group col-md-6">
+                <input disabled type="checkbox" id="suppliers[]" name="suppliers[]" value="{{$type->id}}" 
+               
+                @if(!empty($servicesArray) && in_array($type->id, $servicesArray))
+                    checked
+                @endif
+                > {{  $type->name }}              
+            </div>
+
+            @if( ( $loop->iteration % 2) === 0)
+            </div>
+            @endif
+
+        @endforeach 
+        </div> 
         <div>
             <a href="/events/owner"> <button type="button" class="btn btn-success mt-5">Voltar a lista de eventos</button></a>   
         </div>
