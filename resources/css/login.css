@@ -132,6 +132,7 @@ input[type="password"]:focus {
 
 .login-button:hover {
     background-color: #d04b2b;
+    cursor: pointer;
 }
 
 .form-footer {

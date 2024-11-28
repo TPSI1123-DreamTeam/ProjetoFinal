@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/dashboard/dashboard.css',
                 'resources/css/login.css',
                 'resources/css/register.css',
+                'resources/css/forgot-pw.css',
                 'resources/css/client-side/app.css', 
                 'resources/js/app.js',
                 'resources/js/dropdown-header.js',

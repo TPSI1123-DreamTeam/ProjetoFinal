@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.about {
+    position: relative;
+    min-height: 100dvh;
+    min-width: 100vw;
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: url('/public/images/contact-background.jpg');
+    background-size: cover;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.about > * {
+    position: relative;
+    z-index: 2;
+}
+
+.about-wrapper {
+    gap: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.about-wrapper img {
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    width: 40%;
+}
+
+.heading {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    border-radius: 10px;
+    width: 900px;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: justify;
+}
+
+.heading a {
+    text-decoration: none;
+}
+
+.heading h3:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.heading h1,
+.heading h2,
+.heading h3 {
+    color: #EB5B38;
+    margin-bottom: 20px;
+}
+
+.heading h2,
+.heading h3 {
+    margin-top: 20px;
+}
+
+@media (max-width: 1250px) {
+    .heading {
+        max-width: 750px;
+    }
+
+    .heading h1,
+    .heading h2,
+    .heading h3 {
+        font-size: 1.5rem;
+    }
+
+    .heading p {
+        font-size: 1rem;
+    }
+
+    .about-wrapper img {
+        width: 420px;
+    }
+}
+
+@media (max-width: 950px) {
+    .about {
+        padding: 50px 0;
+    }
+
+    .about-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .heading {
+        width: 80%;
+    }
+
+    .about-wrapper img {
+        width: 250px;
+    }
+}
+
+@media (max-width: 360px) {
+    .about-wrapper img {
+        width: 180px;
+    }
+}
+
+@media (max-width: 321px) {
+    .about-wrapper {
+        width: 100vw;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    .heading {
+        margin-bottom: 15px;
+    }
+
+    .about-wrapper img {
+        width: 180px;
+        margin-top: 30px;
+    }
+
+    .heading h1,
+    .heading h2,
+    .heading h3 {
+        font-size: 0.7rem;
+    }
+
+    .heading p {
+        font-size: 0.5rem;
+    }
+}
