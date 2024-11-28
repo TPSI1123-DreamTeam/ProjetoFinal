@@ -78,7 +78,9 @@ class PaymentController extends Controller
         // Obtém o ID do pagamento a partir da URL para armazenar o ID da sessão
         $paymentId = $request->input('payment');
         Payment::where('id', $paymentId)->update(['status' => true]);
-        return view('welcome')->with('success', 'Pagamento efetuado com sucesso!');
+        session()->flash('success', 'Pagamento efetuado com sucesso!');
+
+        return view('welcome');
     }
     
 }

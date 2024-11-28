@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="wrapper">
@@ -19,6 +20,12 @@
         </video>
         <div class="video-overlay"></div>
         @include('master.welcomeHeader')
+
+        @if(session('success'))
+            <div id="success-notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <main class="content">
             <h1 class="cssanimation sequence leFadeInTop">PRIME TIME EVENTS</h1>
@@ -39,6 +46,24 @@
         document.querySelector('.nav-links').classList.toggle('active');
         document.querySelector('.hamburger').classList.toggle('active');
     }
+
+        // Função para exibir a notificação e removê-la após 3 segundos
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const notification = document.getElementById('success-notification');
+            if (notification) {
+                // Avisa para a notificação aparecer suavemente
+                setTimeout(() => {
+                    notification.classList.remove('opacity-0');
+                    notification.classList.add('opacity-100');
+                }, 100);
+
+                // Depois de 3 segundos, remove a notificação
+                setTimeout(() => {
+                    notification.classList.remove('opacity-100');
+                    notification.classList.add('opacity-0');
+                }, 3000);
+            }
+        });
     </script>
 </body>
 </html>

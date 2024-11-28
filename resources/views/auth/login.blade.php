@@ -13,6 +13,7 @@
         <source src="{{ asset ('videos/Welcome-vid.mp4') }}" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
+
     <div class="login-container">
         <div class="logo-section">
             <img src="{{ asset ('images/Logotipo.png') }}" alt="Logotipo" class="logo-img">

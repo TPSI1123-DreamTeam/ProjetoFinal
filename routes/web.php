@@ -37,6 +37,7 @@ Route::get('/event/private',[EventController::class, 'private'])->name('events.p
  Route::get('/login', function () {
      return view('login');
  });
+ 
  Route::post('/login', function () {
      return view('login');
  });

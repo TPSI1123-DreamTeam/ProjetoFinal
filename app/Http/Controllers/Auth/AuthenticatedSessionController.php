@@ -24,14 +24,28 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        try {
+            
+            $request->authenticate();
+    
+            // Regenera a sessão para segurança
+            $request->session()->regenerate();
+    
+            // Adiciona mensagem de sucesso à sessão
+            session()->flash('success', 'Login efetuado com sucesso!');
+    
+            // Redireciona para a página desejada
+            return redirect()->intended(url('/event/public'));
 
-        $request->session()->regenerate();
-
-        return redirect()->intended(url('/event/public'));
-
-        //return redirect()->intended(route('/event', absolute: false));
-        //return redirect()->intended(route('dashboard', absolute: false));
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Adiciona mensagem de erro à sessão
+            session()->flash('error', 'Credenciais inválidas. Por favor, tente novamente.');
+    
+            // Redireciona de volta para a página de login
+            return redirect()->route('login')->withErrors([
+                'email' => trans('auth.failed'),
+            ]);
+        }
     }
 
     /**
