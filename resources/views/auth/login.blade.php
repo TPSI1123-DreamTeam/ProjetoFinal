@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Digite o seu email" required>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Digite o seu email" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Palavra-passe</label>
