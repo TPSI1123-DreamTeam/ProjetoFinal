@@ -87,6 +87,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/events/{event}', [EventController::class,'update']);
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
 
+    //////:::::::EXPORTS::::::::://///
+    Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
+
 
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
     

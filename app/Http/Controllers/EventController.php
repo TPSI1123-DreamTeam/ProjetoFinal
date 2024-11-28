@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Exports\EventsbyownerExport;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use Illuminate\Support\Facades\Auth;
@@ -568,5 +569,13 @@ class EventController extends Controller
         return view('pages.events.admin', ['events' => $events]);
     }
 
+
+    public function exportbyowner() 
+    {         
+        $user = auth()->user(); 
+        //dd($user->id);
+        return (new EventsbyownerExport($user->id))->download('events.xlsx');
+        //return Excel::download(new EventsbyownerExport, 'events.xlsx');
+    }
 
 }
