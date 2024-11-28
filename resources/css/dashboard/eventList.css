@@ -60,6 +60,7 @@ p {
     max-width: 900px;
     text-align: justify;
     margin-bottom: 25px;
+    display: none;
 }
 
 .event-wrapper {
@@ -86,6 +87,10 @@ p {
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
+}
+
+.bx:hover {
+    cursor: pointer;
 }
 
 .event-input-list {

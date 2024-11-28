@@ -41,7 +41,7 @@
                             @endforeach
                         </ul>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $supplier->supplierType->name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Cerveja</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $supplier->status == 1 ? 'Ativo' : 'Inativo'}}
                         
 

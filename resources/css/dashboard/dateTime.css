@@ -7,6 +7,7 @@
     justify-content: center;
     width: calc(100vw - 250px);
     margin-top: 5rem;
+    margin: 20px auto !important;
 }
 
 #date {
@@ -16,4 +17,13 @@
 
 #time {
     font-size: 1rem;
+}
+
+@media (max-width: 565px) {
+    #date {
+        font-size: 1.5rem;
+    }
+    #time {
+        font-size: 1rem;
+    }
 }

@@ -5,6 +5,26 @@
     flex-direction: column;
 }
 
+.content-header .bx {
+    color: #EB5B38;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 144px;
+}
+
+.title-hidder-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.bx:hover {
+    cursor: pointer;
+}
+
 /* Títulos e Textos */
 h1 {
     font-size: 1.5rem;
@@ -21,6 +41,7 @@ p {
     max-width: 900px;
     text-align: justify;
     margin-bottom: 25px;
+    display: none;
 }
 
 /* Tabela */
@@ -55,4 +76,8 @@ tr:nth-child(odd) {
 
 tr:nth-child(even) {
     background-color: #f9fafb;
+}
+
+@media (max-width: 768px){
+    
 }

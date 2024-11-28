@@ -13,6 +13,8 @@ export default defineConfig({
                 'resources/css/register.css',
                 'resources/css/client-side/app.css', 
                 'resources/js/app.js',
+                'resources/js/dropdown-header.js',
+                'resources/js/change-sidebar.js',
                 'resources/js/hidder.js',
                 'resources/js/dropdownEvent.js',
                 'resources/js/fadeInTitle.js',
