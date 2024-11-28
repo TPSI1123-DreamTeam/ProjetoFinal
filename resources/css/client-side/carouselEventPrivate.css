@@ -51,6 +51,7 @@
     height: 250px;
     object-fit: cover;
     border-radius: 10px;
+    display: block;
 }
 
 .card-wrapper-private .swiper-pagination-bullet {
