@@ -40,6 +40,7 @@
                     </div>
                     <div class="form-group">
                         <button type="submit" class="login-button">Entrar</button>
+                        <a href="/login/google" class="alt-google-login">Entrar com o Google</a>
                     </div>
                     <div class="form-footer">
                         <p>Ainda não tens conta? <a href="/register">Regista-te aqui</a></p>

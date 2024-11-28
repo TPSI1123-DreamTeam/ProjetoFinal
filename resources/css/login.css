@@ -28,7 +28,6 @@ html, body {
     flex: 1;
 }
 
-/* Container principal */
 .login-container {
     position: relative;
     display: flex;
@@ -43,16 +42,15 @@ html, body {
     left: 50%;
     top: 45%;
     transform: translate(-50%, -50%);
+    margin-top: 15px;
 }
 
-/* Linha de sombra entre logotipo e formulário */
 .divider {
     width: 1px;
-    background-color: rgba(255, 255, 255, 0.2); /* Cor e opacidade da linha */
-    height: 80%; /* Altura da linha */
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 80%;
 }
 
-/* Logo */
 .logo-section {
     display: flex;
     justify-content: center;
@@ -67,7 +65,6 @@ html, body {
     display: block;
 }
 
-/* Formulário */
 .form-section {
     flex: 2;
     padding: 20px;
@@ -75,7 +72,6 @@ html, body {
     justify-content: center;
 }
 
-/* Caixa de login */
 .login-box {
     background-color: transparent;
     padding: 50px;
@@ -84,7 +80,6 @@ html, body {
     text-align: center;
 }
 
-/* Formulário de login */
 .login-form {
     margin-top: 20px;
 }
@@ -123,7 +118,6 @@ input[type="password"]:focus {
     outline: none;
 }
 
-/* Botão de login */
 .login-button {
     width: 100%;
     padding: 10px;
@@ -140,7 +134,6 @@ input[type="password"]:focus {
     background-color: #d04b2b;
 }
 
-/* Footer do formulário */
 .form-footer {
     margin-top: 15px;
 }
@@ -178,7 +171,6 @@ input[type="password"]:focus {
     color: #d04b2b;
 }
 
-/* Video de fundo */
 #myVideo {
     position: absolute;
     top: 0;
@@ -243,6 +235,20 @@ input[type="password"]:focus {
     flex: 1;
     height: 1px;
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+.alt-google-login {
+    display: none;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+}
+
+.alt-google-login:hover {
+    text-decoration: none; 
+    color: #EB5B38;
 }
 
 @media (max-width: 800px) {
@@ -317,3 +323,43 @@ input[type="password"]:focus {
         max-width: 300px;
     }
 }
+
+@media (max-height: 768px) {
+    .login-container {
+        position: absolute;
+        top: auto;
+        margin-top: 45rem;
+    }
+}
+
+@media (max-height: 730px) {
+    .login-container {
+        margin-top: 35rem;
+    }
+
+    .google-login-button,
+    .or-divider {
+        display: none;
+    }
+
+    .alt-google-login {
+        display: block;
+    }
+
+    .login-form {
+        margin-top: 0;
+    }
+}
+
+@media (max-height: 680px) {
+    .login-container {
+        margin-top: 40rem;
+    }
+}
+
+@media (max-height: 660px) {
+    .login-container {
+        margin-bottom: 1rem;
+    }
+}
+

@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar">
         <div class="logo">
-            <img src="{{ asset('images/Logotipo.png') }}" alt="Logotipo">
+            <a href="/"><img src="{{ asset('images/Logotipo.png') }}" alt="Logotipo"></a>
         </div>
 
         <input type="checkbox" id="menu-toggle" class="menu-toggle">

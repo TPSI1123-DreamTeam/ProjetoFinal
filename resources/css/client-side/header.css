@@ -106,7 +106,7 @@
     color: #E6E4DC;
     text-decoration: none;
     margin-right: 5px;
-    font-size: 10px;
+    font-size: 16px;
 }
 
 .login span {
@@ -127,7 +127,7 @@
 .dropdown-btn {
     background-color: #272A2D;
     border: none;
-    color: white;
+    color: #E6E4DC;
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
@@ -146,12 +146,12 @@
     background-color: #272A2D;
     min-width: 160px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+    z-index: 10000;
 }
 
 /* Dropdown content items */
 .dropdown-content a, .dropdown-content .logout-btn {
-    color: white;
+    color: #E6E4DC;
     padding: 10px 15px;
     text-decoration: none;
     display: block;

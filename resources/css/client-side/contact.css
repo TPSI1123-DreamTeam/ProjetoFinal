@@ -42,13 +42,13 @@
 .contact .contact-content h2 {
     font-size: 36px;
     font-weight: 500;
-    color: #fff;
+    color: #E6E4DC;
     margin-bottom: 15px;
 }
 
 .contact .contact-content p {
     font-weight: 300;
-    color: #fff;
+    color: #E6E4DC;
 }
 
 .contact-container {
@@ -78,7 +78,7 @@
 .contact-container .contactInfo .box .icon {
     min-width: 60px;
     height: 60px;
-    background: #fff;
+    background: #E6E4DC;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,7 +90,7 @@
 .contact-container .contactInfo .box .text {
     display: flex;
     font-size: 16px;
-    color: #fff;
+    color: #E6E4DC;
     flex-direction: column;
     font-weight: 300;
     margin-top: 5px;
@@ -171,12 +171,13 @@
 .contactForm .inputBox input[type="submit"] {
     width: 100px;
     background: #EB5B38;
-    color: #fff;
+    color: #E6E4DC;
     border: none;
     cursor: pointer;
     padding: 10px;
     font-size: 18px;
     border-radius: 15px;
+    box-sizing: content-box;
 }
 
 .contactForm .inputBox input[type="submit"]:hover {

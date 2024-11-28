@@ -179,6 +179,12 @@ header {
     color: #fff;
 }
 
+.not-logged:hover,
+.not-regis:hover {
+    color: #EB5B38;
+    cursor: pointer;
+}
+
 /* Mobile view */
 @media (max-width: 768px) {
     .nav {

@@ -2,7 +2,7 @@
 
 <header class="header">
     <div class="logo">
-        <img src="{{ asset('images/Logotipo.png') }}" alt="Logotipo">
+        <a href="/"><img src="{{ asset('images/Logotipo.png') }}" alt="Logotipo"></a>
     </div>
 
         
