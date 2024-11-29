@@ -43,7 +43,7 @@ class RegisteredUserController extends Controller
             return redirect()
                 ->route('login') 
                 ->withInput(['email' => $request->email]) // Passar o email para a sessão
-                ->withErrors(['email' => 'O email já está registado. Por favor, faça login.']);
+                ->with('error', 'Email já registado. Por favor, faça login ou utilize outro email para registo.');
         } else{
         
 
