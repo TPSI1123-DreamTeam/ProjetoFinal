@@ -62,7 +62,7 @@ class RegisteredUserController extends Controller
         }
 
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('index', absolute: false))->with('success', 'Registo efetuado com sucesso! Bem-vindo(a) à PRIME TIME EVENTS!');
     
     }
 }

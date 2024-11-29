@@ -1,6 +1,14 @@
 <main>
     <div class="front-dashboard-wrapper">
         <div class="front-dashboard-container">
+        @if(session('success'))
+            <div id="success-notification" 
+            class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+        {{ session('success') }}
+        </div>
+        @endif
+
+
             <!-- Boas-vindas -->
             <div class="front-dashboard-card">
                 <h1>Bem-vindo, {{ Auth::user()->name }}!</h1>
@@ -26,3 +34,21 @@
         </div>
     </div>
 </main>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const successNotification = document.getElementById('success-notification');
+
+        if (successNotification) {
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-0');
+                successNotification.classList.add('opacity-100');
+            }, 100);
+
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-100');
+                successNotification.classList.add('opacity-0');
+            }, 3000);
+        }
+    });
+</script>
