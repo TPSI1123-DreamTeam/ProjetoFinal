@@ -36,6 +36,20 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'birthdate' => ['required', 'date'],
         ]);
+    
+        // Verifica se a senha atende aos requisitos adicionais
+        if (!preg_match('/[A-Z]/', $request->password) || 
+        !preg_match('/[0-9]/', $request->password) || 
+        !preg_match('/[\W_]/', $request->password) || 
+        strlen($request->password) < 8) 
+        {
+        
+            session()->flash('notification', [
+                'type' => 'error',
+                'message' => 'Requisitos da password não cumpridos. Tente novamente.',
+            ]);
+            return redirect()->back()->withInput();
+        }
 
         $existingUser = User::where('email', $request->email)->first();
 
