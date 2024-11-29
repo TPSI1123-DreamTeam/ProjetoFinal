@@ -4,18 +4,9 @@
 <div class="event-wrapper">
     <div class="title-hidder-div">
         <h1>Lista de Eventos</h1>
-        <button type="button" id="hidder"><i class='bx bx-help-circle bx-tada' ></i></button>
     </div>
-        <p id="hidden" style="">Bem-vindo à página de gestão de eventos! <br>
-            Aqui pode visualizar todos os eventos disponíveis no nosso site, 
-            com acesso rápido a informações detalhadas como o nome do evento, data, local e estado. 
-            Esta ferramenta permite-lhe gerir os eventos de forma eficiente, 
-            podendo editar as informações de um evento para refletir alterações necessárias ou cancelar eventos quando aplicável. 
-            Mantenha a organização e o controlo sobre os seus eventos, 
-            garantindo a melhor experiência para os utilizadores do site.</p>
-
 </div>
-<div class="linha-divisoria"></div>
+<div class="linha-divisoria-event-manager"></div>
 
 <div class="filter-search-event">    
    
@@ -105,7 +96,7 @@
 
             <button type="submit" name="events_pending" id="events_pending" value="pending"
                 class="event-button-pending">
-                Eventos Pendentes
+                Pendentes
             </button>
             <input type="hidden" name="pending" id="pending" value=""/>
         </div>
@@ -116,13 +107,12 @@
         </div>
     </form>
 
-
- <table class="min-w-full bg-white border mt-5">
+ <table>
      <thead>
-         <tr>
+         <tr class="tr-heading">
             <th>Nº</th>
             <th>Nome do Evento</th>
-            <th>Participantes /<br>Registados</th>            
+            <th>Participantes</th>            
             <th>Categoria</th>
             <th>Data</th>
             <th>Hora</th>
@@ -133,39 +123,38 @@
      </thead>
      <tbody>
          @foreach($events as $event)
-         <tr class="odd:bg-white even:bg-gray-50">
-             <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration + $events->firstItem() - 1 }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ $event->name }}</td>
-             <td class="border border-gray-300 px-4 py-2 text-center" >{{ $event->number_of_participants }} / {{ @count($event->users) }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ $event->category->description }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ date('H:i', strtotime($event->start_time))}}</td>
-             <td class="border border-gray-300 px-4 py-2">{{ number_format($event->amount, 2, ',', '.') }}€</td>
-             <td class="border border-gray-300 px-4 py-2">{{ $event->event_status }}
-             @if( $event->event_status == 'cancelado')              
-                <div>
-                    <form action="{{ route('events.updatestatus', $event->id) }}" method="POST" class="inline">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="text-green-500 hover:text-green-700">Ativar </button>                           
-                    </form>
-                </div>
-             @endif()
-
+         <tr class="tr-body">
+             <td data-cell="número">{{ $loop->iteration + $events->firstItem() - 1 }}</td>
+             <td data-cell="nome">{{ $event->name }}</td>
+             <td data-cell="participantes">{{ $event->number_of_participants }} / {{ @count($event->users) }}</td>
+             <td data-cell="descrição">{{ $event->category->description }}</td>
+             <td data-cell="data">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
+             <td data-cell="hora de inicio">{{ date('H:i', strtotime($event->start_time))}}</td>
+             <td data-cell="custo estimado">{{ number_format($event->amount, 2, ',', '.') }}€</td>
+             <td data-cell="estado">{{ $event->event_status }}
              </td>
-             <td class="border border-gray-300 px-4 py-2">             
+             <td data-cell="ações" class="action-buttons-table">             
                 <a  href="{{ url('events/manager/' . $event->id) }}" >
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Ver</button>
+                    <button class="show-btn">Ver</button>
                 </a>
                 <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
-                    <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">Editar</button>
+                    <button>Editar</button>
                 </a>
+                @if( $event->event_status == 'cancelado')              
+                <form action="{{ route('events.updatestatus', $event->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <a href="/events/manager">
+                        <button class="activate-btn" type="submit">Ativar</button> 
+                    </a> 
+                </form>
+                @endif()
                 @if($event->event_status!='cancelado' && $event->event_status!='recusado')
-                <form action="{{url('events/'. $event->id)}}" method="POST" class="d-inline">
+                <form action="{{url('events/'. $event->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <a  href="{{ url('events/' . $event->id) }}" >
-                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Cancelar</button>
+                        <button class="cancel-btn">Cancelar</button>
                     </a>
                 </form>
                 @endif                      
@@ -174,14 +163,17 @@
          @endforeach
 
          @if(count($events)==0)
-         <tr class="odd:bg-white even:bg-gray-50 w-full">
-             <td colspan="10" class="font-bold border border-gray-300 px-4 py-2">Não existem resultados para esta pesquisa.</td>    
-            </tr>
+         <tr>
+            <td colspan="10">Não existem resultados para esta pesquisa.</td>    
+        </tr>
          @endif
      </tbody>
  </table>
 
-{{ $events->links() }}
+ <div class="pagination-user-list">
+    {{ $events->links() }}
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 @vite('resources/js/formListEventsManager.js')
