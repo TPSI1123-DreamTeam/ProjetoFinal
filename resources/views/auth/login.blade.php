@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | PRIME TIME EVENTS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @vite('resources/css/login.css')
 </head>
 <body>
@@ -13,6 +14,13 @@
         <source src="{{ asset ('videos/Welcome-vid.mp4') }}" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
+
+    @if(session('error'))
+    <div id="error-notification" 
+         class="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+        {{ session('error') }}
+    </div>
+    @endif
 
     <div class="login-container">
         <div class="logo-section">
@@ -54,4 +62,24 @@
     </div>
 </div>
 </body>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const errorNotification = document.getElementById('error-notification');
+
+        if (errorNotification) {
+            setTimeout(() => {
+                errorNotification.classList.remove('opacity-0');
+                errorNotification.classList.add('opacity-100');
+            }, 100);
+
+            setTimeout(() => {
+                errorNotification.classList.remove('opacity-100');
+                errorNotification.classList.add('opacity-0');
+            }, 3000);
+        }
+    });
+</script>
+
+
 </html>

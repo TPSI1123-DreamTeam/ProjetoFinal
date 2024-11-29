@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,24 +29,27 @@ class AuthenticatedSessionController extends Controller
             
             $request->authenticate();
     
-            // Regenera a sessão para segurança
             $request->session()->regenerate();
     
-            // Adiciona mensagem de sucesso à sessão
             session()->flash('success', 'Login efetuado com sucesso!');
     
-            // Redireciona para a página desejada
             return redirect()->intended(url('/event/public'));
 
         } catch (\Illuminate\Validation\ValidationException $e) {
-            // Adiciona mensagem de erro à sessão
-            session()->flash('error', 'Credenciais inválidas. Por favor, tente novamente.');
-    
-            // Redireciona de volta para a página de login
-            return redirect()->route('login')->withErrors([
-                'email' => trans('auth.failed'),
-            ]);
-        }
+
+            
+            $user = User::where('email', $request->email)->first();
+
+            if (!$user) {
+                // Email não registado
+                session()->flash('error', 'O email fornecido não está registado. Por favor, registe-se.');
+                return redirect()->route('login')->withInput($request->only('email'));
+            }
+        
+                 // Palavra-passe incorreta
+                session()->flash('error', 'A palavra-passe está incorreta. Por favor, tente novamente.');
+                return redirect()->route('login')->withInput($request->only('email'));
+            }
     }
 
     /**
