@@ -24,7 +24,7 @@ class EventController extends Controller
         $ownerId = Auth::user()->id;
         $query   = Event::query();
         $query->where('owner_id',$ownerId);
-        $events = $query->paginate(15);
+        $events = $query->paginate(10);
         $suppliers = Supplier::all();
 
         return view('pages.events.index', ['events' => $events, 'suppliers' => $suppliers]);
@@ -38,7 +38,7 @@ class EventController extends Controller
     {
         $ownerId  = Auth::user()->id;
         $Category = Category::all();
-        $events   = Event::where('owner_id', $ownerId)->orderBy('id', 'desc')->paginate(15);  
+        $events   = Event::where('owner_id', $ownerId)->orderBy('id', 'desc')->paginate(10);  
         $formFields = array();
 
         return view('pages.events.owner.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -106,7 +106,7 @@ class EventController extends Controller
         }      
 
         $events->orderBy('id', 'desc');
-        $events = $events->paginate(15);
+        $events = $events->paginate(10);
   
 
         $formFields = array();
@@ -133,7 +133,7 @@ class EventController extends Controller
         $manager_id = Auth::user()->id;
         $query   = Event::query();
         $query->where('manager_id',$manager_id);
-        $events = $query->paginate(15);
+        $events = $query->paginate(10);
         $suppliers = Supplier::all();
         $Category    = Category::all();
         $formFields = array();
@@ -157,7 +157,7 @@ class EventController extends Controller
             if ($request->has('pending') && $request->pending === 'pending') {
                 $events      = Event::where('manager_id', 0); 
                 $events->orderBy('id', 'desc');
-                $events = $events->paginate(15);
+                $events = $events->paginate(10);
                 $formFields = array();
                 return view('pages.events.manager.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
             }
@@ -217,7 +217,7 @@ class EventController extends Controller
             }      
 
             $events->orderBy('id', 'desc');
-            $events = $events->paginate(15);
+            $events = $events->paginate(10);
     
 
             $formFields = array();
@@ -248,7 +248,7 @@ class EventController extends Controller
 
         if($AuthUser->role_id == 1 ){
 
-            $events =  Event::paginate(15);
+            $events =  Event::paginate(10);
             $suppliers = Supplier::all();
             return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers]);
         }else{

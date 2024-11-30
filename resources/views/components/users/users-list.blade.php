@@ -62,5 +62,5 @@
 
 <!-- Paginação -->
 <div class="pagination-user-list">
-    {{ $users->links() }}
+    {{$users->links()}}
 </div>

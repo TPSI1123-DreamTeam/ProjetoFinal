@@ -171,7 +171,7 @@
  </table>
 
  <div class="pagination-user-list">
-    {{ $events->links() }}
+    {{ $events -> links() }}
 </div>
 
 
