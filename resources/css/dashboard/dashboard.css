@@ -9,6 +9,7 @@
 @import 'participant-list.css';
 @import 'show-event.css';
 @import 'user-list.css';
+@import 'suppliers.css';
 
 * {
     margin: 0;
