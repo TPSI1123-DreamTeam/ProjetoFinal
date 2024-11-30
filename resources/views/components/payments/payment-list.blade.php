@@ -1,16 +1,12 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"  rel="stylesheet" />
 
-<div class="content-header">
-<div class="title-hidder-div">
+<div class="event-wrapper">
+    <div class="title-hidder-div">
         <h1>Histórico de Pagamentos</h1>
-        <button type="button" id="hidder"><i class='bx bx-help-circle bx-tada' ></i></button>
     </div>
-        <p id="hidden">Bem-vindo ao seu histórico de pagamentos! Aqui pode consultar todas as transações realizadas no nosso site de eventos. 
-            Verifique os detalhes dos eventos adquiridos, as datas de pagamento e os valores. 
-            Este registo permite-lhe acompanhar as suas compras de forma simples e organizada, garantindo transparência e controlo sobre os seus gastos. 
-            Caso tenha dúvidas sobre alguma transação, a nossa equipa está disponível para ajudar através da secção de contacto.</p>
 </div>
-<div class="linha-divisoria"></div>
+<div class="linha-divisoria-event-manager"></div>
 <table>
     <thead>
         <tr>
@@ -24,11 +20,11 @@
     <tbody>
         @foreach($payments as $payment)
         <tr>
-            <td>{{ $payment->id }}</td>
-            <td>{{ $payment->name }}</td>
-            <td>{{ $payment->amount }}</td>
-            <td>{{ $payment->date }}</td>
-            <td>{{ $payment->status == 'paid' ? 'Pago' : 'Pendente' }}</td>
+            <td data-cell="iD">{{ $payment->id }}</td>
+            <td data-cell="nome">{{ $payment->name }}</td>
+            <td data-cell="preço">{{ $payment->amount }}</td>
+            <td data-cell="data">{{ $payment->date }}</td>
+            <td data-cell="estado">{{ $payment->status == 'paid' ? 'Pago' : 'Pendente' }}</td>
         </tr>
         @endforeach
     </tbody>

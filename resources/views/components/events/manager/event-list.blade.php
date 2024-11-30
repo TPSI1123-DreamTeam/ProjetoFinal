@@ -9,7 +9,6 @@
 <div class="linha-divisoria-event-manager"></div>
 
 <div class="filter-search-event">    
-   
     <form action="/searchEventsByManager" method="GET" class="grid gap-2 mt-5">
 
         <!-- Campo 1 -->
@@ -106,6 +105,7 @@
             </button>
         </div>
     </form>
+</div>
 
  <table>
      <thead>
