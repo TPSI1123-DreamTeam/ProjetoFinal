@@ -372,7 +372,7 @@ class EventController extends Controller
 
  
 
-        return redirect('/dashboard')->with('status','Item created successfully!')->with('class', 'alert-success');
+        return redirect('/dashboard')->with('success', 'Evento criado com sucesso!')->with('class', 'bg-green-500 text-white');
     }
 
 
@@ -531,9 +531,9 @@ class EventController extends Controller
             }
 
             // /events/owner/26/edit
-            return redirect('/events/manager/'.$event->id.'/edit')->with('status','Item edited successfully!')->with('class', 'alert-success');
+            return redirect('/events/manager/')->with('status','Evento editado com sucesso!')->with('class', 'alert-success');
         }else{
-            return redirect('/dashboard')->with('status','Something is not write!')->with('class', 'alert-danger');
+            return redirect('/dashboard')->with('status','Erro ao editar evento!')->with('class', 'alert-danger');
         }
     }
 
@@ -560,15 +560,15 @@ class EventController extends Controller
             $event->save(); 
 
             if($AuthUser->role_id === 3){
-                return redirect('/events/owner/')->with('status','Item edited successfully!')->with('class', 'alert-success');
+                return redirect('/events/owner/')->with('status','Evento cancelado com sucesso!')->with('class', 'alert-success');
             }else{
                 if($AuthUser->role_id === 2){
-                    return redirect('/events/manager/')->with('status','Item edited successfully!')->with('class', 'alert-success');
+                    return redirect('/events/manager/')->with('status','Evento cancelado com sucesso!')->with('class', 'alert-success');
                 }
             }
         }   
 
-        return redirect('/dashboard')->with('status','Something is not write!')->with('class', 'alert-danger');
+        return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
     }
 
 
@@ -624,10 +624,10 @@ class EventController extends Controller
             $event->event_status = "pendente";        
             $event->save(); 
 
-            return redirect('/events/manager/')->with('status','Item edited successfully!')->with('class', 'alert-success');
+            return redirect('/events/manager/')->with('status','Evento ativo com sucesso!')->with('class', 'alert-success');
         }   
 
-        return redirect('/dashboard')->with('status','Something is not write!')->with('class', 'alert-danger');
+        return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
     }
 
 }
