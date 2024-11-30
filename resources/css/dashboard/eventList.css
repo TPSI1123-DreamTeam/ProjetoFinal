@@ -148,7 +148,7 @@ tbody tr td a button {
 }
   
 .right {
-grid-column: 2;
+    grid-column: 2;
 }
 
 .amount-of-pages {
@@ -169,6 +169,10 @@ grid-column: 2;
 }
 
 @media (max-width: 1555px) {
+    table {
+        width: 100% !important;
+    }
+
     .action-buttons-table {
         flex-direction: column !important;
         align-items: center;
@@ -180,7 +184,7 @@ grid-column: 2;
     .filter-search-event,
     .filter-search-event form,
     .flex {
-        width: 80%;
+        width: 100%;
     }
 
     .event-input-list {
@@ -189,6 +193,22 @@ grid-column: 2;
 
     .linha-divisoria-event-manager {
         width: 764px !important;
+    }
+}
+
+@media (max-width: 1050px) {
+    .grid {
+        width: 80% !important;
+    }
+    .event-input-list {
+        width: 80% !important;
+    }
+    table {
+        width: 80% !important;
+    }
+
+    .linha-divisoria-event-manager {
+        width: 564px !important;
     }
 }
 
@@ -211,7 +231,8 @@ grid-column: 2;
 
 @media (max-width: 470px) {
     .linha-divisoria-event-manager {
-        width: 150px !important;
+        width: 350px !important;
+        margin-top: 5px !important;
     }
 
     .event-input-list {

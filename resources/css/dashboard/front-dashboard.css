@@ -89,3 +89,14 @@ input#update_password_password_confirmation {
     background-color: #d04b2b;
     cursor: pointer;
 }
+
+@media (max-width: 477px) {
+    #date {
+        font-size: 1.5rem !important;
+    }
+
+    .dateTime {
+        width: 250px !important;
+        margin: 15px 0 15px 0 !important;
+    }
+}

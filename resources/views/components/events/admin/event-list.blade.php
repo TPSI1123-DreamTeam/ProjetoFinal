@@ -1,7 +1,7 @@
 <div class="event-wrapper">
     <h1>Lista de Eventos</h1>
  </div>
- <div class="linha-divisoria"></div>
+ <div class="linha-divisoria-event-manager"></div>
  <table>
      <thead>
          <tr>
