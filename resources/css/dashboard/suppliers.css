@@ -1,0 +1,57 @@
+.add-supplier-btn {
+    display: flex;
+    margin-top: 1rem !important;
+    padding: 0.5rem 1rem;
+    background-color: #EB5B38;
+    color: #ffffff;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    justify-content: center;
+    max-width: 210px;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.add-supplier-btn:hover {
+    background-color: #d04b2b;
+    cursor: pointer;
+}
+
+.details-btn {
+    background-color: blue;
+}
+
+.deactivate-btn {
+    background-color: red;
+    min-width: 123.34px;
+}
+
+.activate-btn {
+    background-color: green;
+}
+
+td:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+@media (max-width: 768px){
+    td:last-child {
+        display: flex !important;
+        flex-direction: row;
+        gap: 5px !important;
+    }
+
+    .deactivate-btn,
+    .details-btn,
+    .activate-btn,
+    .edit-btn {
+        max-width: 150px;
+    }
+
+    .supplier-td {
+        grid-template-columns: 9ch auto !important;
+    }
+}
