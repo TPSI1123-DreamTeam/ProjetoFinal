@@ -63,6 +63,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Sessão terminada com sucesso!');
     }
 }

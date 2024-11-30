@@ -1,3 +1,11 @@
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    @if(session('status'))
+        <div id="success-notification" 
+        class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+    {{ session('status') }}
+    </div>
+    @endif
+
 <div class="supplier-wrapper">
     <h1>Lista de Fornecedores</h1>
  </div>
@@ -6,6 +14,7 @@
  <div class="add-supplier-btn">
     <a href="{{ url('suppliers/create') }}"><button>Adicionar Fornecedor</button></a>
 </div>
+
 
 <table>
     <thead>
@@ -55,3 +64,21 @@
 <div class="pagination-user-list">
     {{ $suppliers->links() }}
 </div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const successNotification = document.getElementById('success-notification');
+
+        if (successNotification) {
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-0');
+                successNotification.classList.add('opacity-100');
+            }, 100);
+
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-100');
+                successNotification.classList.add('opacity-0');
+            }, 3000);
+        }
+    });
+</script>
