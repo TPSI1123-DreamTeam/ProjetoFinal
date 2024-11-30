@@ -1,6 +1,9 @@
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
 <main>
     <div class="front-dashboard-wrapper">
         <div class="front-dashboard-container">
+            
         @if(session('success'))
             <div id="success-notification" 
             class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
