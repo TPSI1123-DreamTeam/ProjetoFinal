@@ -27,6 +27,12 @@
             </div>
         @endif
 
+        @if(session('success'))
+            <div id="success-notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <main class="content">
             <h1 class="cssanimation sequence leFadeInTop">PRIME TIME EVENTS</h1>
             <a href="https://shorturl.at/uAYeT" style="opacity: 0.1; height: 1%;">_</a>

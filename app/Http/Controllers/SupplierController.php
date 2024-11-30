@@ -91,7 +91,7 @@ class SupplierController extends Controller
         $update->contact   = $request->contact;
         $update->save();
 
-        return redirect('suppliers')->with('status','Item edited successfully!')->with('class', 'alert-success');
+        return redirect('suppliers')->with('status','Fornecedor atualizado com sucesso!')->with('class', 'alert-success');
     }
 
     /**
@@ -102,7 +102,11 @@ class SupplierController extends Controller
      {
          $supplier->status = !$supplier->status;  // Alterna entre 1 e 0
          $supplier->save();
-     
-         return redirect()->route('suppliers.index')->with('status', 'Fornecedor atualizado com sucesso!');
+         
+         if($supplier->status){
+             return redirect()->route('suppliers.index')->with('status', 'Fornecedor ativado com sucesso!');
+         } else {
+            return redirect()->route('suppliers.index')->with('status', 'Fornecedor desativado com sucesso!');
+         }
      }
 }
