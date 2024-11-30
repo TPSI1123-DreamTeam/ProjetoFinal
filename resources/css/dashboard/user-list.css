@@ -155,5 +155,23 @@ td form button {
     #password {
         max-width: 40% !important;
     }
+
+    .pagination-user-list {
+        max-width: 300px !important;
+    }
+
+    .hidden.sm\:flex-1.sm\:flex.sm\:items-center.sm\:justify-between {
+        max-width: 300px !important;
+    }
+
+    span.relative.z-0.inline-flex.rtl\:flex-row-reverse.shadow-sm.rounded-md {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        align-content: center !important;
+        justify-content: center !important;
+        align-items: center !important;
+        margin-bottom: 15px !important;
+    }
 }
 
