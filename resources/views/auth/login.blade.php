@@ -26,7 +26,7 @@
         <div class="logo-section">
             <img src="{{ asset ('images/Logotipo.png') }}" alt="Logotipo" class="logo-img">
         </div>
-    <div class="divider"></div> <!-- Linha de sombra entre logotipo e formulário -->
+    <div class="divider"></div>
         <div class="form-section">
             <div class="login-box">
                 <form action="{{ route('login') }}" method="POST" class="login-form">
