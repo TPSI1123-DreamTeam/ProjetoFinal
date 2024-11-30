@@ -48,5 +48,5 @@
 </div>
 
 <div class="pagination-user-list">
-    {{ $events->links() }}
+
 </div>
