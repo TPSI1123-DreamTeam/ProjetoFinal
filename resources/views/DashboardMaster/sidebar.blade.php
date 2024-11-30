@@ -12,7 +12,7 @@
                         Gestor de Eventos
                         @break
                     @case(3)
-                        Proprietário de Evento
+                        Proprietário
                         @break
                     @case(4)
                         Participante

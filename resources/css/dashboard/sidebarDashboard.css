@@ -108,7 +108,7 @@
     .sidebar {
         display: flex;
         background-color: #2b2f38;
-        height: 200px;
+        height: 260px;
         width: 100%;
         z-index: 1000;
         flex-direction: row;
