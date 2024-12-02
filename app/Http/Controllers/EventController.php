@@ -12,6 +12,7 @@ use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class EventController extends Controller
@@ -493,10 +494,10 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEventRequest $request, Event $event)
+    public function update(Request $request, Event $event) //UpdateEventRequest
     { 
 
-        //dd($event);
+       //dd($request);
 
         // only can update: owner and manager
         $AuthUser = Auth::user();
@@ -515,6 +516,12 @@ class EventController extends Controller
             $event->type                   = $request->type;
             $event->number_of_participants = $request->number_of_participants;
             $event->services_default_array = json_encode($request->suppliers);
+            $event->ticket_amount          = $request->ticket_amount;
+
+            if($AuthUser->id === $event->manager_id){
+                $event->amount = $request->amount;
+            }
+
             $event->save(); 
 
             // check and store image
@@ -531,7 +538,7 @@ class EventController extends Controller
             }
 
             // /events/owner/26/edit
-            return redirect('/events/manager/')->with('status','Evento editado com sucesso!')->with('class', 'alert-success');
+            return redirect('/events/manager/'. $event->id.'/edit')->with('status','Evento editado com sucesso!')->with('class', 'alert-success');
         }else{
             return redirect('/dashboard')->with('status','Erro ao editar evento!')->with('class', 'alert-danger');
         }
@@ -575,7 +582,7 @@ class EventController extends Controller
 
     public function createprivate(Request $request)
     {
-        dd($request);
+        //dd($request);
         //$validated = $request->validated(); 
         //dd($request->owner_id);
 
@@ -626,6 +633,115 @@ class EventController extends Controller
 
             return redirect('/events/manager/')->with('status','Evento ativo com sucesso!')->with('class', 'alert-success');
         }   
+
+        return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function editsuppliers(Event $event)
+    {
+        $AuthUser = Auth::user(); // (role_id == 3) => owner
+
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
+            
+            $event          = Event::find($event->id);
+            $SupplierType   = SupplierType::all();
+            $Suppliers      = Supplier::where('status', true)->with('supplierType')->orderBy('name', 'ASC')->get();
+            $categories     = Category::all();  
+            $eventSuppliers = DB::table('event_supplier')->where('event_id',$event->id)->get();
+
+            return view('pages.events.manager.supplier', ['event' => $event, 'categories' => $categories, 'SupplierType' => $SupplierType, 'Suppliers' => $Suppliers, 'eventSuppliers' => $eventSuppliers]);
+
+        }else{
+            return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
+        }
+    }
+
+
+    public function updatesupplieronevent(Request $request, Event $event)
+    {
+        $AuthUser = Auth::user(); 
+
+        // user roles is owner and he is the event (to show) owner
+        if($AuthUser->role_id == 2 && $AuthUser->id === $event->manager_id){
+            
+            $event = Event::find($event->id);
+
+            foreach ($request->input as $key => $input) {
+
+                $supplierId = intval($input['supplier']);      
+                $supplier   = Supplier::find($supplierId);         
+                
+                if ($supplier) {
+                    
+                    // check if the relationship already exists, just update the description and amount fields
+                    $checkIfSupplierAlreadySync = DB::table('event_supplier')->where(['event_id' => $event->id,'supplier_id' => $supplier->id ])->exists();
+
+                    if ($checkIfSupplierAlreadySync === false) {
+                        // if not exists relatioship will be created
+                        $supplier->events()->sync([
+                            $event->id => [
+                                'description' => $input['description'],
+                                'amount'      => $input['amount'],
+                            ]
+                        ], false);
+                    }else{
+                        // if exists only will update input fields
+                        DB::table('event_supplier')
+                            ->where('event_id', $event->id)
+                            ->where('supplier_id', $supplier->id)
+                            ->update([
+                                'description' => $input['description'],
+                                'amount'      => $input['amount']
+                        ]);
+                    }
+                }
+            }      
+
+            Event::where('id', $event->id)
+            ->update([
+                'services_amount' => DB::table('event_supplier')
+                    ->where('event_id', $event->id)
+                    ->sum('amount')
+            ]);
+
+   
+                    
+            return redirect('/events/manager/'. $event->id.'/supplier')->with('status','Evento ativo com sucesso!')->with('class', 'alert-success');
+        }   
+
+        return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
+    }
+
+
+    public function deletesupplieronevent(Request $request, Event $event)
+    {       
+
+        $AuthUser = Auth::user(); 
+        // user roles is owner and he is the event (to show) owner
+
+        if($AuthUser->role_id == 2 && $AuthUser->id === $event->manager_id){
+
+            $event    = Event::find($event->id);
+            $supplier = Supplier::find($request->delete_supplier_id);  
+
+            if ($event && $supplier) { 
+
+                $event->suppliers()->detach($supplier->id);           
+                
+                Event::where('id', $event->id)
+                ->update([
+                    'services_amount' => DB::table('event_supplier')
+                        ->where('event_id', $event->id)
+                        ->sum('amount')
+                ]);
+
+                return redirect('/events/manager/'. $event->id.'/supplier')->with('status','Evento ativo com sucesso!')->with('class', 'alert-success');
+            }
+        }
 
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
     }

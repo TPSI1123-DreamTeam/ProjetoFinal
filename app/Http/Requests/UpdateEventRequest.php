@@ -34,6 +34,8 @@ class UpdateEventRequest extends FormRequest
             'number_of_participants' => 'nullable|integer',           
             'suppliers'              => 'nullable',
             'services_default_array' => 'nullable',
+            'amount'                 => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'ticket_amount'          => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
         ];
     }
 }

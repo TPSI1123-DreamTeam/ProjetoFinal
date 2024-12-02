@@ -87,10 +87,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/manager/{event}/edit',[EventController::class,'editbymanager'])->name('events.editbymanager');
     Route::put('/events/{event}', [EventController::class,'update'])->name('events.update');
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
+    Route::get('/events/manager/{event}/supplier',[EventController::class,'editsuppliers'])->name('events.editsuppliers');
 
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
     Route::patch('/events/{event}/updatestatus', [EventController::class, 'updatestatus'])->name('events.updatestatus');
+    Route::patch('/events/manager/{event}/updatesupplier', [EventController::class, 'updatesupplieronevent'])->name('events.updatesupplieronevent');
+    Route::patch('/events/manager/{event}/deletesupplieronevent', [EventController::class, 'deletesupplieronevent'])->name('events.deletesupplieronevent');
 
 
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);

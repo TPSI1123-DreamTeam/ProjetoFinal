@@ -45,7 +45,7 @@ class Event extends Model
 
     public function suppliers(): BelongsToMany{
 
-        return $this->belongsToMany(Supplier::class);
+        return $this->belongsToMany(Supplier::class,'event_supplier')->withPivot('id','description','amount');
     }
 
     public function category(){
