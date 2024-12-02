@@ -31,8 +31,9 @@ class ParticipantController extends Controller
         $query   = Event::query();
         $query->where('owner_id',$ownerId);
         $events = $query->get();
+        $trueId = 0; // Colocação da variável $trueId para prevenir erros;
 
-        return view('pages.participants.index', ['participants' => null, 'events' => $events]);
+        return view('pages.participants.index', ['participants' => null, 'events' => $events, 'trueId' => $trueId]);
     }
 
     /**
@@ -148,6 +149,8 @@ class ParticipantController extends Controller
         $primeiroArray = collect($rows[0]);
         $arrayComparacao = collect($existingParticipants);
 
+        // dd($arrayComparacao);
+
         // Verificar diferenças: users do primeiro array que não estão no segundo
         $diferencas = $primeiroArray->filter(function ($user) use ($arrayComparacao) {
             return !$arrayComparacao->contains(function ($compUser) use ($user) {
@@ -168,43 +171,51 @@ class ParticipantController extends Controller
 
          $emailsDiferencas = $diferencas->pluck(3)->toArray(); // Posição 3 contém o email no $diferencas
 
-     //   dd($emailsDiferencas);
+    //    dd($emailsDiferencas);
+
        // Consultar na base de dados se os users contidos em $emailsDiferencas existem. Se existem, são adicionados
       //  ao array $usersExistentes já com as propriedades iguais ás da tabela nos quais os users estão contidos num evento
-        $usersExistentes = User::whereIn('email', $emailsDiferencas) // Filtrar pelos emails do $emailsDiferencas
-        ->get(['name', 'phone', 'email']) // Obter os campos desejados
-        ->map(function ($user) {
-        return [
-            'name' => $user->name,
-            'phone' => $user->phone,
-            'email' => $user->email,
-            'confirmation' => "Não",
-        ];
-             })
-    ->toArray();
+    //     $usersExistentes = User::whereIn('email', $emailsDiferencas)  // Filtrar pelos emails do $emailsDiferencas
+    //     ->get(['name', 'phone', 'email']) // Obter os campos desejados
+    //     ->map(function ($user)  {
+    //     return [
+    //         'name' => $user->name,
+    //         'phone' => $user->phone,
+    //         'email' => $user->email,
+    //         'confirmation' => "Não",
+    //     ];
+    //          })
+    // ->toArray();
 
+        //    dd($usersExistentes);
       //  dd($usersExistentes);
    //  dd($diferencas);
 
-
+    $defaultImg = 'public/images/noimage_default.jpg';
 
              // Adicionar os usuários ao evento
     foreach ($diferencas as $user) {
     // Buscar ou criar o usuário com base no email
+
+   // dd($usersExistentes);         -> GOTTA CHANGE THOSE ARRAY KEYS. INSTEAD OF 'EMAIL' ITS GOTTA BE THE NUMBERS AGAIN
     $userModel = User::firstOrCreate(
         ['email' => $user[3]], // Condição de busca
-        [
-            'name' => $user[1],  // Preencher os campos caso o usuário não exista
-            'phone' => $user[2],
-            'image' => $user[1], // $user[1] (nome) usado para testar na parte da imagem par não dar erro
+        [                           // Preencher os campos caso o usuário não exista
+            'name' => $user[1],
+            'image' => $defaultImg, //  usado para testar na parte da imagem par não dar erro
+            'phone' => strval($user[2]),
+            'email' => $user[3],
+            'password' => 'Teste123#',
         ]
     );
-
+  //  dd($userModel);
     // Associar o user ao evento (se ainda não estiver associado)
+   // dd($userModel->id);
     $event->users()->syncWithoutDetaching([$userModel->id]);
     }
+    
+    return redirect()->to('/dashboard');
 
-    return redirect()->to('/participants');
     }
 
 
@@ -213,11 +224,13 @@ class ParticipantController extends Controller
         $ownerId = Auth::user()->id;
         $query   = Event::query();
         $query->where('owner_id',$ownerId);
+        // dd($query);
         $events = $query->get();
 
         $participants = Event::find($request->search);
-
-        return view('pages.participants.index', ['participants' => $participants, 'events' => $events]);
+      //  dd($participants->id); -> ID do Evento - possivel passar para a view noutra variável
+        $trueId = $participants->id;    // $trueId guarda o id do evento escolhido na pesquisa
+        return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
 
     }
 
@@ -225,6 +238,7 @@ class ParticipantController extends Controller
     {
         if ($request->confirmation == false) {
 
+         //   dd($request);
             $user = User::find($request->user);
             $event = Event::find($request->event);
 
@@ -249,14 +263,16 @@ class ParticipantController extends Controller
                 $pivot->pivot->save();  // Salva a alteração
             }
         }
-
-        return redirect()->to('/participants');
+      //  dd($pivot->pivot);
+        return redirect()->to('/dashboard');
     }
 
     public function detachParticipant(Request $request)
     {
             $user = User::find($request->user);
             $event = Event::findOrFail($request->event);
+
+        //dd($event->id);
 
             $pivot = $user->events()->where('event_id', $event->id)->first();
 
@@ -265,7 +281,7 @@ class ParticipantController extends Controller
                 $event->users()->detach($user);
             }
 
-            return redirect()->to('/participants');
+            return redirect()->to('/dashboard');
 
     }
 
