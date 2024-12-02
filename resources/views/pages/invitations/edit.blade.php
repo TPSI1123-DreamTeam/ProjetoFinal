@@ -4,7 +4,7 @@
 @component('components.invitations.invitation-form-edit', ['invitation' => $invitation])
 @endcomponent
 
-<form method="POST" action="{{ url('invitations/'  . $invitation->id) }}">
+<form method="POST" action="{{ url('invitations/'  . $invitation->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -66,7 +66,6 @@
         class="form-control
         @error('image') is-invalid @enderror"
         value="{{$invitation->image}}"
-        required
         aria-describedby="imageHelp"
         value="test">
         <small id="imageHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
@@ -81,7 +80,7 @@
        <div class="form-group">
         <label for="phone">Data</label>
         <input
-        type="text"
+        type="date"
         id="date"
         name="date"
         autocomplete="date"
@@ -123,7 +122,7 @@
             @enderror
             </div>
             <br>
-            
+
     <button type="submit">Salvar Alterações</button>
     </form>
 

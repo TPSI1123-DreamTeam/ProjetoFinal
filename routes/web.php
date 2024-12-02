@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/participants/participant-event-list', [EventController::class,'eventsbyparticipant']);
 
 
-    
+
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants', [ParticipantController::class, 'index']);
     Route::get('/participants/create',[ParticipantController::class, 'create']);
@@ -113,7 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/invitations/{invitation}',[InvitationController::class,'destroy']);
     Route::delete('/invitations', [InvitationController::class,'eliminate']);
     Route::get('/invitations/{invitation}/pageSendEmail', [InvitationController::class,'pageSendEmail']);
-    Route::post('/invitations/submit', [InvitationController::class,'submit']);
+    Route::get('/invitations/{invitation}/submit', [InvitationController::class,'submit']);
 
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers', [SupplierController::class,'index']);

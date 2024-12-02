@@ -79,7 +79,7 @@
        <div class="form-group">
         <label for="phone">Data</label>
         <input
-        type="text"
+        type="date"
         id="date"
         name="date"
         autocomplete="date"

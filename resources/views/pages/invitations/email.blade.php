@@ -5,7 +5,7 @@
 @endcomponent
 
 <h1>Verifique se está tudo bem antes de enviar</h1>
-<form method="POST" action="{{ url('/invitations') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ url('/invitations/submit') }}" enctype="multipart/form-data">
     @csrf
 
     <div class="form-group">
@@ -65,8 +65,6 @@
         class="form-control
         @error('image') is-invalid @enderror"
         value="{{$invitation->image}}"
-        img src="{{ asset($invitation->image) }}"
-        required
         aria-describedby="imageHelp"
         value="test">
         <small id="imageHelp" class="form-text text-muted"></small>
@@ -82,7 +80,7 @@
        <div class="form-group">
         <label for="date">Data</label>
         <input
-        type="text"
+        type="date"
         id="date"
         name="date"
         autocomplete="date"
