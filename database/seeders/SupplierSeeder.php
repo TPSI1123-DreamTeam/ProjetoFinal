@@ -35,14 +35,42 @@ class SupplierSeeder extends Seeder
 
 
         $suppliersList = [
-            0 => 'Locação de espaços',
-            1 => 'Catering',
-            2 => 'Decoração',
-            3 => 'Entretenimento',
-            4 => 'Serviços técnicos',
+            0 => 'Espaços Mágicos Lda',
+            1 => 'Ambientes & Eventos Unipessoal',
+            2 => 'Cenários Perfeitos Lda',
+            3 => 'Sua Festa, Nosso Espaço Unipessoal',
+            4 => 'Espaço Celebre Novo Lda',
             5 => 'Serviços adicionais',
-            6 => 'Produção e logística'            
-        ];
+            6 => 'Produção e logística Unipessoal',
+            7 => 'Detalhes que Fazem a Diferença Lda',
+            8 => 'Ambientes & Eventos',
+            9 => 'Cenários Perfeitos Unipessoal',
+            10 => 'Soluções Personalizadas SA',
+            11 => 'Tudo para sua Festa Lda',
+            12 => 'Sabores & Afeto Lda',
+            13 => 'Paladar Gourmet Unipessoal',
+            14 => 'Mesa & Arte',
+            15 => 'Gastronomia com Arte Lda',
+            16 => 'Delícias para Celebrar',
+            17 => 'Nosso Espaço Unipessoal',
+            18 => 'Soluções Completas',
+            19 => 'Serviços adicionais Lda',
+            20 => 'Produção e logística',
+            21 => 'Espaços Mágicos Novo Lda',
+            22 => 'Ambientes & Eventos Unipessoal',
+            23 => 'Cenários Perfeitos 2024',
+            24 => 'Produção impecável',
+            25 => 'Técnica & Eficiência',
+            26 => 'Encanto Decor Unipessoal',
+            27 => 'Toque Mágico',
+            28 => 'Cores & Formas',
+            29 => 'Arte & Design',
+            30 => 'Alegria & Diversão',
+            31 => 'Showtime',
+            32 => 'Momentos Inesquecíveis',
+            33 => 'Animação Total',
+            34 => 'Entretenimento de Primeira'
+        ];        
 
         $suppliersDescription = [
             0 => 'salões de festas, hotéis, centros de convenções, etc.',
@@ -55,12 +83,13 @@ class SupplierSeeder extends Seeder
         ];     
     
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 35; $i++) {
 
+            //$random = rand(0,34);
             $random = rand(0,6);
 
             $supplier = Supplier::create([
-                'name'    => $suppliersList[$random], //fake()->name(),
+                'name'    => $suppliersList[$i], //fake()->name(),
                 'contact' => (string) fake()->numberBetween(912345678, 936456789),                
                 'email'   => fake()->safeEmail(),
                 'image'   => $imagesArray[rand(0,5)],
