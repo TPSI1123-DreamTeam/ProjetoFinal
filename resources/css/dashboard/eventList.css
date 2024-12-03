@@ -12,11 +12,15 @@ tbody tr td a button {
 }
 
 .show-btn {
-    background-color: #010191 !important;
+    background-color: #347CCB !important;
+}
+
+.edit-btn {
+    background-color: #73e600 !important;
 }
 
 .cancel-btn {
-    background-color: red !important;
+    background-color: #ff3300 !important;
 }
 
 .activate-btn {
@@ -90,7 +94,7 @@ tbody tr td a button {
 }
 
 .event-button-search {
-    background-color: #0000ff !important;
+    background-color: #347CCB !important;
 }
 
 .event-button-search:hover {

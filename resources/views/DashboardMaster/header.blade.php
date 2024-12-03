@@ -31,17 +31,16 @@
                 {{ Auth::user()->name }}
                 <span class="dropdown-arrow">&#9660;</span>
             </button>
-            <div class="dropdown-menu">
-                <a href="{{ route('profile.edit') }}" class="dropdown-item">Editar Perfil</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="dropdown-item">Logout</button>
-                </form>
-                <form method="GET" action="{{ url('/') }}">
-                    <button type="submit" class="dropdown-item">Voltar</button>
-                </form>
-            </div>
+        <div class="dropdown-menu" id="dropdown-menu">
+            <form method="GET" action="{{ url('/') }}">
+                <button type="submit" class="dropdown-item">Voltar</button>
+            </form>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="dropdown-item">Logout</button>
+            </form>
         </div>
+    </div>
     @else
         <div class="login">
             <a href="/login">Login</a>

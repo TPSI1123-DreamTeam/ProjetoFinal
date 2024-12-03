@@ -94,7 +94,7 @@
         
 
         <!-- Botão Submit -->
-        <div class="action-buttons">         
+        <div class="action-buttons">
             <button type="submit" 
                 class="event-button-search">
                 Pesquisar
@@ -140,14 +140,26 @@
              <td data-cell="custo estimado">{{ number_format($event->amount, 2, ',', '.') }}€</td>
              <td data-cell="estado">{{ $event->event_status }}
              </td>
-             <td data-cell="ações" class="action-buttons-table">             
+             <td data-cell="ações" class="action-buttons-table">
+                @if( $event->event_status == 'pendente')
+                    <a  href="{{ url('events/manager/' . $event->id) }}" >
+                        <button class="show-btn">Ver</button>
+                    </a>           
+                    <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
+                        <button>Editar</button>
+                    </a>
+                    <form action="{{url('events/'. $event->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <a  href="{{ url('events/' . $event->id) }}" >
+                            <button class="cancel-btn">Cancelar</button>
+                        </a>
+                    </form>
+                @endif()
+                @if( $event->event_status == 'cancelado') 
                 <a  href="{{ url('events/manager/' . $event->id) }}" >
                     <button class="show-btn">Ver</button>
-                </a>
-                <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
-                    <button>Editar</button>
-                </a>
-                @if( $event->event_status == 'cancelado')              
+                </a>             
                 <form action="{{ route('events.updatestatus', $event->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
@@ -156,15 +168,19 @@
                     </a> 
                 </form>
                 @endif()
-                @if($event->event_status!='cancelado' && $event->event_status!='recusado')
-                <form action="{{url('events/'. $event->id)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <a  href="{{ url('events/' . $event->id) }}" >
-                        <button class="cancel-btn">Cancelar</button>
+                @if( $event->event_status == 'recusado' || $event->event_status == 'concluido')
+                    <a  href="{{ url('events/manager/' . $event->id) }}" >
+                        <button class="show-btn">Ver</button>
+                    </a>    
+                @endif
+                @if( $event->event_status == 'ativo')
+                    <a  href="{{ url('events/manager/' . $event->id) }}" >
+                        <button class="show-btn">Ver</button>
                     </a>
-                </form>
-                @endif                      
+                    <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
+                        <button>Editar</button>
+                    </a>
+                @endif       
              </td>             
             </tr>
          @endforeach

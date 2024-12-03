@@ -8,6 +8,7 @@
 @import 'profile-edit.css';
 @import 'participant-list.css';
 @import 'show-event.css';
+@import 'edit-event.css';
 @import 'user-list.css';
 @import 'suppliers.css';
 
@@ -108,6 +109,9 @@ body::-webkit-scrollbar {
         flex-direction: column;
         flex-wrap: wrap;
         justify-content: flex-start;
+    }
+    .sidebar + .after-content {
+        width: 100% !important;
     }
 }
 

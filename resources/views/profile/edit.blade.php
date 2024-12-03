@@ -6,13 +6,8 @@
 <div class="profile-header-wrapper">
     <div class="title-hidder-div">
         <h1>Edite o seu Perfil!</h1>
-        <button type="button" id="hidder"><i class='bx bx-help-circle bx-tada' ></i></button>
     </div>
 </div>
-<p class="description-profile" id="hidden" style="">Bem-vindo à página de edição de perfil. 
-            Aqui podes atualizar as tuas informações pessoais, como nome, email, palavra-passe, 
-            para garantir que os teus dados estão sempre atualizados. 
-            Certifica-te de guardar as alterações antes de sair.</p>
 
     <div class="linha-divisoria"></div>
     
