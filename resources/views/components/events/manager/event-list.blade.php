@@ -16,7 +16,7 @@
 <div class="linha-divisoria-event-manager"></div>
 
 <div class="filter-search-event">    
-    <form action="/searchEventsByManager" method="GET" class="grid gap-2 mt-5">
+    <form id="searchEventsByManager" action="/searchEventsByManager" method="GET" class="grid gap-2 mt-5">
 
         <!-- Campo 1 -->
         <div class="flex items-center space-x-2 col-span-1">
@@ -91,8 +91,6 @@
             </div>
         </div>
 
-        
-
         <!-- Botão Submit -->
         <div class="action-buttons">
             <button type="submit" 
@@ -104,14 +102,17 @@
                 class="event-button-pending">
                 Pendentes
             </button>
-            <input type="hidden" name="pending" id="pending" value=""/>
-        </div>
-        <div class="action-buttons"> 
-            <button class="event-button-export right">
-                Exportar Lista
-            </button>
-        </div>
+            <input type="hidden" name="pending" id="pending" value=""/> 
+        </div>   
     </form>
+    <div class="action-buttons">        
+        <form id="exportEventsForm" method="GET" action="{{ url('export/eventsbymanager/') }}">
+            <input type="hidden" name="event_ids" id="event_ids" value="{{ implode(',', $events->pluck('id')->toArray()) }}">
+            <button type="submit" class="event-button-export right" id="export">
+                Exportar Lista
+            </button> 
+        </form>
+    </div>
 </div>
 
  <table>
@@ -185,7 +186,7 @@
             </tr>
          @endforeach
 
-         @if(count($events)==0)
+         @if(@count($events)==0)
          <tr>
             <td colspan="10">Não existem resultados para esta pesquisa.</td>    
         </tr>
