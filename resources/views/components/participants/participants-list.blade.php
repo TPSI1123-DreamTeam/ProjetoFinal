@@ -1,29 +1,52 @@
-<div class="container">
-    <div class="row align-items-center">
-        <div class="col-md-6 mt-3">
-            <div class="mb-3">
-                <h5 class="card-title">Participantes no Evento Selecionado<span class="text-muted fw-normal ms-2">
-                @if(isset($participants) && $participants->users && $participants->users->isNotEmpty() && isset($participants->users))
-                    ({{ count($participants->users) }})
-                @else
-                    (0)
-                @endif
-                </span></h5>
-                <h6 class="card-title">
-                  @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
-                  Evento: {{ $participants->name }} - Data: {{ $participants->start_date }} - Hora: {{ date('H:i', strtotime($participants->start_time)) }}
-                  @endif
-                 <span class="text-muted fw-normal ms-2"></h6>
-            </div>
-        </div>
 
+<div class="event-wrapper">
+    <div class="title-hidder-div">
+        <h1>Lista de Participantes</h1>
+    </div>
+</div>
+<div class="linha-divisoria-event-manager"></div>
+<form action="/searchEvents" method="POST">
+    @csrf
+    <div class="search-filter-export">
+        <select class="choose-event" id="search" name="search">
+            <option selected>Escolha o evento para listar participantes...</option>
+            @foreach ($events as $event)
+                <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
+            @endforeach
+        </select>
+        <button class="search-participant-btn" type="submit">Search</button>
         @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
-        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
-            <form class="form-inline my-2 my-lg-0">
-            <a class="nav-link" href="{{url('participants/export/' . $participants->id)}}">Export</a>
-             </form>
+            <form>
+                <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>
+            </form>
+        @else
+        <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data">
+            @csrf
+            <div>
+                <label>Escolher Ficheiro:</label>
+                <input type="file" id="ExcelFile" name="file">
+                <input hidden name="event" value="{{ $event->id }}">
+            </div>
+            <div>
+                <button>Submeter</button>
+            </div>
+        </form>
+        @endif
+    </div>
+</form>
 
-        </div>
+<div>
+    <div class="participant-info-event">
+        <h5>Participantes no Evento Selecionado<span>
+        @if(isset($participants) && $participants->users && $participants->users->isNotEmpty() && isset($participants->users))
+            ({{ count($participants->users) }})
+        @else
+            (0)
+        @endif
+        </span></h5>
+        <h6>
+        @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
+            <span>Evento:</span> {{ $participants->name }} <span>Data:</span> {{ $participants->start_date }} <span>Hora:</span> {{ date('H:i', strtotime($participants->start_time)) }}
         @endif
 
           <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">

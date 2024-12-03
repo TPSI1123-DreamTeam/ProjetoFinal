@@ -1,0 +1,40 @@
+.update-supplier-btn,
+.update-event-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #EB5B38;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.update-supplier-btn:hover,
+.update-event-btn:hover {
+    cursor: pointer;
+    background-color: #d04b2b;
+}
+
+.edit-event-back-btn {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+@media (max-width: 705px) {
+    .edit-event-back-btn,
+    .edit-supplier-btn {
+        font-size: 0.7rem;
+        margin: 20px 10px 0 10px;
+    }
+}
+
+@media (max-width: 321px) {
+    .edit-event-back-btn,
+    .edit-supplier-btn {
+        display: flex;
+        justify-content: space-around;
+    }
+}

@@ -1,0 +1,68 @@
+.export-btn,
+.search-participant-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem !important;
+    background-color: #EB5B38 !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+}
+
+.export-btn:hover,
+.search-participant-btn:hover {
+    background-color: #d04b2b !important;
+    cursor: pointer !important;
+} 
+
+.choose-event {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+.search-filter-export {
+    display: flex;
+    gap: 5px;
+    margin: 15px auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.action-column {
+    display: flex;
+    flex-direction: row !important;
+    gap: 5px;
+}
+
+.detach-participant {
+    background-color: red;
+}
+
+.participant-confirmed {
+    background-color: #EB5B38;
+}
+
+.participant-not-confirmed {
+    background-color: green;
+}
+
+.participant-info-event {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.participant-info-event h5,
+.participant-info-event span {
+    font-weight: 700;
+}

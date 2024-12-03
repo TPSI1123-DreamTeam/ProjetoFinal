@@ -134,18 +134,18 @@
              <td data-cell="estado">{{ $event->event_status }}</td>
              <td data-cell="ações">
                 <a  href="{{ url('events/owner/' . $event->id) }}" >
-                    <button class="show-button">Ver</button>
+                    <button class="show-btn">Ver</button>
                 </a>
                 @if( $event->event_status == 'pendente') 
                     <a  href="{{ url('events/owner/' . $event->id . '/edit') }}" >
-                        <button class="edit-button">Editar</button>
+                        <button class="edit-btn">Editar</button>
                     </a>
                     
                     <form action="{{url('events/'. $event->id)}}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <a  href="{{ url('events/' . $event->id) }}" >
-                            <button class="cancel-button">Cancelar</button>
+                            <button class="cancel-btn">Cancelar</button>
                         </a>
                     </form>
                 @else
