@@ -15,8 +15,18 @@ tbody tr td a button {
     background-color: #347CCB !important;
 }
 
+.show-btn:hover {
+    background-color: #010191 !important;
+    cursor: pointer;
+}
+
 .edit-btn {
-    background-color: #73e600 !important;
+    background-color: #EB5B38 !important;
+}
+
+.edit-btn:hover {
+    background-color: #d04b2b !important;
+    cursor: pointer;
 }
 
 .cancel-btn {
