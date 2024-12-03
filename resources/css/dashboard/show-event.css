@@ -1,58 +1,163 @@
-.go-back-btn {
-    display: inline-block !important;
-    margin-top: 1rem !important;
-    padding: 0.5rem 1rem !important;
-    background-color: #EB5B38 !important;
-    color: #ffffff !important;
-    border-radius: 0.5rem !important;
-    font-weight: 600 !important;
-    text-decoration: none !important;
-    text-align: center !important;
+.show-event-container {
+    display: grid;
+    margin: 20px auto;
+    padding: 20px;
+    background: #E6E4DC;
 }
 
-.go-back-btn:hover{
-    background-color: #d04b2b !important;
-    cursor: pointer !important;
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #444;
+}
+
+.show-event-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.show-event-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.grid-form {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(350px ,1fr));
+    grid-template-rows: repeat(5, auto);
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    justify-content: center;
+}
+
+.event-description {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: fit-content;
 } 
 
-.card {
-    margin: 0 auto !important;
-    margin-bottom: 15px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    border-radius: none !important;
-    background-color: #E6E4DC !important;
-    width: 500px !important;
-    border: none !important;
-    align-items: center !important;
-}
-
-.form-row {
+.checkbox-group {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 15px;
 }
 
-.container-show-event {
-    margin-bottom: 15px;
-}
-
-.show-event-heading {
+.show-event-form {
+    display: grid;
+    gap: 20px;
     margin-top: 15px;
 }
 
-.show-event-heading h1 {
-    font-size: 2rem !important;
-    font-weight: 600 !important;
-    color: #1f2937 !important;
-    margin: 0 !important;
-    padding: 0 0 1rem 0 !important;
-    text-align: center;
+.show-event-form img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 
-p {
-    font-size: 1rem;
-    color: #374151;
-    line-height: 1.5;
-    max-width: 900px;
-    text-align: justify;
-    margin-bottom: 25px;
+.show-event-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+    color: #555;
+}
+
+.show-event-form input,
+.show-event-form select,
+.show-event-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.show-event-form input[disabled],
+.show-event-form select[disabled],
+.show-event-form textarea[disabled] {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+.show-event-form textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.show-event-form .row {
+    gap: 20px;
+}
+
+.show-event-form .row > div {
+    flex: 1 1 calc(50% - 20px);
+}
+
+.show-event-form .row > div label,
+.show-event-form .row > div input {
+    width: 100%;
+}
+
+.show-event-form .go-back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #347CCB;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.show-event-back-btn {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+
+.show-event-form .go-back-btn:hover {
+    background: #0056b3;
+}
+
+.supplier-box {
+    display: flex;
+}
+
+@media (max-width: 705px) {
+    .grid-form {
+        justify-items: center;
+    }
+
+    .event-description {
+        width: 300px;
+    }
+
+    .grid-form input,
+    .grid-form select,
+    .grid-form textarea {
+        width: 300px;
+    }
+
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        align-items: center;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        margin: 0 auto;
+        gap: 0;
+    }
 }

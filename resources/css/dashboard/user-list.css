@@ -80,9 +80,10 @@ td form input {
     max-width: 100%;
 }
 
-td form button {
+.change-role-admin,
+.update-pw-admin {
     border-radius: 10px;
-    background-color: #EB5B38;
+    background-color: #347CCB !important;
     color: white;
     padding: 5px;
     font-size: 0.8rem;
