@@ -39,7 +39,7 @@
                         <option value="3" {{ $user->role_id == 3 ? 'selected' : '' }}>Proprietário</option>
                         <option value="4" {{ $user->role_id == 4 ? 'selected' : '' }}>Participante</option>
                     </select>
-                    <button type="submit">Atualizar</button>
+                    <button class="change-role-admin" type="submit">Atualizar</button>
                 </form>
                 @endif
             </td>
@@ -49,7 +49,7 @@
                     @csrf
                     @method('POST')
                         <input id="password" name="password" type="password" required>
-                    <button type="submit">
+                    <button class="update-pw-admin" type="submit">
                         Alterar
                     </button>
                 </form>
