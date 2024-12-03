@@ -146,7 +146,8 @@
                         <button class="show-btn">Ver</button>
                     </a>           
                     <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
-                        <button>Editar</button>
+                        <button class="edit-btn">Editar</button>
+
                     </a>
                     <form action="{{url('events/'. $event->id)}}" method="POST">
                         @csrf
@@ -178,7 +179,7 @@
                         <button class="show-btn">Ver</button>
                     </a>
                     <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
-                        <button>Editar</button>
+                        <button class="edit-btn">Editar</button>
                     </a>
                 @endif       
              </td>             

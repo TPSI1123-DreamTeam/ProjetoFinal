@@ -1,0 +1,85 @@
+.client-options-header h2{
+    display: flex;
+    justify-content: center;
+}
+
+.checkbox-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.form-row {
+    justify-content: center;
+}
+
+.remove-td {
+    justify-content: center;
+    min-height: 98.19px !important;
+    align-items: center;
+}
+
+.add-supllier-btn {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.supplier-add-event {
+    display: inline-block;
+    padding: 0.5rem 1rem !important;
+    background-color: #EB5B38 !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+}
+
+.update-supplier-event {
+    display: inline-block;
+    padding: 0.5rem 1rem !important;
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    margin: 5px 0 5px 0 !important;
+}
+
+.go-back-btn-event {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #347CCB;
+    color: #fff;
+    text-decoration: none !important;
+    text-align: center;
+    border-radius: 0.5rem;
+    font-weight: 600;
+}
+
+.remove-btn {
+    background-color: #ff3300 !important;
+    padding: 5px;
+    border-radius: 25px;
+    color: white;
+    font-weight: 400;
+    width: 70px;
+    height: 34px;
+}
+
+@media (max-width: 768px) {
+    .supplier-tag,
+    .description-tag,
+    .cost-tag {
+        display: none;
+    }
+}

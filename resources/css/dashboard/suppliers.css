@@ -18,17 +18,49 @@
     cursor: pointer;
 }
 
+.edit-btn-supplier {
+    border-radius: 0.5rem;
+    background-color: #EB5B38 !important;
+}
+
+.edit-btn-supplier:hover {
+    background-color: #d04b2b !important;
+    cursor: pointer;
+}
+
 .details-btn {
-    background-color: blue;
+    background-color: #347CCB;
+}
+
+.details-btn:hover {
+    background-color: #010191;
+    cursor: pointer;
 }
 
 .deactivate-btn {
+    background-color: #ff3300;
+    color: white;
+    font-size: 0.8rem;
+    padding: 5px;
+    border-radius: 0.5rem;
+}
+
+.deactivate-btn:hover {
     background-color: red;
-    min-width: 123.34px;
+    cursor: pointer;
 }
 
 .activate-btn {
-    background-color: green;
+    border-radius: 0.5rem;
+    background-color: #4eb51b;
+    color: white;
+    font-size: 0.8rem;
+    padding: 5px;
+}
+
+.activate-btn:hover {
+    background-color: #3a7d19 !important;
+    cursor: pointer;
 }
 
 td:last-child {

@@ -45,14 +45,14 @@
             <td class="supplier-td" data-cell="estado">{{ $supplier->status == 1 ? 'Ativo' : 'Inativo'}}</td>
             <td class="supplier-td" data-cell="ações">
                 <a href="{{ url('suppliers/' . $supplier->id) }}"><button class="details-btn">Detalhes</button></a>
-                <a href="{{ url('suppliers/' . $supplier->id) . '/edit' }}"><button class="edit-btn">Editar</button></a>
+                <a href="{{ url('suppliers/' . $supplier->id) . '/edit' }}"><button class="edit-btn-supplier">Editar</button></a>
                 <form action="{{ route('suppliers.toggle-status', $supplier->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
                     @if($supplier->status == 1)
                         <button type="submit" class="deactivate-btn">Desativar</button>
                     @else 
-                        <button type="submit" class="activate-btn">Ativar Fornecedor</button>
+                        <button type="submit" class="activate-btn">Ativar</button>
                     @endif
                 </form>
             </td>
