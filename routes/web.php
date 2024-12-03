@@ -37,7 +37,7 @@ Route::get('/event/private',[EventController::class, 'private'])->name('events.p
  Route::get('/login', function () {
      return view('login');
  });
- 
+
  Route::post('/login', function () {
      return view('login');
  });
@@ -71,8 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
     Route::get('/payment-list', [PaymentController::class, 'list']);
-   
-    ///// ::::: EVENTS :::::: ///////  
+
+    ///// ::::: EVENTS :::::: ///////
     Route::get('/events',[EventController::class,'index'])->name('events.index');
     Route::get('/events/create/{id}',[EventController::class,'create'])->name('events.create');
 
@@ -97,7 +97,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
-    
+
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants',[ParticipantController::class, 'index'])->name('participants.index');;
     Route::get('/participants/create',[ParticipantController::class, 'create']);
@@ -126,7 +126,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/invitations/{invitation}',[InvitationController::class,'destroy']);
     Route::delete('/invitations', [InvitationController::class,'eliminate']);
     Route::get('/invitations/{invitation}/pageSendEmail', [InvitationController::class,'pageSendEmail']);
-    Route::post('/invitations/submit', [InvitationController::class,'submit']);
+    Route::get('/invitations/{invitation}/submit', [InvitationController::class,'submit']);
 
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
