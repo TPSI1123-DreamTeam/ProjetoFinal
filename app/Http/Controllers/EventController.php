@@ -496,7 +496,7 @@ class EventController extends Controller
         }
     }
 
-            /**
+    /**
      * Display the specified resource.
      */
     public function showbymanager(Event $event)
@@ -699,13 +699,59 @@ class EventController extends Controller
     }
 
 
-    public function exportbyowner() 
+    public function exportbyowner(Request $request) 
     {         
         $AuthUser = Auth::user(); 
-        // user roles is owner and he is the event (to show) owner
+
         if($AuthUser->role_id === 3 ){
 
-            return (new EventsbyownerExport($AuthUser->id))->download('events.xlsx');
+             $eventIdsArray  = explode(',', $request->event_ids);
+             $events = Event::whereIn('id', $eventIdsArray)->get();
+ 
+             //:: HEADER 
+             $excelArray = array();
+             $excelArray[0]["Nº"]                 = "Nº";
+             $excelArray[0]["Nome"]               = "Nome";
+             $excelArray[0]["Localização"]        = "Localização";
+             $excelArray[0]["Data de Início"]     = "Data de Início";
+             $excelArray[0]["Hora de Início"]     = "Hora de Início";
+             $excelArray[0]["Data de Fim"]        = "Data de Início";
+             $excelArray[0]["Hora de Fim"]        = "Hora de Fim";
+             $excelArray[0]["Tipo de Evento"]     = "Tipo de Evento";
+             $excelArray[0]["Custo do Evento"]    = "Custo do Evento";
+             $excelArray[0]["Bilhete"]            = "Bilhete";
+             $excelArray[0]["Proprietário"]       = "Proprietário";
+             $excelArray[0]["Categoria"]          = "Categoria";
+             $excelArray[0]["Nº participantes"]   = "Nº participantes";            
+             $excelArray[0]["Estado"]             = "Estado"  ;        
+             $excelArray[0]["Data da Criação"]    = "Data da Criação";    
+     
+             $key = 1;
+             foreach ($events as $event) {
+ 
+                 $owner    = User::find($event->owner_id);
+                 $category = Category::find($event->category_id);
+ 
+                 $excelArray[$key]["Nº"]                 = $event->id;
+                 $excelArray[$key]["Nome"]               = $event->name;
+                 $excelArray[$key]["Localização"]        = $event->localization;
+                 $excelArray[$key]["Data de Início"]     = $event->start_date;
+                 $excelArray[$key]["Hora de Início"]     = $event->start_time;
+                 $excelArray[$key]["Data de Fim"]        = $event->end_date;
+                 $excelArray[$key]["Hora de Fim"]        = $event->end_time;
+                 $excelArray[$key]["Tipo de Evento"]     = $event->type;
+                 $excelArray[$key]["Custo do Evento"]    = $event->amount;  
+                 $excelArray[$key]["Bilhete"]            = $event->ticket_amount;                
+                 $excelArray[$key]["owner_id"]           = $owner->name;
+                 $excelArray[$key]["category_id"]        = $category->description;
+                 $excelArray[$key]["Nº participantes"]   = $event->number_of_participants;          
+                 $excelArray[$key]["Estado"]             = $event->event_status;      
+                 $excelArray[$key]["Data da Criação"]    = date('Y-m-d', strtotime($event->created_at));
+ 
+                 $key++;
+             }
+ 
+             return Excel::download(new EventsbyownerExport($excelArray), 'OwnerEventReport.xlsx');
         }       
     }
 
@@ -715,7 +761,6 @@ class EventController extends Controller
 
         if($AuthUser->role_id === 2 ){
 
-            //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
             $eventIdsArray  = explode(',', $request->event_ids);
             $events = Event::whereIn('id', $eventIdsArray)->get();
 

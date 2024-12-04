@@ -3,20 +3,35 @@
 namespace App\Exports;
 
 use App\Models\Event;
-use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromArray;
 
-class EventsbyownerExport implements FromQuery
-{
-    use Exportable;
+class EventsbyownerExport implements FromArray{
 
-    public function __construct(int $userId)
+    protected $newExcelArray;
+
+    public function __construct($newExcelArray)
     {
-        $this->userId = $userId;
+        $this->newExcelArray = $newExcelArray;
     }
 
-    public function query()
+    public function array(): array
     {
-        return Event::query()->where('owner_id', $this->userId);
+        return $this->newExcelArray;
     }
 }
+
+// class EventsbyownerExport implements FromQuery
+// {
+//     use Exportable;
+
+//     public function __construct(int $userId)
+//     {
+//         $this->userId = $userId;
+//     }
+
+//     public function query()
+//     {
+//         return Event::query()->where('owner_id', $this->userId);
+//     }
+// }
