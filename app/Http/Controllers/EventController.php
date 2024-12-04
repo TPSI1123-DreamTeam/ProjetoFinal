@@ -715,23 +715,10 @@ class EventController extends Controller
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
     }
 
-
-
-    public function createprivate(Request $request)
-    {
-        //dd($request);
-        //$validated = $request->validated(); 
-        //dd($request->owner_id);
-
-        //Event::create($validated);
-        //return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
-    }
-
     public function eventsbyparticipant()
     {
-        $user = auth()->user();
-
-        $events = $user->events()->distinct()->get();
+        $user   = auth()->user();
+        $events = $user->events()->distinct()->get();       
 
         return view('pages.participants.participant-event-list', ['events' => $events]);
     }
