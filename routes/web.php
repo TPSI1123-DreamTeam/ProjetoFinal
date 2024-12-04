@@ -9,6 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ContactFormController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -99,7 +100,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
 
     ///// ::::: PARTICIPANTS :::::: ///////
-    Route::get('/participants',[ParticipantController::class, 'index'])->name('participants.index');;
+    Route::get('/participants',[ParticipantController::class, 'index'])->name('participants.index');
     Route::get('/participants/create',[ParticipantController::class, 'create']);
     Route::post('/participants', [ParticipantController::class, 'store']);
    // Route::get('participants/export', [ParticipantController::class, 'export']);
@@ -117,8 +118,8 @@ Route::middleware('auth')->group(function () {
 
 
     ///// ::::: INVITATIONS :::::: ///////
-    Route::get('/invitations', [InvitationController::class,'index']);
-    Route::get('/invitations/create', [InvitationController::class, 'create']);
+    Route::get('/invitations', [InvitationController::class,'index'])->name('invitations.index');
+    Route::get('/invitations/{trueId}/create', [InvitationController::class, 'create']);
     Route::post('/invitations', [InvitationController::class,'store']);
     Route::get('/invitations/{invitation}', [InvitationController::class,'show']);
     Route::get('/invitations/{invitation}/edit',[InvitationController::class,'edit']);
@@ -126,7 +127,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/invitations/{invitation}',[InvitationController::class,'destroy']);
     Route::delete('/invitations', [InvitationController::class,'eliminate']);
     Route::get('/invitations/{invitation}/pageSendEmail', [InvitationController::class,'pageSendEmail']);
-    Route::get('/invitations/{invitation}/submit', [InvitationController::class,'submit']);
+    Route::post('/invitations/{invitation}/submit', [InvitationController::class,'submit']);
+    Route::post('/findEventInvitation', [InvitationController::class,'findEventInvitation']);
 
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
