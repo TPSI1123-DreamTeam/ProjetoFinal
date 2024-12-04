@@ -2,7 +2,7 @@
     <div class="footer-content">
         <p>Siga-nos nas redes sociais!</p>
         <div class="footer-icons">
-            <a href="https://www.instagram.com" target="_blank">
+            <a href="https://www.instagram.com/prime_timevents/" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
             <a href="mailto:email@domain.com">
