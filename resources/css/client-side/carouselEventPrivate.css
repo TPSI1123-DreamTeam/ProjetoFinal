@@ -1,6 +1,7 @@
 .container-private.swiper {
-    margin-bottom: 50px;
-    margin-top: 40px;
+    margin-top: 25px;
+    width: 100%;
+    max-width: 1100px;
 }
 
 .card-wrapper-private {
@@ -70,12 +71,67 @@
     margin-top: -35px;
 }
 
-@media screen and (max-width: 768px) {
-    .card-wrapper-private {
-        margin: 0 10px 25px;
+@media (max-width: 815px) {
+    .info,
+    .description-private,
+    .image-private {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 800px) {
+    .container-private.swiper {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
     }
 
-    .card-wrapper-private .swiper-slide-button-private {
-        display: none;
+    .card-list-private {
+        max-width: 550px;
+    }
+    .card-link-private {
+        max-width: 400px;
+    }
+
+    .card-wrapper-private {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .filter-section.event-type {
+        gap: 2px;
+    }
+    
+    .filter-section.availability {
+        gap: 5px;
+    }
+}
+
+@media (max-width: 610px) {
+    .info,
+    .description-private {
+        max-width: 510px;
+    }
+}
+
+@media (max-width: 550px) {
+    .container-private.swiper {
+        width: 100%;
+        max-width: 310px;
+    }
+
+    .card-wrapper-private {
+        width: 100%;
+        max-width: 190px;
+    }
+
+    .info,
+    .description-private {
+        max-width: 310px;
     }
 }
