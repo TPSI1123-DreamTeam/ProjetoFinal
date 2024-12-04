@@ -888,7 +888,8 @@ class EventController extends Controller
                         ->sum('amount')
                 ]);
 
-                return redirect('/events/manager/'. $event->id.'/supplier')->with('status','Evento inactivado com sucesso!')->with('class', 'alert-success');
+                return redirect('/events/manager/'. $event->id.'/supplier')->with('status','Fornecedor removido com sucesso!')->with('class', 'alert-success');
+
             }
         }
 

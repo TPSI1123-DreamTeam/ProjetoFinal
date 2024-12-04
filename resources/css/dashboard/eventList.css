@@ -29,11 +29,6 @@ tbody tr td a button {
     cursor: pointer;
 }
 
-.edit-btn:hover {
-    background-color: #d04b2b !important;
-    cursor: pointer;
-}
-
 .cancel-btn {
     background-color: #ff3300 !important;
 }
@@ -131,7 +126,7 @@ tbody tr td a button {
 .event-button-pending:hover{
     background-color: #d04b2b !important;
     cursor: pointer !important;
-} 
+}
 
 .filter-search-event {
     display: flex !important;
@@ -165,7 +160,7 @@ tbody tr td a button {
 .left {
     grid-column: 1;
 }
-  
+
 .right {
     grid-column: 2;
 }

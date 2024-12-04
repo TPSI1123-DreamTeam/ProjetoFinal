@@ -94,12 +94,6 @@ class DashboardController extends Controller
             //'payments' => $payments,
         ]);
     }
-
-    public function ParticipantList()
-    {
-        
-
-    }
 }
 
 

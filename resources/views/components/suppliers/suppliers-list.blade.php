@@ -11,6 +11,69 @@
  </div>
  <div class="linha-divisoria"></div>
 
+ <div class="filter-search-event">
+    <form action="{{ route('suppliers.searchby') }}" method="GET" class="grid gap-2 mt-5">
+
+        <!-- Campo 1: Nome de Fornecedor -->
+        <div class="flex items-center space-x-2 col-span-1">
+            <label for="name" class="text-sm font-medium text-gray-700">Nome de Fornecedor</label>
+            <input type="text" name="name" id="name"
+                value="{{ isset($formFields['name']) ? $formFields['name'] : '' }}"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        </div>
+
+        <!-- Campo 2: Email -->
+        <div class="flex items-center space-x-2 col-span-1">
+            <label for="email" class="text-sm font-medium text-gray-700">Email</label>
+            <input type="text" name="email" id="email"
+                value="{{ isset($formFields['email']) ? $formFields['email'] : '' }}"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        </div>
+
+        <!-- Campo 3: Contacto -->
+        <div class="flex items-center space-x-2 col-span-1">
+            <label for="contact" class="text-sm font-medium text-gray-700">Contacto</label>
+            <input type="text" name="contact" id="contact"
+                value="{{ isset($formFields['contact']) ? $formFields['contact'] : '' }}"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+        </div>
+
+        <!-- Campo 4: Estado -->
+        <div class="flex items-center space-x-2 col-span-1">
+            <label for="status" class="text-sm font-medium text-gray-700">Estado</label>
+            <select name="status" id="status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option value="">Selecione o estado</option>
+                <option value="1" @if(isset($formFields['status']) && $formFields['status'] == '1') selected @endif>Ativo</option>
+                <option value="0" @if(isset($formFields['status']) && $formFields['status'] == '0') selected @endif>Inativo</option>
+            </select>
+        </div>
+
+        <!-- Campo 5: Tipo de Fornecedor -->
+        <div class="flex items-center space-x-2 col-span-1">
+            <label for="supplier_type_id" class="text-sm font-medium text-gray-700">Tipo de Fornecedor</label>
+            <select name="supplier_type_id" id="supplier_type_id"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option value="">Selecione o Tipo de Fornecedor</option>
+                @foreach ($supplierTypes as $supplierType)
+                <option value="{{ $supplierType->id }}"
+                    {{ isset($formFields['supplier_type_id']) && $formFields['supplier_type_id'] == $supplierType->id ? 'selected' : '' }}>
+                    {{ $supplierType->name }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="action-buttons">
+            <button type="submit" class="event-button-search">
+                Pesquisar
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="linha-divisoria"></div>
+
  <div class="add-supplier-btn">
     <a href="{{ url('suppliers/create') }}"><button>Adicionar Fornecedor</button></a>
 </div>
@@ -62,7 +125,7 @@
 </table>
 
 <div class="pagination-user-list">
-    {{ $suppliers->links() }}
+    {{ $suppliers->appends(request()->query())->links() }}
 </div>
 
 <script>

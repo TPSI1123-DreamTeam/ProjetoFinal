@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Invitation extends Model
 {
@@ -17,8 +18,14 @@ class Invitation extends Model
         'body',
         'image',
         'date',
-        'place'
+        'place',
+        'event_id'
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
 }
 
 
