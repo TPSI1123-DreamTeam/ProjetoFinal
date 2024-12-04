@@ -17,7 +17,7 @@
             <td data-cell="nome">{{ $event->name }}</td>
             <td data-cell="data de inicio">{{ $event->start_date }}</td>
             <td data-cell="data de fim">{{ $event->end_date}}</td>
-            <td data-cell="preço">{{ number_format($event->amount, 2, ',', '.') }}€</td>
+            <td data-cell="preço">{{ number_format($event->ticket_amount, 2, ',', '.') }}€</td>
         </tr>
         @endforeach
     </tbody>

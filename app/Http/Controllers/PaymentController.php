@@ -68,13 +68,18 @@ class PaymentController extends Controller
         $paymentId = $request->input('payment');
         Payment::where('id', $payment->id)->update(['stripe_id' => $checkout_session->id]);
 
+        
+        // ASSOCIATE USER TO THE EVENT
+        $usersToAssoc = User::find($user->id);
+        $event->users()->attach($usersToAssoc);
+
         return redirect($checkout_session->url);
 
     }
 
     
     public function success(Request $request)
-    {
+    {        
         // Obtém o ID do pagamento a partir da URL para armazenar o ID da sessão
         $paymentId = $request->input('payment');
         Payment::where('id', $paymentId)->update(['status' => true]);
