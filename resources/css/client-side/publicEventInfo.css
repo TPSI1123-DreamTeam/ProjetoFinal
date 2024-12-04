@@ -93,3 +93,9 @@
     background-color: #c93510;
     cursor: pointer;
 }
+
+@media (max-width: 800px) {
+    .image {
+        display: none;
+    }
+}

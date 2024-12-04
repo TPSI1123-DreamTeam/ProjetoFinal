@@ -1,3 +1,5 @@
+<h3 class="title-event-category-private">Reserva já o melhor&nbsp;<span id="event-title-private"></span>&nbsp;para ti!</h3>
+
 <div class="container-private swiper">
     <div class="card-wrapper-private">
         <ul class="card-list-private swiper-wrapper">
@@ -20,17 +22,16 @@
     </div>
 </div>
 
-<h3 class="title-event-category">Organiza já o teu&nbsp;<span id="event-title-private"></span>!</h3>
-
 <div class="event-details-private" id="event-details-private">
     <div class="image-private">
-        <img src="" alt="Evento" class="card-image-private" id="card-imageId">
+        <img src="" alt="Evento" class="" id="card-imageId">
     </div>
     <div class="info">
         <p class="description-private"><span id="event-description-private"></span></p>
     </div>
 </div>
+
 <div class="reserve-button">
-            <a href="" class="reserve-now" id="reserve-now">Reserva Já!</a>
-    </div>
+    <a href="" class="reserve-now" id="reserve-now">Reserva Já!</a>
+</div>
 @vite('resources/js/carouselEventPrivate.js')
