@@ -197,7 +197,7 @@ class ParticipantController extends Controller
     foreach ($diferencas as $user) {
     // Buscar ou criar o usuário com base no email
 
-   // dd($usersExistentes);         -> GOTTA CHANGE THOSE ARRAY KEYS. INSTEAD OF 'EMAIL' ITS GOTTA BE THE NUMBERS AGAIN
+   // dd($usersExistentes);        
     $userModel = User::firstOrCreate(
         ['email' => $user[3]], // Condição de busca
         [                           // Preencher os campos caso o usuário não exista
@@ -205,7 +205,7 @@ class ParticipantController extends Controller
             'image' => $defaultImg, //  usado para testar na parte da imagem par não dar erro
             'phone' => strval($user[2]),
             'email' => $user[3],
-            'password' => 'Teste123#',
+            'password' => 'Teste123#',  // <--- Convém notificar new users disto
         ]
     );
   //  dd($userModel);
@@ -213,7 +213,7 @@ class ParticipantController extends Controller
    // dd($userModel->id);
     $event->users()->syncWithoutDetaching([$userModel->id]);
     }
-    
+
     return redirect()->to('/dashboard');
 
     }

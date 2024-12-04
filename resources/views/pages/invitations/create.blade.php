@@ -2,7 +2,7 @@
 
 @section('content')
 
-@component('components.invitations.invitation-form-create')
+@component('components.invitations.invitation-form-create', ['trueId' => $trueId])
 @endcomponent
 
 @endsection

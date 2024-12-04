@@ -20,17 +20,17 @@
                 <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>
             </form>
         @else
-        <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data">
+        {{-- <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data">
             @csrf
-            <div>
-                <label>Escolher Ficheiro:</label>
+            <div>                                           Este div com import está a aparecer em duplicado
+                <label>Escolher Ficheiross:</label>                 Será removido depois de ser esclarecido devidamente
                 <input type="file" id="ExcelFile" name="file">
                 <input hidden name="event" value="{{ $event->id }}">
             </div>
             <div>
                 <button>Submeter</button>
             </div>
-        </form>
+        </form> --}}
         @endif
     </div>
 </form>
@@ -49,11 +49,11 @@
             <span>Evento:</span> {{ $participants->name }} <span>Data:</span> {{ $participants->start_date }} <span>Hora:</span> {{ date('H:i', strtotime($participants->start_time)) }}
         @endif
 
-          <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+          {{-- <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
             <div class="col-md-6 ">
               <div class="form-group">
-                <form action="/searchEvents" method="POST">
-                  @csrf
+                <form action="/searchEvents" method="POST">         Este form para a procura de eventos está a aparecer em duplicado
+                  @csrf                                             Será removido depois de ser esclarecido devidamente
                   <div class="input-group">
                     <select class="form-control" id="search" name="search">
                       <option selected>Escolha o evento para listar participantes...</option>
@@ -61,14 +61,14 @@
                       <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
                       @endforeach
                       {{-- <input  id="selected-event-id" name="event_id" value="{{$event->id}}"/> --}}
-                    </select>
-                    <button type="submit" class="btn btn-primary" >Search</button>
+                    {{-- </select>
+                    <button type="submit" class="btn btn-primary" >Searchhehe</button>
                   </div>
                 </form>
-              </div>
-            </div>
-        </div>
-        <span>Id do evento: {{ $trueId }}</span>
+              </div> --}}
+            {{-- </div>
+        </div> --}}
+        <span>"" Span visualizado para testes - Id do evento: {{ $trueId }} ""</span>
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -152,11 +152,11 @@
         </div>
     </div>
 </div>
-@if( !empty($event) )
+@if( !empty($participants) )
 <form method="POST" action="{{url('participants/import/' . $trueId )}}" enctype="multipart/form-data">
     @csrf
    <div class="mt-2">
-    <label>Escolher Ficheiro:</label>
+    <label>Escolher Ficheiro Para Importar Participantes ao Evento:</label>
     <input type="file" id="ExcelFile" name="file" class="form-control">
     <input hidden name="event" value="{{ $trueId }}">
    </div>
