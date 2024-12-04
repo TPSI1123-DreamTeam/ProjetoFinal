@@ -79,6 +79,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/events',[EventController::class,'store']);
     Route::get('/events/owner',[EventController::class,'eventsbyowner'])->name('events.eventsbyowner');     // LIST EVENTS
+    Route::get('/events/owner/report',[EventController::class,'eventsbyownereport'])->name('events.eventsbyownereport');     // LIST EVENTS
+    Route::get('/events/manager/report',[EventController::class,'eventsbymanagereport'])->name('events.eventsbymanagereport');     // LIST EVENTS
+    Route::get('/events/admin/report',[EventController::class,'eventsbyadminreport'])->name('events.eventsbyadminreport');     // LIST EVENTS
     Route::get('/events/manager',[EventController::class,'eventsbymanager'])->name('events.eventsbymanager'); // LIST EVENTS
     Route::get('/events/manager/approve',[EventController::class,'eventsaprrove'])->name('events.eventsaprrove'); // LIST EVENTS
     Route::get('/events/admin',[EventController::class,'eventsbyadmin'])->name('events.eventsbyadmin');     // LIST EVENTS
