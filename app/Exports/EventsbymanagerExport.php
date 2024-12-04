@@ -19,19 +19,3 @@ class EventsbymanagerExport implements FromArray{
         return $this->newExcelArray;
     }
 }
-
-// namespace App\Exports;
-
-// use App\Models\Event;
-// use Maatwebsite\Excel\Concerns\FromCollection;
-
-// class EventsbymanagerExport implements FromCollection
-// {
-//     /**
-//     * @return \Illuminate\Support\Collection
-//     */
-//     public function collection()
-//     {
-//         return Event::all();
-//     }
-// }
