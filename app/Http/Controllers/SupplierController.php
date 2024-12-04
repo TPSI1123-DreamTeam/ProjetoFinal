@@ -113,31 +113,33 @@ class SupplierController extends Controller
     }
 
     public function searchby(Request $request)
-{
-    $query = Supplier::with('supplierType');
+    {
+        $supplierTypes = SupplierType::all();
 
-    // Filtro por nome do fornecedor
-    if ($request->filled('name')) {
-        $query->where('name', 'like', '%' . $request->name . '%');
-    }
+        $query = Supplier::with('supplierType');
 
-    // Filtro por email do fornecedor
-    if ($request->filled('email')) {
-        $query->where('email', 'like', '%' . $request->email . '%');
-    }
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
 
-    // Filtro por estado (ativo/inativo)
-    if ($request->filled('status')) {
-        $query->where('status', $request->status);
-    }
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
 
-    // Paginação com os filtros aplicados
-    $suppliers = $query->paginate(10);
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
 
-    // Retorna a view com os resultados filtrados
-    return view('pages.suppliers.index', [
-        'suppliers' => $suppliers,
-        'filters' => $request->all()  // Passa os filtros para a view
-    ]);
+        if ($request->filled('supplier_type_id')) {
+            $query->where('supplier_type_id', $request->supplier_type_id);
+        }
+
+        $suppliers = $query->paginate(10);
+
+        return view('pages.suppliers.index', [
+            'suppliers' => $suppliers,
+            'filters' => $request->all(),
+            'supplierTypes' => $supplierTypes
+        ]);
 }
 }   

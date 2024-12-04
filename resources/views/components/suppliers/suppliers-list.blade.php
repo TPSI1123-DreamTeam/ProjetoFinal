@@ -48,6 +48,21 @@
             </select>
         </div>
 
+        <!-- Campo 5: Tipo de Fornecedor -->
+        <div class="flex items-center space-x-2 col-span-1">
+            <label for="supplier_type_id" class="text-sm font-medium text-gray-700">Tipo de Fornecedor</label>
+            <select name="supplier_type_id" id="supplier_type_id"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option value="">Selecione o Tipo de Fornecedor</option>
+                @foreach ($supplierTypes as $supplierType)
+                <option value="{{ $supplierType->id }}"
+                    {{ isset($formFields['supplier_type_id']) && $formFields['supplier_type_id'] == $supplierType->id ? 'selected' : '' }}>
+                    {{ $supplierType->name }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
         <!-- Botões de Ação -->
         <div class="action-buttons">
             <button type="submit" class="event-button-search">
