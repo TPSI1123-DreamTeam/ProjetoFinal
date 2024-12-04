@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\SupplierType;
+use App\Models\User;
 use App\Exports\EventsbyownerExport;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreEventRequest;
@@ -13,6 +14,8 @@ use App\Http\Requests\UpdateEventRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\EventsbymanagerExport;
 
 
 class EventController extends Controller
@@ -123,105 +126,86 @@ class EventController extends Controller
 
 
         return view('pages.events.owner.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
-       // return redirect()->route('pages.events.owner.index');
     }
 
-            /**
-    * Display a listing of the resource.
+    /**
+    * Display a listing of the events by manager_id
     */
     public function eventsbymanager()
     {
-        $manager_id = Auth::user()->id;
-        $query   = Event::query();
-        $query->where('manager_id',$manager_id);
-        $events = $query->paginate(10);
-        $suppliers = Supplier::all();
-        $Category    = Category::all();
-        $formFields = array();
+        $manager = Auth::user();
 
-        return view('pages.events.manager.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
+        if($manager->role_id == 2){    
 
+            $events     = Event::query()->where('manager_id',$manager->id)->orderBy('start_date', 'desc')->paginate(10);
+            $Category   = Category::orderBy('description', 'asc')->get();
+            $formFields = array();
+
+            return view('pages.events.manager.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
+        }else{
+            return redirect('/dashboard');
+        }
     }
 
-
-        /**
-    * Display a listing of the resource.
+    /**
+    * Display a listing of the events by manager_id with filters
     */
     public function searchEventsByManager(Request $request)
     {
-        $manager_id  = Auth::user()->id;  
-        
-        if(Auth::user()->role_id == 2){       
+        $manager = Auth::user();  
+      
+        if($manager->role_id == 2){    
 
-            $Category    = Category::all();
+            $events = Event::where('manager_id', $manager->id)
+            ->when($request->has('event_name') && $request->event_name !== null, function ($query) use ($request) {
+                return $query->where('name', 'like', '%'.$request->event_name.'%');
+            })
+            ->when($request->participants1 !== null && $request->participants2 === null, function ($query) use ($request) {
+                return $query->where('number_of_participants', '>=', intval($request->participants1));
+            })
+            ->when($request->participants2 !== null && $request->participants1 === null, function ($query) use ($request) {
+                return $query->where('number_of_participants', '<=', intval($request->participants2));
+            })
+            ->when($request->participants1 !== null && $request->participants2 !== null, function ($query) use ($request) {
+                return $query->whereBetween('number_of_participants', [
+                    intval($request->participants1), 
+                    intval($request->participants2)
+                ]);
+            })       
+            ->when($request->has('category_id') && $request->category_id!== null, function ($query) use ($request) {
+                return $query->where('category_id', $request->category_id);
+            })
+            ->when($request->has('event_status') && $request->event_status!== null, function ($query) use ($request) {
+                return $query->where('event_status', $request->event_status);
+            })
+            ->when($request->amount1!== null && $request->amount2 === null, function ($query) use ($request) {
+                return $query->where('amount', '>=', $request->amount1);
+            })
+            ->when($request->amount2 !== null && $request->amount1 === null, function ($query) use ($request) {
+                return $query->where('amount', '<=', $request->amount2);
+            })
+            ->when($request->amount2!== null && $request->amount1!== null, function ($query) use ($request) {
+                return $query->whereBetween('amount', [
+                    number_format($request->amount1, 2, '.', ''), 
+                    number_format($request->amount2, 2, '.', '')
+                ]);
+            })
+            ->when($request->has('datepicker1') && $request->datepicker1!== null && $request->datepicker2 === null, function ($query) use ($request) {
+                return $query->where('start_date', '>=', $request->datepicker1);
+            })
+            ->when($request->has('datepicker2') && $request->datepicker2!== null && $request->datepicker1 === null, function ($query) use ($request) {
+                return $query->where('start_date', '<=', $request->datepicker2);
+            })
+            ->when($request->datepicker2!== null && $request->datepicker1!== null, function ($query) use ($request) {
+                return $query->whereBetween('start_date', [
+                    $request->datepicker1, 
+                    $request->datepicker2
+                ]);
+            })
+            ->orderBy('start_date', 'desc')
+            ->paginate(10);    
 
-            if ($request->has('pending') && $request->pending === 'pending') {
-                $events      = Event::where('manager_id', 0); 
-                $events->orderBy('id', 'desc');
-                $events = $events->paginate(10);
-                $formFields = array();
-                return view('pages.events.manager.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
-            }
-
-            $events      = Event::where('manager_id', $manager_id);             
-            
-            if ($request->has('event_name') && $request->event_name!==null) {
-                $events->where('name','like', '%'.$request->event_name.'%');
-            }
-
-            if ($request->has('participants1') && $request->participants1!==null && $request->participants2===null) {
-                $events->where('number_of_participants','>=', intval($request->participants1) );
-            }
-
-            if ($request->has('participants2') && $request->participants2!==null && $request->participants1===null) {
-                $events->where('number_of_participants','<=', intval($request->participants2) );
-            }
-
-            if ($request->participants2!==null && $request->participants1!==null) {
-                $events->where('number_of_participants','>=', intval($request->participants1) );
-                $events->where('number_of_participants','<=', intval($request->participants2) );
-            }
-
-            if ($request->has('category_id') && $request->category_id!==null) {
-                $events->where('category_id', $request->category_id );
-            } 
-            
-            if ($request->has('event_status') && $request->event_status!==null) {
-                $events->where('event_status', $request->event_status );
-            }
-            
-            if ($request->has('amount1') && $request->amount1!==null && $request->amount2===null) {
-                $events->where('amount','>=', $request->amount1);
-            }
-
-            if ($request->has('amount2') && $request->amount2!==null && $request->amount1===null) {
-                $events->where('amount','<=', $request->amount2);
-            }
-
-            if ($request->amount2!==null && $request->amount1!==null) {
-                $events->where('amount','>=', number_format($request->amount1, 2,',') );
-                $events->where('amount','<=', number_format($request->amount2, 2,',') );
-            }
-
-
-            if ($request->has('datepicker1') && $request->datepicker1!==null && $request->datepicker2===null) {
-                $events->where('start_date', '>=',$request->datepicker1);
-            }
-
-            if ($request->has('datepicker2') && $request->datepicker2!==null && $request->datepicker1===null) {
-                $events->where('start_date','<=', $request->datepicker2);
-            }
-
-            if ($request->datepicker2!==null && $request->datepicker1!==null) {
-                $events->where('start_date','>=', $request->datepicker1 );
-                $events->where('start_date','<=', $request->datepicker2 );
-            }      
-
-            $events->orderBy('id', 'desc');
-            $events = $events->paginate(10);
-    
-
-            $formFields = array();
+            $formFields                  = array();
             $formFields['event_name']    = $request->event_name;
             $formFields['participants1'] = $request->participants1;
             $formFields['participants2'] = $request->participants2;
@@ -232,15 +216,16 @@ class EventController extends Controller
             $formFields['datepicker1']   = $request->datepicker1;
             $formFields['datepicker2']   = $request->datepicker2;
 
+            $Category = Category::orderBy('description', 'asc')->get();
 
             return view('pages.events.manager.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
+
         }else{
             return redirect('/dashboard');
         }
     }
 
-
-        /**
+    /**
     * Display a listing of the resource.
     */
     public function eventsbyadmin()
@@ -617,8 +602,66 @@ class EventController extends Controller
         if($AuthUser->role_id === 3 ){
 
             return (new EventsbyownerExport($AuthUser->id))->download('events.xlsx');
-        }
-       
+        }       
+    }
+
+    public function exportbymanager(Request $request) 
+    {   
+        $AuthUser = Auth::user(); 
+
+        if($AuthUser->role_id === 2 ){
+
+            //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
+            $eventIdsArray  = explode(',', $request->event_ids);
+            $events = Event::whereIn('id', $eventIdsArray)->get();
+
+            //:: HEADER 
+            $excelArray = array();
+            $excelArray[0]["Nº"]                 = "Nº";
+            $excelArray[0]["Nome"]               = "Nome";
+            $excelArray[0]["Localização"]        = "Localização";
+            $excelArray[0]["Data de Início"]     = "Data de Início";
+            $excelArray[0]["Hora de Início"]     = "Hora de Início";
+            $excelArray[0]["Data de Fim"]        = "Data de Início";
+            $excelArray[0]["Hora de Fim"]        = "Hora de Fim";
+            $excelArray[0]["Tipo de Evento"]     = "Tipo de Evento";
+            $excelArray[0]["Custo do Evento"]    = "Custo do Evento";
+            $excelArray[0]["Custo dos Serviços"] = "Custo dos Serviços";
+            $excelArray[0]["Bilhete"]            = "Bilhete";
+            $excelArray[0]["Proprietário"]       = "Proprietário";
+            $excelArray[0]["Categoria"]          = "Categoria";
+            $excelArray[0]["Nº participantes"]   = "Nº participantes";            
+            $excelArray[0]["Estado"]             = "Estado"  ;        
+            $excelArray[0]["Data da Criação"]    = "Data da Criação";    
+    
+            $key = 1;
+            foreach ($events as $event) {
+
+                $owner    = User::find($event->owner_id);
+                $category = Category::find($event->category_id);
+
+                $excelArray[$key]["Nº"]                 = $event->id;
+                $excelArray[$key]["Nome"]               = $event->name;
+                $excelArray[$key]["Localização"]        = $event->localization;
+                $excelArray[$key]["Data de Início"]     = $event->start_date;
+                $excelArray[$key]["Hora de Início"]     = $event->start_time;
+                $excelArray[$key]["Data de Fim"]        = $event->end_date;
+                $excelArray[$key]["Hora de Fim"]        = $event->end_time;
+                $excelArray[$key]["Tipo de Evento"]     = $event->type;
+                $excelArray[$key]["Custo do Evento"]    = $event->amount;
+                $excelArray[$key]["Custo dos Serviços"] = $event->services_amount;
+                $excelArray[$key]["Bilhete"]            = $event->ticket_amount;                
+                $excelArray[$key]["owner_id"]           = $owner->name;
+                $excelArray[$key]["category_id"]        = $category->description;
+                $excelArray[$key]["Nº participantes"]   = $event->number_of_participants;          
+                $excelArray[$key]["Estado"]             = $event->event_status;      
+                $excelArray[$key]["Data da Criação"]    = date('Y-m-d', strtotime($event->created_at));
+
+                $key++;
+            }
+
+            return Excel::download(new EventsbymanagerExport($excelArray), 'ManagerEventReport.xlsx');
+        }       
     }
 
     public function updatestatus(Event $event){

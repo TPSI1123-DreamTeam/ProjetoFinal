@@ -35,7 +35,20 @@ class InvitationController extends Controller
      */
     public function store(StoreInvitationRequest $request)
     {
-        Invitation::create($request->all());
+        $invitation = Invitation::create($request->all());
+
+            $file      = $request->file('image');
+            $imageName = time().'.'.$request->image->extension();
+            $path      = 'images/invitations/'.$invitation->id;
+
+            $request->image->move(public_path($path), $imageName);
+
+            // save image
+            $update = Invitation::find($invitation->id);
+            $update->image = $imageName;
+            $update->save();
+
+        dd($invitation);
 
         return redirect('invitations')->with('status','Convite adicionado com sucesso!');
     }
@@ -83,32 +96,32 @@ class InvitationController extends Controller
 
     public function pageSendEmail(Invitation $invitation)
     {
-        return view('pages.invitations.email', ['invitation' => $invitation]);             
+        return view('pages.invitations.email', ['invitation' => $invitation]);
     }
 
-    public function submit(Request $request)
+    public function submit(Invitation $invitation)
     {
         // Simulação de envio de Convite para os Participantes
         // variavél $messages contêm os campos do convite [Por agora o envio requer todos os campos, embora mais
         // tarde não irá ser necessário, visto que os campos são NULLABLE. Necessário inserir validações para
         // os campos que não têm dados!!]
 
-        $messages = [
-            'title.required' => 'Introduza um título!',
-            'body.required' => 'Introduza descrição do convite!',
-            'date.email' => 'Introduza a data do evento!',
-            'place.required' => 'Introduza o nome do local do evento!',
-        ];
+    //     $messages = [
+    //         'title.required' => 'Introduza um título!',
+    //         'body.required' => 'Introduza descrição do convite!',
+    //         'date.email' => 'Introduza a data do evento!',
+    //         'place.required' => 'Introduza o nome do local do evento!',
+    //     ];
 
-        // Capture and validate the data
+    //     // Capture and validate the data
 
-        $validatedData = $request->validate([
-            'title' => 'required|min:3|max:255',
-           'body' => 'required|min:3|max:255',
-            'image' => 'required|image|mimes:jpeg,jpg,png,gif',
-            'date' => 'required|min:3|max:255',
-            'place' => 'required|min:3|max:255',
-       ], $messages);
+    //     $validatedData = $request->validate([
+    //         'title' => 'required|min:3|max:255',
+    //        'body' => 'required|min:3|max:255',
+    //         'image' => 'required|image|mimes:jpeg,jpg,png,gif',
+    //         'date' => 'required|min:3|max:255',
+    //         'place' => 'required|min:3|max:255',
+    //    ], $messages);
 
       // $attachedFile = $request->validate([
         //    'image' => 'required|image|mimes:jpeg,jpg,png,gif',
@@ -116,7 +129,7 @@ class InvitationController extends Controller
 
         // Process the data (e.g., validation, sending email)
 
-        Mail::to('primetimeventstpsip@gmail.com')->send(new InvitationMail($validatedData));
+        Mail::to('primetimeventstpsip@gmail.com')->send(new InvitationMail($invitation));
         // Here you will handle the form submission, like validating input and sending emails.
         return redirect('invitations')->with('success', 'Convite Enviado!');
     }
