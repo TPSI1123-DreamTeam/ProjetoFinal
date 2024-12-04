@@ -1,6 +1,8 @@
-.container.swiper {
-    margin-bottom: 100px;
+.container-swiper.swiper {
+    width: 100%;
+    max-width: 1100px;
 }
+
 
 .card-wrapper {
     max-width: 1100px;
@@ -68,12 +70,27 @@
     margin-top: -35px;
 }
 
-@media screen and (max-width: 768px) {
-    .card-wrapper {
-        margin: 0 10px 25px;
+@media (max-width: 800px) {
+    .container-swiper.swiper {
+        width: 100%;
+        max-width: 450px;
     }
 
-    .card-wrapper .swiper-slide-button {
-        display: none;
+    .card-image,
+    .card-link {
+        width: 100%;
+    }
+
+    .card-item,
+    .card-wrapper {
+        max-width: 365px;
+    }
+
+    .filter-section.event-type {
+        gap: 2px;
+    }
+    
+    .filter-section.availability {
+        gap: 5px;
     }
 }

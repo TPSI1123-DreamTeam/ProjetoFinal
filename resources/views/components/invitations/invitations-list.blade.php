@@ -1,65 +1,60 @@
-@if (session('status'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('status') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif
+
 
 
 <h1>Lista de Convites</h1>
 
-<form method="POST" action="{{ url('/invitations') }}">
-    @csrf
-    @method('DELETE')
- <button type="submit" class="btn btn-danger">Delete All</button>
-</form>&nbsp;
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Tema</th>
-      <th scope="col">Descrição do evento</th>
-      <th scope="col">Imagem</th>
-      <th scope="col">Data do evento</th>
-      <th scope="col">Local do evento</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach ($invitations as $invitation)
-    <tr>
-      <td>{{$invitation->title}}</td>
-      <td>{{$invitation->body}}</td>
-      <img src="{{ asset($invitation->image) }}">
-      <td>{{$invitation->date}}</td>
-      <td>{{$invitation->place}}</td>
-      <td style="width:210px;">{{$invitation->actions}}
-        <div class="pr-1">
-            <a href="{{url('invitations/' . $invitation->id)}}" type="button"
-            class="btn btn-success" style="background-color: green; float:left">Mostrar</a>
-            </div>
-        <div class="pr-1">
-            <a href="{{url('invitations/' . $invitation->id . '/edit')}}" type="button"
-            class="btn btn-success" style="background-color: blue; float:center">Editar</a>
-            </div>
-            <div class="pr-1">
-                <a href="{{url('invitations/' . $invitation->id . '/pageSendEmail')}}" type="button"
-                class="btn btn-success" style=" float:center">Enviar Email</a>
-                </div>
-            <form method="POST" action="{{ url('invitations/' . $invitation->id) }}">
-                @csrf
-                @method('DELETE')
-             <button type="submit" class="btn btn-danger">Apagar</button>
+<div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+    <div class="col-md-6 ">
+      <div class="form-group">
+        <form action="/findEventInvitation" method="POST">
+          @csrf
+          <div class="input-group">
+            <select class="form-control" id="search" name="search">
+              <option selected>Escolha o evento para listar participantes...</option>
+              @foreach ($events as $event)
+              <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
+              @endforeach
+              {{-- <input  id="selected-event-id" name="event_id" value="{{$event->id}}"/> --}}
+            </select>
+            <button type="submit" class="btn btn-primary" >Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+<span>Id do evento: {{ $trueId }}</span>
+
+    @if ( $invitation != null)
+
+    <p>Convite:</p>
+        <p> {{ $invitation->title }}</p>
+        <img src="{{ $invitation->image }}">
+    @else
+        <p>Sem convite associado</p>
+        <div>
+            <form action="{{ url('invitations/' . $trueId .'/create') }}" method="GET">
+                <button type="submit" class="btn btn-primary">
+                    <input hidden name="event" value="{{ $trueId }}">
+                    <p>Criar Convite</p>
+                </button>
             </form>
-      </td>
+    </div>
+    @endif
 
-    </tr>
-    @endforeach
 
-  </tbody>
-</table>
 
-{{ $invitations->links() }}
+@if ($invitation)
+<div>
+        <form action="{{ url('invitations/' . $invitation->id .'/submit') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-primary" style="border-color: blue">
+                <input hidden name="event" value="{{ $trueId }}">
+                <p>Enviar Convite</p>
+            </button>
+        </form>
+
+</div>
+@endif
 
 
 

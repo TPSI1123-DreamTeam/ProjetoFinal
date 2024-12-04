@@ -9,6 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ContactFormController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -37,7 +38,7 @@ Route::get('/event/private',[EventController::class, 'private'])->name('events.p
  Route::get('/login', function () {
      return view('login');
  });
- 
+
  Route::post('/login', function () {
      return view('login');
  });
@@ -71,14 +72,15 @@ Route::middleware('auth')->group(function () {
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
     Route::get('/payment-list', [PaymentController::class, 'list']);
-   
-    ///// ::::: EVENTS :::::: ///////  
+
+    ///// ::::: EVENTS :::::: ///////
     Route::get('/events',[EventController::class,'index'])->name('events.index');
     Route::get('/events/create/{id}',[EventController::class,'create'])->name('events.create');
 
     Route::post('/events',[EventController::class,'store']);
     Route::get('/events/owner',[EventController::class,'eventsbyowner'])->name('events.eventsbyowner');     // LIST EVENTS
     Route::get('/events/manager',[EventController::class,'eventsbymanager'])->name('events.eventsbymanager'); // LIST EVENTS
+    Route::get('/events/manager/approve',[EventController::class,'eventsaprrove'])->name('events.eventsaprrove'); // LIST EVENTS
     Route::get('/events/admin',[EventController::class,'eventsbyadmin'])->name('events.eventsbyadmin');     // LIST EVENTS
     Route::get('/events/owner/{event}',[EventController::class,'showbyowner'])->name('events.showbyowner');
     Route::get('/events/manager/{event}',[EventController::class,'showbymanager'])->name('events.showbymanager');
@@ -86,20 +88,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/owner/{event}/edit',[EventController::class,'editbyowner'])->name('events.editbyowner');
     Route::get('/events/manager/{event}/edit',[EventController::class,'editbymanager'])->name('events.editbymanager');
     Route::put('/events/{event}', [EventController::class,'update'])->name('events.update');
+    Route::put('/events/{event}/approve', [EventController::class,'eventtoaprrove'])->name('events.eventtoaprrove');
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
     Route::get('/events/manager/{event}/supplier',[EventController::class,'editsuppliers'])->name('events.editsuppliers');
 
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
+    Route::get('export/eventsbymanager/', [EventController::class, 'exportbymanager'])->name('events.exportbymanager');
     Route::patch('/events/{event}/updatestatus', [EventController::class, 'updatestatus'])->name('events.updatestatus');
     Route::patch('/events/manager/{event}/updatesupplier', [EventController::class, 'updatesupplieronevent'])->name('events.updatesupplieronevent');
     Route::patch('/events/manager/{event}/deletesupplieronevent', [EventController::class, 'deletesupplieronevent'])->name('events.deletesupplieronevent');
 
 
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
-    
+
     ///// ::::: PARTICIPANTS :::::: ///////
-    Route::get('/participants',[ParticipantController::class, 'index'])->name('participants.index');;
+    Route::get('/participants',[ParticipantController::class, 'index'])->name('participants.index');
     Route::get('/participants/create',[ParticipantController::class, 'create']);
     Route::post('/participants', [ParticipantController::class, 'store']);
    // Route::get('participants/export', [ParticipantController::class, 'export']);
@@ -117,8 +121,8 @@ Route::middleware('auth')->group(function () {
 
 
     ///// ::::: INVITATIONS :::::: ///////
-    Route::get('/invitations', [InvitationController::class,'index']);
-    Route::get('/invitations/create', [InvitationController::class, 'create']);
+    Route::get('/invitations', [InvitationController::class,'index'])->name('invitations.index');
+    Route::get('/invitations/{trueId}/create', [InvitationController::class, 'create']);
     Route::post('/invitations', [InvitationController::class,'store']);
     Route::get('/invitations/{invitation}', [InvitationController::class,'show']);
     Route::get('/invitations/{invitation}/edit',[InvitationController::class,'edit']);
@@ -126,7 +130,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/invitations/{invitation}',[InvitationController::class,'destroy']);
     Route::delete('/invitations', [InvitationController::class,'eliminate']);
     Route::get('/invitations/{invitation}/pageSendEmail', [InvitationController::class,'pageSendEmail']);
-    Route::post('/invitations/submit', [InvitationController::class,'submit']);
+    Route::post('/invitations/{invitation}/submit', [InvitationController::class,'submit']);
+    Route::post('/findEventInvitation', [InvitationController::class,'findEventInvitation']);
 
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
@@ -166,6 +171,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/searchEvents', [ParticipantController::class,'searchEvents']);
     Route::get('/searchEventsByOwner', [EventController::class,'searchEventsByOwner']);
     Route::get('/searchEventsByManager', [EventController::class,'searchEventsByManager']);
+    Route::get('/searchEventsToApprove', [EventController::class,'searchEventsToApprove']);
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
 
