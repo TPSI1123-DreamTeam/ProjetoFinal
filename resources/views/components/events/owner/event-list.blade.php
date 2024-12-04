@@ -92,8 +92,7 @@
             </button>     
             <input type="hidden" name="pending" id="pending" value=""/>
         </div>
-    </form>
-  
+    </form>  
     <form id="" method="GET" action="{{ url('export/eventsbyowner/') }}">
         <input type="hidden" name="event_ids" id="event_ids" value="{{ implode(',', $events->pluck('id')->toArray()) }}">
         <button type="submit" class="event-button-export right" id="export">
