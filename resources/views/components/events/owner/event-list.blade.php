@@ -10,7 +10,6 @@
 
 <div class="filter-search-event">    
     <form action="/searchEventsByOwner" method="GET" class="grid gap-2 mt-5">
-    <form action="/searchEventsByOwner" method="GET" class="grid gap-2 mt-5">
 
         <!-- Campo 1 -->
         <div class="flex items-center space-x-2 col-span-1">
@@ -83,7 +82,6 @@
                 <input id="datepicker2" name="datepicker2" datepicker datepicker-format="yyyy-mm-dd" value="{{ isset($formFields['datepicker2']) ? $formFields['datepicker2'] : '' }}" type="text" 
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecionar Data">
             </div>
-        </div>       
         </div>       
 
         <!-- Botão Submit -->
