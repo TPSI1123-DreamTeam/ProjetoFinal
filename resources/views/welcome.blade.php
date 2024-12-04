@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>@yield('title', 'Prime Time Events')</title>
     @vite('resources/css/welcome-page/welcome.css')
     @vite('resources/css/welcome-page/welcomeHeader.css')

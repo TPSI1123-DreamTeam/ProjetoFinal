@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>@yield('title', 'Prime Time Events')</title>
     @vite('resources/css/dashboard/dashboard.css')
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">

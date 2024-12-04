@@ -79,7 +79,7 @@
        <div class="form-group">
         <label for="phone">Data</label>
         <input
-        type="text"
+        type="date"
         id="date"
         name="date"
         autocomplete="date"
@@ -121,6 +121,8 @@
             @enderror
             </div>
             <br>
+            <input hidden name="trueId" value="{{$trueId}}">
+            {{-- input /\ serve para verificar se o id do evento passou para a página --}}
     <button type="submit" class="mt-2 mb-5 btn btn-primary">Submit</button>
 
     </form>

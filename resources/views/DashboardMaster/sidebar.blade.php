@@ -40,8 +40,8 @@
                 @case(3) {{-- Owner --}}
                     <li><a href="{{ route('participants.index') }}">Lista de Participantes&nbsp; <span>&gt;</span></a></li>
                     <li><a href="{{ route('events.eventsbyowner') }}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="#">Criar Convite&nbsp; <span>&gt;</span></a></li>
                     <li><a href="{{ url('/events/owner/report') }}">Relatórios&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ route('invitations.index') }}">Criar Convite&nbsp; <span>&gt;</span></a></li>
                     @break
 
                 @case(4)   {{-- Participante  --}}

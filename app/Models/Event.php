@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Event extends Model
 {
@@ -35,7 +36,7 @@ class Event extends Model
     protected $casts = [
         'owner_id'      => 'integer',
         'category_id'   => 'integer',
-    
+
     ];
 
     public function users(): BelongsToMany{
@@ -55,5 +56,10 @@ class Event extends Model
     public function current_account(): HasOne
     {
         return $this->hasOne(CurrentAccount::class);
+    }
+
+    public function invitation(): HasOne
+    {
+        return $this->hasOne(invitation::class);
     }
 }
