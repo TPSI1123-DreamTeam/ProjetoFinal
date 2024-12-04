@@ -18,6 +18,8 @@ class SupplierController extends Controller
     {        
         $suppliers = Supplier::with('supplierType')->paginate(10);
         return view('pages.suppliers.index', ['suppliers' => $suppliers]);
+
+
     }
 
     /**
@@ -108,5 +110,34 @@ class SupplierController extends Controller
          } else {
             return redirect()->route('suppliers.index')->with('status', 'Fornecedor desativado com sucesso!');
          }
-     }
+    }
+
+    public function searchby(Request $request)
+{
+    $query = Supplier::with('supplierType');
+
+    // Filtro por nome do fornecedor
+    if ($request->filled('name')) {
+        $query->where('name', 'like', '%' . $request->name . '%');
+    }
+
+    // Filtro por email do fornecedor
+    if ($request->filled('email')) {
+        $query->where('email', 'like', '%' . $request->email . '%');
+    }
+
+    // Filtro por estado (ativo/inativo)
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    // Paginação com os filtros aplicados
+    $suppliers = $query->paginate(10);
+
+    // Retorna a view com os resultados filtrados
+    return view('pages.suppliers.index', [
+        'suppliers' => $suppliers,
+        'filters' => $request->all()  // Passa os filtros para a view
+    ]);
 }
+}   
