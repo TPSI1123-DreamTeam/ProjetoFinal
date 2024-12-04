@@ -338,7 +338,7 @@ class EventController extends Controller
 
         if($AuthUser->role_id == 1 ){
 
-            $events =  Event::paginate(10);
+            $events    = Event::paginate(10);
             $suppliers = Supplier::all();
             return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers]);
         }else{
@@ -364,9 +364,7 @@ class EventController extends Controller
     {
         $events = Event::where('type', 'privado')->get();
         return view('pages.events.private', ['events' => $events]);
-    }
-
- 
+    } 
 
       /**
      * Display a listing of the resource.
@@ -380,43 +378,14 @@ class EventController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-
     public function create(Event $event, $categoryId)
-    { 
-        switch ($categoryId) {
-            case '1':
-                $form = "create";          
-                break;
-            case '2':
-                $form = "create";        
-                break;
-            case '3':
-                $form = "create";   
-                break;
-            case '4':
-                $form = "create";          
-                break;
-            case '5':
-                $form = "create";         
-                break;
-            case '6':
-                $form = "create";              
-                break;
-            case '7':
-                $form = "create";              
-                break;
-            
-            default:
-                $form = "create";              
-                break;
-        }
-
+    {   
         $SupplierType = SupplierType::all();
         $suppliers    = Supplier::all();
         $category     = Category::find($categoryId);
         $categories   = Category::all();
         
-        return view('pages.events.'.$form, ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories, 'SupplierType' => $SupplierType]);
+        return view('pages.events.create', ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories, 'SupplierType' => $SupplierType]);
     }
 
 
@@ -642,7 +611,7 @@ class EventController extends Controller
        
     }
 
-       /**
+    /**
      * Remove the specified resource from storage.
      */
     public function deleteevent(Event $event)
@@ -665,18 +634,6 @@ class EventController extends Controller
         }   
 
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
-    }
-
-
-
-    public function createprivate(Request $request)
-    {
-        //dd($request);
-        //$validated = $request->validated(); 
-        //dd($request->owner_id);
-
-        //Event::create($validated);
-        //return redirect('event/private')->with('status','Item edited successfully!')->with('class', 'alert-success');
     }
 
     public function eventsbyparticipant()
