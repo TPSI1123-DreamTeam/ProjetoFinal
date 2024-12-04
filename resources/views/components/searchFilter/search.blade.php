@@ -26,15 +26,15 @@
     <div class="event-type-filter">
         <label class="filter-label-event">Tipo de Evento:</label>
         <div class="filter-section event-type">
-            <div>
+            <div class="event-type-1">
                 <label class="radio-label"><span class="radio-button"></span> Concertos</label>
                 <label class="radio-label"><span class="radio-button"></span> Festivais</label>
             </div>
-            <div>
+            <div class="event-type-2">
                 <label class="radio-label"><span class="radio-button"></span> Teatro</label>
                 <label class="radio-label"><span class="radio-button"></span> Workshops</label>
             </div>
-            <div>
+            <div class="event-type-3"> 
                 <label class="radio-label"><span class="radio-button"></span> Todos</label>
             </div>
         </div>

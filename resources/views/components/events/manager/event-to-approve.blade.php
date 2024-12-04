@@ -16,7 +16,7 @@
 <div class="linha-divisoria-event-manager"></div>
 
 <div class="filter-search-event">    
-    <form id="searchEventsByManager" action="/searchEventsByManager" method="GET" class="grid gap-2 mt-5">
+    <form id="searchEventsByManager" action="/searchEventsToApprove" method="GET" class="grid gap-2 mt-5">
 
         <!-- Campo 1 -->
         <div class="flex items-center space-x-2 col-span-1">
@@ -72,11 +72,11 @@
             <label for="campo6" class="text-sm font-medium text-gray-700" >Estado</label>
             <select name="event_status" id="event_status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="" readonly>Selecione o estado</option>
-                <option value="ativo"     @if(isset($formFields['event_status']) && $formFields['event_status'] == 'ativo') selected @endif >Ativo</option>
-                <option value="recusado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'recusado') selected @endif>Recusado</option>
-                <!-- <option value="pendente"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'pendente') selected @endif>Pendente</option> -->
-                <option value="cancelado" @if(isset($formFields['event_status']) && $formFields['event_status'] == 'cancelado') selected @endif>Cancelado</option>
-                <option value="concluido" @if(isset($formFields['event_status']) && $formFields['event_status'] == 'concluido') selected @endif>Concluido</option>
+                <!-- <option value="ativo"     @if(isset($formFields['event_status']) && $formFields['event_status'] == 'ativo') selected @endif >Ativo</option>
+                <option value="recusado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'recusado') selected @endif>Recusado</option> -->
+                <option value="pendente"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'pendente') selected @endif>Pendente</option>
+                <!-- <option value="cancelado" @if(isset($formFields['event_status']) && $formFields['event_status'] == 'cancelado') selected @endif>Cancelado</option>
+                <option value="concluido" @if(isset($formFields['event_status']) && $formFields['event_status'] == 'concluido') selected @endif>Concluido</option> -->
             </select> 
         </div>
 
@@ -133,53 +133,22 @@
              <td data-cell="custo estimado">{{ number_format($event->amount, 2, ',', '.') }}€</td>
              <td data-cell="estado">{{ $event->event_status }}
              </td>
-             <td data-cell="ações" class="action-buttons-table">
-                @if( $event->event_status == 'pendente')
-                    <a  href="{{ url('events/manager/' . $event->id) }}" >
-                        <button class="show-btn">Ver</button>
-                    </a>           
-                    <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
-                        <button class="edit-btn">Editar</button>
-
-                    </a>
-                    <form action="{{url('events/'. $event->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <a  href="{{ url('events/' . $event->id) }}" >
-                            <button class="cancel-btn">Cancelar</button>
-                        </a>
-                    </form>
-                @endif()
-                @if( $event->event_status == 'cancelado') 
-                <a  href="{{ url('events/manager/' . $event->id) }}" >
+             <td data-cell="ações" class="action-buttons-table">     
+                <!-- <a  href="{{ url('events/manager/' . $event->id) }}" >
                     <button class="show-btn">Ver</button>
-                </a>             
-                <form action="{{ route('events.updatestatus', $event->id) }}" method="POST">
+                </a>     -->
+                <form action="{{ route('events.eventtoaprrove', $event->id) }}" method="POST">
                     @csrf
-                    @method('PATCH')
+                    @method('PUT')
                     <a href="/events/manager">
-                        <button class="activate-btn" type="submit">Ativar</button> 
+                        <button class="activate-btn" type="submit">Aceitar</button> 
                     </a> 
                 </form>
-                @endif()
-                @if( $event->event_status == 'recusado' || $event->event_status == 'concluido')
-                    <a  href="{{ url('events/manager/' . $event->id) }}" >
-                        <button class="show-btn">Ver</button>
-                    </a>    
-                @endif
-                @if( $event->event_status == 'ativo')
-                    <a  href="{{ url('events/manager/' . $event->id) }}" >
-                        <button class="show-btn">Ver</button>
-                    </a>
-                    <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
-                        <button class="edit-btn">Editar</button>
-                    </a>
-                @endif       
              </td>             
             </tr>
          @endforeach
 
-         @if(@count($events)==0)
+         @if(count($events)==0)
          <tr>
             <td colspan="10">Não existem resultados para esta pesquisa.</td>    
         </tr>

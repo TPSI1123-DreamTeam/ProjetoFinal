@@ -9,7 +9,7 @@
 <div class="linha-divisoria-event-manager"></div>
 
 <div class="filter-search-event">    
-    <form action="/searchEventsByManager" method="GET" class="grid gap-2 mt-5">
+    <form action="/searchEventsByOwner" method="GET" class="grid gap-2 mt-5">
 
         <!-- Campo 1 -->
         <div class="flex items-center space-x-2 col-span-1">
@@ -82,28 +82,23 @@
                 <input id="datepicker2" name="datepicker2" datepicker datepicker-format="yyyy-mm-dd" value="{{ isset($formFields['datepicker2']) ? $formFields['datepicker2'] : '' }}" type="text" 
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecionar Data">
             </div>
-        </div>
-
-        
+        </div>       
 
         <!-- Botão Submit -->
         <div class="action-buttons">         
             <button type="submit" 
                 class="event-button-search">
                 Pesquisar
-            </button>
-
-            <button type="submit" name="events_pending" id="events_pending" value="pending"
-                class="event-button-pending">
-                Pendentes
-            </button>
+            </button>     
             <input type="hidden" name="pending" id="pending" value=""/>
         </div>
-        <a  href="{{ url('export/eventsbyowner/') }}" >
-            <button class="event-button-export right">
-                Exportar Lista
-            </button>
-        </a>
+    </form>
+  
+    <form id="" method="GET" action="{{ url('export/eventsbyowner/') }}">
+        <input type="hidden" name="event_ids" id="event_ids" value="{{ implode(',', $events->pluck('id')->toArray()) }}">
+        <button type="submit" class="event-button-export right" id="export">
+            Exportar Lista
+        </button> 
     </form>
 </div>
 

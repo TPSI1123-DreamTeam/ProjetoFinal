@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/events',[EventController::class,'store']);
     Route::get('/events/owner',[EventController::class,'eventsbyowner'])->name('events.eventsbyowner');     // LIST EVENTS
     Route::get('/events/manager',[EventController::class,'eventsbymanager'])->name('events.eventsbymanager'); // LIST EVENTS
+    Route::get('/events/manager/approve',[EventController::class,'eventsaprrove'])->name('events.eventsaprrove'); // LIST EVENTS
     Route::get('/events/admin',[EventController::class,'eventsbyadmin'])->name('events.eventsbyadmin');     // LIST EVENTS
     Route::get('/events/owner/{event}',[EventController::class,'showbyowner'])->name('events.showbyowner');
     Route::get('/events/manager/{event}',[EventController::class,'showbymanager'])->name('events.showbymanager');
@@ -87,11 +88,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/owner/{event}/edit',[EventController::class,'editbyowner'])->name('events.editbyowner');
     Route::get('/events/manager/{event}/edit',[EventController::class,'editbymanager'])->name('events.editbymanager');
     Route::put('/events/{event}', [EventController::class,'update'])->name('events.update');
+    Route::put('/events/{event}/approve', [EventController::class,'eventtoaprrove'])->name('events.eventtoaprrove');
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
     Route::get('/events/manager/{event}/supplier',[EventController::class,'editsuppliers'])->name('events.editsuppliers');
 
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
+    Route::get('export/eventsbymanager/', [EventController::class, 'exportbymanager'])->name('events.exportbymanager');
     Route::patch('/events/{event}/updatestatus', [EventController::class, 'updatestatus'])->name('events.updatestatus');
     Route::patch('/events/manager/{event}/updatesupplier', [EventController::class, 'updatesupplieronevent'])->name('events.updatesupplieronevent');
     Route::patch('/events/manager/{event}/deletesupplieronevent', [EventController::class, 'deletesupplieronevent'])->name('events.deletesupplieronevent');
@@ -168,6 +171,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/searchEvents', [ParticipantController::class,'searchEvents']);
     Route::get('/searchEventsByOwner', [EventController::class,'searchEventsByOwner']);
     Route::get('/searchEventsByManager', [EventController::class,'searchEventsByManager']);
+    Route::get('/searchEventsToApprove', [EventController::class,'searchEventsToApprove']);
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
 
