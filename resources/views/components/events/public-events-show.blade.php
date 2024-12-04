@@ -1,7 +1,7 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 <h3 class="title-event-category">Encontra o melhor&nbsp;<span id="event-category"></span>&nbsp;para ti!</h3>
-<div class="container swiper">
+<div class="container-swiper swiper">
     <div class="card-wrapper">
         <ul class="card-list swiper-wrapper">
             @foreach($events as $event)
