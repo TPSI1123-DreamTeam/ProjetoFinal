@@ -94,6 +94,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/events/{event}/approve', [EventController::class,'eventtoaprrove'])->name('events.eventtoaprrove');
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
     Route::get('/events/manager/{event}/supplier',[EventController::class,'editsuppliers'])->name('events.editsuppliers');
+    Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
 
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
