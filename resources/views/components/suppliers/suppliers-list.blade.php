@@ -35,7 +35,7 @@
             <label for="contact" class="text-sm font-medium text-gray-700">Contacto</label>
             <input type="text" name="contact" id="contact"
                 value="{{ isset($formFields['contact']) ? $formFields['contact'] : '' }}"
-                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
         </div>
 
         <!-- Campo 4: Estado -->
