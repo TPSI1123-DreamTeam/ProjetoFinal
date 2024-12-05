@@ -950,4 +950,51 @@ class EventController extends Controller
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
     }
 
+    public function search(Request $request)
+    {
+        $query = Event::query();
+
+        $categoryNames = [
+            1 => 'Concertos',
+            5 => 'Festivais',
+            4 => 'Teatro',
+            3 => 'Workshops',
+        ];
+    
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
+        }
+    
+        if ($request->filled('from_date')) {
+            $query->where('start_date', '>=', $request->input('from_date'));
+        }
+    
+        if ($request->filled('to_date')) {
+            $query->where('start_date', '<=', $request->input('to_date'));
+        }
+    
+        if ($request->filled('event_type') && $request->input('event_type') !== 'Todos') {
+            $query->where('category_id', $request->input('event_type'));
+        }
+    
+        if ($request->filled('availability')) {
+            $availability = $request->input('availability');
+    
+            if ($availability === 'Disponível') {
+                $query->where('number_of_participants', '<', 22);
+            } elseif ($availability === 'Quase Esgotado') {
+                $query->whereBetween('number_of_participants', [22, 49]);
+            } elseif ($availability === 'Esgotado') {
+                $query->where('number_of_participants', '>=', 50);
+            }
+        }
+    
+        $events = $query->get();
+        $eventCategory = $request->input('event_type') && isset($categoryNames[$request->input('event_type')])
+            ? $categoryNames[$request->input('event_type')]
+            : 'Todos';
+    
+        return view('pages.events.public', compact('events', 'eventCategory'));
+    }
+
 }
