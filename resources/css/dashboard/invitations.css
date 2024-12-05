@@ -1,0 +1,83 @@
+.invitation-form {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.select-input-btn-inv {
+    display: flex;
+    gap: 10px;
+}
+
+.search-btn-inv {
+    border-radius: 10px;
+    background-color: #EB5B38;
+    color: white;
+    padding: 5px;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    width: 100%;
+    min-width: 400px;
+    max-width: 350px;
+    transition: all 0.3s ease;
+  }
+  
+  .custom-select:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .custom-select:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+  }
+  
+  .custom-select option {
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  .nill-event {
+    margin: 0 auto;
+    font-size: 1.5rem;
+  }
+
+  .eventId-notNill {
+    display: flex;
+    justify-content: center;
+  }
+
+  .no-invitation-added {
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .create-inv-btn {
+    border-radius: 10px;
+    background-color: #EB5B38;
+    color: white;
+    padding: 5px;
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  .create-inv-btn:hover,
+  .search-btn-inv:hover {
+    background-color: #d04b2b !important;
+    cursor: pointer;
+}

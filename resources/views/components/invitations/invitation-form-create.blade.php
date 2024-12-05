@@ -1,130 +1,121 @@
-@extends('master.main')
-@section('content')
+<div class="event-wrapper">
+    <div class="title-hidder-div">
+        <h1>Criação do convite</h1>
+    </div>
+</div>
+<div class="linha-divisoria-event-manager"></div>
 
-
-
-<form method="POST" action="{{ url('invitations/') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ url('invitations/') }}" enctype="multipart/form-data" class="inv-create-form">
     @csrf
-
-    <div class="form-group">
-        <label for="name">Título</label>
-        <input
-        type="text"
-        id="title"
-        name="title"
-        autocomplete="title"
-        placeholder="Type your title"
-        class="form-control
-        @error('title') is-invalid @enderror"
-        value="{{ old('title') }}"
-        required
-        aria-describedby="titleHelp"
-        value="test">
-        <small id="titleHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-        @error('title')
-        <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-        </div>
-       <br>
-
-       <div class="form-group">
-        <label for="name">Texto do Convite</label>
-        <input
-        type="text"
-        id="body"
-        name="body"
-        autocomplete="body"
-        placeholder="Type your body"
-        class="form-control
-        @error('body') is-invalid @enderror"
-        value="{{ old('body') }}"
-        required
-        aria-describedby="bodyHelp"
-        value="test">
-        <small id="bodyHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-        @error('body')
-        <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-        </div>
-       <br>
-
-       <div class="form-group">
-        <label for="phone">Imagem do Convite</label>
-        <label>Escolher Imagem:</label>
-        <input
-        type="file"
-        id="image"
-        name="image"
-        autocomplete="image"
-        placeholder="Codigo HEX cor [ Ex: #FFFFFF] "
-        class="form-control
-        @error('image') is-invalid @enderror"
-        value="{{ old('image') }}"
-        required
-        aria-describedby="imageHelp"
-        value="test">
-        <small id="imageHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-        @error('image')
-        <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-        </div>
-       <br>
-
-       <div class="form-group">
-        <label for="phone">Data</label>
-        <input
-        type="date"
-        id="date"
-        name="date"
-        autocomplete="date"
-        placeholder="Em que data ocorrerá?"
-        class="form-control
-        @error('date') is-invalid @enderror"
-        value="{{ old('date') }}"
-        required
-        aria-describedby="dateHelp"
-        value="test">
-        <small id="dateHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-        @error('date')
-        <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-        </div>
-        <br>
-
-        <div class="form-group">
-            <label for="phone">Local do Evento</label>
+    <div class="">
+        <label for="name">Título:</label>
             <input
+            type="text"
+            id="title"
+            name="title"
+            autocomplete="title"
+            placeholder="Escolha o titulo!"
+            class="
+            @error('title') is-invalid @enderror"
+            value="{{ old('title') }}"
+            required
+            value="test">
+        <br>
+        @error('title')
+        <span class="" role="alert">
+        <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+    <div class="">
+        <label for="body">Descrição:</label>
+        <input
+            type="text"
+            id="body"
+            name="body"
+            autocomplete="body"
+            placeholder="Descreva o evento!"
+            class="
+            @error('body') is-invalid @enderror"
+            value="{{ old('body') }}"
+            required
+            aria-describedby="bodyHelp"
+            value="test">
+        @error('body')
+        <span class="" role="alert">
+        <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+    <div class="">
+        <label for="date">Data:</label>
+        <input
+            type="date"
+            id="date"
+            name="date"
+            autocomplete="date"
+            placeholder="Em que data ocorrerá?"
+            class="
+            @error('date') is-invalid @enderror"
+            value="{{ old('date') }}"
+            required
+            aria-describedby="dateHelp"
+            value="test">
+        @error('date')
+        <span class="" role="alert">
+        <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+    <div class="">
+        <label for="place">Localização:</label>
+        <input
             type="text"
             id="place"
             name="place"
             autocomplete="place"
             placeholder="Onde ocorrerá o evento?"
-            class="form-control
+            class="
             @error('place') is-invalid @enderror"
             value="{{ old('place') }}"
             required
             aria-describedby="placeHelp"
             value="test">
-            <small id="placeHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
-            @error('place')
-            <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-            </div>
-            <br>
-            <input hidden name="trueId" value="{{$trueId}}">
-            {{-- input /\ serve para verificar se o id do evento passou para a página --}}
-    <button type="submit" class="mt-2 mb-5 btn btn-primary">Submit</button>
-
-    </form>
-
-@endsection
+        @error('place')
+        <span class="" role="alert">
+        <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+    <div class="">
+        <label for="image">Imagem do Convite:</label>
+        <input
+            type="file"
+            id="image"
+            name="image"
+            autocomplete="image"
+            placeholder="Codigo HEX cor [ Ex: #FFFFFF] "
+            class="
+            @error('image') is-invalid @enderror"
+            value="{{ old('image') }}"
+            required
+            aria-describedby="imageHelp"
+            value="test">
+        @error('image')
+        <span class="" role="alert">
+        <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </div>
+    <br>
+    <input hidden name="trueId" value="{{$trueId}}">
+    {{-- input /\ serve para verificar se o id do evento passou para a página --}}
+    <div class="submit-btn-create-inv">
+        <button type="submit" class="submit-btn-inv">Submeter</button>
+    </div>
+</form>
+<div class="submit-btn-create-inv">
+    <a href="/invitations">
+        <button type="button" class="go-back-invList-btn">Voltar</button>
+    </a>
+</div>
