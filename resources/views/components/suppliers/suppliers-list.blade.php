@@ -104,7 +104,7 @@
                     @endforeach
                 </ul>
             </td>
-            <td class="supplier-td" data-cell="fornece">Cerveja</td>
+            <td class="supplier-td" data-cell="fornece">{{$supplier->supplierType->name}}</td>
             <td class="supplier-td" data-cell="estado">{{ $supplier->status == 1 ? 'Ativo' : 'Inativo'}}</td>
             <td class="supplier-td" data-cell="ações">
                 <a href="{{ url('suppliers/' . $supplier->id) }}"><button class="details-btn">Detalhes</button></a>
