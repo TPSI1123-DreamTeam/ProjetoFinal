@@ -13,8 +13,18 @@
             @method('PATCH')
             @csrf
 
+            @php
+                function imageExists($imagePath)
+                {
+                    return file_exists(public_path($imagePath));
+                }
+
+                $imagePath = 'images/' . $event->image;
+                $imageSrc = imageExists($imagePath) ? $imagePath : 'images/noimage_default.jpg';
+            @endphp
+
             <div class="show-event-image">
-                <img src="/images/{{ $event->image }}" alt="Imagem do Evento">
+                <img src="{{ asset($imageSrc) }}" alt="Imagem do Evento">
             </div>
 
             <div class="client-options-header">
@@ -105,20 +115,20 @@
                     </td>
                     <td data-cell="fornecedor" style="width:40vh">       
                         <label class="" for="inputGroupSelect01"><h6 class="supplier-tag">Fornecedor:</h6></label>
-                        <select id="input[0]['supplier']" name="input[0][supplier]" class="form-control supplier_list supplier{{$loop->iteration}}" data-iteration="0">
+                        <select id="input[0]['supplier']" name="input[0][supplier]" class="form-control supplier_list supplier0" data-iteration="0">
                             <option>Selecione o Fornecedor a associar:</option>
                             @foreach ($Suppliers as $item)     
-                            <option value="{{ $item->id }}"  @if( $item->id === $supplier->supplier_id ) selected @endif > {{ $item->name }} - ({{ $item->supplierType->name }})</option>
+                            <option value="{{ $item->id }}"> {{ $item->name }} - ({{ $item->supplierType->name }})</option>
                             @endforeach
                         </select>      
                     </td>
                     <td data-cell="descrição">   
                         <label for="inputAddress"><h6 class="description-tag">Descrição do Serviço:</h6></label>
-                        <input type="text-area" class="form-control" name="input[0][description]"  id="input[0]['description']"  value="{{ $supplier->description }}"  >
+                        <input type="text-area" class="form-control" name="input[0][description]"  id="input[0]['description']"  value=""  >
                     </td>
                     <td data-cell="custo" style="width:25vh">                   
                         <label for="amount"><h6 class="cost-tag">Custo do Serviço:</h6></label>
-                        <input type="text" class="form-control" name="input[0][amount]"  id="input[0]['amount']" value="{{ $supplier->amount }}" placeholder="0.00€" min="30" max="1000000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" step="0.01" min="0" >                    
+                        <input type="text" class="form-control" name="input[0][amount]"  id="input[0]['amount']" value="" placeholder="0.00€" min="30" max="1000000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" step="0.01" min="0" >                    
                     </td>
                     <td data-cell="ações" class="remove-td">                
                         <form id="formdelete0" action="{{url('/events/manager/'. $event->id.'/deletesupplieronevent/')}}" method="POST">

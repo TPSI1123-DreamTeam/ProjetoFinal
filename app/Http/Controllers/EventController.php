@@ -603,25 +603,29 @@ class EventController extends Controller
             $SupplierType = SupplierType::all();
             $categories   = Category::all();
             $event        = Event::find($event->id);
+
             return view('pages.events.owner.edit', ['event' => $event, 'categories' => $categories, 'SupplierType' => $SupplierType]);
+
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
         }
     }
 
-            /**
+    /**
      * Display the specified resource.
      */
     public function editbymanager(Event $event)
     {
-        $AuthUser = Auth::user(); // (role_id == 3) => owner
+        $AuthUser = Auth::user(); 
 
-        // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
-            $event = Event::find($event->id);
+
+            $event        = Event::find($event->id);
             $SupplierType = SupplierType::all();
             $categories   = Category::all();
+
             return view('pages.events.manager.edit', ['event' => $event, 'categories' => $categories, 'SupplierType' => $SupplierType]);
+
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
         }
@@ -824,9 +828,8 @@ class EventController extends Controller
      */
     public function editsuppliers(Event $event)
     {
-        $AuthUser = Auth::user(); // (role_id == 3) => owner
-
-        // user roles is owner and he is the event (to show) owner
+        $AuthUser = Auth::user(); 
+        
         if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
             
             $event          = Event::find($event->id);
