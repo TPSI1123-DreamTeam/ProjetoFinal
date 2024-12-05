@@ -954,13 +954,6 @@ class EventController extends Controller
     {
         $query = Event::query();
 
-        $categoryNames = [
-            1 => 'Concertos',
-            5 => 'Festivais',
-            4 => 'Teatro',
-            3 => 'Workshops',
-        ];
-    
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->input('search') . '%');
         }
@@ -979,7 +972,6 @@ class EventController extends Controller
     
         if ($request->filled('availability')) {
             $availability = $request->input('availability');
-    
             if ($availability === 'Disponível') {
                 $query->where('number_of_participants', '<', 22);
             } elseif ($availability === 'Quase Esgotado') {
@@ -990,11 +982,13 @@ class EventController extends Controller
         }
     
         $events = $query->get();
-        $eventCategory = $request->input('event_type') && isset($categoryNames[$request->input('event_type')])
-            ? $categoryNames[$request->input('event_type')]
-            : 'Todos';
+
+        if ($events->isEmpty()) {
+            session()->flash('no_results', 'Não foram encontrados eventos para os parâmetros de pesquisa fornecidos.');
+            $events = Event::where('type', 'publico')->get();
+        }
     
-        return view('pages.events.public', compact('events', 'eventCategory'));
+        return view('pages.events.public', compact('events'));
     }
 
 }
