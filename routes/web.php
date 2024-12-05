@@ -135,7 +135,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/findEventInvitation', [InvitationController::class,'findEventInvitation']);
 
     ///// ::::: SUPPLIERS :::::: ///////
-    Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+    Route::get('/suppliers/index', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('/suppliers/create', [SupplierController::class, 'create']);
     Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
     Route::get('/suppliers/{supplier}', [SupplierController::class,'show']);
@@ -144,6 +144,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
     Route::patch('/suppliers/{supplier}/toggle-status', [SupplierController::class, 'toggleStatus'])->name('suppliers.toggle-status');
     Route::get('/suppliers', [SupplierController::class, 'searchby'])->name('suppliers.searchby');
+    
     ///// ::::: DASHBOARD :::::: ///////
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 
