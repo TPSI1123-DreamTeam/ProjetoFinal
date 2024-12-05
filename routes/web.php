@@ -137,7 +137,7 @@ Route::middleware('auth')->group(function () {
     ///// ::::: SUPPLIERS :::::: ///////
     Route::get('/suppliers/index', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('/suppliers/create', [SupplierController::class, 'create']);
-    Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
+    Route::post('/suppliers/store', [SupplierController::class, 'store'])->name('suppliers.store');
     Route::get('/suppliers/{supplier}', [SupplierController::class,'show']);
     Route::get('/suppliers/{supplier}/edit',[SupplierController::class,'edit']);
     Route::put('/suppliers/{supplier}', [SupplierController::class,'update']);
