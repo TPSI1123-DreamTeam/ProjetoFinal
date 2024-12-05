@@ -33,6 +33,10 @@ tbody tr td a button {
     background-color: #ff3300 !important;
 }
 
+.cancel-btn:hover {
+    background-color: #be2c07 !important;
+}
+
 .activate-btn {
     background-color: #4eb51b !important;
 }

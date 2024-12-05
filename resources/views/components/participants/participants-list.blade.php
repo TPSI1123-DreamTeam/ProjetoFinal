@@ -100,12 +100,12 @@
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item">
                                             <form action="{{ url('participants/' . $participant->id . '/editState') }}" method="GET">
-                                                <button type="submit" class="btn btn-primary">
+                                                <button type="submit" class="edit-btn">
                                                     <input hidden name="user" value="{{ $participant->id }}">
                                                     <input hidden name="event" value="{{ $trueId }}">
                                                                                      {{-- /\ variável que estava antes era $event->id --}}
                                                     <input hidden name="confirmation" value="{{ $participant->pivot->confirmation }}">
-                                                    <i class="bx bx-pencil font-size-18"></i>
+                                                    <i class="bx bx-pencil"></i>
                                                 </button>
                                             </form>
 
@@ -161,12 +161,31 @@
     <input hidden name="event" value="{{ $trueId }}">
    </div>
    <div class="mt-2">
-    <button class="btn btn-success">Submeter</button>
+    <button class="search-participant-btn">Submeter</button>
    </div>
 </form>
+<hr>
+<br><hr>
 @endif
 <style>
 body{
+
+    .edit-btn {
+    background-color: #EB5B38 !important;
+}
+
+.edit-btn:hover {
+    background-color: #d04b2b !important;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #ff3300 !important;
+}
+
+.cancel-btn:hover {
+    background-color: #be2c07 !important;
+}
 
   margin-top:20px;
   background-color:#eee;
