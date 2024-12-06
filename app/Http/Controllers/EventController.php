@@ -208,7 +208,7 @@ class EventController extends Controller
 
         if($manager->role_id == 2){
 
-            $events     = Event::query()->where('manager_id',0)->orderBy('start_date', 'desc')->paginate(10);
+            $events     = Event::query()->where('manager_id',0)->orderBy('start_date', 'asc')->paginate(10);
             $Category   = Category::orderBy('description', 'asc')->get();
             $formFields = array();
 
