@@ -42,7 +42,7 @@ class EventController extends Controller
     {
         $ownerId  = Auth::user()->id;
         $Category = Category::all();
-        $events   = Event::where('owner_id', $ownerId)->orderBy('id', 'desc')->paginate(10);
+        $events   = Event::where('owner_id', $ownerId)->orderBy('start_date', 'desc')->paginate(10);
         $formFields = array();
 
         return view('pages.events.owner.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -157,7 +157,7 @@ class EventController extends Controller
             $events->where('start_date','<=', $request->datepicker2 );
         }
 
-        $events->orderBy('id', 'desc');
+        $events->orderBy('start_date', 'desc');
         $events = $events->paginate(10);
 
 
