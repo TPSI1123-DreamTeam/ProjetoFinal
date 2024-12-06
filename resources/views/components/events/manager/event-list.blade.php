@@ -140,7 +140,6 @@
                     </a>
                     <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
                         <button class="edit-btn">Editar</button>
-
                     </a>
                     <form action="{{url('events/'. $event->id)}}" method="POST">
                         @csrf

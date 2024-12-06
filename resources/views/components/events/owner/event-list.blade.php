@@ -129,7 +129,7 @@
                 <a  href="{{ url('events/owner/' . $event->id) }}" >
                     <button class="show-btn">Ver</button>
                 </a>
-                @if( $event->event_status == 'pendente')
+                @if( ($event->event_status == 'pendente' || $event->event_status == 'ativo') && $event->start_date > date('Y-m-d') )
                     <a  href="{{ url('events/owner/' . $event->id . '/edit') }}" >
                         <button class="edit-btn">Editar</button>
                     </a>
@@ -142,6 +142,20 @@
                         </a>
                     </form>
                 @else
+
+                    @if( $event->event_status == 'cancelado' && $event->start_date > date('Y-m-d') )
+                    <a  href="{{ url('events/manager/' . $event->id) }}" >
+                        <button class="show-btn">Ver</button>
+                    </a>
+                    <form action="{{ route('events.updatestatus', $event->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <a href="/events/manager">
+                            <button class="activate-btn" type="submit">Ativar</button>
+                        </a>
+                    </form>
+                    @endif()
+
                     <button class="edit-button"   hidden title="Somente pode editar enquanto estiver pendente">Editar</button>
                     <button class="cancel-button" hidden title="Somente pode cancelar enquanto estiver pendente">Cancelar</button>
                 @endif

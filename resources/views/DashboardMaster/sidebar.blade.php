@@ -1,6 +1,8 @@
 <div class="sidebar">
     <div class="user-profile">
-        <div class="user-avatar"></div>
+        <div class="user-avatar">
+            <img src="{{ Auth::user()->image }}" style="border-radius: 50%;"><img>
+        </div>
         <div class="user-info">
             <a href="#">{{ Auth::user()->name }}</a><br>
             <span>

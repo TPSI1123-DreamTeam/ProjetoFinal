@@ -66,9 +66,19 @@ class EventSeeder extends Seeder
         $arrayEventStatus = [
             0 => "pendente", 
             1 => "ativo", 
-            2 => "cancelado", 
-            3 => "recusado", 
+            2 => "aprovado", 
+            3 => "ativo", 
             4 => "aprovado", 
+            5 => "pendente" 
+        ];
+
+
+        $arrayEventStatus1 = [
+            0 => "concluido", 
+            1 => "cancelado", 
+            2 => "concluido", 
+            3 => "recusado", 
+            4 => "concluido", 
             5 => "concluido" 
         ];
 
@@ -79,7 +89,7 @@ class EventSeeder extends Seeder
             2 => '2024-09-01',
             3 => '2024-10-01',
             4 => '2024-11-01',
-            5 => '2024-12-01',
+            5 => '2024-12-15',
             6 => '2025-01-01',
         ];
 
@@ -89,14 +99,10 @@ class EventSeeder extends Seeder
             1 => '2024-08-31',
             2 => '2024-09-30',
             3 => '2024-10-31',
-            4 => '2024-11-30',
+            4 => '2024-12-14',
             5 => '2024-12-31',
             6 => '2025-01-31',
         ];
-
-
-        // $endDate = 'now'; // Current date and time
-        // $date = $faker->dateTimeBetween($startDate, $endDate);
 
         for ($j = 0; $j < 7; $j++) {
 
@@ -104,13 +110,18 @@ class EventSeeder extends Seeder
 
                 $categoryRandom = rand(0,6);
                 $managerRandom  = rand(0,1);
-                $typeRandom     = rand(0,1);
-                //$date           = fake()->dateTimeBetween('-1 week', '+1 week');
+                $typeRandom     = rand(0,1);                
                 $date           = fake()->dateTimeBetween($startDateaArray[$j], $endDateaArray[$j]);
                 $randomAmount   = rand(1000,20000);
                 $randomUsers    = rand(20, 50);
                 $ticketAmount   = ($randomAmount / $randomUsers) / 3;
                 $startTime      = rand(10,23).":00:00";
+
+                if($j<5){
+                    $eventStatus = $arrayEventStatus1[rand(0,5)];                    
+                }else{
+                    $eventStatus = $arrayEventStatus[rand(0,5)];
+                }
 
                 $event = Event::create([
                     'name'                   => $arrayCategory[$categoryRandom]['description'],
@@ -127,9 +138,8 @@ class EventSeeder extends Seeder
                     'owner_id'               => rand(4,5),
                     'manager_id'             => $arrayManager[$managerRandom],               
                     'number_of_participants' => $randomUsers,
-                    'event_status'           => $arrayEventStatus[rand(0,5)]
-                ]);
-        
+                    'event_status'           => $eventStatus
+                ]);        
     
                 $users = User::inRandomOrder()->take($randomUsers)->pluck('id');
                 $event->users()->attach($users);
