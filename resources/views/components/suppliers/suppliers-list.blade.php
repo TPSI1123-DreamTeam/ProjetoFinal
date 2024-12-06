@@ -1,6 +1,6 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @if(session('status'))
-        <div id="success-notification" 
+        <div id="success-notification"
         class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
     {{ session('status') }}
     </div>
@@ -35,13 +35,13 @@
             <label for="contact" class="text-sm font-medium text-gray-700">Contacto</label>
             <input type="text" name="contact" id="contact"
                 value="{{ isset($formFields['contact']) ? $formFields['contact'] : '' }}"
-                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
         </div>
 
         <!-- Campo 4: Estado -->
         <div class="flex items-center space-x-2 col-span-1">
             <label for="status" class="text-sm font-medium text-gray-700">Estado</label>
-            <select name="status" id="status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <select name="status" id="status" class="block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="">Selecione o estado</option>
                 <option value="1" @if(isset($formFields['status']) && $formFields['status'] == '1') selected @endif>Ativo</option>
                 <option value="0" @if(isset($formFields['status']) && $formFields['status'] == '0') selected @endif>Inativo</option>
@@ -52,7 +52,7 @@
         <div class="flex items-center space-x-2 col-span-1">
             <label for="supplier_type_id" class="text-sm font-medium text-gray-700">Tipo de Fornecedor</label>
             <select name="supplier_type_id" id="supplier_type_id"
-                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                class="block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="">Selecione o Tipo de Fornecedor</option>
                 @foreach ($supplierTypes as $supplierType)
                 <option value="{{ $supplierType->id }}"
@@ -72,12 +72,9 @@
     </form>
 </div>
 
-<div class="linha-divisoria"></div>
-
  <div class="add-supplier-btn">
     <a href="{{ url('suppliers/create') }}"><button>Adicionar Fornecedor</button></a>
 </div>
-
 
 <table>
     <thead>
@@ -104,7 +101,7 @@
                     @endforeach
                 </ul>
             </td>
-            <td class="supplier-td" data-cell="fornece">Cerveja</td>
+            <td class="supplier-td" data-cell="fornece">{{$supplier->supplierType->name}}</td>
             <td class="supplier-td" data-cell="estado">{{ $supplier->status == 1 ? 'Ativo' : 'Inativo'}}</td>
             <td class="supplier-td" data-cell="ações">
                 <a href="{{ url('suppliers/' . $supplier->id) }}"><button class="details-btn">Detalhes</button></a>
@@ -114,7 +111,7 @@
                     @method('PATCH')
                     @if($supplier->status == 1)
                         <button type="submit" class="deactivate-btn">Desativar</button>
-                    @else 
+                    @else
                         <button type="submit" class="activate-btn">Ativar</button>
                     @endif
                 </form>
@@ -145,3 +142,5 @@
         }
     });
 </script>
+
+@vite('resources/js/orderTable.js')

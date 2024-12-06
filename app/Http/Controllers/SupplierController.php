@@ -17,7 +17,7 @@ class SupplierController extends Controller
     public function index()
     {        
         $suppliers = Supplier::with('supplierType')->paginate(10);
-        return view('pages.suppliers.index', ['suppliers' => $suppliers]);
+        return view('pages.suppliers.index', ['suppliers' => $suppliers, 'supplierTypes' => SupplierType::all()]);
 
 
     }

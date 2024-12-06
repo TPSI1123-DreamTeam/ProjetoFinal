@@ -6,6 +6,7 @@
     <title>Login | PRIME TIME EVENTS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     @vite('resources/css/login.css')
 </head>
 <body>
@@ -33,7 +34,7 @@
                     @csrf
                     <div class="form-group">
                         <a type="button" class="google-login-button" href="/login/google">
-                            Entrar com o Google <i class="fab fa-google"></i>
+                            Entrar com o Google <i class='bx bxl-google'></i>
                         </a>
                     </div>
                     <div class="or-divider">

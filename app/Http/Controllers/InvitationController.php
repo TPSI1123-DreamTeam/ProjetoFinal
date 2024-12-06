@@ -54,17 +54,7 @@ class InvitationController extends Controller
      */
     public function store(StoreInvitationRequest $request)
     {
-      //  dd($request);
-
         $event = Event::findOrFail($request->input('trueId'));
-            // Criar e associar o convite ao evento
-            // $invitation = new Invitation([
-            //     'title' => $validated['title'],
-            //     'body' => $validated['body'],
-            //     'date' => $validated['date'],
-            //     'place' => $validated['place'],
-            //     'event_id' => $trueId, // Relacionar o convite ao evento
-            // ]);
 
             $invitation = Invitation::create([
                 'title'           => $request->title,
@@ -78,30 +68,11 @@ class InvitationController extends Controller
                 $file = $request->file('image');
                 $imageName = time() . '.' . $file->extension();
                 $file->move(public_path('images\invitations'), $imageName); // Ajuste o caminho conforme necessário
-              //  $directory = public_path('images\invitations' + $imageName);
                 $directory = public_path('images\invitations') . DIRECTORY_SEPARATOR . $imageName;
                 $invitation->image = $imageName;
             }
 
             $invitation->image = $directory;
-           // dd($invitation->image); //-> usado para verificar se o diretório fica guardado no campo image do convite
-
-
-
-
-            // $file      = $request->file('image');
-            // $imageName = time().'.'.$request->image->extension();
-            // $path      = "";
-
-            // $request->image->move(public_path($path), $imageName);
-
-            // // save image
-            // $update = Invitation::find($event->invitation->id);
-            // $update->image = $imageName;
-            // $update->save();
-
-
-
             $event->invitation()->save($invitation); // Usa o relacionamento para salvar e associar
 
 

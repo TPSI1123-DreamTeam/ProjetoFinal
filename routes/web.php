@@ -49,6 +49,9 @@ Route::get('/register', function (Request $request) {
     return view('register.register');
 });
 
+//Rota para pesquisa de eventos na página principal, com filtros
+Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
+
 ///// ::::: LOGIN :::::: ///////
 
 ///// ::::: ROUTES WITH AUTH  :::::: ///////
@@ -74,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
     Route::get('/payment-list', [PaymentController::class, 'list']);
+    Route::get('/searchPayments', [PaymentController::class, 'searchPayments']);
 
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',[EventController::class,'index'])->name('events.index');
@@ -96,7 +100,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/events/{event}/approve', [EventController::class,'eventtoaprrove'])->name('events.eventtoaprrove');
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
     Route::get('/events/manager/{event}/supplier',[EventController::class,'editsuppliers'])->name('events.editsuppliers');
-    
+    Route::get('/eventsFilter',[EventController::class,'eventsFilter']);
+
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
     Route::get('export/eventsbymanager/', [EventController::class, 'exportbymanager'])->name('events.exportbymanager');
@@ -109,7 +114,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/schedules/{event}/delete', [ScheduleController::class, 'delete'])->name('delete');
     
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
-    
+
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants',[ParticipantController::class, 'index'])->name('participants.index');
     Route::get('/participants/create',[ParticipantController::class, 'create']);
@@ -139,15 +144,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/findEventInvitation', [InvitationController::class,'findEventInvitation']);
 
     ///// ::::: SUPPLIERS :::::: ///////
-    Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+    Route::get('/suppliers/index', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('/suppliers/create', [SupplierController::class, 'create']);
-    Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
+    Route::post('/suppliers/store', [SupplierController::class, 'store'])->name('suppliers.store');
     Route::get('/suppliers/{supplier}', [SupplierController::class,'show']);
     Route::get('/suppliers/{supplier}/edit',[SupplierController::class,'edit']);
     Route::put('/suppliers/{supplier}', [SupplierController::class,'update']);
     Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
     Route::patch('/suppliers/{supplier}/toggle-status', [SupplierController::class, 'toggleStatus'])->name('suppliers.toggle-status');
     Route::get('/suppliers', [SupplierController::class, 'searchby'])->name('suppliers.searchby');
+    
     ///// ::::: DASHBOARD :::::: ///////
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 

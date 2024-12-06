@@ -24,7 +24,6 @@
             </div> 
         </div>    
     </div>    
-    <br>
     <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
         <div class="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3">
             <dl>   

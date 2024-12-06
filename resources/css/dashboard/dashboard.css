@@ -12,6 +12,9 @@
 @import 'user-list.css';
 @import 'suppliers.css';
 @import 'event-supplier.css';
+@import 'invitations.css';
+@import 'create-inv.css';
+@import 'reports.css';
 
 * {
     margin: 0;

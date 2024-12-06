@@ -1,104 +1,76 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<div class="show-event-container">
+    <h1>{{ $event->name }}</h1>
+    <div class="linha-divisoria-event-manager"></div>
 
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mt-5">
-        <div>
-            <h1 class="mb-0">Evento</h1>
-            <h6 class="mb-0">ID do Evento:{{ $event->id }}</h6>
-        </div>    
-        @if( $event->image ) 
-        <img src="/images/events/{{$event->id}}/{{$event->image}}" class="card-img-top" alt="..." style="width: 15rem; height: 10rem; border-radius: 8px;">
-        @else    
-        <img src="/images/noimage_default.jpg" class="card-img-top" alt="..." style="width: 15rem; border-radius: 8px;">
-        @endif 
-    </div>
-
-    <form  method="" action="" enctype="" class="mt-3">   
-        <div class="form-row">
-            <div class="form-group col-md-6">
-            <label for="inputEmail4">Nome do Evento</label> 
-            <input type="text"name="name" id="name" value="{{ $event->name }}"  class="form-control" disabled>
-            </div>
-
-            <div class="form-group col-md-4">
-            <label for="inputlocalization">Localização</label>
-            <input type="text" class="form-control" name="localization"  id="localization" value="{{ $event->localization }}"  disabled>
-            </div>
-
-            <div class="form-group col-md-2">
-            <label for="number_of_participants">Participantes</label>
-            <input type="text" class="form-control" name="number_of_participants"  id="number_of_participants" value="{{ $event->number_of_participants }}" min="30" max="100000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" disabled>
-            </div>
+    <form  method="" action="" enctype="" class="show-event-form">   
+    <div class="show-event-image">
+            <img src="/images/{{ $event->image }}" alt="Imagem do Evento">
         </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-7">
+        <div class="grid-form">
+            <div class="event-name">
+                <label for="inputEmail4">Nome do Evento</label> 
+                <input type="text" name="name" id="name" value="{{ $event->name }}" disabled>
+            </div>
+            <div class="event-local">
+                <label for="inputlocalization">Localização</label>
+                <input type="text" name="localization"  id="localization" value="{{ $event->localization }}" disabled>
+            </div>
+            <div class="event-participants">
+                <label for="number_of_participants">Participantes</label>
+                <input type="text" name="number_of_participants"  id="number_of_participants" value="{{ $event->number_of_participants }}" min="30" max="100000" 
+            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" disabled>
+            </div>
+            <div class="event-description">
                 <label for="inputAddress">Descrição do Evento</label>
-                <input type="text-area" class="form-control" name="description"  id="description"  value="{{ $event->description }}" disabled>
+                <input type="text-area" name="description"  id="description"  value="{{ $event->description }}" disabled>
             </div>
-
-            <div class="form-group col-md-5">               
-                <label class="" for="inputGroupSelect01">Categoria</label>
-                <input type="text" class="form-control" name="category" id="category" value="{{ $category->description }}" disabled>  
+            <div class="event-category">               
+                <label for="inputGroupSelect01">Categoria</label>
+                <input type="text" name="category" id="category" value="{{ $category->description }}" disabled>  
             </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="start_date">
                 <label for="inputAddress2">Data do Evento</label>
-                <input type="date" class="form-control" name="start_date" id="start_date" value="{{ $event->start_date }}" disabled>
+                <input type="date" class="" name="start_date" id="start_date" value="{{ $event->start_date }}" disabled>
             </div>
-            <div class="form-group col-md-2">
+            <div class="start_time">
                 <label for="inputAddress2">Hora</label>
-                <input type="time" class="form-control" name="start_time" id="start_time" value="{{   date('H:i', strtotime($event->start_time)) }}"   disabled>
+                <input type="time" class="" name="start_time" id="start_time" value="{{   date('H:i', strtotime($event->start_time)) }}" disabled>
             </div>
-
-            <div class="form-group col-md-4">
+            <div class="end_date">
                 <label for="inputAddress2">Data do Fim do Vento</label>
-                <input type="date" class="form-control" name="end_date" id="end_date" value="{{   $event->end_date }}"    disabled>
+                <input type="date" class="" name="end_date" id="end_date" value="{{   $event->end_date }}" disabled>
             </div>
-            <div class="form-group col-md-2">
+            <div class="end_time">
                 <label for="inputAddress2">Hora</label>
-                <input type="time" class="form-control" name="end_time" id="end_time" value="{{  date('H:i', strtotime($event->end_time)) }}"    disabled>
+                <input type="time" class="" name="end_time" id="end_time" value="{{  date('H:i', strtotime($event->end_time)) }}" disabled>
             </div>
         </div>
-
-        <div class="form-group">
+        <div class="event-type">
             <label for="inputState">Tipo de Evento</label>
-            <input type="text" class="form-control" name="type" id="type" value="{{ $event->type }}" disabled>        
+            <input type="text" class="" name="type" id="type" value="{{ $event->type }}" disabled>        
         </div> 
 
-        <div class="form-group">
+        <div class="checkbox-group">
         @php
             $servicesArray = json_decode($event->services_default_array, true);
         @endphp
-
         @foreach($SupplierType as $type)
-
             @if( ( $loop->iteration % 2) !== 0)
-            <div class="form-row">
             @endif
-
-            <div class="form-group col-md-6">
-                <input disabled type="checkbox" id="suppliers[]" name="suppliers[]" value="{{$type->id}}" 
-               
-                @if(!empty($servicesArray) && in_array($type->id, $servicesArray))
-                    checked
-                @endif
-                > {{  $type->name }}              
-            </div>
-
+                <div class="suppliers-input">
+                    <input disabled type="checkbox" id="suppliers[]" name="suppliers[]" value="{{$type->id}}" 
+                
+                    @if(!empty($servicesArray) && in_array($type->id, $servicesArray))
+                        checked
+                    @endif
+                    > {{  $type->name }}
+                </div>
             @if( ( $loop->iteration % 2) === 0)
-            </div>
             @endif
-
         @endforeach 
         </div> 
-        <div>
-            <a href="/events/owner"> <button type="button" class="btn btn-success mt-5">Voltar a lista de eventos</button></a>   
+        <div class="show-event-back-btn">
+            <a href="/events/owner" class="go-back-btn">Voltar à lista de eventos</a>
         </div>
     </form>  
 </div>
