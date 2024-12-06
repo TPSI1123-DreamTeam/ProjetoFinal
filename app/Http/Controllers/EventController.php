@@ -42,7 +42,7 @@ class EventController extends Controller
     {
         $ownerId  = Auth::user()->id;
         $Category = Category::all();
-        $events   = Event::where('owner_id', $ownerId)->orderBy('id', 'desc')->paginate(10);  
+        $events   = Event::where('owner_id', $ownerId)->orderBy('id', 'desc')->paginate(10);
         $formFields = array();
 
         return view('pages.events.owner.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -53,10 +53,10 @@ class EventController extends Controller
 
         $owner = Auth::user();
 
-        if($owner->role_id == 3){   
+        if($owner->role_id == 3){
 
             $Category   = Category::all();
-            $events     = Event::where('owner_id', $owner->id)->orderBy('start_date', 'desc')->get();  
+            $events     = Event::where('owner_id', $owner->id)->orderBy('start_date', 'desc')->get();
             $formFields = array();
 
             return view('pages.events.owner.report', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -69,10 +69,10 @@ class EventController extends Controller
 
         $manager = Auth::user();
 
-        if($manager->role_id == 2){   
+        if($manager->role_id == 2){
 
             $Category   = Category::all();
-            $events     = Event::where('manager_id', $manager->id)->orderBy('start_date', 'desc')->get();  
+            $events     = Event::where('manager_id', $manager->id)->orderBy('start_date', 'desc')->get();
             $formFields = array();
 
             return view('pages.events.manager.report', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -85,10 +85,10 @@ class EventController extends Controller
 
         $admin = Auth::user();
 
-        if($admin->role_id == 1){   
+        if($admin->role_id == 1){
 
             $Category   = Category::all();
-            $events     = Event::orderBy('start_date', 'desc')->get();  
+            $events     = Event::orderBy('start_date', 'desc')->get();
             $formFields = array();
 
             return view('pages.events.admin.report', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -101,10 +101,10 @@ class EventController extends Controller
     */
     public function searchEventsByOwner(Request $request){
 
-        $ownerId  = Auth::user()->id;        
+        $ownerId  = Auth::user()->id;
         $Category = Category::all();
-        $events   = Event::where('owner_id', $ownerId);               
-           
+        $events   = Event::where('owner_id', $ownerId);
+
         if ($request->has('event_name') && $request->event_name!==null) {
             $events->where('name','like', '%'.$request->event_name.'%');
         }
@@ -124,12 +124,12 @@ class EventController extends Controller
 
         if ($request->has('category_id') && $request->category_id!==null) {
             $events->where('category_id', $request->category_id );
-        } 
-        
+        }
+
         if ($request->has('event_status') && $request->event_status!==null) {
             $events->where('event_status', $request->event_status );
         }
-        
+
         if ($request->has('amount1') && $request->amount1!==null && $request->amount2===null) {
             $events->where('amount','>=', $request->amount1);
         }
@@ -155,11 +155,11 @@ class EventController extends Controller
         if ($request->datepicker2!==null && $request->datepicker1!==null) {
             $events->where('start_date','>=', $request->datepicker1 );
             $events->where('start_date','<=', $request->datepicker2 );
-        }      
+        }
 
         $events->orderBy('id', 'desc');
         $events = $events->paginate(10);
-  
+
 
         $formFields = array();
         $formFields['event_name']    = $request->event_name;
@@ -183,7 +183,7 @@ class EventController extends Controller
     {
         $manager = Auth::user();
 
-        if($manager->role_id == 2){    
+        if($manager->role_id == 2){
 
             $events     = Event::query()->where('manager_id',$manager->id)
                                 ->where('event_status', '!=', 'pendente')
@@ -206,7 +206,7 @@ class EventController extends Controller
     {
         $manager = Auth::user();
 
-        if($manager->role_id == 2){    
+        if($manager->role_id == 2){
 
             $events     = Event::query()->where('manager_id',0)->orderBy('start_date', 'desc')->paginate(10);
             $Category   = Category::orderBy('description', 'asc')->get();
@@ -223,9 +223,9 @@ class EventController extends Controller
     */
     public function searchEventsByManager(Request $request)
     {
-        $manager = Auth::user();  
-      
-        if($manager->role_id == 2){    
+        $manager = Auth::user();
+
+        if($manager->role_id == 2){
 
             $events = Event::where('manager_id', $manager->id)
             ->when($request->has('event_name') && $request->event_name !== null, function ($query) use ($request) {
@@ -239,10 +239,10 @@ class EventController extends Controller
             })
             ->when($request->participants1 !== null && $request->participants2 !== null, function ($query) use ($request) {
                 return $query->whereBetween('number_of_participants', [
-                    intval($request->participants1), 
+                    intval($request->participants1),
                     intval($request->participants2)
                 ]);
-            })       
+            })
             ->when($request->has('category_id') && $request->category_id!== null, function ($query) use ($request) {
                 return $query->where('category_id', $request->category_id);
             })
@@ -257,7 +257,7 @@ class EventController extends Controller
             })
             ->when($request->amount2!== null && $request->amount1!== null, function ($query) use ($request) {
                 return $query->whereBetween('amount', [
-                    number_format($request->amount1, 2, '.', ''), 
+                    number_format($request->amount1, 2, '.', ''),
                     number_format($request->amount2, 2, '.', '')
                 ]);
             })
@@ -269,13 +269,13 @@ class EventController extends Controller
             })
             ->when($request->datepicker2!== null && $request->datepicker1!== null, function ($query) use ($request) {
                 return $query->whereBetween('start_date', [
-                    $request->datepicker1, 
+                    $request->datepicker1,
                     $request->datepicker2
                 ]);
             })
-            ->where('event_status', '!=', 'pendente')      
+            ->where('event_status', '!=', 'pendente')
             ->orderBy('start_date', 'desc')
-            ->paginate(10);    
+            ->paginate(10);
 
             $formFields                  = array();
             $formFields['event_name']    = $request->event_name;
@@ -303,9 +303,9 @@ class EventController extends Controller
     */
     public function searchEventsToApprove(Request $request)
     {
-        $manager = Auth::user();  
-      
-        if($manager->role_id == 2){    
+        $manager = Auth::user();
+
+        if($manager->role_id == 2){
 
             $events = Event::where('manager_id', 0)
             ->when($request->has('event_name') && $request->event_name !== null, function ($query) use ($request) {
@@ -319,10 +319,10 @@ class EventController extends Controller
             })
             ->when($request->participants1 !== null && $request->participants2 !== null, function ($query) use ($request) {
                 return $query->whereBetween('number_of_participants', [
-                    intval($request->participants1), 
+                    intval($request->participants1),
                     intval($request->participants2)
                 ]);
-            })       
+            })
             ->when($request->has('category_id') && $request->category_id!== null, function ($query) use ($request) {
                 return $query->where('category_id', $request->category_id);
             })
@@ -337,7 +337,7 @@ class EventController extends Controller
             })
             ->when($request->amount2!== null && $request->amount1!== null, function ($query) use ($request) {
                 return $query->whereBetween('amount', [
-                    number_format($request->amount1, 2, '.', ''), 
+                    number_format($request->amount1, 2, '.', ''),
                     number_format($request->amount2, 2, '.', '')
                 ]);
             })
@@ -349,13 +349,13 @@ class EventController extends Controller
             })
             ->when($request->datepicker2!== null && $request->datepicker1!== null, function ($query) use ($request) {
                 return $query->whereBetween('start_date', [
-                    $request->datepicker1, 
+                    $request->datepicker1,
                     $request->datepicker2
                 ]);
             })
-            ->where('event_status', '=', 'pendente')      
+            ->where('event_status', '=', 'pendente')
             ->orderBy('start_date', 'desc')
-            ->paginate(10);    
+            ->paginate(10);
 
             $formFields                  = array();
             $formFields['event_name']    = $request->event_name;
@@ -381,8 +381,8 @@ class EventController extends Controller
     * Display a listing of the resource.
     */
     public function eventsbyadmin()
-    {   
-        $AuthUser = Auth::user(); 
+    {
+        $AuthUser = Auth::user();
 
         if($AuthUser->role_id == 1 ){
 
@@ -391,7 +391,7 @@ class EventController extends Controller
             return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
-        }  
+        }
     }
 
 
@@ -414,7 +414,7 @@ class EventController extends Controller
         return view('pages.events.private', ['events' => $events]);
     }
 
- 
+
 
       /**
      * Display a listing of the resource.
@@ -430,32 +430,32 @@ class EventController extends Controller
      */
 
     public function create(Event $event, $categoryId)
-    { 
+    {
         switch ($categoryId) {
             case '1':
-                $form = "create";          
+                $form = "create";
                 break;
             case '2':
-                $form = "create";        
+                $form = "create";
                 break;
             case '3':
-                $form = "create";   
+                $form = "create";
                 break;
             case '4':
-                $form = "create";          
+                $form = "create";
                 break;
             case '5':
-                $form = "create";         
+                $form = "create";
                 break;
             case '6':
-                $form = "create";              
+                $form = "create";
                 break;
             case '7':
-                $form = "create";              
+                $form = "create";
                 break;
-            
+
             default:
-                $form = "create";              
+                $form = "create";
                 break;
         }
 
@@ -463,7 +463,7 @@ class EventController extends Controller
         $suppliers    = Supplier::all();
         $category     = Category::find($categoryId);
         $categories   = Category::all();
-        
+
         return view('pages.events.'.$form, ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories, 'SupplierType' => $SupplierType]);
     }
 
@@ -472,18 +472,18 @@ class EventController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreEventRequest $request)
-    {      
-        // Fields validations now will be returned from  StoreEventRequest  
+    {
+        // Fields validations now will be returned from  StoreEventRequest
         $owner_id = Auth::user()->id;
 
         $event = Event::create([
             'name'                   => $request->name,
             'description'            => $request->description,
-            'localization'           => $request->localization,            
+            'localization'           => $request->localization,
             'start_date'             => $request->start_date,
             'end_date'               => $request->end_date,
             'owner_id'               => $owner_id,
-            'category_id'            => $request->category_id, 
+            'category_id'            => $request->category_id,
             'type'                   => $request->type,
             'amount'                 => "0.00",
             'ticket_amount'          => "0.00",
@@ -505,10 +505,10 @@ class EventController extends Controller
             // save image
             $update = Event::find($event->id);
             $update->image = $imageName;
-            $update->save();      
+            $update->save();
         }
 
- 
+
 
         return redirect('/dashboard')->with('success', 'Evento criado com sucesso!')->with('class', 'bg-green-500 text-white');
     }
@@ -528,7 +528,7 @@ class EventController extends Controller
     public function showbyowner(Event $event)
     {
         $AuthUser = Auth::user(); // (role_id == 3) => owner
-    
+
 
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id == 3 &&  $AuthUser->id === $event->owner_id ){
@@ -563,7 +563,7 @@ class EventController extends Controller
             return view('pages.events.manager.show', ['event' => $event, 'category' => $category, 'suppliers' => $suppliers, 'SupplierType' => $SupplierType]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
-        }           
+        }
     }
 
 
@@ -572,8 +572,8 @@ class EventController extends Controller
      */
     public function showbyadmin(Event $event)
     {
-        $AuthUser = Auth::user(); 
-        
+        $AuthUser = Auth::user();
+
         if($AuthUser->role_id == 1){
             $event = Event::find($event->id);
             return view('pages.events.admin.show', ['event' => $event]);
@@ -616,7 +616,7 @@ class EventController extends Controller
      */
     public function editbymanager(Event $event)
     {
-        $AuthUser = Auth::user(); 
+        $AuthUser = Auth::user();
 
         if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
 
@@ -636,7 +636,7 @@ class EventController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Event $event) //UpdateEventRequest
-    { 
+    {
 
        //dd($request);
 
@@ -663,7 +663,7 @@ class EventController extends Controller
                 $event->amount = $request->amount;
             }
 
-            $event->save(); 
+            $event->save();
 
             // check and store image
             if($request->has('image') && $request->file('image')){
@@ -675,7 +675,7 @@ class EventController extends Controller
                 // save image
                 $update = Event::find($event->id);
                 $update->image = $imageName;
-                $update->save();    
+                $update->save();
             }
 
             // /events/owner/26/edit
@@ -691,7 +691,7 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
 
-       
+
     }
 
        /**
@@ -699,13 +699,13 @@ class EventController extends Controller
      */
     public function deleteevent(Event $event)
     {
-        $AuthUser = Auth::user(); 
+        $AuthUser = Auth::user();
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->id === $event->manager_id || $AuthUser->id === $event->owner_id || ($AuthUser->role_id === 2 && $event->manager_id === null)){
 
             $event               = Event::find($event->id);
-            $event->event_status = "cancelado";        
-            $event->save(); 
+            $event->event_status = "cancelado";
+            $event->save();
 
             if($AuthUser->role_id === 3){
                 return redirect('/events/owner/')->with('status','Evento cancelado com sucesso!')->with('class', 'alert-success');
@@ -714,7 +714,7 @@ class EventController extends Controller
                     return redirect('/events/manager/')->with('status','Evento cancelado com sucesso!')->with('class', 'alert-success');
                 }
             }
-        }   
+        }
 
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
     }
@@ -722,14 +722,15 @@ class EventController extends Controller
     public function eventsbyparticipant()
     {
         $user   = auth()->user();
-        $events = $user->events()->distinct()->get();       
+        $events = $user->events()->distinct()->get();
+        $allEvents = $user->events()->distinct()->get();
 
-        return view('pages.participants.participant-event-list', ['events' => $events]);
+        return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
     }
 
     public function admin()
     {
-        $AuthUser = Auth::user(); 
+        $AuthUser = Auth::user();
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id === 1 ){
             $events = Event::all();
@@ -738,19 +739,19 @@ class EventController extends Controller
     }
 
 
-    public function exportbyowner() 
-    {         
-        $AuthUser = Auth::user(); 
+    public function exportbyowner()
+    {
+        $AuthUser = Auth::user();
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id === 3 ){
 
             return (new EventsbyownerExport($AuthUser->id))->download('events.xlsx');
-        }       
+        }
     }
 
-    public function exportbymanager(Request $request) 
-    {   
-        $AuthUser = Auth::user(); 
+    public function exportbymanager(Request $request)
+    {
+        $AuthUser = Auth::user();
 
         if($AuthUser->role_id === 2 ){
 
@@ -758,7 +759,7 @@ class EventController extends Controller
             $eventIdsArray  = explode(',', $request->event_ids);
             $events = Event::whereIn('id', $eventIdsArray)->get();
 
-            //:: HEADER 
+            //:: HEADER
             $excelArray = array();
             $excelArray[0]["Nº"]                 = "Nº";
             $excelArray[0]["Nome"]               = "Nome";
@@ -773,10 +774,10 @@ class EventController extends Controller
             $excelArray[0]["Bilhete"]            = "Bilhete";
             $excelArray[0]["Proprietário"]       = "Proprietário";
             $excelArray[0]["Categoria"]          = "Categoria";
-            $excelArray[0]["Nº participantes"]   = "Nº participantes";            
-            $excelArray[0]["Estado"]             = "Estado"  ;        
-            $excelArray[0]["Data da Criação"]    = "Data da Criação";    
-    
+            $excelArray[0]["Nº participantes"]   = "Nº participantes";
+            $excelArray[0]["Estado"]             = "Estado"  ;
+            $excelArray[0]["Data da Criação"]    = "Data da Criação";
+
             $key = 1;
             foreach ($events as $event) {
 
@@ -793,32 +794,32 @@ class EventController extends Controller
                 $excelArray[$key]["Tipo de Evento"]     = $event->type;
                 $excelArray[$key]["Custo do Evento"]    = $event->amount;
                 $excelArray[$key]["Custo dos Serviços"] = $event->services_amount;
-                $excelArray[$key]["Bilhete"]            = $event->ticket_amount;                
+                $excelArray[$key]["Bilhete"]            = $event->ticket_amount;
                 $excelArray[$key]["owner_id"]           = $owner->name;
                 $excelArray[$key]["category_id"]        = $category->description;
-                $excelArray[$key]["Nº participantes"]   = $event->number_of_participants;          
-                $excelArray[$key]["Estado"]             = $event->event_status;      
+                $excelArray[$key]["Nº participantes"]   = $event->number_of_participants;
+                $excelArray[$key]["Estado"]             = $event->event_status;
                 $excelArray[$key]["Data da Criação"]    = date('Y-m-d', strtotime($event->created_at));
 
                 $key++;
             }
 
             return Excel::download(new EventsbymanagerExport($excelArray), 'ManagerEventReport.xlsx');
-        }       
+        }
     }
 
     public function updatestatus(Event $event){
 
-        $AuthUser = Auth::user(); 
+        $AuthUser = Auth::user();
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id === 2 ){
 
             $event               = Event::find($event->id);
-            $event->event_status = "pendente";        
-            $event->save(); 
+            $event->event_status = "pendente";
+            $event->save();
 
             return redirect('/events/manager/')->with('status','Evento ativo com sucesso!')->with('class', 'alert-success');
-        }   
+        }
 
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
     }
@@ -828,14 +829,14 @@ class EventController extends Controller
      */
     public function editsuppliers(Event $event)
     {
-        $AuthUser = Auth::user(); 
-        
+        $AuthUser = Auth::user();
+
         if($AuthUser->role_id == 2 &&  $AuthUser->id === $event->manager_id ){
-            
+
             $event          = Event::find($event->id);
             $SupplierType   = SupplierType::all();
             $Suppliers      = Supplier::where('status', true)->with('supplierType')->orderBy('name', 'ASC')->get();
-            $categories     = Category::all();  
+            $categories     = Category::all();
             $eventSuppliers = DB::table('event_supplier')->where('event_id',$event->id)->get();
 
             return view('pages.events.manager.supplier', ['event' => $event, 'categories' => $categories, 'SupplierType' => $SupplierType, 'Suppliers' => $Suppliers, 'eventSuppliers' => $eventSuppliers]);
@@ -848,20 +849,20 @@ class EventController extends Controller
 
     public function updatesupplieronevent(Request $request, Event $event)
     {
-        $AuthUser = Auth::user(); 
+        $AuthUser = Auth::user();
 
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id == 2 && $AuthUser->id === $event->manager_id){
-            
+
             $event = Event::find($event->id);
 
             foreach ($request->input as $key => $input) {
 
-                $supplierId = intval($input['supplier']);      
-                $supplier   = Supplier::find($supplierId);         
-                
+                $supplierId = intval($input['supplier']);
+                $supplier   = Supplier::find($supplierId);
+
                 if ($supplier) {
-                    
+
                     // check if the relationship already exists, just update the description and amount fields
                     $checkIfSupplierAlreadySync = DB::table('event_supplier')->where(['event_id' => $event->id,'supplier_id' => $supplier->id ])->exists();
 
@@ -884,7 +885,7 @@ class EventController extends Controller
                         ]);
                     }
                 }
-            }      
+            }
 
             Event::where('id', $event->id)
             ->update([
@@ -893,30 +894,30 @@ class EventController extends Controller
                     ->sum('amount')
             ]);
 
-   
-                    
+
+
             return redirect('/events/manager/'. $event->id.'/supplier')->with('status','Evento ativo com sucesso!')->with('class', 'alert-success');
-        }   
+        }
 
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
     }
 
 
     public function deletesupplieronevent(Request $request, Event $event)
-    {       
+    {
 
-        $AuthUser = Auth::user(); 
+        $AuthUser = Auth::user();
         // user roles is owner and he is the event (to show) owner
 
         if($AuthUser->role_id == 2 && $AuthUser->id === $event->manager_id){
 
             $event    = Event::find($event->id);
-            $supplier = Supplier::find($request->delete_supplier_id);  
+            $supplier = Supplier::find($request->delete_supplier_id);
 
-            if ($event && $supplier) { 
+            if ($event && $supplier) {
 
-                $event->suppliers()->detach($supplier->id);           
-                
+                $event->suppliers()->detach($supplier->id);
+
                 Event::where('id', $event->id)
                 ->update([
                     'services_amount' => DB::table('event_supplier')
@@ -941,13 +942,82 @@ class EventController extends Controller
         if($AuthUser->role_id == 2 &&  $event->manager_id == 0 ){
 
             $event = Event::find($event->id);
-            $event->manager_id = $AuthUser->id;        
-            $event->event_status = 'ativo';        
-            $event->save(); 
+            $event->manager_id = $AuthUser->id;
+            $event->event_status = 'ativo';
+            $event->save();
             return redirect('/events/manager/approve')->with('status','Evento aceite com sucesso!')->with('class', 'alert-success');
         }
 
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
+    }
+
+    public function eventsFilter(Request $request)
+    {
+        $user   = auth()->user();
+     //   $events = $user->events()->distinct()->get();
+        $allEvents = $user->events()->distinct()->get();
+
+
+        $name = $request->search;
+        $startDate = $request->datepicker1;
+        $endDate = $request->datepicker2;
+       // dd($endDate);
+
+
+        if (($startDate == null && $endDate == null) && $name == null)
+
+            {
+            $events = $user->events()->distinct()->get();
+            return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
+            }
+
+            elseif (($startDate == null && $endDate == null))
+            {
+                $events = $user->events()
+                    ->distinct()
+                    ->where('name', 'like', $name)
+                    ->get();
+             return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
+            }
+
+           elseif (($startDate != null || $endDate != null) && $name != null) {
+
+            if ($startDate == null) {
+                $events = $user->events()
+                ->distinct()
+                ->where('name', 'like', $name)
+                ->whereDate('end_date', '=', $endDate)
+                ->get();
+            } else {
+                $events = $user->events()
+                ->distinct()
+                ->where('name', 'like', $name)
+                ->whereDate('start_date', '=', $startDate)
+                ->get();
+            }
+            return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
+           }
+           elseif (($startDate != null || $endDate != null) && $name == null) {
+
+            if ($startDate == null) {
+                $events = $user->events()
+                ->distinct()
+                ->whereDate('end_date', '=', $endDate)
+                ->get();
+            } else {
+                $events = $user->events()
+                ->distinct()
+                ->where('name', 'like', $name)
+                ->whereDate('start_date', '=', $startDate)
+                ->get();
+            }
+                return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
+           }
+
+        // $user   = auth()->user();
+        // $events = $user->events()->distinct()->get();
+
+        // return view('pages.participants.participant-event-list', ['events' => $events]);
     }
 
     public function search(Request $request)
@@ -990,5 +1060,4 @@ class EventController extends Controller
     
         return view('pages.events.public', compact('events'));
     }
-
 }
