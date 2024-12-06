@@ -190,6 +190,9 @@ class InvitationController extends Controller
 
     public function findEventInvitation(Request $request)
     {
+        if ($request->search == "Escolha o evento para listar participantes...") {
+            return redirect()->back();
+        }
         $ownerId = Auth::user()->id;
         $query   = Event::query();
 
@@ -197,7 +200,7 @@ class InvitationController extends Controller
 
         $events = $query->with(['users', 'invitation'])->get();
         $participants = Event::find($request->search);
-        
+
         $trueId = $participants->id;    // $trueId guarda o id do evento escolhido na pesquisa
         $queryI   = Invitation::query();
        $invitation = $queryI->where('event_id',$trueId)->first();

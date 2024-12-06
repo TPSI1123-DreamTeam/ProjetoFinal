@@ -6,16 +6,26 @@
 </div>
 <div class="linha-divisoria-event-manager"></div>
 
+@php
+    $firstOption = "Escolha o evento para listar participantes...";
+@endphp
+
 <form action="/searchEvents" method="POST">
     @csrf
     <div class="search-filter-export">
         <select class="choose-event" id="search" name="search">
-            <option selected>Escolha o evento para listar participantes...</option>
+            @if(isset($participants) && $participants->users && $participants->users->isNotEmpty() && isset($participants->users))
             @foreach ($events as $event)
                 <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
             @endforeach
+        @else
+        <option selected>{{ $firstOption }}</option>
+        @foreach ($events as $event)
+            <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
+        @endforeach
+        @endif
         </select>
-        <button class="search-participant-btn" type="submit">Search</button>
+        <button class="search-participant-btn" id="buttonLock" type="submit">Search</button>
         @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
             <form>
                 <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>
@@ -50,25 +60,6 @@
             <span>Evento:</span> {{ $participants->name }} <span>Data:</span> {{ $participants->start_date }} <span>Hora:</span> {{ date('H:i', strtotime($participants->start_time)) }}
         @endif
 
-          {{-- <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
-            <div class="col-md-6 ">
-              <div class="form-group">
-                <form action="/searchEvents" method="POST">         Este form para a procura de eventos está a aparecer em duplicado
-                  @csrf                                             Será removido depois de ser esclarecido devidamente
-                  <div class="input-group">
-                    <select class="form-control" id="search" name="search">
-                      <option selected>Escolha o evento para listar participantes...</option>
-                      @foreach ($events as $event)
-                      <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
-                      @endforeach
-                      {{-- <input  id="selected-event-id" name="event_id" value="{{$event->id}}"/> --}}
-                    {{-- </select>
-                    <button type="submit" class="btn btn-primary" >Searchhehe</button>
-                  </div>
-                </form>
-              </div> --}}
-            {{-- </div>
-        </div> --}}
         <span>"" Span visualizado para testes - Id do evento: {{ $trueId }} ""</span>
     </div>
     <div class="row">
@@ -104,13 +95,10 @@
                                                 <button type="submit" class="edit-btn">
                                                     <input hidden name="user" value="{{ $participant->id }}">
                                                     <input hidden name="event" value="{{ $trueId }}">
-                                                                                     {{-- /\ variável que estava antes era $event->id --}}
                                                     <input hidden name="confirmation" value="{{ $participant->pivot->confirmation }}">
                                                     <i class="bx bx-pencil"></i>
                                                 </button>
                                             </form>
-
-                                            {{-- <a href="{{ url('participants/' . $participant . '/editState') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a> --}}
                                         </li>
                                         <li class="list-inline-item">
                                             <form action="{{ url('participants/' . $participant->id . '/detachParticipant') }}" method="GET">
@@ -121,8 +109,6 @@
                                                     <i class="bx bx-trash-alt font-size-18"></i>
                                                 </button>
                                             </form>
-
-                                            {{-- <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a> --}}
                                         </li>
                                         <li class="list-inline-item dropdown">
                                             <a class="text-muted dropdown-toggle font-size-18 px-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"><i class="bx bx-dots-vertical-rounded"></i></a>

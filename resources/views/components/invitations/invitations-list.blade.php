@@ -10,10 +10,17 @@
     @csrf
     <div class="select-input-btn-inv">
         <select id="search" name="search" class="custom-select">
+            @if ($trueId == 0)
             <option selected>Escolha o evento para listar participantes...</option>
             @foreach ($events as $event)
                 <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' : '' }}>{{ $event->name }}</option>
             @endforeach
+            @else
+
+            @foreach ($events as $event)
+                <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' : '' }}>{{ $event->name }}</option>
+            @endforeach
+            @endif
         </select>
         <input id="selected-event-id" name="event_id" value="{{ $event->id }}" hidden />
         <button type="submit" class="search-btn-inv">Procurar</button>
