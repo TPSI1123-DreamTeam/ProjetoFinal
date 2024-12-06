@@ -24,7 +24,7 @@
   <tbody>
     @foreach ($categories as $category)
     <tr>
-      <td>{{$category->description}}</td>      
+      <td>{{$category->description}}</td>
       <td style="width:210px;">{{$category->actions}}
         <div class="pr-1">
             <a href="{{url('categories/' . $category->id)}}" type="button"
@@ -35,7 +35,7 @@
             <a href="{{url('categories/' . $category->id . '/edit')}}" type="button"
             class="btn btn-success" style=" float:center">Editar</a>
             </div>
-            
+
             <form method="POST" action="{{ url('categories/' . $category->id) }}">
                 @csrf
                 @method('DELETE')
@@ -51,5 +51,4 @@
 
 {{ $categories->links() }}
 
-
-
+@vite('resources/js/orderTable.js')
