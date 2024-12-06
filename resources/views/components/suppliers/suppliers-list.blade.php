@@ -69,7 +69,17 @@
                 Pesquisar
             </button>
         </div>
+
     </form>
+
+</div>
+        <div class="action-buttons">
+        <form id="exportSuppliersForm" method="GET" action="{{ route('suppliers.downloadSuppliersList') }}">
+            <input type="hidden" name="supplier_ids" id="supplier_ids" value="{{ implode(',', $suppliers->pluck('id')->toArray()) }}">
+            <button type="submit" class="event-button-export right" id="export">
+                Exportar Lista
+            </button>
+        </form>
 </div>
 
  <div class="add-supplier-btn">
