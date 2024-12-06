@@ -115,7 +115,7 @@
             <th>Participantes</th>
             <th>Categoria</th>
             <th>Data</th>
-            <th>Hora</th>
+            <th>Tipo</th>
             <th>Custo Estimado</th>
             <th>Estado do Evento</th>
             <th>Ações</th>
@@ -128,7 +128,7 @@
              <td data-cell="nome">{{ $event->name }}</td>
              <td data-cell="participantes">{{ $event->number_of_participants }} / {{ @count($event->users) }}</td>
              <td data-cell="descrição">{{ $event->category->description }}</td>
-             <td data-cell="data">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
+             <td data-cell="data">{{ $event->type }}</td>
              <td data-cell="hora de inicio">{{ date('H:i', strtotime($event->start_time))}}</td>
              <td data-cell="custo estimado">{{ number_format($event->amount, 2, ',', '.') }}€</td>
              <td data-cell="estado">{{ $event->event_status }}
