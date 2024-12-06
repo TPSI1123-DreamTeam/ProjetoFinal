@@ -62,13 +62,14 @@
 </div>
 </form>
 <script>
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.getElementById('searchForm');
-    const inputs = searchForm.querySelectorAll('input, select'); // Seleciona todos os campos do formulário
+    const inputs = searchForm.querySelectorAll('input, select'); 
 
     inputs.forEach(input => {
         input.addEventListener('input', () => {
-            searchForm.submit(); // Submete o formulário sempre que há uma mudança
+            searchForm.submit(); 
         });
     });
 });
