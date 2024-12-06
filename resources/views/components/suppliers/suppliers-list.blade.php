@@ -35,7 +35,7 @@
             <label for="contact" class="text-sm font-medium text-gray-700">Contacto</label>
             <input type="text" name="contact" id="contact"
                 value="{{ isset($formFields['contact']) ? $formFields['contact'] : '' }}"
-                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
         </div>
 
         <!-- Campo 4: Estado -->
@@ -104,7 +104,7 @@
                     @endforeach
                 </ul>
             </td>
-            <td class="supplier-td" data-cell="fornece">Cerveja</td>
+            <td class="supplier-td" data-cell="fornece">{{$supplier->supplierType->name}}</td>
             <td class="supplier-td" data-cell="estado">{{ $supplier->status == 1 ? 'Ativo' : 'Inativo'}}</td>
             <td class="supplier-td" data-cell="ações">
                 <a href="{{ url('suppliers/' . $supplier->id) }}"><button class="details-btn">Detalhes</button></a>
