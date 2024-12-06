@@ -64,3 +64,5 @@
 <div class="pagination-user-list">
     {{$users->links()}}
 </div>
+
+@vite('resources/js/orderTable.js')
