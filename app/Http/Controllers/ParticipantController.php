@@ -264,7 +264,7 @@ class ParticipantController extends Controller
             }
         }
       //  dd($pivot->pivot);
-        return redirect()->to('/dashboard');
+        return redirect()->to('/participants');
     }
 
     public function detachParticipant(Request $request)
