@@ -66,3 +66,104 @@
 .participant-info-event span {
     font-weight: 700;
 }
+
+.selected-event-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+
+.action-buttons-participants {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-participant-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem !important;
+    background-color: #347CCB !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+}
+
+.edit-participant-btn:hover {
+    background-color: #010191 !important;
+    cursor: pointer;
+}
+
+.remove-participant-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem !important;
+    background-color: #ff3300 !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+}
+
+.remove-participant-btn:hover {
+    background-color: #be2c07 !important;
+    cursor: pointer;
+}
+
+.event-wrapper-participant {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    align-items: center;
+}
+
+.linha-divisoria-participant-list {
+    border: none !important;
+    border-top: 2px solid #EB5B38 !important;
+    margin: 0 auto !important;
+    margin-top: 20px !important;
+    width: calc(100% - 250px) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+@media (max-width: 600px) {
+    .search-filter-export {
+        display: flex;
+        flex-direction: column;
+    }
+    select#search {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 500px) {
+    .event-wrapper-participant h1 {
+        font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    margin: 15px 0 !important;
+    padding: 0 0 1rem 0 !important;
+    text-align: center;
+    }
+}
+
+@media (max-width: 416px) {
+    .participant-list-table {
+        margin-left: 40px;
+    }
+}
+
+
+@media (max-width: 390px) {
+    .participant-list-table {
+        margin-left: 40px;
+    }
+}
+
+@media (max-width: 376px) {
+    .participant-list-table {
+        margin-left: 55px;
+    }
+}
