@@ -21,6 +21,13 @@
   </div>
 
   <div class="">
+    <label for="email" class="">Tipo de Fornecedor</label>
+      <input id="email" name="email" type="email" value="{{ $supplier->supplierType->name}}" readonly disabled
+        autocomplete="email"
+        class="">
+  </div>
+
+  <div class="">
     <a href="{{ url('/suppliers') }}" class="">Voltar à Lista</a>
   </div>
 </form>

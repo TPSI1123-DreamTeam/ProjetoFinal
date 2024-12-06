@@ -18,8 +18,6 @@ class SupplierController extends Controller
     {        
         $suppliers = Supplier::with('supplierType')->paginate(10);
         return view('pages.suppliers.index', ['suppliers' => $suppliers, 'supplierTypes' => SupplierType::all()]);
-
-
     }
 
     /**
@@ -71,7 +69,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        return view('pages.suppliers.show', ['supplier' => $supplier]);
+        return view('pages.suppliers.show', ['supplier' => $supplier->load('supplierType')]);
     }
 
     /**
@@ -79,22 +77,31 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        return view('pages.suppliers.edit', ['supplier' => $supplier]);
+        $supplierTypes = SupplierType::all();
+        return view('pages.suppliers.edit', [
+            'supplier' => $supplier->load('supplierType'), 
+            'supplierTypes' => $supplierTypes
+        ]);
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSupplierRequest $request, Supplier $supplier)
-    {
-        $update            = Supplier::find($supplier->id);
-        $update->name      = $request->name;
-        $update->email     = $request->email;
-        $update->contact   = $request->contact;
-        $update->save();
+        public function update(UpdateSupplierRequest $request, Supplier $supplier)
+        {
+        $validatedData = $request->validated();
 
-        return redirect('suppliers')->with('status','Fornecedor atualizado com sucesso!')->with('class', 'alert-success');
-    }
+        // Atualiza os dados do fornecedor
+        $supplier->update([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'contact' => $validatedData['contact'],
+            'supplier_type_id' => $validatedData['supplier_type_id'],
+        ]);
+
+        return redirect()->route('suppliers.index')
+                         ->with('status', 'Fornecedor atualizado com sucesso!')
+                         ->with('class', 'alert-success');
+        }
 
     /**
      * Remove the specified resource from storage.

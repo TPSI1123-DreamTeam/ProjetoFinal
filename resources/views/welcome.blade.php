@@ -29,7 +29,7 @@
 
         <main class="content">
             <h1 class="cssanimation sequence leFadeInTop">PRIME TIME EVENTS</h1>
-            <a href="https://shattereddisk.github.io/rickroll/rickroll.mp4" style="opacity: 0.1; height: 1%;">_</a>
+            <a href="https://shattereddisk.github.io/rickroll/rickroll.mp4"  style="opacity: 0.1; height: 1%;">_</a>
             <h3 class="cssanimation sequence leFadeInTop">-- Creating Memories --</h3>
             <a href="/event/public" class="botao">Descobre Mais!</a>
         </main>

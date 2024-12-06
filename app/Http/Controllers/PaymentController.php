@@ -1,55 +1,51 @@
 <?php
 namespace App\Http\Controllers;
 
+use Log;
 use Stripe\Stripe;
-use Stripe\Checkout\Session as StripeSession;
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Payment;
-use App\Models\User;
-use Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Stripe\Checkout\Session as StripeSession;
 
 class PaymentController extends Controller
 {
     public function list()
     {
 
-        $user = auth()->user();
-
-        $payments = Payment::where('user_id', $user->id)->paginate(10);
-
+        $user      = auth()->user();
+        $payments  = Payment::where('user_id', $user->id)->paginate(10);
         $allEvents = Payment::where('user_id', $user->id)->paginate(10);
 
         return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
-
-
     }
 
     public function checkout(Request $request, Event $event)
     {
-        // Configura a API Key do Stripe
+        // API Key do Stripe
         \Stripe\Stripe::setApiKey(env('STRIPE_TEST_SK'));
 
-        // Obtém o ID do evento e o valor do pagamento
-        $user = auth()->user();
-        $event = Event::findOrFail($event->id);
+        // event id and value to pay
+        $user   = auth()->user();
+        $event  = Event::findOrFail($event->id);
         $amount = $event->ticket_amount;
 
-        // Converte o valor para cêntimos
+        // Change value in cents
         $amountCents = $amount * 100;
 
-        // Cria um novo pagamento
-        $payment = new Payment();
+        // Create a new payment request
+        $payment            = new Payment();
         $payment->stripe_id = 0;
-        $payment->user_id = $user->id;
-        $payment->name = $event->name;
-        $payment->amount = $event->ticket_amount;
-        $payment->status = false; // O pagamento ainda foi confirmado
-        $payment->date = now(); // Utiliza o método now() para obter a data atual
+        $payment->user_id   = $user->id;
+        $payment->name      = $event->name;
+        $payment->amount    = $event->ticket_amount;
+        $payment->status    = false; // payment not yet completed
+        $payment->date      = now();
         $payment->save();
 
-
-        // Cria uma nova sessão de checkout
+        // NEW CHECKOUT SESSION
         $checkout_session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
             'line_items' => [[
@@ -75,8 +71,16 @@ class PaymentController extends Controller
         $usersToAssoc = User::find($user->id);
         $event->users()->attach($usersToAssoc);
 
-        return redirect($checkout_session->url);
+        // CONFIRMATION OF ATTENDING THE EVENT
+        DB::table('event_user')
+            ->where('event_id', $event->id)
+            ->where('user_id', $usersToAssoc->id)
+            ->update([
+                'confirmation' => true
+                
+        ]);
 
+        return redirect($checkout_session->url);
     }
 
 
@@ -94,46 +98,45 @@ class PaymentController extends Controller
     {
         $user = auth()->user();
         $allEvents = Payment::where('user_id', $user->id)->paginate(10);
-      //  dd($request);
-        $ddTest = "Bork!";
-        $name = $request->search;
+        $name      = $request->search;
         $startDate = $request->datepicker1;
-        $endDate = $request->datepicker2;
+        $endDate   = $request->datepicker2;
 
-       // dd($request);
-       if (($startDate == null && $endDate == null) && $name == null) {
+       if(($startDate == null && $endDate == null) && $name == null) {
 
-        $paySearch = ['user_id' => $user->id];
-        $payments = Payment::where($paySearch)->get();
-        return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
-       }
-        elseif (($startDate == null && $endDate == null)) {
-        $paySearch = ['user_id' => $user->id, 'name' => $name];
-        $payments = Payment::where($paySearch)->get();
+            $paySearch = ['user_id' => $user->id];
+            $payments = Payment::where($paySearch)->get();
 
-        return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
-       }
-       elseif (($startDate != null || $endDate != null) && $name != null) {
+            return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
+       
+        } elseif (($startDate == null && $endDate == null)) {
 
-        if ($startDate == null) {
-            $paySearch = ['user_id' => $user->id, 'name' => $name, 'date' => $endDate];
-        } else {
-            $paySearch = ['user_id' => $user->id, 'name' => $name, 'date' => $startDate];
+            $paySearch = ['user_id' => $user->id, 'name' => $name];
+            $payments = Payment::where($paySearch)->get();
+
+            return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
+       
+        } elseif (($startDate != null || $endDate != null) && $name != null) {
+
+            if($startDate == null) {
+                $paySearch = ['user_id' => $user->id, 'name' => $name, 'date' => $endDate];
+            } else {
+                $paySearch = ['user_id' => $user->id, 'name' => $name, 'date' => $startDate];
+            }
+
+            $payments = Payment::where($paySearch)->get();
+            return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
+       
+        } elseif (($startDate != null || $endDate != null) && $name == null) {
+
+            if($startDate == null) {
+                $paySearch = ['user_id' => $user->id, 'date' => $endDate];
+            } else {
+                $paySearch = ['user_id' => $user->id, 'date' => $startDate];
+            }
+
+            $payments = Payment::where($paySearch)->get();
+            return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
         }
-        $payments = Payment::where($paySearch)->get();
-        return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
-       }
-       elseif (($startDate != null || $endDate != null) && $name == null) {
-
-        if ($startDate == null) {
-            $paySearch = ['user_id' => $user->id, 'date' => $endDate];
-        } else {
-            $paySearch = ['user_id' => $user->id, 'date' => $startDate];
-        }
-        $payments = Payment::where($paySearch)->get();
-        return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
-       }
-
     }
-
 }
