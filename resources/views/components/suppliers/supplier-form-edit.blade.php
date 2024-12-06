@@ -39,7 +39,6 @@
                         <div class="mt-2">
                             <select id="supplier_type_id" name="supplier_type_id" 
                                     class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
-                                <option value="">Selecione o Tipo</option>
                                 @foreach ($supplierTypes as $supplierType)
                                     <option value="{{ $supplierType->id }}" {{ $supplier->supplier_type_id == $supplierType->id ? 'selected' : '' }}>
                                         {{ $supplierType->name }}

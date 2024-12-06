@@ -86,24 +86,22 @@ class SupplierController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSupplierRequest $request, Supplier $supplier)
-    {
-        $supplier->update($request->validated());
+        public function update(UpdateSupplierRequest $request, Supplier $supplier)
+        {
+        $validatedData = $request->validated();
 
-        if ($request->has('image')) {
-            $file = $request->file('image');
-            $imageName = time() . '.' . $file->extension();
-            $path = 'images/suppliers/' . $supplier->id;
-    
-            $file->move(public_path($path), $imageName);
-    
-            $supplier->image = $imageName;
+        // Atualiza os dados do fornecedor
+        $supplier->update([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'contact' => $validatedData['contact'],
+            'supplier_type_id' => $validatedData['supplier_type_id'],
+        ]);
+
+        return redirect()->route('suppliers.index')
+                         ->with('status', 'Fornecedor atualizado com sucesso!')
+                         ->with('class', 'alert-success');
         }
-    
-        $supplier->save();
-    
-        return redirect()->route('suppliers.index')->with('status', 'Fornecedor atualizado com sucesso!')->with('class', 'alert-success');
-    }
 
     /**
      * Remove the specified resource from storage.
