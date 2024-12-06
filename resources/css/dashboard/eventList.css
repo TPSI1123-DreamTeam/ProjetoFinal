@@ -151,6 +151,7 @@ tbody tr td a button {
     justify-content: center !important;
     align-items: flex-start !important;
     gap: 10px !important;
+    grid-column: 1 / -1;
 }
 
 .flex {
@@ -186,6 +187,10 @@ tbody tr td a button {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
+.export-form {
+    align-items: flex-end;
+}
+
 @media (max-width: 1555px) {
     table {
         width: 100% !important;
@@ -211,6 +216,10 @@ tbody tr td a button {
 
     .linha-divisoria-event-manager {
         width: 764px !important;
+    }
+
+    button.action-buttons {
+        margin: 5px;
     }
 }
 

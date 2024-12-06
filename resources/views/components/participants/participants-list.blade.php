@@ -5,6 +5,7 @@
     </div>
 </div>
 <div class="linha-divisoria-event-manager"></div>
+
 <form action="/searchEvents" method="POST">
     @csrf
     <div class="search-filter-export">
@@ -20,17 +21,17 @@
                 <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>
             </form>
         @else
-        {{-- <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data">
+        <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data">
             @csrf
-            <div>                                           Este div com import está a aparecer em duplicado
-                <label>Escolher Ficheiross:</label>                 Será removido depois de ser esclarecido devidamente
+            <div>
+                <label>Escolher Ficheiross:</label>
                 <input type="file" id="ExcelFile" name="file">
                 <input hidden name="event" value="{{ $event->id }}">
             </div>
             <div>
                 <button>Submeter</button>
             </div>
-        </form> --}}
+        </form>
         @endif
     </div>
 </form>

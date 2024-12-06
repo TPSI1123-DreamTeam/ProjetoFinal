@@ -93,15 +93,13 @@
             <input type="hidden" name="pending" id="pending" value=""/>
         </div>
     </form>
-  
-    <form id="" method="GET" action="{{ url('export/eventsbyowner/') }}">
-        <input type="hidden" name="event_ids" id="event_ids" value="{{ implode(',', $events->pluck('id')->toArray()) }}">
-        <button type="submit" class="event-button-export right" id="export">
-            Exportar Lista
-        </button> 
-    </form>
 </div>
-
+<form id="" method="GET" action="{{ url('export/eventsbyowner/') }}" class="export-form">
+    <input type="hidden" name="event_ids" id="event_ids" value="{{ implode(',', $events->pluck('id')->toArray()) }}">
+    <button type="submit" class="event-button-export right" id="export">
+        Exportar Lista
+    </button> 
+</form>
  <table>
      <thead>
          <tr>
@@ -160,7 +158,7 @@
      </tbody>
  </table>
  <div class="pagination-user-list">
-    {{ $events -> links() }}
+    {{ $events ->links() }}
 </div>
 </div>
 
