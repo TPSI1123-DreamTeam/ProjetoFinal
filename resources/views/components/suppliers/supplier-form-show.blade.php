@@ -22,7 +22,7 @@
 
   <div class="">
     <label for="email" class="">Tipo de Fornecedor</label>
-      <input id="email" name="email" type="email" value="{{ $supplier->supplierType->name ?? 'Não especificado' }}" readonly disabled
+      <input id="email" name="email" type="email" value="{{ $supplier->supplierType->name}}" readonly disabled
         autocomplete="email"
         class="">
   </div>
