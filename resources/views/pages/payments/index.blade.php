@@ -2,7 +2,7 @@
 
 @section('content')
 
-@component('components.payments.payment-list', ['payments' => $payments, 'user' => $user])
+@component('components.payments.payment-list', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents])
 @endcomponent
 
 @endsection
