@@ -109,7 +109,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/events/manager/{event}/updatesupplier', [EventController::class, 'updatesupplieronevent'])->name('events.updatesupplieronevent');
     Route::patch('/events/manager/{event}/deletesupplieronevent', [EventController::class, 'deletesupplieronevent'])->name('events.deletesupplieronevent');
     
-    Route::get('/schedules/{event}', [ScheduleController::class,'index'])->name('index');
+    Route::get('/schedules/{event}', [ScheduleController::class,'index'])->name('schedules.index');
     Route::patch('/schedules/{event}/update', [ScheduleController::class, 'update'])->name('update');
     Route::patch('/schedules/{event}/delete', [ScheduleController::class, 'delete'])->name('delete');
     

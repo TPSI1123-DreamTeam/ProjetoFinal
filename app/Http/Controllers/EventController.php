@@ -430,7 +430,7 @@ class EventController extends Controller
      */
 
     public function create(Event $event, $categoryId)
-
+    {
         $SupplierType = SupplierType::all();
         $suppliers    = Supplier::all();
         $category     = Category::find($categoryId);
