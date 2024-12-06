@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     ///// ::::: PAYMENTS :::::: ///////
+    Route::get('/payment/export',[PaymentController::class,'downloadPaymentList'])->name('payments.downloadPaymentList');
     Route::get('/checkout/{event}', [PaymentController::class, 'checkout'])->name('checkout');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
