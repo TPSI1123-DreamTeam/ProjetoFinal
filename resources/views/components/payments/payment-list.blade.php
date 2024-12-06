@@ -9,7 +9,7 @@
 
 <div style="padding-right: 520px">
     <div class="title-hidder-div">
-        <h2>Escolha o evento para listar participantes...</h2>
+        <h2>Escolha o evento para listar pagamentos...</h2>
     </div>
 </div>
 
@@ -40,6 +40,16 @@
     </button>
 </div>
 </form>
+
+<div class="action-buttons">
+        <form id="exportPaymentsForm" method="GET" action="{{ route('payments.downloadPaymentList') }}">
+            <input type="hidden" name="payment_ids" id="payment_ids" value="{{ implode(',', $payments->pluck('id')->toArray()) }}">
+            <button type="submit" class="event-button-export right" id="export">
+                Exportar Lista
+            </button>
+        </form>
+</div>
+
 
 <div class="linha-divisoria-event-manager"></div>
 <table>

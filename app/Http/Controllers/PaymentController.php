@@ -9,6 +9,9 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Stripe\Checkout\Session as StripeSession;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PaymentsExport;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -139,4 +142,44 @@ class PaymentController extends Controller
             return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
         }
     }
+
+    public function downloadPaymentList(Request $request)
+    {
+        $AuthUser = Auth::user();
+        if ($AuthUser->role_id === 4) {
+    
+            // Obter os IDs dos pagamentos
+            $paymentIdsArray = explode(',', $request->payment_ids);
+            $payments = Payment::whereIn('id', $paymentIdsArray)->get();
+    
+            // Cabeçalhos do Excel
+            $excelArray = [];
+            $excelArray[0] = [
+                "ID" => "ID",
+                "Nome do Evento" => "Nome do Evento",
+                "Preço" => "Preço",
+                "Data" => "Data",
+                "Estado" => "Estado"
+            ];
+    
+            // Preenchendo os dados
+            $key = 1;
+            foreach ($payments as $payment) {
+                $excelArray[$key] = [
+                    "ID" => $payment->id,
+                    "Nome do Evento" => $payment->name ?? 'Não definido',
+                    "Preço" => number_format($payment->amount, 2, ',', '.') . ' €',
+                    "Data" => date('Y-m-d H:i:s', strtotime($payment->date)),
+                    "Estado" => $payment->status == 1 ? 'Pago' : 'Pendente'
+                ];
+                $key++;
+            }
+    
+            // Fazer o download
+            return Excel::download(new PaymentsExport($excelArray), 'PaymentsList.xlsx');
+        }
+    
+        return redirect()->back()->with('error', 'Acesso negado.');
+    }
+    
 }
