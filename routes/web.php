@@ -47,6 +47,9 @@ Route::get('/register', function (Request $request) {
     return view('register.register');
 });
 
+//Rota para pesquisa de eventos na página principal, com filtros
+Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
+
 ///// ::::: LOGIN :::::: ///////
 
 ///// ::::: ROUTES WITH AUTH  :::::: ///////
@@ -98,7 +101,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/eventsFilter',[EventController::class,'eventsFilter']);
 
-    Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
+
 
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
