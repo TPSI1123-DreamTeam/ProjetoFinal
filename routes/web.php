@@ -144,6 +144,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/findEventInvitation', [InvitationController::class,'findEventInvitation']);
 
     ///// ::::: SUPPLIERS :::::: ///////
+    Route::get('/suppliers/export',[SupplierController::class,'downloadSuppliersList'])->name('suppliers.downloadSuppliersList');
     Route::get('/suppliers/index', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('/suppliers/create', [SupplierController::class, 'create']);
     Route::post('/suppliers/store', [SupplierController::class, 'store'])->name('suppliers.store');
