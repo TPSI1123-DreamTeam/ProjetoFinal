@@ -41,7 +41,7 @@
         <!-- Campo 4: Estado -->
         <div class="flex items-center space-x-2 col-span-1">
             <label for="status" class="text-sm font-medium text-gray-700">Estado</label>
-            <select name="status" id="status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <select name="status" id="status" class="block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="">Selecione o estado</option>
                 <option value="1" @if(isset($formFields['status']) && $formFields['status'] == '1') selected @endif>Ativo</option>
                 <option value="0" @if(isset($formFields['status']) && $formFields['status'] == '0') selected @endif>Inativo</option>
@@ -52,7 +52,7 @@
         <div class="flex items-center space-x-2 col-span-1">
             <label for="supplier_type_id" class="text-sm font-medium text-gray-700">Tipo de Fornecedor</label>
             <select name="supplier_type_id" id="supplier_type_id"
-                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                class="block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="">Selecione o Tipo de Fornecedor</option>
                 @foreach ($supplierTypes as $supplierType)
                 <option value="{{ $supplierType->id }}"
@@ -72,12 +72,9 @@
     </form>
 </div>
 
-<div class="linha-divisoria"></div>
-
  <div class="add-supplier-btn">
     <a href="{{ url('suppliers/create') }}"><button>Adicionar Fornecedor</button></a>
 </div>
-
 
 <table>
     <thead>

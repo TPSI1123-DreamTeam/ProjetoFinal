@@ -187,7 +187,7 @@
      </tbody>
  </table>
 
- <div class="pagination-user-list">
+<div class="pagination-user-list">
     {{ $events ->links() }}
 </div>
 

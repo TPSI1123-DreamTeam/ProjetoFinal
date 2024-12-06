@@ -18,8 +18,6 @@ class SupplierController extends Controller
     {        
         $suppliers = Supplier::with('supplierType')->paginate(10);
         return view('pages.suppliers.index', ['suppliers' => $suppliers, 'supplierTypes' => SupplierType::all()]);
-
-
     }
 
     /**
@@ -71,7 +69,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        return view('pages.suppliers.show', ['supplier' => $supplier]);
+        return view('pages.suppliers.show', ['supplier' => $supplier->load('supplierType')]);
     }
 
     /**
@@ -79,21 +77,32 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        return view('pages.suppliers.edit', ['supplier' => $supplier]);
+        $supplierTypes = SupplierType::all();
+        return view('pages.suppliers.edit', [
+            'supplier' => $supplier->load('supplierType'), 
+            'supplierTypes' => $supplierTypes
+        ]);
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
-        $update            = Supplier::find($supplier->id);
-        $update->name      = $request->name;
-        $update->email     = $request->email;
-        $update->contact   = $request->contact;
-        $update->save();
+        $supplier->update($request->validated());
 
-        return redirect('suppliers')->with('status','Fornecedor atualizado com sucesso!')->with('class', 'alert-success');
+        if ($request->has('image')) {
+            $file = $request->file('image');
+            $imageName = time() . '.' . $file->extension();
+            $path = 'images/suppliers/' . $supplier->id;
+    
+            $file->move(public_path($path), $imageName);
+    
+            $supplier->image = $imageName;
+        }
+    
+        $supplier->save();
+    
+        return redirect()->route('suppliers.index')->with('status', 'Fornecedor atualizado com sucesso!')->with('class', 'alert-success');
     }
 
     /**

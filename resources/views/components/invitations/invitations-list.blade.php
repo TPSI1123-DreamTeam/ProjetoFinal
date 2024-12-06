@@ -37,7 +37,7 @@
     @if ( $invitation != null)
         <p>Convite:</p>
         <p> {{ $invitation->title }}</p>
-        <img src="{{ asset($invitation->image) }}">
+            <img src="{{ $invitation->image }}" alt="Imagem do Evento">
         <form action="{{ url('invitations/' . $invitation->id .'/submit') }}" method="POST">
             @csrf
             <button type="submit" class="int-send-btn">

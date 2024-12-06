@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PaymentController;
@@ -8,8 +9,9 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\Auth\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 ///// ::::: PUBLIC VIEWS :::::: ///////
@@ -98,10 +100,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/events/{event}/approve', [EventController::class,'eventtoaprrove'])->name('events.eventtoaprrove');
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
     Route::get('/events/manager/{event}/supplier',[EventController::class,'editsuppliers'])->name('events.editsuppliers');
-
     Route::get('/eventsFilter',[EventController::class,'eventsFilter']);
-
-
 
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
@@ -109,8 +108,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/events/{event}/updatestatus', [EventController::class, 'updatestatus'])->name('events.updatestatus');
     Route::patch('/events/manager/{event}/updatesupplier', [EventController::class, 'updatesupplieronevent'])->name('events.updatesupplieronevent');
     Route::patch('/events/manager/{event}/deletesupplieronevent', [EventController::class, 'deletesupplieronevent'])->name('events.deletesupplieronevent');
-
-
+    
+    Route::get('/schedules/{event}', [ScheduleController::class,'index'])->name('schedules.index');
+    Route::patch('/schedules/{event}/update', [ScheduleController::class, 'update'])->name('update');
+    Route::patch('/schedules/{event}/delete', [ScheduleController::class, 'delete'])->name('delete');
+    
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
 
     ///// ::::: PARTICIPANTS :::::: ///////

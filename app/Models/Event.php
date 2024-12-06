@@ -62,4 +62,9 @@ class Event extends Model
     {
         return $this->hasOne(invitation::class);
     }
+
+    public function schedules(): BelongsToMany{
+
+        return $this->belongsToMany(Schedule::class,'event_schedule')->withPivot('id');
+    }
 }
