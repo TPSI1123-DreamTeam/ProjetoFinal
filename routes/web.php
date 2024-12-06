@@ -72,6 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
     Route::get('/payment-list', [PaymentController::class, 'list']);
+    Route::get('/searchPayments', [PaymentController::class, 'searchPayments']);
 
     ///// ::::: EVENTS :::::: ///////
     Route::get('/events',[EventController::class,'index'])->name('events.index');
@@ -94,6 +95,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/events/{event}/approve', [EventController::class,'eventtoaprrove'])->name('events.eventtoaprrove');
     Route::delete('/events/{event}',[EventController::class, 'deleteevent'])->name('events.deleteevent');
     Route::get('/events/manager/{event}/supplier',[EventController::class,'editsuppliers'])->name('events.editsuppliers');
+
+    Route::get('/eventsFilter',[EventController::class,'eventsFilter']);
+
     Route::get('/events/search', [EventController::class, 'search'])->name('events.search');
 
     //////:::::::EXPORTS::::::::://///
@@ -105,7 +109,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
-    
+
     ///// ::::: PARTICIPANTS :::::: ///////
     Route::get('/participants',[ParticipantController::class, 'index'])->name('participants.index');
     Route::get('/participants/create',[ParticipantController::class, 'create']);
