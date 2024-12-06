@@ -61,16 +61,21 @@
     </div>
 </div>
 </form>
+
+
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchForm = document.getElementById('searchForm');
+        const inputs = searchForm.querySelectorAll('input, select'); 
+        let debounceTimeout;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const searchForm = document.getElementById('searchForm');
-    const inputs = searchForm.querySelectorAll('input, select'); 
-
-    inputs.forEach(input => {
+        inputs.forEach(input => {
         input.addEventListener('input', () => {
-            searchForm.submit(); 
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => {
+                searchForm.submit();
+            }, 500); // 500ms
         });
     });
-});
+    });
 </script>
