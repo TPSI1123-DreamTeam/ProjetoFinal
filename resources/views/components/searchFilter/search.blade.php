@@ -74,7 +74,7 @@
             clearTimeout(debounceTimeout);
             debounceTimeout = setTimeout(() => {
                 searchForm.submit();
-            }, 500); // 500ms
+            }, 1000); // 1 segundo antes de enviar o formulário
         });
     });
     });
