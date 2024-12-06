@@ -1,4 +1,4 @@
-<form action="{{ route('events.search') }}" method="GET" class="search-bar">
+<form action="{{ route('events.search') }}" method="GET" class="search-bar" id="searchForm">
     <!-- Barra de Pesquisa -->
     <div class="search-input">
         <input type="text" name="search" placeholder="Pesquise por algo" value="{{ request('search') }}">
@@ -61,3 +61,15 @@
     </div>
 </div>
 </form>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const searchForm = document.getElementById('searchForm');
+    const inputs = searchForm.querySelectorAll('input, select'); // Seleciona todos os campos do formulário
+
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            searchForm.submit(); // Submete o formulário sempre que há uma mudança
+        });
+    });
+});
+</script>
