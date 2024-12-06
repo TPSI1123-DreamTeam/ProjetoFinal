@@ -430,41 +430,13 @@ class EventController extends Controller
      */
 
     public function create(Event $event, $categoryId)
-    { 
-        switch ($categoryId) {
-            case '1':
-                $form = "create";          
-                break;
-            case '2':
-                $form = "create";        
-                break;
-            case '3':
-                $form = "create";   
-                break;
-            case '4':
-                $form = "create";          
-                break;
-            case '5':
-                $form = "create";         
-                break;
-            case '6':
-                $form = "create";              
-                break;
-            case '7':
-                $form = "create";              
-                break;
-            
-            default:
-                $form = "create";              
-                break;
-        }
-
+    {   
         $SupplierType = SupplierType::all();
         $suppliers    = Supplier::all();
         $category     = Category::find($categoryId);
         $categories   = Category::all();
         
-        return view('pages.events.'.$form, ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories, 'SupplierType' => $SupplierType]);
+        return view('pages.events.create', ['category' => $category, 'suppliers' => $suppliers, 'categories'=> $categories, 'SupplierType' => $SupplierType]);
     }
 
 
@@ -678,8 +650,12 @@ class EventController extends Controller
                 $update->save();    
             }
 
-            // /events/owner/26/edit
-            return redirect('/events/manager/'. $event->id.'/edit')->with('status','Evento editado com sucesso!')->with('class', 'alert-success');
+            if($AuthUser->id === $event->manager_id){
+                return redirect('/events/manager/'. $event->id.'/edit')->with('status','Evento editado com sucesso!')->with('class', 'alert-success');
+            }else{
+                return redirect('/events/owner/'. $event->id.'/edit')->with('status','Evento editado com sucesso!')->with('class', 'alert-success');
+            }
+
         }else{
             return redirect('/dashboard')->with('status','Erro ao editar evento!')->with('class', 'alert-danger');
         }
