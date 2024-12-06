@@ -115,12 +115,18 @@ class EventSeeder extends Seeder
                 $randomAmount   = rand(1000,20000);
                 $randomUsers    = rand(20, 50);
                 $ticketAmount   = ($randomAmount / $randomUsers) / 3;
-                $startTime      = rand(10,23).":00:00";
+                $startTime      = rand(10,23).":00:00";                  
 
                 if($j<5){
-                    $eventStatus = $arrayEventStatus1[rand(0,5)];                    
+                    $eventStatus = $arrayEventStatus1[rand(0,5)];  
                 }else{
-                    $eventStatus = $arrayEventStatus[rand(0,5)];
+                    $eventStatus = $arrayEventStatus[rand(0,5)];                    
+                }
+
+                if($eventStatus == 'pendente'){
+                    $managerId   = 0;
+                }else{
+                    $managerId   = $arrayManager[$managerRandom];
                 }
 
                 $event = Event::create([
@@ -136,7 +142,7 @@ class EventSeeder extends Seeder
                     'amount'                 => $randomAmount,
                     'ticket_amount'          => $ticketAmount,
                     'owner_id'               => rand(4,5),
-                    'manager_id'             => $arrayManager[$managerRandom],               
+                    'manager_id'             => $managerId,               
                     'number_of_participants' => $randomUsers,
                     'event_status'           => $eventStatus
                 ]);        

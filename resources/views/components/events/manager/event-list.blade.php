@@ -73,10 +73,10 @@
             <select name="event_status" id="event_status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="" readonly>Selecione o estado</option>
                 <option value="ativo"     @if(isset($formFields['event_status']) && $formFields['event_status'] == 'ativo') selected @endif >Ativo</option>
-                <option value="recusado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'recusado') selected @endif>Recusado</option>
-                <!-- <option value="pendente"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'pendente') selected @endif>Pendente</option> -->
+                <option value="recusado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'recusado') selected @endif>Recusado</option>            
                 <option value="cancelado" @if(isset($formFields['event_status']) && $formFields['event_status'] == 'cancelado') selected @endif>Cancelado</option>
                 <option value="concluido" @if(isset($formFields['event_status']) && $formFields['event_status'] == 'concluido') selected @endif>Concluido</option>
+                <option value="aprovado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'aprovado') selected @endif>Aprovado</option>
             </select>
         </div>
 
@@ -128,13 +128,13 @@
              <td data-cell="nome">{{ $event->name }}</td>
              <td data-cell="participantes">{{ $event->number_of_participants }} / {{ @count($event->users) }}</td>
              <td data-cell="descrição">{{ $event->category->description }}</td>
-             <td data-cell="data">{{ $event->type }}</td>
-             <td data-cell="hora de inicio">{{ date('H:i', strtotime($event->start_time))}}</td>
+             <td data-cell="data">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
+             <td data-cell="hora de inicio">{{ $event->type }}</td>
              <td data-cell="custo estimado">{{ number_format($event->amount, 2, ',', '.') }}€</td>
              <td data-cell="estado">{{ $event->event_status }}
              </td>
              <td data-cell="ações" class="action-buttons-table">
-                @if( $event->event_status == 'pendente')
+                @if( $event->event_status == 'pendente' || $event->event_status == 'ativo' || $event->event_status == 'aprovado')
                     <a  href="{{ url('events/manager/' . $event->id) }}" >
                         <button class="show-btn">Ver</button>
                     </a>
@@ -165,15 +165,7 @@
                     <a  href="{{ url('events/manager/' . $event->id) }}" >
                         <button class="show-btn">Ver</button>
                     </a>
-                @endif
-                @if( $event->event_status == 'ativo')
-                    <a  href="{{ url('events/manager/' . $event->id) }}" >
-                        <button class="show-btn">Ver</button>
-                    </a>
-                    <a  href="{{ url('events/manager/' . $event->id . '/edit') }}" >
-                        <button class="edit-btn">Editar</button>
-                    </a>
-                @endif
+                @endif             
              </td>
             </tr>
          @endforeach
