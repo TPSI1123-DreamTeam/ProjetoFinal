@@ -94,3 +94,5 @@
         @endif
     </tbody>
 </table>
+
+@vite('resources/js/orderTable.js')

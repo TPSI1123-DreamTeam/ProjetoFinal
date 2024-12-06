@@ -7,12 +7,12 @@
          <tr>
             <th>Nº</th>
             <th>Nome do Evento</th>
-            <th>Participantes</th>            
+            <th>Participantes</th>
             <th>Descrição</th>
             <th>Data</th>
             <th>Hora de Ínicio</th>
-            <th>Custo Estimado</th>       
-            <th>Estado do Evento</th>       
+            <th>Custo Estimado</th>
+            <th>Estado do Evento</th>
          </tr>
      </thead>
      <tbody>
@@ -33,3 +33,5 @@
 <div class="pagination-user-list">
     {{ $events -> links()}}
 </div>
+
+@vite('resources/js/orderTable.js')

@@ -1,6 +1,6 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @if(session('status'))
-        <div id="success-notification" 
+        <div id="success-notification"
         class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
     {{ session('status') }}
     </div>
@@ -114,7 +114,7 @@
                     @method('PATCH')
                     @if($supplier->status == 1)
                         <button type="submit" class="deactivate-btn">Desativar</button>
-                    @else 
+                    @else
                         <button type="submit" class="activate-btn">Ativar</button>
                     @endif
                 </form>
@@ -145,3 +145,5 @@
         }
     });
 </script>
+
+@vite('resources/js/orderTable.js')

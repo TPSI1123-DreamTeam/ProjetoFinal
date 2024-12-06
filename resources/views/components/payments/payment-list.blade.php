@@ -62,3 +62,5 @@
 </div>
 
 @vite('resources/js/hidder.js')
+@vite('resources/js/orderTable.js')
+
