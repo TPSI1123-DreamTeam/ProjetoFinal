@@ -197,7 +197,7 @@ class ParticipantController extends Controller
     foreach ($diferencas as $user) {
     // Buscar ou criar o usuário com base no email
 
-   // dd($usersExistentes);        
+   // dd($usersExistentes);
     $userModel = User::firstOrCreate(
         ['email' => $user[3]], // Condição de busca
         [                           // Preencher os campos caso o usuário não exista
@@ -221,6 +221,10 @@ class ParticipantController extends Controller
 
     public function searchEvents(Request $request)
     {
+        //dd($request);
+        if ($request->search == "Escolha o evento para listar participantes...") {
+            return redirect()->back();
+        }
         $ownerId = Auth::user()->id;
         $query   = Event::query();
         $query->where('owner_id',$ownerId);

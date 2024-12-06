@@ -4,16 +4,26 @@
 </div>
 <div class="linha-divisoria-participant-list"></div>
 
+@php
+    $firstOption = "Escolha o evento para listar participantes...";
+@endphp
+
 <form action="/searchEvents" method="POST">
     @csrf
     <div class="search-filter-export">
         <select class="choose-event" id="search" name="search">
-            <option selected>Escolha o evento para listar participantes...</option>
+            @if(isset($participants) && $participants->users && $participants->users->isNotEmpty() && isset($participants->users))
             @foreach ($events as $event)
                 <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
             @endforeach
+        @else
+        <option selected>{{ $firstOption }}</option>
+        @foreach ($events as $event)
+            <option value="{{ $event->id }}" {{ request()->input('search') == $event->id ? 'selected' :'' }}>{{ $event->name }}</option>
+        @endforeach
+        @endif
         </select>
-        <button class="search-participant-btn" type="submit">Search</button>
+        <button class="search-participant-btn" id="buttonLock" type="submit">Search</button>
         @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
             <form>
                 <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>

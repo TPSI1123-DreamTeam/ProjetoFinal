@@ -7,10 +7,15 @@
     </div>
 </div>
 
+<div style="padding-right: 520px">
+    <div class="title-hidder-div">
+        <h2>Escolha o evento para listar participantes...</h2>
+    </div>
+</div>
+
 <form action="/searchPayments" method="GET" class="grid gap-2 mt-5">
 <!-- Campo 1 -->
 <select class="choose-event" id="search" name="search">
-    <option selected>Escolha o evento para listar participantes...</option>
     @foreach ($allEvents as $eventName)
         <option value="{{ $eventName->name }}" {{ request()->input('search') == $eventName->name ? 'selected' :'' }}>{{ $eventName->name }}</option>
     @endforeach
