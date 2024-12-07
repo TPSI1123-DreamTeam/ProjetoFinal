@@ -23,7 +23,7 @@
         @endforeach
         @endif
         </select>
-        <button class="search-participant-btn" id="buttonLock" type="submit">Search</button>
+        <button class="search-participant-btn" type="submit">Search</button>
         @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
             <form>
                 <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>
@@ -57,6 +57,25 @@
         @endif
     </div>
 </form>
+
+@if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
+<form action="/addParticipant" method="POST">
+    @csrf
+    <div class="linha-divisoria-participant-list"></div>
+    <label for="pName">Nome</label>
+    <input class="choose-event" id="search" name="pName" style="max-width: 350px"/>
+    <label for="pName">Nº Telefone</label>
+    <input class="choose-event" id="search" name="phoneNumber" style="max-width: 200px"/>
+    <label for="pName">Email</label>
+    <input class="choose-event" id="search" name="email" style="max-width: 350px"/>
+    <label hidden for="trueId"></label>
+    <input hidden name="trueId" id="search" value="{{ $trueId }}"/>
+    <button class="search-participant-btn" type="submit">Add Participant</button>
+    <p>{{$trueId}}</p>
+    <div class="linha-divisoria-participant-list"></div>
+</form>
+@endif
+
 
 <table class="participant-list-table">
     <thead>

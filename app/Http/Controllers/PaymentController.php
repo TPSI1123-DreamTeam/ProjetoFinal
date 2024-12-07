@@ -94,8 +94,7 @@ class PaymentController extends Controller
     {
         $user = auth()->user();
         $allEvents = Payment::where('user_id', $user->id)->paginate(10);
-      //  dd($request);
-        $ddTest = "Bork!";
+ 
         $name = $request->search;
         $startDate = $request->datepicker1;
         $endDate = $request->datepicker2;
