@@ -328,17 +328,11 @@ input[type="password"]:focus {
 
 @media (max-height: 768px) {
     .login-container {
-        position: absolute !important;
-        top: auto !important;
-        margin-top: 45rem !important;
+        margin: auto;
     }
 }
 
-@media (max-height: 730px) {
-    .login-container {
-        margin-top: 20rem !important;
-    }
-
+@media (max-height: 731px) {
     .google-login-button,
     .or-divider {
         display: none !important;
@@ -353,15 +347,8 @@ input[type="password"]:focus {
     }
 }
 
-@media (max-height: 668px) {
-    .login-container {
-        margin-top: 35rem !important;
-    }
-}
-
 @media (max-height: 660px) {
     .login-container {
         margin-bottom: 1rem !important;
     }
 }
-
