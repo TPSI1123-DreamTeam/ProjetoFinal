@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EventsbymanagerExport;
+use App\Exports\EventsByParticipantExport;
 
 
 class EventController extends Controller
@@ -42,7 +43,7 @@ class EventController extends Controller
     {
         $ownerId  = Auth::user()->id;
         $Category = Category::all();
-        $events   = Event::where('owner_id', $ownerId)->orderBy('id', 'desc')->paginate(10);
+        $events   = Event::where('owner_id', $ownerId)->orderBy('start_date', 'desc')->paginate(10);
         $formFields = array();
 
         return view('pages.events.owner.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -157,7 +158,7 @@ class EventController extends Controller
             $events->where('start_date','<=', $request->datepicker2 );
         }
 
-        $events->orderBy('id', 'desc');
+        $events->orderBy('start_date', 'desc');
         $events = $events->paginate(10);
 
 
@@ -208,7 +209,7 @@ class EventController extends Controller
 
         if($manager->role_id == 2){
 
-            $events     = Event::query()->where('manager_id',0)->orderBy('start_date', 'desc')->paginate(10);
+            $events     = Event::query()->where('manager_id',0)->orderBy('start_date', 'asc')->paginate(10);
             $Category   = Category::orderBy('description', 'asc')->get();
             $formFields = array();
 
@@ -1036,4 +1037,41 @@ class EventController extends Controller
     
         return view('pages.events.public', compact('events'));
     }
+
+    public function ExportByParticipant(Request $request)
+    {
+        $AuthUser = Auth::user();
+
+        if($AuthUser->role_id === 4 ){
+
+            //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
+            $eventIdsArray  = explode(',', $request->event_ids);
+            $events = Event::whereIn('id', $eventIdsArray)->get();
+
+            //:: HEADER
+            $excelArray = array();
+            $excelArray[0]["Nº"]                 = "Nº";
+            $excelArray[0]["Nome"]               = "Nome";
+            $excelArray[0]["Data de Início"]     = "Data de Início";
+            $excelArray[0]["Data de Fim"]        = "Data de Fim";
+            $excelArray[0]["Bilhete"]            = "Bilhete";
+
+            $key = 1;
+            foreach ($events as $event) {
+
+                $participant    = User::find($event->participant_id);
+
+                $excelArray[$key]["Nº"]                 = $event->id;
+                $excelArray[$key]["Nome"]               = $event->name;
+                $excelArray[$key]["Data de Início"]     = $event->start_date;
+                $excelArray[$key]["Data de Fim"]        = $event->end_date;
+                $excelArray[$key]["Bilhete"]            = $event->ticket_amount;
+
+                $key++;
+            }
+
+            return Excel::download(new EventsByParticipantExport($excelArray), 'ParticipantEventList.xlsx');
+        }
+    }
+
 }

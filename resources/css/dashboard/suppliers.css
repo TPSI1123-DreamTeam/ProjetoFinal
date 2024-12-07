@@ -10,7 +10,6 @@
     justify-content: center;
     max-width: 210px;
     flex-direction: row;
-    margin: 0 auto;
 }
 
 .add-supplier-btn:hover {
@@ -69,6 +68,24 @@ td:last-child {
     gap: 5px;
 }
 
+.action-buttons-end {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media (max-width: 1556px){
+    .action-buttons-end {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+        align-items: center;
+    }
+}
+
 @media (max-width: 768px){
     td:last-child {
         display: flex !important;
@@ -85,5 +102,12 @@ td:last-child {
 
     .supplier-td {
         grid-template-columns: 9ch auto !important;
+    }
+}
+
+@media (max-width: 446px){
+    .action-buttons-end {
+        align-items: flex-start;
+        margin-left: 5px;
     }
 }

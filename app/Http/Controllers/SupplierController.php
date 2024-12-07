@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SuppliersExport;
+use Illuminate\Support\Facades\Auth;
+
 
 class SupplierController extends Controller
 {
@@ -148,5 +152,50 @@ class SupplierController extends Controller
             'filters' => $request->all(),
             'supplierTypes' => $supplierTypes
         ]);
-}
+    }
+
+    public function downloadSuppliersList(Request $request)
+        {
+            $AuthUser = Auth::user();
+            if ($AuthUser->role_id === 2) {
+            
+                // Obter os IDs dos fornecedores
+                $supplierIdsArray = explode(',', $request->supplier_ids);
+                $suppliers = Supplier::whereIn('id', $supplierIdsArray)->get();
+            
+                // Cabeçalhos do Excel
+                $excelArray = [];
+                $excelArray[0] = [
+                    "Nº" => "Nº",
+                    "Nome" => "Nome",
+                    "Email" => "Email",
+                    "Contacto" => "Contacto",
+                    "Tipo de Fornecedor" => "Tipo de Fornecedor",
+                    "Estado" => "Estado",
+                    "Eventos Associados" => "Eventos Associados",
+                    "Data de Criação" => "Data de Criação"
+                ];
+            
+                // Preenchendo os dados
+                $key = 1;
+                foreach ($suppliers as $supplier) {
+                    $excelArray[$key] = [
+                        "Nº" => $supplier->id,
+                        "Nome" => $supplier->name,
+                        "Email" => $supplier->email,
+                        "Contacto" => $supplier->contact,
+                        "Tipo de Fornecedor" => $supplier->supplierType->name ?? 'Não definido',
+                        "Estado" => $supplier->status == 1 ? 'Ativo' : 'Inativo',
+                        "Eventos Associados" => $supplier->events->pluck('name')->join(', '),
+                        "Data de Criação" => date('Y-m-d', strtotime($supplier->created_at))
+                    ];
+                    $key++;
+                }
+            
+                // Fazer o download
+                return Excel::download(new SuppliersExport($excelArray), 'SuppliersList.xlsx');
+            }
+        
+            return redirect()->back()->with('error', 'Acesso negado.');
+        }
 }   

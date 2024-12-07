@@ -29,7 +29,6 @@
                 <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>
             </form>
         @endif
-        @if(isset($participants) && $participants->users->isEmpty())
         <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data">
                 @csrf
                 <div>
@@ -41,7 +40,6 @@
                     <button>Submeter</button>
                 </div>
             </form>
-        @endif
     </div>
     <div class="selected-event-info">
         <h5>Participantes no Evento Selecionado<span>

@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     ///// ::::: PAYMENTS :::::: ///////
+    Route::get('/payment/export',[PaymentController::class,'downloadPaymentList'])->name('payments.downloadPaymentList');
     Route::get('/checkout/{event}', [PaymentController::class, 'checkout'])->name('checkout');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
@@ -105,6 +106,7 @@ Route::middleware('auth')->group(function () {
     //////:::::::EXPORTS::::::::://///
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
     Route::get('export/eventsbymanager/', [EventController::class, 'exportbymanager'])->name('events.exportbymanager');
+    Route::get('export/eventsbyparticipant/', [EventController::class, 'ExportByParticipant'])->name('events.exportbyparticipant');
     Route::patch('/events/{event}/updatestatus', [EventController::class, 'updatestatus'])->name('events.updatestatus');
     Route::patch('/events/manager/{event}/updatesupplier', [EventController::class, 'updatesupplieronevent'])->name('events.updatesupplieronevent');
     Route::patch('/events/manager/{event}/deletesupplieronevent', [EventController::class, 'deletesupplieronevent'])->name('events.deletesupplieronevent');
@@ -144,6 +146,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/findEventInvitation', [InvitationController::class,'findEventInvitation']);
 
     ///// ::::: SUPPLIERS :::::: ///////
+    Route::get('/suppliers/export',[SupplierController::class,'downloadSuppliersList'])->name('suppliers.downloadSuppliersList');
     Route::get('/suppliers/index', [SupplierController::class, 'index'])->name('suppliers.index');
     Route::get('/suppliers/create', [SupplierController::class, 'create']);
     Route::post('/suppliers/store', [SupplierController::class, 'store'])->name('suppliers.store');

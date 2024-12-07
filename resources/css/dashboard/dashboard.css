@@ -15,6 +15,7 @@
 @import 'invitations.css';
 @import 'create-inv.css';
 @import 'reports.css';
+@import 'show-supplier.css';
 
 * {
     margin: 0;

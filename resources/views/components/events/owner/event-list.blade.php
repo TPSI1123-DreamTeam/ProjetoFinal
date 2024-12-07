@@ -108,7 +108,7 @@
             <th>Participantes</th>
             <th>Categoria</th>
             <th>Data</th>
-            <th>Hora</th>
+            <th>Tipo</th>
             <th>Custo Estimado</th>
             <th>Estado do Evento</th>
             <th>Ações</th>
@@ -118,18 +118,18 @@
          @foreach($events as $event)
          <tr>
              <td data-cell="nº">{{ $loop->iteration + $events->firstItem() - 1 }}</td>
-             <td data-cell="nome">{{ $event->name }}</td>
+             <td data-cell="nome">{{ $event->name }} ({{ $event->id }})</td>
              <td data-cell="participantes">{{ $event->number_of_participants }} / {{ @count($event->users) }}</td>
              <td data-cell="categoria">{{ $event->category->description }}</td>
              <td data-cell="data">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
-             <td data-cell="hora">{{ date('H:i', strtotime($event->start_time))}}</td>
+             <td data-cell="hora">{{ $event->type }}</td>
              <td data-cell="custo">{{ number_format($event->amount, 2, ',', '.') }}€</td>
              <td data-cell="estado">{{ $event->event_status }}</td>
              <td data-cell="ações">
                 <a  href="{{ url('events/owner/' . $event->id) }}" >
                     <button class="show-btn">Ver</button>
                 </a>
-                @if( $event->event_status == 'pendente')
+                @if( ($event->event_status == 'pendente' || $event->event_status == 'ativo') && $event->start_date > date('Y-m-d') )
                     <a  href="{{ url('events/owner/' . $event->id . '/edit') }}" >
                         <button class="edit-btn">Editar</button>
                     </a>
@@ -142,6 +142,20 @@
                         </a>
                     </form>
                 @else
+
+                    @if( $event->event_status == 'cancelado' && $event->start_date > date('Y-m-d') )
+                    <a  href="{{ url('events/manager/' . $event->id) }}" >
+                        <button class="show-btn">Ver</button>
+                    </a>
+                    <form action="{{ route('events.updatestatus', $event->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <a href="/events/manager">
+                            <button class="activate-btn" type="submit">Ativar</button>
+                        </a>
+                    </form>
+                    @endif()
+
                     <button class="edit-button"   hidden title="Somente pode editar enquanto estiver pendente">Editar</button>
                     <button class="cancel-button" hidden title="Somente pode cancelar enquanto estiver pendente">Cancelar</button>
                 @endif
@@ -164,5 +178,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 @vite('resources/js/formListEvents.js')
-
 @vite('resources/js/orderTable.js')

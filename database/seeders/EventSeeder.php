@@ -66,43 +66,98 @@ class EventSeeder extends Seeder
         $arrayEventStatus = [
             0 => "pendente", 
             1 => "ativo", 
-            2 => "cancelado", 
-            3 => "recusado", 
-            4 => "concluido" 
+            2 => "aprovado", 
+            3 => "ativo", 
+            4 => "aprovado", 
+            5 => "pendente" 
         ];
 
-        for ($i = 0; $i < 30; $i++) {
 
-            $categoryRandom = rand(0,6);
-            $managerRandom  = rand(0,1);
-            $typeRandom     = rand(0,1);
-            $date           = fake()->dateTimeBetween('-1 week', '+1 week');
-            $randomAmount   = rand(1000,20000);
-            $randomUsers    = rand(20, 50);
-            $ticketAmount   = ($randomAmount / $randomUsers) / 3;
-            $startTime      = rand(10,23).":00:00";
+        $arrayEventStatus1 = [
+            0 => "concluido", 
+            1 => "cancelado", 
+            2 => "concluido", 
+            3 => "recusado", 
+            4 => "concluido", 
+            5 => "concluido" 
+        ];
 
-            $event = Event::create([
-                'name'                   => $arrayCategory[$categoryRandom]['description'],
-                'category_id'            => $arrayCategory[$categoryRandom]['id'],
-                'image'                  => $arrayCategory[$categoryRandom]['image'],
-                'description'            => fake()->realText(rand(500,700)),
-                'localization'           => fake()->city(),
-                'start_date'             => $date,
-                'start_time'             => $startTime,
-                'end_date'               => $date,
-                'type'                   => $arrayType[$typeRandom],
-                'amount'                 => $randomAmount,
-                'ticket_amount'          => $ticketAmount,
-                'owner_id'               => rand(4,5),
-                'manager_id'             => $arrayManager[$managerRandom],               
-                'number_of_participants' => $randomUsers,
-                'event_status'           => $arrayEventStatus[rand(0,4)]
-            ]);
-       
-   
-            $users = User::inRandomOrder()->take($randomUsers)->pluck('id');
-            $event->users()->attach($users);
-        }   
+        
+        $startDateaArray = [
+            0 => '2024-07-01',
+            1 => '2024-08-01',
+            2 => '2024-09-01',
+            3 => '2024-10-01',
+            4 => '2024-11-01',
+            5 => '2024-12-15',
+            6 => '2025-01-01',
+        ];
+
+
+        $endDateaArray = [
+            0 => '2024-07-31',
+            1 => '2024-08-31',
+            2 => '2024-09-30',
+            3 => '2024-10-31',
+            4 => '2024-12-14',
+            5 => '2024-12-31',
+            6 => '2025-01-31',
+        ];
+
+        for ($j = 0; $j < 7; $j++) {
+
+            for ($i = 0; $i < 20; $i++) {
+
+                $categoryRandom = rand(0,6);
+                $managerRandom  = rand(0,1);
+                $typeRandom     = rand(0,1);                
+                $date           = fake()->dateTimeBetween($startDateaArray[$j], $endDateaArray[$j]);
+                $randomAmount   = rand(1000,20000);
+                $randomUsers    = rand(20, 50);
+                $ticketAmount   = ($randomAmount / $randomUsers) / 3;
+                $startTime      = rand(10,23).":00:00";                  
+
+                if($j<5){
+                    $eventStatus = $arrayEventStatus1[rand(0,5)];  
+                }else{
+                    $eventStatus = $arrayEventStatus[rand(0,5)];                    
+                }
+
+                if($eventStatus == 'pendente'){
+                    $managerId   = 0;
+                }else{
+                    $managerId   = $arrayManager[$managerRandom];
+                }
+
+                if($j<5){
+                    $eventStatus = $arrayEventStatus1[rand(0,5)];                    
+                }else{
+                    $eventStatus = $arrayEventStatus[rand(0,5)];
+                }
+
+                $event = Event::create([
+                    'name'                   => $arrayCategory[$categoryRandom]['description'],
+                    'category_id'            => $arrayCategory[$categoryRandom]['id'],
+                    'image'                  => $arrayCategory[$categoryRandom]['image'],
+                    'description'            => fake()->realText(rand(500,700)),
+                    'localization'           => fake()->city(),
+                    'start_date'             => $date,
+                    'start_time'             => $startTime,
+                    'end_date'               => $date,
+                    'type'                   => $arrayType[$typeRandom],
+                    'amount'                 => $randomAmount,
+                    'ticket_amount'          => $ticketAmount,
+                    'owner_id'               => rand(4,5),
+                    'manager_id'             => $managerId,               
+                    'number_of_participants' => $randomUsers,
+                    'event_status'           => $eventStatus
+                ]);        
+    
+                $users = User::inRandomOrder()->take($randomUsers)->pluck('id');
+                $event->users()->attach($users);
+            }   
+
+        }
     }
 }
+
