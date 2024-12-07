@@ -289,5 +289,88 @@ class ParticipantController extends Controller
 
     }
 
+    public function addParticipant(Request $request)
+    {
+        //dd($request);
 
+      $name = $request->pName;
+      $number = $request->phoneNumber;
+      $email = $request->email;
+      $trueId = $request->trueId;
+     // dd($request);
+
+        if (($name == null || $name == "") || ($number == null || $number == "") || ($email == null || $email == "")) {
+        $ownerId = Auth::user()->id;
+        $query   = Event::query();
+        $query->where('owner_id',$ownerId);
+        // dd($query);
+        $events = $query->get();
+        $participants = Event::find($request->search);
+
+        return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
+        }
+        else
+        {
+            $user = User::where('email', $email)->first();
+            $events = Event::where('id', $trueId)->first();
+           // dd($user);
+            if ($user != null) {
+                $isInEvent = $user->events()->where('event_id', $trueId)->exists(); // Verifica se o user pertence ao evento
+                                                                                    // e dá return de true ou false
+                // dd($isInEvent);
+                if ($user != null && $isInEvent)
+                {
+                // User existe e pertence ao evento - Não adiciona
+                $ownerId = Auth::user()->id;
+                $query   = Event::query();
+                $query->where('owner_id',$ownerId);
+                // dd($query);
+                $events = $query->get();
+                $participants = Event::find($request->search);
+                return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
+                }
+                elseif ($user != null && !$isInEvent)
+                {
+                // User existe e adiciona o user ao evento
+                $event = Event::where('id', $trueId)->first();
+                $event->users()->syncWithoutDetaching([$user->id]);
+
+                $ownerId = Auth::user()->id;
+                $query   = Event::query();
+                $query->where('owner_id',$ownerId);
+                // dd($query);
+                $events = $query->get();
+                $participants = Event::find($request->search);
+                return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
+                }
+            }
+            else
+            {
+                // User não existe. USer é criado e adicionado ao evento
+                $defaultImg = 'public/images/noimage_default.jpg';
+                $userModel = User::Create(
+                    [                           // Preencher os campos caso o usuário não exista
+                        'name' => $name,
+                        'image' => $defaultImg, //  usado para testar na parte da imagem par não dar erro
+                        'phone' => strval($number),
+                        'email' => $email,
+                        'password' => 'Teste123#',  // <--- Convém notificar new users disto
+                    ]
+                );
+              //  dd($userModel);
+                // Associar o user ao evento
+               $event = Event::where('id', $trueId)->first();
+               $event->users()->syncWithoutDetaching([$userModel->id]);
+
+               $ownerId = Auth::user()->id;
+                $query   = Event::query();
+                $query->where('owner_id',$ownerId);
+                // dd($query);
+                $events = $query->get();
+                $participants = Event::find($request->search);
+                return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
+            }
+        }
+
+    }
 }

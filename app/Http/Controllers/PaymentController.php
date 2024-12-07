@@ -99,7 +99,7 @@ class PaymentController extends Controller
 
     public function searchPayments(Request $request)
     {
-        $user = auth()->user();
+        $user      = auth()->user();
         $allEvents = Payment::where('user_id', $user->id)->paginate(10);
         $name      = $request->search;
         $startDate = $request->datepicker1;

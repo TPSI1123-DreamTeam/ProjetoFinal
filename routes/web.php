@@ -110,11 +110,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/events/{event}/updatestatus', [EventController::class, 'updatestatus'])->name('events.updatestatus');
     Route::patch('/events/manager/{event}/updatesupplier', [EventController::class, 'updatesupplieronevent'])->name('events.updatesupplieronevent');
     Route::patch('/events/manager/{event}/deletesupplieronevent', [EventController::class, 'deletesupplieronevent'])->name('events.deletesupplieronevent');
-    
+
     Route::get('/schedules/{event}', [ScheduleController::class,'index'])->name('schedules.index');
     Route::patch('/schedules/{event}/update', [ScheduleController::class, 'update'])->name('update');
     Route::patch('/schedules/{event}/delete', [ScheduleController::class, 'delete'])->name('delete');
-    
+
     Route::get('/participants/participant-event-list',[EventController::class,'eventsbyparticipant']);
 
     ///// ::::: PARTICIPANTS :::::: ///////
@@ -130,7 +130,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/participants/{participant}',[ParticipantController::class, 'update']);
     Route::delete('/participants/{participant}',[ParticipantController::class, 'destroy']);
     Route::delete('/participants', [ParticipantController::class, 'eliminate']);
-
+    Route::post('addParticipant',[ParticipantController::class, 'addParticipant']);
 
     ///// ::::: INVITATIONS :::::: ///////
     Route::get('/invitations', [InvitationController::class,'index'])->name('invitations.index');
@@ -156,7 +156,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/suppliers/{supplier}',[SupplierController::class,'destroy']);
     Route::patch('/suppliers/{supplier}/toggle-status', [SupplierController::class, 'toggleStatus'])->name('suppliers.toggle-status');
     Route::get('/suppliers', [SupplierController::class, 'searchby'])->name('suppliers.searchby');
-    
+
     ///// ::::: DASHBOARD :::::: ///////
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 
