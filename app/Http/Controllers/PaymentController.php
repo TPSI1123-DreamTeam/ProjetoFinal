@@ -80,7 +80,7 @@ class PaymentController extends Controller
             ->where('user_id', $usersToAssoc->id)
             ->update([
                 'confirmation' => true
-                
+
         ]);
 
         return redirect($checkout_session->url);
@@ -111,14 +111,14 @@ class PaymentController extends Controller
             $payments = Payment::where($paySearch)->get();
 
             return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
-       
+
         } elseif (($startDate == null && $endDate == null)) {
 
             $paySearch = ['user_id' => $user->id, 'name' => $name];
             $payments = Payment::where($paySearch)->get();
 
             return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
-       
+
         } elseif (($startDate != null || $endDate != null) && $name != null) {
 
             if($startDate == null) {
@@ -129,7 +129,7 @@ class PaymentController extends Controller
 
             $payments = Payment::where($paySearch)->get();
             return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
-       
+
         } elseif (($startDate != null || $endDate != null) && $name == null) {
 
             if($startDate == null) {
@@ -147,11 +147,11 @@ class PaymentController extends Controller
     {
         $AuthUser = Auth::user();
         if ($AuthUser->role_id === 4) {
-    
+
             // Obter os IDs dos pagamentos
             $paymentIdsArray = explode(',', $request->payment_ids);
             $payments = Payment::whereIn('id', $paymentIdsArray)->get();
-    
+
             // Cabeçalhos do Excel
             $excelArray = [];
             $excelArray[0] = [
@@ -161,7 +161,7 @@ class PaymentController extends Controller
                 "Data" => "Data",
                 "Estado" => "Estado"
             ];
-    
+
             // Preenchendo os dados
             $key = 1;
             foreach ($payments as $payment) {
@@ -174,12 +174,12 @@ class PaymentController extends Controller
                 ];
                 $key++;
             }
-    
+
             // Fazer o download
             return Excel::download(new PaymentsExport($excelArray), 'PaymentsList.xlsx');
         }
-    
+
         return redirect()->back()->with('error', 'Acesso negado.');
     }
-    
+
 }
