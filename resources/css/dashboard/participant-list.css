@@ -128,6 +128,19 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
+.submit-excel-file {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
+@media (max-width: 655px) {
+    .submit-excel-file {
+        flex-direction: column;
+    }
+}
+
 @media (max-width: 600px) {
     .search-filter-export {
         display: flex;
@@ -146,6 +159,14 @@
     margin: 15px 0 !important;
     padding: 0 0 1rem 0 !important;
     text-align: center;
+    }
+}
+
+@media (max-width: 445px) {
+    .add-participant-form {
+        align-items: center !important;
+        max-width: 315px !important;
+        margin: 0 auto !important;
     }
 }
 
