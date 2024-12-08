@@ -29,17 +29,6 @@
                 <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>
             </form>
         @endif
-        <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data">
-                @csrf
-                <div>
-                    <label>Escolher Ficheiross:</label>
-                    <input type="file" id="ExcelFile" name="file">
-                    <input hidden name="event" value="{{ $event->id }}">
-                </div>
-                <div>
-                    <button>Submeter</button>
-                </div>
-            </form>
     </div>
     <div class="selected-event-info">
         <h5>Participantes no Evento Selecionado<span>
@@ -57,7 +46,7 @@
 </form>
 
 @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
-<form action="/addParticipant" method="POST">
+<form action="/addParticipant" method="POST" class="add-participant-form">
     @csrf
     <div class="linha-divisoria-participant-list"></div>
     <label for="pName">Nome</label>
@@ -69,11 +58,19 @@
     <label hidden for="trueId"></label>
     <input hidden name="trueId" id="search" value="{{ $trueId }}"/>
     <button class="search-participant-btn" type="submit">Add Participant</button>
-    <p>{{$trueId}}</p>
     <div class="linha-divisoria-participant-list"></div>
 </form>
 @endif
 
+<form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data" style="margin-top: 10px" class="add-participant-form">
+    @csrf
+    <div class="submit-excel-file">
+        <label>Escolher Ficheiros:</label>
+        <input type="file" id="ExcelFile" name="file">
+        <input hidden name="event" value="{{ $event->id }}">
+        <button class="search-participant-btn">Submeter</button>
+    </div>
+</form>
 
 <table class="participant-list-table">
     <thead>
