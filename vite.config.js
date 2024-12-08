@@ -24,8 +24,7 @@ export default defineConfig({
                 'resources/js/toggle-sidebar.js',
                 'resources/js/formListEvents.js',
                 'resources/js/form-create-event.js',
-                'resources/js/orderTable.js',
-                'resources/js/formListEventsManager.js'
+                'resources/js/orderTable.js'
             ],
             refresh: true,
         }),
