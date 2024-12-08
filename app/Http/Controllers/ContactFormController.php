@@ -32,9 +32,10 @@ class ContactFormController extends Controller
             'email' => 'required|email',
             'message' => 'required|min:10',
         ], $messages);
-
+        //dd($validatedData);
+        
         // Process the data (e.g., validation, sending email)
-
+        
         Mail::to('primetimeventstpsip@gmail.com')->send(new ContactMail($validatedData));
         // Here you will handle the form submission, like validating input and sending emails.
         return back()->with('success', 'Obrigado pela sua mensagem!');
