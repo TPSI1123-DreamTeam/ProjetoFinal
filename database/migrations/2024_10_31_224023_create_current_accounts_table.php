@@ -14,22 +14,15 @@ return new class extends Migration
         Schema::create('current_accounts', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->decimal('amount', 10, 2);
+            $table->decimal('amount', 10, 2)->nullable();
+            $table->decimal('amount_paid', 10, 2)->default(0);
+            $table->integer('payment_id')->nullable()->default(null);
             $table->string('form_of_payment')->default('credit_card'); ;     
             $table->foreignId('event_id')->constrained('events');
             $table->boolean('status');
             $table->string('currency')->default('eur'); // eur - by default
             $table->timestamps();
-        });
-
-        Schema::create('current_account_payment', function (Blueprint $table) {
-            $table->id();
-            $table->string('description')->nullable();
-            $table->foreignId('current_account_id')->constrained('current_accounts');
-            $table->foreignId('payment_id')->constrained('payments');
-            $table->decimal('amount', 10, 2)->nullable();            
-            $table->timestamps();          
-        });    
+        });         
     }
 
     /**
@@ -37,7 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('current_accounts');
-        Schema::dropIfExists('current_account_payment');
+        Schema::dropIfExists('current_accounts');       
     }
 };
