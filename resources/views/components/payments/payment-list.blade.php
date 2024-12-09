@@ -50,6 +50,12 @@
         </form>
 </div>
 
+@if (!$payments)
+
+@else
+{{ $payments->links() }}
+@endif
+
 
 <div class="linha-divisoria-event-manager"></div>
 <table>
@@ -78,4 +84,5 @@
 
 @vite('resources/js/hidder.js')
 @vite('resources/js/orderTable.js')
+
 
