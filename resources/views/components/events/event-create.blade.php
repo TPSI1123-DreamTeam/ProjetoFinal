@@ -55,7 +55,7 @@
                 <select id="type" name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
                     <option disabled>Selecione a categoria:</option>
                     @foreach ($categories as $item)
-                        <option value="{{ $item->id }}" @if( $item->id == $category->id) selected @endif >{{ $item->description }}</option>
+                        <option value="{{ $item->id }}" @if( isset($category) && $item->id == $category->id) selected @endif >{{ $item->description }}</option>
                     @endforeach
                 </select>  
                 @error('category_id')
