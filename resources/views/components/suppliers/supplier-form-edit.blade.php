@@ -15,7 +15,7 @@
 
     <div class="input-supplier-show">
         <label for="last-name">Telefone</label>
-        <input type="text" name="last-name" id="last-name" value="{{ $supplier->contact }}" autocomplete="family-name">
+        <input type="text" name="contact" id="contact" value="{{ $supplier->contact }}">
     </div>
 
     <div class="input-supplier-show">
