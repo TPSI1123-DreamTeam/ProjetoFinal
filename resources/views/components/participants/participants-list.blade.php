@@ -1,4 +1,4 @@
-
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <div class="event-wrapper-participant">
     <h1 class="part-list-title">Lista de Participantes</h1>
 </div>
@@ -7,6 +7,28 @@
 @php
     $firstOption = "Escolha o evento para listar participantes...";
 @endphp
+
+
+        @if(session('status'))
+            <div id="success-notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+                {{ session('status') }}
+            </div>
+        @endif
+
+
+        @if(session('error'))
+            <div id="success-notification" class="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+                {{ session('error') }}
+            </div>
+        @endif
+
+
+        @if(session('warning'))
+            <div id="success-notification" class="fixed bottom-4 right-4 bg-yellow-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+                {{ session('warning') }}
+            </div>
+        @endif
+
 
 <form action="/searchEvents" method="POST">
     @csrf
@@ -49,6 +71,7 @@
 <form action="/addParticipant" method="POST" class="add-participant-form">
     @csrf
     <div class="linha-divisoria-participant-list"></div>
+    <h1>Adicionar Participante Manualmente</h1>
     <label for="pName">Nome</label>
     <input class="choose-event" id="search" name="pName" style="max-width: 350px"/>
     <label for="pName">Nº Telefone</label>
@@ -57,11 +80,12 @@
     <input class="choose-event" id="search" name="email" style="max-width: 350px"/>
     <label hidden for="trueId"></label>
     <input hidden name="trueId" id="search" value="{{ $trueId }}"/>
-    <button class="search-participant-btn" type="submit">Add Participant</button>
+    <button class="search-participant-btn" type="submit">Adicionar Participante</button>
     <div class="linha-divisoria-participant-list"></div>
 </form>
 @endif
 
+<h1>Adicionar Participante Através de Excel</h1>
 <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data" style="margin-top: 10px" class="add-participant-form">
     @csrf
     <div class="submit-excel-file">
@@ -118,5 +142,23 @@
         @endif
     </tbody>
 </table>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const successNotification = document.getElementById('success-notification');
+
+        if (successNotification) {
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-0');
+                successNotification.classList.add('opacity-100');
+            }, 100);
+
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-100');
+                successNotification.classList.add('opacity-0');
+            }, 5000);
+        }
+    });
+</script>
 
 @vite('resources/js/orderTable.js')
