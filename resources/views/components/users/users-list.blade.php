@@ -1,6 +1,12 @@
 <div class="table-wrapper">
 <h1 class="user-management">Gestão de Utilizadores</h1>
 
+@if(session('status'))
+            <div id="success-notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+                {{ session('status') }}
+            </div>
+        @endif
+
 <div class="linha-divisoria"></div>
 <table>
     <thead>
@@ -66,3 +72,21 @@
 </div>
 
 @vite('resources/js/orderTable.js')
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const successNotification = document.getElementById('success-notification');
+
+        if (successNotification) {
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-0');
+                successNotification.classList.add('opacity-100');
+            }, 100);
+
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-100');
+                successNotification.classList.add('opacity-0');
+            }, 5000);
+        }
+    });
+</script>
