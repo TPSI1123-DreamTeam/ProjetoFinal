@@ -1,11 +1,20 @@
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    @if(session('success'))
+    <div id="success-notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+        {{ session('success') }}
+    </div>
+    @endif
+
 <section class="contact">
     <div class="contact-content">
         <h2>Contacta-nos!</h2>
         <p>Tens dúvidas ou precisas de assistência para organizar o teu próximo evento? <br>
-            A nossa equipa está pronta para ajudar! <br> Entra em contacto connosco para obter mais informações sobre os nossos serviços, 
-            esclarecer questões ou receber suporte personalizado.</p>
+        A nossa equipa está pronta para ajudar! <br> Entra em contacto connosco para obter mais informações sobre os nossos serviços, 
+        esclarecer questões ou receber suporte personalizado.</p>
     </div>
     <div class="contact-container">
+
         <div class="contactInfo">
             <div class="box">
                 <div class="icon">
@@ -55,3 +64,23 @@
         </div>
     </div>
 </section>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const successNotification = document.getElementById('success-notification');
+        const errorNotification = document.getElementById('error-notification');
+        const noResultsNotification = document.getElementById('no-results-notification');
+        
+        if (successNotification) {
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-0');
+                successNotification.classList.add('opacity-100');
+            }, 100);
+            
+            setTimeout(() => {
+                successNotification.classList.remove('opacity-100');
+                successNotification.classList.add('opacity-0');
+            }, 3000);
+        }
+    });
+</script>
