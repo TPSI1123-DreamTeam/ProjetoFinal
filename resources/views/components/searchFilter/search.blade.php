@@ -15,7 +15,7 @@
         </div>
             <div class="to-date">
                 <label class="filter-label">Até:</label>
-                <input type="date" name="to_date" class="date-input" value="{{ request('to_date') }}">
+                <input type="date" name="to_date" class="date-input" value="{{ request('to_date') }}" min="{{ now()->toDateString() }}">
             </div>
         </div>
     </div>
