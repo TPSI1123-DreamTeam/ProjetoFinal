@@ -1028,7 +1028,9 @@ class EventController extends Controller
                 $query->whereBetween('number_of_participants', [22, 49]);
             } elseif ($availability === 'Esgotado') {
                 $query->where('number_of_participants', '>=', 50);
-            }
+            } elseif ($availability === 'Todos') {
+                $query->where('number_of_participants', '>=', 0);
+            }   
         }
     
         $events = $query->get();

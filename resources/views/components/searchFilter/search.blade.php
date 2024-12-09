@@ -58,6 +58,10 @@
             <input type="radio" name="availability" value="Esgotado" {{ request('availability') == 'Esgotado' ? 'checked' : '' }}>
             Esgotado
         </label>
+        <label class="radio-label">
+            <input type="radio" name="availability" value="Todos" {{ request('availability') == 'Todos' ? 'checked' : '' }}>
+            Todos
+        </label>
     </div>
 </div>
 </form>
