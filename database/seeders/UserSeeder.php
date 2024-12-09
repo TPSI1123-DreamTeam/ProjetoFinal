@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'email'      => 'gil@atec.pt',
             'phone'      => (string) fake()->numberBetween(912345678, 936456789),
             'password'   => Hash::make('123123123'),
-            'image'      => $imagesArray[2],
+            'image'      => 'images/gil.jpg',
             'role_id'    => 2
         ]);
 
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'email'      => 'rafael@atec.pt',
             'phone'      => (string) fake()->numberBetween(912345678, 936456789),
             'password'   => Hash::make('123123123'),
-            'image'      => $imagesArray[4],
+            'image'      => 'images/rafael.jpg',
             'role_id'    => 1          
         ]);
 
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             'email'      => 'pedro@atec.pt',
             'phone'      => (string) fake()->numberBetween(912345678, 936456789),
             'password'   => Hash::make('123123123'),
-            'image'      => $imagesArray[2],
+            'image'      => 'images/pedro.png',
             'role_id'    => 2               
         ]);
 
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
             'email'      => 'vasco@atec.pt',
             'phone'      => (string) fake()->numberBetween(912345678, 936456789),
             'password'   => Hash::make('123123123'),
-            'image'      => $imagesArray[4],
+            'image'      => 'images/vasco.jpg',
             'role_id'    => 3               
         ]);
 
@@ -65,7 +65,7 @@ class UserSeeder extends Seeder
             'email'      => 'rangel@atec.pt',
             'phone'      => (string) fake()->numberBetween(912345678, 936456789),
             'password'   => Hash::make('123123123'),
-            'image'      => $imagesArray[4],
+            'image'      => 'images/rangel.jpg',
             'role_id'    => 3               
         ]);
 
