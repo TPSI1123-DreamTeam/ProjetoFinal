@@ -188,7 +188,7 @@ class EventSeeder extends Seeder
                     DB::table('payments')->insert($paymentsData);
 
 
-                    if( $eventStatus === 'aprovado' ) {
+                    if( $eventStatus === 'concluido' || $eventStatus === 'aprovado' ) {
 
                         // CREATE CURRENT ACCOUNT EVENT PAYMENT
                         $payment = Payment::create([  
@@ -221,7 +221,23 @@ class EventSeeder extends Seeder
                         ]; 
                         
                         $currentAccountId = DB::table('current_accounts')->insert($currentAccount);
-                    }                                    
+                    } else{
+
+                        $currentAccount = [  
+                            'description'            => 'Pagamento Cartão de Crédito - via Stripe',              
+                            'amount'                 => $randomAmount,
+                            'amount_paid'            => 0,
+                            'payment_id'             => 0,
+                            'form_of_payment'        => 'credit_card',
+                            'event_id'               => $event->id,
+                            'status'                 => 1,               
+                            'currency'               => 'eur',
+                            'created_at'             => now(),
+                            'updated_at'             => now()
+                        ]; 
+                        
+                        $currentAccountId = DB::table('current_accounts')->insert($currentAccount);
+                    }                                   
                 }
             }   
         }
