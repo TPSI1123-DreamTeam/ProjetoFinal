@@ -38,5 +38,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('current_accounts');
+        Schema::dropIfExists('current_account_payment');
     }
 };

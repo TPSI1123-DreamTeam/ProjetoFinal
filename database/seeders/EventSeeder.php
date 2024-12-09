@@ -197,7 +197,7 @@ class EventSeeder extends Seeder
                     'currency'               => 'eur'
                 ]; 
                 
-                $currentAccountId = DB::table('current_account')->insert($paymentsData);
+                $currentAccountId = DB::table('current_accounts')->insert($currentAccount);
                                 
                 // CREATE CURRENT ACCOUNT PAYMENT
                 $payment = [  
@@ -215,11 +215,11 @@ class EventSeeder extends Seeder
 
                 $paymentId = DB::table('payments')->insert($payment);
 
-                DB::table('current_account_payment')
-                    ->where('event_id', $event->id)
-                    ->where('user_id', $userId)
-                    ->update([ 'confirmation' => true                            
-                ]);
+                // DB::table('current_account_payment')
+                //     ->where('event_id', $event->id)
+                //     ->where('user_id', $userId)
+                //     ->update([ 'confirmation' => true                            
+                // ]);
             }   
         }
     }
