@@ -18,7 +18,7 @@
         <div class="flex items-center space-x-2 col-span-1">
             <label for="name" class="text-sm font-medium text-gray-700">Nome de Fornecedor</label>
             <input type="text" name="name" id="name"
-                value="{{ isset($formFields['name']) ? $formFields['name'] : '' }}"
+                value="{{ isset($_GET['name']) ? $_GET['name'] : '' }}"
                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
         </div>
 
@@ -26,7 +26,7 @@
         <div class="flex items-center space-x-2 col-span-1">
             <label for="email" class="text-sm font-medium text-gray-700">Email</label>
             <input type="text" name="email" id="email"
-                value="{{ isset($formFields['email']) ? $formFields['email'] : '' }}"
+                value="{{ isset($_GET['email']) ? $_GET['email'] : '' }}"
                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
         </div>
 
@@ -34,7 +34,7 @@
         <div class="flex items-center space-x-2 col-span-1">
             <label for="contact" class="text-sm font-medium text-gray-700">Contacto</label>
             <input type="text" name="contact" id="contact"
-                value="{{ isset($formFields['contact']) ? $formFields['contact'] : '' }}"
+                value="{{ isset($_GET['contact']) ? $_GET['contact'] : '' }}"
                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
         </div>
 
@@ -43,8 +43,8 @@
             <label for="status" class="text-sm font-medium text-gray-700">Estado</label>
             <select name="status" id="status" class="block w-full h-10 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="">Selecione o estado</option>
-                <option value="1" @if(isset($formFields['status']) && $formFields['status'] == '1') selected @endif>Ativo</option>
-                <option value="0" @if(isset($formFields['status']) && $formFields['status'] == '0') selected @endif>Inativo</option>
+                <option value="1" @if(isset($_GET['status']) && $_GET['status'] == '1') selected @endif>Ativo</option>
+                <option value="0" @if(isset($_GET['status']) && $_GET['status'] == '0') selected @endif>Inativo</option>
             </select>
         </div>
 
@@ -56,7 +56,7 @@
                 <option value="">Selecione o Tipo de Fornecedor</option>
                 @foreach ($supplierTypes as $supplierType)
                 <option value="{{ $supplierType->id }}"
-                    {{ isset($formFields['supplier_type_id']) && $formFields['supplier_type_id'] == $supplierType->id ? 'selected' : '' }}>
+                    {{ isset($_GET['supplier_type_id']) && $_GET['supplier_type_id'] == $supplierType->id ? 'selected' : '' }}>
                     {{ $supplierType->name }}
                 </option>
                 @endforeach
@@ -84,7 +84,6 @@
         <a href="{{ url('suppliers/create') }}"><button>Adicionar Fornecedor</button></a>
     </div>
 </div>
-
 <table>
     <thead>
         <tr>
