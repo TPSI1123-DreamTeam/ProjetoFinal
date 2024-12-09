@@ -77,7 +77,7 @@
     <label for="pName">Nº Telefone</label>
     <input class="choose-event" id="search" name="phoneNumber" style="max-width: 200px"/>
     <label for="pName">Email</label>
-    <input class="choose-event" id="search" name="email" style="max-width: 350px"/>
+    <input class="choose-event" id="search" name="email" type="email" required style="max-width: 350px" placeholder="exemplo@dominio.com"/>
     <label hidden for="trueId"></label>
     <input hidden name="trueId" id="search" value="{{ $trueId }}"/>
     <button class="search-participant-btn" type="submit">Adicionar Participante</button>
