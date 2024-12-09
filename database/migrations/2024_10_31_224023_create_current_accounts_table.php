@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('description');
             $table->decimal('amount', 10, 2);
-            $table->string('form_of_payment');     
+            $table->string('form_of_payment')->default('credit_card'); ;     
             $table->foreignId('event_id')->constrained('events');
             $table->boolean('status');
-            $table->string('currency'); // eur - by default
+            $table->string('currency')->default('eur'); // eur - by default
             $table->timestamps();
         });
 

@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('stripe_id');            
-            // $table->foreignId('event_id')->constrained('events');
+            $table->integer('event_id')->nullable(); // this field will be important to know when a ticket was bought
             $table->foreignId('user_id')->constrained('users');
             $table->string('name');
             $table->decimal('amount', 10, 2);
             $table->date('date');
             $table->boolean('status');
+            $table->string('type')->nullable()->default('ticket'); // ticket or event 
             $table->timestamps();
         });
     }

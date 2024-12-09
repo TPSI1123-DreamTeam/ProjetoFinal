@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -135,12 +136,14 @@ class EventSeeder extends Seeder
                     $eventStatus = $arrayEventStatus[rand(0,5)];
                 }
 
+                $fakerCity = fake()->city();
+
                 $event = Event::create([
-                    'name'                   => $arrayCategory[$categoryRandom]['description'],
+                    'name'                   => $arrayCategory[$categoryRandom]['description'].' - '.$fakerCity,
                     'category_id'            => $arrayCategory[$categoryRandom]['id'],
                     'image'                  => $arrayCategory[$categoryRandom]['image'],
                     'description'            => fake()->realText(rand(500,700)),
-                    'localization'           => fake()->city(),
+                    'localization'           => $fakerCity,
                     'start_date'             => $date,
                     'start_time'             => $startTime,
                     'end_date'               => $date,
@@ -155,9 +158,69 @@ class EventSeeder extends Seeder
     
                 $users = User::inRandomOrder()->take($randomUsers)->pluck('id');
                 $event->users()->attach($users);
-            }   
 
+                // Registra um pagamento para cada usuário associado
+                $paymentsData = [];
+                foreach ($users as $userId) {
+                    $paymentsData[] = [
+                        'stripe_id'  => Hash::make($userId),
+                        'user_id'    => $userId,
+                        'event_id'   => $event->id,
+                        'name'       => $event->name,
+                        'amount'     => $ticketAmount, // Supondo que o preço do evento esteja no modelo $event
+                        'status'     => true, // Define o status inicial, pode ser 'completed', etc.
+                        'type'       => 'ticket',
+                        'date'       => $date,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+
+                    //CONFIRMATION OF ATTENDING THE EVENT
+                    DB::table('event_user')
+                    ->where('event_id', $event->id)
+                    ->where('user_id', $userId)
+                    ->update([
+                        'confirmation' => true                            
+                    ]);
+                }
+
+                // Insere os registros de pagamento na tabela 'payments' de forma eficiente
+                DB::table('payments')->insert($paymentsData);
+
+                // CREATE CURRENT ACCOUNT PAYMENT
+                $currentAccount = [  
+                    'description'            => 'Pagamento Cartão de Crédito - via Stripe',              
+                    'amount'                 => $randomAmount,
+                    'form_of_payment'        => 'credit_card',
+                    'event_id'               => $event->id,
+                    'status'                 => true,               
+                    'currency'               => 'eur'
+                ]; 
+                
+                $currentAccountId = DB::table('current_account')->insert($paymentsData);
+                                
+                // CREATE CURRENT ACCOUNT PAYMENT
+                $payment = [  
+                    'stripe_id'  => Hash::make($userId),
+                    'user_id'    => $userId,
+                    'event_id'   => $event->id,
+                    'name'       => $event->name,
+                    'amount'     => $randomAmount, // Supondo que o preço do evento esteja no modelo $event
+                    'status'     => true, // Define o status inicial, pode ser 'completed', etc.
+                    'date'       => $date,
+                    'type'       => 'event_payment',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]; 
+
+                $paymentId = DB::table('payments')->insert($payment);
+
+                DB::table('current_account_payment')
+                    ->where('event_id', $event->id)
+                    ->where('user_id', $userId)
+                    ->update([ 'confirmation' => true                            
+                ]);
+            }   
         }
     }
 }
-
