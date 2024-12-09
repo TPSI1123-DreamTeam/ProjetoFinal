@@ -182,4 +182,77 @@ class PaymentController extends Controller
         return redirect()->back()->with('error', 'Acesso negado.');
     }
 
+    public function checkoutevent(Request $request, Event $event)
+    {
+        // API Key do Stripe
+        \Stripe\Stripe::setApiKey(env('STRIPE_TEST_SK'));
+
+        // event id and value to pay
+        $user   = auth()->user();
+        $event  = Event::findOrFail($event->id);
+        $amount = $event->amount;
+
+        // Change value in cents
+        $amountCents = $amount * 100;
+
+        // Create a new payment request
+        $payment             = new Payment();
+        $payment->stripe_id  = 0;
+        $payment->user_id    = $user->id;
+        $payment->name       = $event->name;
+        $payment->amount     = $event->amount;
+        $payment->status     = false;
+        $payment->type       = 'event_payment';
+        $payment->date       = now();
+        $payment->created_at = now();
+        $payment->save();
+
+        // NEW CHECKOUT SESSION
+        $checkout_session = \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => $event->name,
+                    ],
+                    'unit_amount' => $amountCents,
+                ],
+                'quantity' => 1,
+                ]],
+                'mode'        => 'payment',
+                'success_url' => route('successevent', ['payment' => $payment->id, 'session_id' => '{CHECKOUT_SESSION_ID}', 'event_id' => $event->id]),
+                'cancel_url'  => route('checkout.cancel')
+        ]);
+
+        $paymentId = $request->input('payment');
+        Payment::where('id', $payment->id)->update(['stripe_id' => $checkout_session->id]);    
+
+        DB::table('current_accounts')
+            ->where('event_id', $event->id)
+            ->update([
+                'amount_paid' => $event->amount,
+                'payment_id'  => $payment->id,
+                'status'      => true,
+                'updated_at'  => now()
+        ]);
+
+        return redirect($checkout_session->url);
+    }
+
+    public function successevent(Request $request)
+    {       
+        $paymentId = $request->input('payment');
+        $eventId   = $request->input('event_id');
+        Payment::where('id', $paymentId)->update(['status' => true]);
+        session()->flash('success', 'Pagamento efetuado com sucesso!');
+
+        DB::table('events')
+            ->where('id', $eventId)
+            ->update([           
+                'event_status' => 'aprovado',
+        ]);
+
+        return redirect('/events/owner/'. $eventId.'/edit')->with('status','Pagamento realizado com sucesso!')->with('class', 'alert-success');
+    }
 }

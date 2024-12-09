@@ -82,10 +82,21 @@
                 min="30" max="1000000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" 
                 step="0.01" min="0" >
             </div>
+            <div>
+                <label for="amount_paid">Valor pago</label>
+                <input type="text" class="form-control"  value="{{ $event->current_account->amount_paid ?? 0 }}"  readonly disabled >
+            </div> 
         </div>
         <div class="edit-supplier-btn">
             <a href="{{ url('/schedules/'.$event->id) }}" class="update-supplier-btn">Gerir Agenda do Evento</a> 
-        </div>
+            @php
+             $amountPaid = $event->current_account->amount_paid?? 0;
+            @endphp
+
+            @if( $event->event_status == 'ativo' && $event->start_date > date('Y-m-d') && ( $amountPaid < $event->amount ) )
+                <a href="{{ url('/checkout-event/'.$event->id) }}" class="update-supplier-btn">Pagar Evento</a> 
+            @endif
+        </div>    
         <div class="checkbox-group">
             @php
                 $servicesArray = json_decode($event->services_default_array, true);
