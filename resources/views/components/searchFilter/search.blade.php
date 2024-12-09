@@ -9,10 +9,10 @@
     <div class="event-date-filter">
         <label class="filter-label-title">Filtrar por data:</label>
         <div class="filter-section">
-            <div class="from-date">
-                <label class="filter-label">De:</label>
-                <input type="date" name="from_date" class="date-input" value="{{ request('from_date') }}">
-            </div>
+        <div class="from-date">
+            <label class="filter-label">De:</label>
+            <input type="date" name="from_date" class="date-input" value="{{ request('from_date') }}" min="{{ now()->toDateString() }}">
+        </div>
             <div class="to-date">
                 <label class="filter-label">Até:</label>
                 <input type="date" name="to_date" class="date-input" value="{{ request('to_date') }}">
