@@ -97,7 +97,7 @@ class ParticipantController extends Controller
     public function eliminate(Participant $participant)
     {
         Participant::whereNotNull('id')->delete();
-        return redirect('participants')->with('status','Todas os participantes foram Removidos!');
+        return redirect('participants')->with('status','Todos os participantes foram Removidos!');
     }
 
     // EXCEL FUNCTIONS  //
@@ -214,7 +214,9 @@ class ParticipantController extends Controller
     $event->users()->syncWithoutDetaching([$userModel->id]);
     }
 
-    return redirect()->to('/dashboard');
+    $statusMessage = 'Importação concluída com sucesso!';
+
+    return redirect()->to('/participants')->with('status', $statusMessage);
 
     }
 
@@ -268,7 +270,7 @@ class ParticipantController extends Controller
             }
         }
       //  dd($pivot->pivot);
-        return redirect()->to('/participants');
+        return redirect()->to('/participants')->with('status','Estado do participante alterado com sucesso!');
     }
 
     public function detachParticipant(Request $request)
@@ -285,92 +287,48 @@ class ParticipantController extends Controller
                 $event->users()->detach($user);
             }
 
-            return redirect()->to('/dashboard');
+            return redirect()->to('/participants')->with('status','Participante removido com sucesso!');
 
     }
 
     public function addParticipant(Request $request)
     {
-        //dd($request);
-
-      $name = $request->pName;
-      $number = $request->phoneNumber;
-      $email = $request->email;
-      $trueId = $request->trueId;
-     // dd($request);
-
-        if (($name == null || $name == "") || ($number == null || $number == "") || ($email == null || $email == "")) {
-        $ownerId = Auth::user()->id;
-        $query   = Event::query();
-        $query->where('owner_id',$ownerId);
-        // dd($query);
-        $events = $query->get();
-        $participants = Event::find($request->search);
-
-        return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
+        $name = $request->pName;
+        $number = $request->phoneNumber;
+        $email = $request->email;
+        $trueId = $request->trueId;
+    
+        if (empty($name) || empty($number) || empty($email)) {
+            return redirect()->route('participants.index', ['event_id' => $trueId])
+                             ->with('error', 'Preencha todos os campos obrigatórios!');
         }
-        else
-        {
-            $user = User::where('email', $email)->first();
-            $events = Event::where('id', $trueId)->first();
-           // dd($user);
-            if ($user != null) {
-                $isInEvent = $user->events()->where('event_id', $trueId)->exists(); // Verifica se o user pertence ao evento
-                                                                                    // e dá return de true ou false
-                // dd($isInEvent);
-                if ($user != null && $isInEvent)
-                {
-                // User existe e pertence ao evento - Não adiciona
-                $ownerId = Auth::user()->id;
-                $query   = Event::query();
-                $query->where('owner_id',$ownerId);
-                // dd($query);
-                $events = $query->get();
-                $participants = Event::find($request->search);
-                return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
-                }
-                elseif ($user != null && !$isInEvent)
-                {
-                // User existe e adiciona o user ao evento
-                $event = Event::where('id', $trueId)->first();
+    
+        $user = User::where('email', $email)->first();
+        $event = Event::where('id', $trueId)->first();
+    
+        if ($user) {
+            $isInEvent = $user->events()->where('event_id', $trueId)->exists();
+            if ($isInEvent) {
+                return redirect()->route('participants.index', ['event_id' => $trueId])
+                                 ->with('error', 'Participante já associado ao evento!');
+            } else {
                 $event->users()->syncWithoutDetaching([$user->id]);
-
-                $ownerId = Auth::user()->id;
-                $query   = Event::query();
-                $query->where('owner_id',$ownerId);
-                // dd($query);
-                $events = $query->get();
-                $participants = Event::find($request->search);
-                return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
-                }
+                return redirect()->route('participants.index', ['event_id' => $trueId])
+                                 ->with('status', 'Participante já registado adicionado ao evento!');
             }
-            else
-            {
-                // User não existe. USer é criado e adicionado ao evento
-                $defaultImg = 'public/images/noimage_default.jpg';
-                $userModel = User::Create(
-                    [                           // Preencher os campos caso o usuário não exista
-                        'name' => $name,
-                        'image' => $defaultImg, //  usado para testar na parte da imagem par não dar erro
-                        'phone' => strval($number),
-                        'email' => $email,
-                        'password' => 'Teste123#',  // <--- Convém notificar new users disto
-                    ]
-                );
-              //  dd($userModel);
-                // Associar o user ao evento
-               $event = Event::where('id', $trueId)->first();
-               $event->users()->syncWithoutDetaching([$userModel->id]);
-
-               $ownerId = Auth::user()->id;
-                $query   = Event::query();
-                $query->where('owner_id',$ownerId);
-                // dd($query);
-                $events = $query->get();
-                $participants = Event::find($request->search);
-                return view('pages.participants.index', ['participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
-            }
+        } else {
+            $defaultImg = 'public/images/noimage_default.jpg';
+            $userModel = User::create([
+                'name' => $name,
+                'image' => $defaultImg,
+                'phone' => strval($number),
+                'email' => $email,
+                'password' => bcrypt('Teste123#'), // Melhor prática
+            ]);
+    
+            $event->users()->syncWithoutDetaching([$userModel->id]);
+            return redirect()->route('participants.index', ['event_id' => $trueId])
+                             ->with('warning', 'Participante registado e associado ao evento! Forneça a senha "Teste123#" ao participante para que possa aceder à sua conta.');
         }
-
     }
 }
