@@ -6,7 +6,7 @@ use App\Models\Event;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromArray;
 
-class EventsbyParticipantExport implements FromArray{
+class EventsByParticipantExport implements FromArray{
 
     protected $newExcelArray;
 
