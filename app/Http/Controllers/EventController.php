@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\SupplierType;
 use App\Models\User;
+use App\Models\Payment;
 use App\Exports\EventsbyownerExport;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreEventRequest;
@@ -57,7 +58,14 @@ class EventController extends Controller
         if($owner->role_id == 3){
 
             $Category   = Category::all();
-            $events     = Event::where('owner_id', $owner->id)->orderBy('start_date', 'desc')->get();
+            $events     = Event::where('owner_id', $owner->id)
+                ->whereNotIn('event_status', ['cancelado', 'recusado'])
+                ->withSum(['ticketPayments' => function ($query) {
+                    $query->where('type', 'ticket')->where('status', 1);
+                }], 'amount') // Substitua 'amount' pelo nome da coluna que contém o valor do pagamento
+                ->orderBy('start_date', 'desc')
+                ->get();
+
             $formFields = array();
 
             return view('pages.events.owner.report', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -451,7 +459,7 @@ class EventController extends Controller
     public function store(StoreEventRequest $request)
     {
         // Fields validations now will be returned from  StoreEventRequest
-        $owner_id = Auth::user()->id;
+        $owner = Auth::user();
 
         $event = Event::create([
             'name'                   => $request->name,
@@ -459,7 +467,7 @@ class EventController extends Controller
             'localization'           => $request->localization,
             'start_date'             => $request->start_date,
             'end_date'               => $request->end_date,
-            'owner_id'               => $owner_id,
+            'owner_id'               => $owner->id,
             'category_id'            => $request->category_id,
             'type'                   => $request->type,
             'amount'                 => "0.00",
@@ -485,6 +493,11 @@ class EventController extends Controller
             $update->save();
         }
 
+        if($owner->role_id == 4 && $event->id > 0){
+            $user = User::find($owner->id);
+            $user->role_id = 3;
+            $user->save();
+        }
 
 
         return redirect('/dashboard')->with('success', 'Evento criado com sucesso!')->with('class', 'bg-green-500 text-white');
@@ -614,9 +627,6 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event) //UpdateEventRequest
     {
-
-       //dd($request);
-
         // only can update: owner and manager
         $AuthUser = Auth::user();
 
@@ -724,8 +734,6 @@ class EventController extends Controller
 
     public function exportbyowner(Request $request)
     {
-        //dd($request);
-
         $AuthUser = Auth::user();
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id === 3 ){
@@ -786,8 +794,6 @@ class EventController extends Controller
 
     public function exportbymanager(Request $request)
     {
-        dd($request);
-
         $AuthUser = Auth::user();
 
         if($AuthUser->role_id === 2 ){
@@ -999,8 +1005,6 @@ class EventController extends Controller
         $name = $request->search;
         $startDate = $request->datepicker1;
         $endDate = $request->datepicker2;
-       // dd($endDate);
-
 
         if (($startDate == null && $endDate == null) && $name == null)
 
@@ -1109,7 +1113,7 @@ class EventController extends Controller
     {
         $AuthUser = Auth::user();
 
-        if($AuthUser->role_id === 4 ){
+        if($AuthUser->role_id === 4 || $AuthUser->role_id === 3 ){
 
             //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
             $eventIdsArray  = explode(',', $request->event_ids);
@@ -1137,7 +1141,7 @@ class EventController extends Controller
                 $key++;
             }
 
-            return Excel::download(new EventsByParticipantExport($excelArray), 'ParticipantEventList.xlsx');
+            return Excel::download(new EventsByParticipantExport($excelArray), 'EventList.xlsx');
         }
     }
 

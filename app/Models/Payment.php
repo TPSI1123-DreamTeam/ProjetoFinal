@@ -34,5 +34,6 @@ class Payment extends Model
         return $this->belongsToMany(CurrentAccount::class);
     }
 
+
     
 }

@@ -28,7 +28,7 @@ class PaymentController extends Controller
     public function checkout(Request $request, Event $event)
     {
         // API Key do Stripe
-        \Stripe\Stripe::setApiKey(config('services.stripe.test'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         // event id and value to pay
         $user   = auth()->user();
@@ -161,7 +161,7 @@ class PaymentController extends Controller
     public function downloadPaymentList(Request $request)
     {
         $AuthUser = Auth::user();
-        if ($AuthUser->role_id === 4) {
+        if ($AuthUser->role_id === 4 || $AuthUser->role_id === 3) {
 
             // Obter os IDs dos pagamentos
             $paymentIdsArray = explode(',', $request->payment_ids);
@@ -200,7 +200,7 @@ class PaymentController extends Controller
     public function checkoutevent(Request $request, Event $event)
     {
         // API Key do Stripe
-        \Stripe\Stripe::setApiKey(config('services.stripe.test'));
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
         // event id and value to pay
         $user   = auth()->user();

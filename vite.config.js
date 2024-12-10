@@ -16,7 +16,6 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/dropdown-header.js',
                 'resources/js/change-sidebar.js',
-                'resources/js/hidder.js',
                 'resources/js/dropdownEvent.js',
                 'resources/js/fadeInTitle.js',
                 'resources/js/carouselEvent.js',
