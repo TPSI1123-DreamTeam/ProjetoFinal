@@ -43,8 +43,7 @@ return [
 
     'stripe' => [
         'public' => env('STRIPE_PUBLIC'),
-        'secret' => env('STRIPE_SECRET'),
-        'test'   => env('STRIPE_TEST_SK')
+        'secret' => env('STRIPE_SECRET')
     ],
 
 ];
