@@ -7,6 +7,13 @@
     </div>
 @endif
 
+@if(session('error'))
+    <div id="error-notification" 
+         class="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+        {{ session('error') }}
+    </div>
+@endif
+
 @php
     $today = now()->toDateString();
 @endphp
