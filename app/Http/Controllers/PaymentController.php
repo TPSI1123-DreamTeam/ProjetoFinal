@@ -49,22 +49,28 @@ class PaymentController extends Controller
         $payment->save();
 
         // NEW CHECKOUT SESSION
-        $checkout_session = \Stripe\Checkout\Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'eur',
-                    'product_data' => [
-                        'name' => $event->name,
+        try {
+            $checkout_session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => $event->name,
+                        ],
+                        'unit_amount' => $amountCents,
                     ],
-                    'unit_amount' => $amountCents,
-                ],
-                'quantity' => 1,
+                    'quantity' => 1,
                 ]],
                 'mode' => 'payment',
                 'success_url' => route('success', ['payment' => $payment->id, 'session_id' => '{CHECKOUT_SESSION_ID}']),
-            'cancel_url' => route('checkout.cancel')
-        ]);
+                'cancel_url' => route('checkout.cancel')
+            ]);
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            // Captura o erro e regista
+            \Log::error('Stripe Error: ' . $e->getMessage());
+            return back()->withErrors('Erro no pagamento. Por favor, tente novamente.');
+        }
 
         $paymentId = $request->input('payment');
         Payment::where('id', $payment->id)->update(['stripe_id' => $checkout_session->id]);
