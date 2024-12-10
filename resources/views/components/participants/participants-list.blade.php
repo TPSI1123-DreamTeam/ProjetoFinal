@@ -45,10 +45,10 @@
         @endforeach
         @endif
         </select>
-        <button class="search-participant-btn" type="submit">Search</button>
+        <button class="search-participant-btn" type="submit">Procurar</button>
         @if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
             <form>
-                <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Export</a>
+                <a class="export-btn" href="{{url('participants/export/' . $participants->id)}}">Exportar</a>
             </form>
         @endif
     </div>
