@@ -53,7 +53,7 @@
         <p>Por favor selecione um evento</p>
     </div>
 @else
-    @if ( $invitation != null)
+    @if ( $invitation !== null)
         <p>Convite:</p>
         <p> {{ $invitation->title }}</p>
         <img src="{{ asset($invitation->image) }}" >
