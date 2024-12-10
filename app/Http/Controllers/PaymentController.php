@@ -76,19 +76,6 @@ class PaymentController extends Controller
         Payment::where('id', $payment->id)->update(['stripe_id' => $checkout_session->id]);
 
 
-        // ASSOCIATE USER TO THE EVENT
-        $usersToAssoc = User::find($user->id);
-        $event->users()->attach($usersToAssoc);
-
-        // CONFIRMATION OF ATTENDING THE EVENT
-        DB::table('event_user')
-            ->where('event_id', $event->id)
-            ->where('user_id', $usersToAssoc->id)
-            ->update([
-                'confirmation' => true
-
-        ]);
-
         return redirect($checkout_session->url);
     }
 
@@ -100,7 +87,23 @@ class PaymentController extends Controller
         Payment::where('id', $paymentId)->update(['status' => true]);
         session()->flash('success', 'Pagamento efetuado com sucesso!');
 
-        return view('welcome');
+        $payment = Payment::find($paymentId);
+        $user    = auth()->user();
+
+        // ASSOCIATE USER TO THE EVENT
+        $usersToAssoc = User::find($user->id);
+        $event->users()->attach($usersToAssoc);
+
+        // CONFIRMATION OF ATTENDING THE EVENT
+        DB::table('event_user')
+            ->where('event_id', $payment->event_id)
+            ->where('user_id', $usersToAssoc->id)
+            ->update([
+                'confirmation' => true
+
+        ]);
+
+        return redirect()->route('events.public');
     }
 
     public function cancel(Request $request)
