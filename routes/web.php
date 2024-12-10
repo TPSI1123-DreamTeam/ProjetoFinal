@@ -78,7 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout-event/{event}', [PaymentController::class, 'checkoutevent'])->name('checkoutevent');
     Route::get('success', [PaymentController::class, 'success'])->name('success');
     Route::get('successevent', [PaymentController::class, 'successevent'])->name('successevent');
-    Route::get('/checkout/cancel', function () {return 'Pagamento cancelado!';})->name('checkout.cancel');
+    Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
     Route::get('/payment-list', [PaymentController::class, 'list']);
     Route::get('/searchPayments', [PaymentController::class, 'searchPayments']);
 
