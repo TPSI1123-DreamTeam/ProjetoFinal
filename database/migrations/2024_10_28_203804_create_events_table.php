@@ -26,7 +26,7 @@ return new class extends Migration
             $table->decimal('ticket_amount', 10, 2)->nullable();
             $table->string('image')->nullable(); 
             $table->integer('owner_id')->nullable();
-            $table->integer('manager_id')->nullable();  
+            $table->integer('manager_id')->default(0);  
             $table->foreignId('category_id')->constrained()->nullable();
             $table->integer('number_of_participants')->nullable();
             $table->boolean('event_confirmation')->default(false);
