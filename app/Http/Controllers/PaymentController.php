@@ -107,9 +107,9 @@ class PaymentController extends Controller
     {
         $paymentId = $request->input('payment');
         Payment::where('id', $paymentId)->update(['status' => false]);
+        Payment::where('id', $paymentId)->delete();
         session()->flash('error', 'Pagamento cancelado!');
-
-        return view('welcome');
+        return redirect()->route('events.public');
     }
 
     public function searchPayments(Request $request)
