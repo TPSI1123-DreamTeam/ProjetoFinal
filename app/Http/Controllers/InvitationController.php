@@ -204,13 +204,11 @@ class InvitationController extends Controller
         $trueId = $participants->id;    // $trueId guarda o id do evento escolhido na pesquisa
         $queryI   = Invitation::query();
        $invitation = $queryI->where('event_id',$trueId)->first();
-       
+
        if ($invitation != null) {
         return view('pages.invitations.index', ['invitation' => $invitation, 'participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
        } else {
         return view('pages.invitations.index', ['invitation' => null, 'participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
        }
-
-
     }
 }
