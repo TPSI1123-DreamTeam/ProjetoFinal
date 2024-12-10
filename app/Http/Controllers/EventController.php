@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\SupplierType;
 use App\Models\User;
+use App\Models\Payment;
 use App\Exports\EventsbyownerExport;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreEventRequest;
@@ -57,7 +58,14 @@ class EventController extends Controller
         if($owner->role_id == 3){
 
             $Category   = Category::all();
-            $events     = Event::where('owner_id', $owner->id)->orderBy('start_date', 'desc')->get();
+            $events     = Event::where('owner_id', $owner->id)
+                ->whereNotIn('event_status', ['cancelado', 'recusado'])
+                ->withSum(['ticketPayments' => function ($query) {
+                    $query->where('type', 'ticket')->where('status', 1);
+                }], 'amount') // Substitua 'amount' pelo nome da coluna que contém o valor do pagamento
+                ->orderBy('start_date', 'desc')
+                ->get();
+
             $formFields = array();
 
             return view('pages.events.owner.report', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -619,9 +627,6 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event) //UpdateEventRequest
     {
-
-       //dd($request);
-
         // only can update: owner and manager
         $AuthUser = Auth::user();
 
@@ -727,8 +732,6 @@ class EventController extends Controller
 
     public function exportbyowner(Request $request)
     {
-        //dd($request);
-
         $AuthUser = Auth::user();
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id === 3 ){
@@ -789,8 +792,6 @@ class EventController extends Controller
 
     public function exportbymanager(Request $request)
     {
-        dd($request);
-
         $AuthUser = Auth::user();
 
         if($AuthUser->role_id === 2 ){
@@ -995,16 +996,13 @@ class EventController extends Controller
 
     public function eventsFilter(Request $request)
     {
-        $user   = auth()->user();
-     //   $events = $user->events()->distinct()->get();
+        $user      = auth()->user();
         $allEvents = $user->events()->distinct()->get();
 
 
         $name = $request->search;
         $startDate = $request->datepicker1;
         $endDate = $request->datepicker2;
-       // dd($endDate);
-
 
         if (($startDate == null && $endDate == null) && $name == null)
 

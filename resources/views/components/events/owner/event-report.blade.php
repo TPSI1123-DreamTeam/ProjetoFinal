@@ -24,20 +24,9 @@
             </div> 
         </div>    
     </div>    
-    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-        <div class="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3">
-            <dl>
-                <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Lucros</dt>
-                <dd class="leading-none text-3xl font-bold text-gray-900 dark:text-white">5.405,00€</dd>
-            </dl>
-            <div>
-                <span class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
-                    <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
-                    </svg>
-                    Percentagem 23.5%
-                </span>
-            </div>
+    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4">
+        <div class="flex justify-between border-gray-200 border-b dark:border-gray-700">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Análise Financeira</h5>    
         </div>
         <div id="bar-chart"></div> 
     </div>
@@ -169,8 +158,8 @@ const getMonthYear = (dateStr) => {
 const fixedMonths = ["2024-08", "2024-09", "2024-10", "2024-11", "2024-12","2025-01"];
 
 // Categorias de status
-const group1Statuses = ["ativo", "recusado", "pendente", "concluido"];
-const group2Statuses = ["cancelado"];
+const group1Statuses = ["pendente","ativo","aprovado","concluido"];
+const group2Statuses = ["cancelado", "recusado"];
 
 // Inicializar objeto com meses fixos
 const monthlyAmounts = fixedMonths.reduce((acc, month) => {
@@ -178,17 +167,24 @@ const monthlyAmounts = fixedMonths.reduce((acc, month) => {
     return acc;
 }, {});
 
+
+console.log(eventsDataFinance);
+
 // Agrupar os valores dos eventos
 eventsDataFinance.forEach(event => {
     const monthYear = getMonthYear(event.start_date);
     const amount = parseFloat(event.amount || 0);
+    const ticket_payments_sum_amount = parseFloat(event.ticket_payments_sum_amount || 0);
+
+    
 
     // Verificar se o mês é um dos meses fixos
     if (monthlyAmounts[monthYear]) {
-        if (group1Statuses.includes(event.event_status)) {
-            monthlyAmounts[monthYear].group1 += amount;
-        } else if (group2Statuses.includes(event.event_status)) {
+        if (group1Statuses.includes(event.event_status) && event.type === 'publico') {
+            monthlyAmounts[monthYear].group1 += ticket_payments_sum_amount;
             monthlyAmounts[monthYear].group2 += amount;
+        } else if (group2Statuses.includes(event.event_status)) {
+            //monthlyAmounts[monthYear].group2 += amount;
         }
     }
 });
@@ -197,10 +193,6 @@ eventsDataFinance.forEach(event => {
 const labels = fixedMonths; // Meses fixos como rótulos
 const group1Data = labels.map(label => monthlyAmounts[label].group1);
 const group2Data = labels.map(label => monthlyAmounts[label].group2);
-
-console.log(group1Data)
-console.log(group2Data)
-console.log(monthlyAmounts)
 
 const options = {
   series: [

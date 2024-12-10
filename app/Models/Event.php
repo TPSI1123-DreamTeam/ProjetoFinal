@@ -67,4 +67,13 @@ class Event extends Model
 
         return $this->belongsToMany(Schedule::class,'event_schedule')->withPivot('id');
     }
+
+    
+    public function ticketPayments()
+    {
+        return $this->hasMany(Payment::class)
+                    ->where('type', 'ticket')
+                    ->where('status', 1);
+    }
+
 }
