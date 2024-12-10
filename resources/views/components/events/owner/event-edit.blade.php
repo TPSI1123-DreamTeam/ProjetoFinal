@@ -74,7 +74,7 @@
                 <label for="number_of_participants">Custo do Evento</label>
                 <input type="text" class="form-control" name="amount"  id="amount" value="{{ $event->amount }}" 
                 min="30" max="1000000" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" 
-                step="0.01" min="0" >
+                step="0.01" min="0" disabled >
             </div>
             <div>
                 <label for="ticket_amount">Custo do Bihete (Quando Aplicável)</label>
@@ -114,7 +114,7 @@
         </div>
         <div class="edit-event-back-btn">
             <a href="/events/owner" class="go-back-btn">Voltar à lista de eventos</a>
-            <button type="submit" class="update-event-btn">Atualizar Evento</button>  
+            <button type="submit" class="update-supplier-event">Atualizar Evento</button>  
         </div>
     </form>
 </div>
