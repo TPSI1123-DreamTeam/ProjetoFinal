@@ -85,7 +85,8 @@ tbody tr td a button {
 .event-input-list {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 15px;
+    margin: 5px;
     width: 446px;
 }
 
@@ -191,6 +192,38 @@ tbody tr td a button {
     align-items: flex-end;
 }
 
+.search-participant-event {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.choose-event-participant {
+    width: auto;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+    margin: 0 auto;
+}
+
+.date-picker-participant {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
 @media (max-width: 1555px) {
     table {
         width: 100% !important;
@@ -211,7 +244,7 @@ tbody tr td a button {
     }
 
     .event-input-list {
-        width: 100%;
+        width: auto;
     }
 
     .linha-divisoria-event-manager {
