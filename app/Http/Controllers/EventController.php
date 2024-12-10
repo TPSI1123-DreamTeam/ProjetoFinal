@@ -409,7 +409,14 @@ class EventController extends Controller
      */
     public function public()
     {
-        $events = Event::where('type', 'publico')->get();
+        
+        $query = Event::query();
+        $query->where('start_date', '>=', now()->toDateString());
+        $query->where('event_status', 'aprovado');
+        $query->where('type', 'publico');
+
+        $events = $query->get();
+
         return view('pages.events.public', ['events' => $events]);
     }
 
@@ -1062,10 +1069,12 @@ class EventController extends Controller
 
     public function search(Request $request)
     {
+
         $query = Event::query();
 
-        // Apenas eventos com data posterior ou igual à atual
         $query->where('start_date', '>=', now()->toDateString());
+        $query->where('event_status', 'aprovado');
+        $query->where('type', 'publico');
     
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->input('search') . '%');
@@ -1082,26 +1091,21 @@ class EventController extends Controller
         if ($request->filled('event_type') && $request->input('event_type') !== 'Todos') {
             $query->where('category_id', $request->input('event_type'));
         }
-    
-        if ($request->filled('availability')) {
-            $availability = $request->input('availability');
-            if ($availability === 'Disponível') {
-                $query->where('number_of_participants', '<', 22);
-            } elseif ($availability === 'Quase Esgotado') {
-                $query->whereBetween('number_of_participants', [22, 49]);
-            } elseif ($availability === 'Esgotado') {
-                $query->where('number_of_participants', '>=', 50);
-            } elseif ($availability === 'Todos') {
-                $query->where('number_of_participants', '>=', 0);
-            }
-        }
-    
+
         $events = $query->get();
+
     
         if ($events->isEmpty()) {
+            $query = Event::query();
             session()->flash('no_results', 'Não foram encontrados eventos para os parâmetros de pesquisa fornecidos.');
-            Event::where('start_date', '>=', now()->toDateString())->get();
+            $query->where('start_date', '>=', now()->toDateString());
+            $query->where('event_status', 'aprovado');
+            $query->where('type', 'publico'); 
+            $events = $query->get(); 
         }
+
+        
+
     
         return view('pages.events.public', compact('events'));
     }
