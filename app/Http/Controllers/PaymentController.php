@@ -106,9 +106,27 @@ class PaymentController extends Controller
     public function cancel(Request $request)
     {
         $paymentId = $request->input('payment');
-        Payment::where('id', $paymentId)->update(['status' => false]);
-        Payment::where('id', $paymentId)->delete();
-        session()->flash('error', 'Pagamento cancelado!');
+        $payment = Payment::find($paymentId);
+    
+        if ($payment) {
+            $eventId = DB::table('event_user')
+                ->where('user_id', $payment->user_id)
+                ->where('confirmation', true)
+                ->value('event_id');
+    
+            if ($eventId) {
+                // Desassociar o utilizador do evento
+                DB::table('event_user')
+                    ->where('event_id', $eventId)
+                    ->where('user_id', $payment->user_id)
+                    ->delete();
+            }
+    
+            // Apagar o pagamento
+            $payment->delete();
+        }
+    
+        session()->flash('error', 'Pagamento cancelado e associação ao evento removida!');
         return redirect()->route('events.public');
     }
 

@@ -41,30 +41,7 @@
             </label>
         </div>
     </div>
-
-<!-- Disponibilidade -->
-<div class="event-availability-filter">
-    <label class="filter-label-availability">Disponibilidade:</label>
-    <div class="filter-section availability">
-        <label class="radio-label">
-            <input type="radio" name="availability" value="Disponível" {{ request('availability') == 'Disponível' ? 'checked' : '' }}>
-            Disponível
-        </label>
-        <label class="radio-label">
-            <input type="radio" name="availability" value="Quase Esgotado" {{ request('availability') == 'Quase Esgotado' ? 'checked' : '' }}>
-            Quase Esgotado
-        </label>
-        <label class="radio-label">
-            <input type="radio" name="availability" value="Esgotado" {{ request('availability') == 'Esgotado' ? 'checked' : '' }}>
-            Esgotado
-        </label>
-        <label class="radio-label">
-            <input type="radio" name="availability" value="Todos" {{ request('availability') == 'Todos' ? 'checked' : '' }}>
-            Todos
-        </label>
-    </div>
-</div>
-</form>
+    </form>
 
 
 <script>
