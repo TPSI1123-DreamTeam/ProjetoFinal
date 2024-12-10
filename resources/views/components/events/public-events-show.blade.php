@@ -15,24 +15,24 @@
 <div class="container-swiper swiper">
     <div class="card-wrapper">
         <ul class="card-list swiper-wrapper">
-            @foreach($events as $event)
-                @if($event->start_date >= $today)
-                    <li class="card-item swiper-slide">
-                        <a href="#" class="card-link" 
-                           eventId="{{$event->id}}" 
-                           data-category="{{$event->category->description}}"
-                           data-name="{{$event->name}}"
-                           data-description="{{$event->description}}"
-                           data-location="{{$event->localization}}"
-                           data-start-date="{{$event->start_date}}"
-                           data-amount="{{$event->ticket_amount}}"
-                           data-availability="{{$event->availability}}"
-                           data-image="{{ asset('images/' . $event->image) }}">
-                           <img src="{{ asset('images/' . $event->image) }}" alt="Evento" class="card-image">
-                        </a>
-                    </li>
-                @endif
-            @endforeach
+        @foreach($events as $event)
+            @if($event->start_date >= $today && $event->event_status === 'ativo')
+                <li class="card-item swiper-slide">
+                <a href="#" class="card-link" 
+                eventId="{{$event->id}}" 
+               data-category="{{$event->category->description}}"
+               data-name="{{$event->name}}"
+               data-description="{{$event->description}}"
+               data-location="{{$event->localization}}"
+               data-start-date="{{$event->start_date}}"
+               data-amount="{{$event->ticket_amount}}"
+               data-availability="{{$event->availability}}"
+               data-image="{{ asset('images/' . $event->image) }}">
+               <img src="{{ asset('images/' . $event->image) }}" alt="Evento" class="card-image">
+            </a>
+        </li>
+        @endif
+        @endforeach
         </ul>
         <div class="swiper-pagination"></div>
         <div class="swiper-slide-button swiper-button-prev"></div>
