@@ -60,7 +60,7 @@ class Event extends Model
 
     public function invitation(): HasOne
     {
-        return $this->hasOne(invitation::class);
+        return $this->hasOne(Invitation::class);
     }
 
     public function schedules(): BelongsToMany{
@@ -68,7 +68,7 @@ class Event extends Model
         return $this->belongsToMany(Schedule::class,'event_schedule')->withPivot('id');
     }
 
-    
+
     public function ticketPayments()
     {
         return $this->hasMany(Payment::class)
