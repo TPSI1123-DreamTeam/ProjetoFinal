@@ -27,6 +27,13 @@
             </div>
         @endif
 
+        
+        @if(session('error'))
+            <div id="success-notification" class="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <main class="content">
             <h1 class="cssanimation sequence leFadeInTop">PRIME TIME EVENTS</h1>
             <a href="https://shattereddisk.github.io/rickroll/rickroll.mp4"  style="opacity: 0.1; height: 1%;">_</a>

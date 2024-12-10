@@ -64,7 +64,7 @@ class PaymentController extends Controller
                 ]],
                 'mode' => 'payment',
                 'success_url' => route('success', ['payment' => $payment->id, 'session_id' => '{CHECKOUT_SESSION_ID}']),
-                'cancel_url' => route('checkout.cancel')
+                'cancel_url' => route('cancel')
             ]);
         } catch (\Stripe\Exception\ApiErrorException $e) {
             // Captura o erro e regista
@@ -99,6 +99,15 @@ class PaymentController extends Controller
         $paymentId = $request->input('payment');
         Payment::where('id', $paymentId)->update(['status' => true]);
         session()->flash('success', 'Pagamento efetuado com sucesso!');
+
+        return view('welcome');
+    }
+
+    public function cancel(Request $request)
+    {
+        $paymentId = $request->input('payment');
+        Payment::where('id', $paymentId)->update(['status' => false]);
+        session()->flash('error', 'Pagamento cancelado!');
 
         return view('welcome');
     }
