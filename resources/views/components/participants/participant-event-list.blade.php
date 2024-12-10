@@ -8,8 +8,8 @@
  <form action="/eventsFilter" method="GET" class="search-participant-event">
     <!-- Campo 1 -->
     <select class="choose-event-participant" id="search" name="search">
-        @foreach ($allEvents as $event)
-            <option value="{{ $event->name }}" {{ request()->input('search') == $event->name ? 'selected' :'' }}>{{ $event->name }}</option>
+        @foreach ($allEvents as $item)
+            <option value="{{ $item->description }}" {{ request()->input('search') == $item->description ? 'selected' :'' }}>{{ $item->description }}</option>
         @endforeach
     </select>
 
@@ -65,10 +65,16 @@
     </tbody>
 </table>
 
+<div>
+    @if (!$events)
+
+    @else
+    {{ $events->links() }}
+    @endif
+</div>
+
+
 @vite('resources/js/orderTable.js')
 
-{{-- <div class="pagination-user-list">
-    {{ $events -> links()}}
-</div> --}}
 
 

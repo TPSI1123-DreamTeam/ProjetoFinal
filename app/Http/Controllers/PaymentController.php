@@ -123,14 +123,14 @@ class PaymentController extends Controller
        if(($startDate == null && $endDate == null) && $name == null) {
 
             $paySearch = ['user_id' => $user->id];
-            $payments = Payment::where($paySearch)->get();
+            $payments = Payment::where($paySearch)->paginate(10);
 
             return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
 
         } elseif (($startDate == null && $endDate == null)) {
 
             $paySearch = ['user_id' => $user->id, 'name' => $name];
-            $payments = Payment::where($paySearch)->get();
+            $payments = Payment::where($paySearch)->paginate(10);
 
             return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
 
@@ -142,7 +142,7 @@ class PaymentController extends Controller
                 $paySearch = ['user_id' => $user->id, 'name' => $name, 'date' => $startDate];
             }
 
-            $payments = Payment::where($paySearch)->get();
+            $payments = Payment::where($paySearch)->paginate(10);
             return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
 
         } elseif (($startDate != null || $endDate != null) && $name == null) {
@@ -153,7 +153,7 @@ class PaymentController extends Controller
                 $paySearch = ['user_id' => $user->id, 'date' => $startDate];
             }
 
-            $payments = Payment::where($paySearch)->get();
+            $payments = Payment::where($paySearch)->paginate(10);
             return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
         }
     }
@@ -241,7 +241,7 @@ class PaymentController extends Controller
         ]);
 
         $paymentId = $request->input('payment');
-        Payment::where('id', $payment->id)->update(['stripe_id' => $checkout_session->id]);    
+        Payment::where('id', $payment->id)->update(['stripe_id' => $checkout_session->id]);
 
         DB::table('current_accounts')
             ->where('event_id', $event->id)
@@ -256,7 +256,7 @@ class PaymentController extends Controller
     }
 
     public function successevent(Request $request)
-    {       
+    {
         $paymentId = $request->input('payment');
         $eventId   = $request->input('event_id');
         Payment::where('id', $paymentId)->update(['status' => true]);
@@ -264,7 +264,7 @@ class PaymentController extends Controller
 
         DB::table('events')
             ->where('id', $eventId)
-            ->update([           
+            ->update([
                 'event_status' => 'aprovado',
         ]);
 

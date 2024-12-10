@@ -703,8 +703,10 @@ class EventController extends Controller
     public function eventsbyparticipant()
     {
         $user   = auth()->user();
-        $events = $user->events()->distinct()->get();
-        $allEvents = $user->events()->distinct()->get();
+        $events = $user->events()->paginate(5);
+        // dd($events);
+        // $allEvents = $user->events()->distinct()->get();
+        $allEvents = Category::all();
 
         return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
     }
@@ -742,20 +744,20 @@ class EventController extends Controller
              $excelArray[0]["Hora de Fim"]        = "Hora de Fim";
              $excelArray[0]["Tipo de Evento"]     = "Tipo de Evento";
              $excelArray[0]["Custo do Evento"]    = "Custo do Evento";
-             $excelArray[0]["Pagamentos"]         = "Pagamentos";     
+             $excelArray[0]["Pagamentos"]         = "Pagamentos";
              $excelArray[0]["Bilhete"]            = "Bilhete";
              $excelArray[0]["Proprietário"]       = "Proprietário";
              $excelArray[0]["Categoria"]          = "Categoria";
              $excelArray[0]["Nº participantes"]   = "Nº participantes";
              $excelArray[0]["Estado"]             = "Estado"  ;
              $excelArray[0]["Data da Criação"]    = "Data da Criação";
- 
+
              $key = 1;
              foreach ($events as $event) {
- 
+
                  $owner    = User::find($event->owner_id);
                  $category = Category::find($event->category_id);
- 
+
                  $excelArray[$key]["Nº"]                 = $event->id;
                  $excelArray[$key]["Nome"]               = $event->name;
                  $excelArray[$key]["Localização"]        = $event->localization;
@@ -772,10 +774,10 @@ class EventController extends Controller
                  $excelArray[$key]["Nº participantes"]   = $event->number_of_participants;
                  $excelArray[$key]["Estado"]             = $event->event_status;
                  $excelArray[$key]["Data da Criação"]    = date('Y-m-d', strtotime($event->created_at));
- 
+
                  $key++;
              }
- 
+
              return Excel::download(new EventsbymanagerExport($excelArray), 'OwnerEventReport.xlsx');
 
             //return (new EventsbyownerExport($AuthUser->id))->download('events.xlsx');
@@ -806,7 +808,7 @@ class EventController extends Controller
             $excelArray[0]["Tipo de Evento"]     = "Tipo de Evento";
             $excelArray[0]["Custo do Evento"]    = "Custo do Evento";
             $excelArray[0]["Custo dos Serviços"] = "Custo dos Serviços";
-            $excelArray[0]["Pagamentos"]         = "Pagamentos";    
+            $excelArray[0]["Pagamentos"]         = "Pagamentos";
             $excelArray[0]["Bilhete"]            = "Bilhete";
             $excelArray[0]["Proprietário"]       = "Proprietário";
             $excelArray[0]["Categoria"]          = "Categoria";
@@ -992,8 +994,7 @@ class EventController extends Controller
     {
         $user   = auth()->user();
      //   $events = $user->events()->distinct()->get();
-        $allEvents = $user->events()->distinct()->get();
-
+        $allEvents = Category::all();
 
         $name = $request->search;
         $startDate = $request->datepicker1;
@@ -1004,7 +1005,7 @@ class EventController extends Controller
         if (($startDate == null && $endDate == null) && $name == null)
 
             {
-            $events = $user->events()->distinct()->get();
+            $events = $user->events()->distinct()->paginate(10);
             return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
             }
 
@@ -1013,7 +1014,7 @@ class EventController extends Controller
                 $events = $user->events()
                     ->distinct()
                     ->where('name', 'like', $name)
-                    ->get();
+                    ->paginate(10);
              return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
             }
 
@@ -1024,13 +1025,13 @@ class EventController extends Controller
                 ->distinct()
                 ->where('name', 'like', $name)
                 ->whereDate('end_date', '=', $endDate)
-                ->get();
+                ->paginate(10);
             } else {
                 $events = $user->events()
                 ->distinct()
                 ->where('name', 'like', $name)
                 ->whereDate('start_date', '=', $startDate)
-                ->get();
+                ->paginate(10);
             }
             return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
            }
@@ -1040,13 +1041,13 @@ class EventController extends Controller
                 $events = $user->events()
                 ->distinct()
                 ->whereDate('end_date', '=', $endDate)
-                ->get();
+                ->paginate(10);
             } else {
                 $events = $user->events()
                 ->distinct()
                 ->where('name', 'like', $name)
                 ->whereDate('start_date', '=', $startDate)
-                ->get();
+                ->paginate(10);
             }
                 return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
            }
@@ -1063,23 +1064,23 @@ class EventController extends Controller
 
         // Apenas eventos com data posterior ou igual à atual
         $query->where('start_date', '>=', now()->toDateString());
-    
+
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->input('search') . '%');
         }
-    
+
         if ($request->filled('from_date')) {
             $query->where('start_date', '>=', $request->input('from_date'));
         }
-    
+
         if ($request->filled('to_date')) {
             $query->where('start_date', '<=', $request->input('to_date'));
         }
-    
+
         if ($request->filled('event_type') && $request->input('event_type') !== 'Todos') {
             $query->where('category_id', $request->input('event_type'));
         }
-    
+
         if ($request->filled('availability')) {
             $availability = $request->input('availability');
             if ($availability === 'Disponível') {
@@ -1092,17 +1093,17 @@ class EventController extends Controller
                 $query->where('number_of_participants', '>=', 0);
             }
         }
-    
+
         $events = $query->get();
-    
+
         if ($events->isEmpty()) {
             session()->flash('no_results', 'Não foram encontrados eventos para os parâmetros de pesquisa fornecidos.');
             Event::where('start_date', '>=', now()->toDateString())->get();
         }
-    
+
         return view('pages.events.public', compact('events'));
     }
-    
+
 
     public function ExportByParticipant(Request $request)
     {
