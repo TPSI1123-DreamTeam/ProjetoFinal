@@ -1,11 +1,12 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
-<div class="container mx-auto mt-5">
+<div class="">
     <h1 class="text-3xl font-bold mb-5">Criar Fornecedor</h1>
-    <form method="POST" action="{{ route('suppliers.store') }}" enctype="multipart/form-data">
+    <div class="linha-divisoria-event-manager"></div>
+    <form method="POST" action="{{ route('suppliers.store') }}" enctype="multipart/form-data" class="add-suppl-form">
         @csrf
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Nome do Fornecedor</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="Nome do Fornecedor" class="mt-1 p-2 w-full border rounded-md @error('name') border-red-500 @enderror" required>
@@ -21,9 +22,7 @@
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
                 <label for="contact" class="block text-sm font-medium text-gray-700">Contato</label>
                 <input type="text" name="contact" id="contact" value="{{ old('contact') }}" placeholder="Telefone ou Contato" class="mt-1 p-2 w-full border border-gray-300 rounded-md @error('contact') border-red-500 @enderror" required>
@@ -47,17 +46,13 @@
                 @enderror
             </div>
 
-        <div class="mb-6">
-            <label for="logo" class="block text-sm font-medium text-gray-700">Logo do Fornecedor</label>
-            <input type="file" name="image" id="image" class="mt-1 p-2 w-full border border-gray-300 rounded-md @error('logo') border-red-500 @enderror">
-            @error('logo')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="flex items-center justify-between">
-            <a href="/suppliers" class="text-sm text-gray-500 hover:text-gray-700">Voltar</a>
-            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md">Criar Fornecedor</button>
-        </div>
+            <div class="add-supp-btns">
+                <a href="/suppliers" class="go-btn-back">
+                    <button>
+                        Voltar
+                    </button>
+                </a>
+                <button type="submit" class="create-supp text-white px-4 py-2 rounded-md">Criar Fornecedor</button>
+            </div>
     </form>
 </div>

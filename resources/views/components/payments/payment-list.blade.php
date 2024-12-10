@@ -7,26 +7,28 @@
     </div>
 </div>
 
-<div style="padding-right: 520px">
-    <div class="title-hidder-div">
-        <h2>Escolha o evento para listar pagamentos...</h2>
-    </div>
+<div class="linha-divisoria-event-manager"></div>
+
+<div class="title-hidder-div">
+    <h2>Escolha o evento para listar pagamentos...</h2>
 </div>
 
-<form action="/searchPayments" method="GET" class="grid gap-2 mt-5">
+<form action="/searchPayments" method="GET" class="search-participant-event">
 <!-- Campo 1 -->
-<select class="choose-event" id="search" name="search">
+<select class="choose-event-participant" id="search" name="search">
     @foreach ($allEvents as $eventName)
         <option value="{{ $eventName->name }}" {{ request()->input('search') == $eventName->name ? 'selected' :'' }}>{{ $eventName->name }}</option>
     @endforeach
 </select>
 
 <!-- Campo 5 -->
-<div class="flex items-center space-x-2" style="max-width: 350px;">
+<div class="date-picker-participant">
     <label for="campo5" class="text-sm font-medium text-gray-700">Data</label>
     <div class="event-input-list">
         <input id="datepicker1" name="datepicker1" datepicker datepicker-format="yyyy-mm-dd" value="{{ isset($formFields['datepicker1']) ? $formFields['datepicker1'] : '' }}" type="date"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecionar Data">
+    </div>
+    <div class="event-input-list">
         <input id="datepicker2" name="datepicker2" datepicker datepicker-format="yyyy-mm-dd" value="{{ isset($formFields['datepicker2']) ? $formFields['datepicker2'] : '' }}" type="date"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecionar Data">
     </div>
@@ -56,8 +58,6 @@
 {{ $payments->links() }}
 @endif
 
-
-<div class="linha-divisoria-event-manager"></div>
 <table>
     <thead>
         <tr>

@@ -81,11 +81,13 @@
     <label hidden for="trueId"></label>
     <input hidden name="trueId" id="search" value="{{ $trueId }}"/>
     <button class="search-participant-btn" type="submit">Adicionar Participante</button>
-    <div class="linha-divisoria-participant-list"></div>
 </form>
 @endif
 
+<div class="linha-divisoria-participant-list"></div>
+
 <h1>Adicionar Participante Através de Excel</h1>
+
 <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data" style="margin-top: 10px" class="add-participant-form">
     @csrf
     <div class="submit-excel-file">

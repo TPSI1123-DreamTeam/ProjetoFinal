@@ -1,0 +1,38 @@
+.go-btn-back {
+    display: inline-block;
+    margin-top: 1rem !important;
+    padding: 0.5rem 1rem !important;
+    background-color: #347CCB !important;
+    color: #ffffff !important;
+    border-radius: 0.5rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    text-align: center !important;
+}
+
+.go-btn-back:hover {
+    background-color: #010191 !important;
+    cursor: pointer;
+}
+
+.create-supp {
+    background-color: #EB5B38;
+}
+
+.create-supp:hover{
+    background-color: #d04b2b !important;
+    cursor: pointer !important;
+}
+
+.add-suppl-form {
+    margin-top: 25px;
+}
+
+.add-supp-btns {
+    display: flex;
+    gap: 25px;
+    margin: 0 auto;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: flex-end;
+}

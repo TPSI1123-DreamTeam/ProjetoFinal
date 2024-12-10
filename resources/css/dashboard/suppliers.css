@@ -1,3 +1,7 @@
+.supplier-wrapper {
+    margin: 0px 25px 0 25px;
+}
+
 .add-supplier-btn {
     display: flex;
     margin-top: 1rem !important;
