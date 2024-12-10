@@ -84,6 +84,7 @@ body::-webkit-scrollbar {
 
 .sidebar.hidden + .after-content {
     width: 100% !important;
+    margin: 0 25px 0 25px !important;
 }
 
 .linha-divisoria {
@@ -118,6 +119,9 @@ body::-webkit-scrollbar {
     }
     .sidebar + .after-content {
         width: 100% !important;
+    }
+    .sidebar.hidden + .after-content {
+        margin: 0 !important;
     }
 }
 
