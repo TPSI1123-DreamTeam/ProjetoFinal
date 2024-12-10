@@ -153,13 +153,15 @@
                 <a  href="{{ url('events/manager/' . $event->id) }}" >
                     <button class="show-btn">Ver</button>
                 </a>
-                <form action="{{ route('events.updatestatus', $event->id) }}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <a href="/events/manager">
-                        <button class="activate-btn" type="submit">Ativar</button>
-                    </a>
-                </form>
+                    @if($event->start_date > date('Y-m-d') )
+                    <form action="{{ route('events.updatestatus', $event->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <a href="/events/manager">
+                            <button class="activate-btn" type="submit">Ativar</button>
+                        </a>
+                    </form>
+                    @endif()
                 @endif()
                 @if( $event->event_status == 'recusado' || $event->event_status == 'concluido')
                     <a  href="{{ url('events/manager/' . $event->id) }}" >

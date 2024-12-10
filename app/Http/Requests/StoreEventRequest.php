@@ -28,15 +28,11 @@ class StoreEventRequest extends FormRequest
             'start_date'             => 'required|date|after_or_equal:today',
             'end_date'               => 'required|date|after_or_equal:start_date',
             'start_time'             => 'required|date_format:H:i',
-            'end_time'               => 'required|date_format:H:i|after:start_time',
+            'end_time'               => 'required|date_format:H:i',
             'category_id'            => 'required|integer',
             'type'                   => 'required|string|max:255',
             'number_of_participants' => 'required|integer',           
-            'suppliers'              => 'nullable',
-            //'owner_id'               => 'integer',
-            //'amount'                 => 'between:0,999999.99',
-            //'ticket_amount'          => 'between:0,999999.99',
-            //'event_confirmation'     => 'nullable|boolean',
+            'suppliers'              => 'nullable'
         ];
     }
 }
