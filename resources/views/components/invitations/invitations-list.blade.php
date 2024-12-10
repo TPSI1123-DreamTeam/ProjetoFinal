@@ -56,7 +56,12 @@
     @if ( $invitation !== null)
         <p>Convite:</p>
         <p> {{ $invitation->title }}</p>
-        <img src="{{ asset($invitation->image) }}" >
+        @php
+            $filePath = $invitation->image;
+            $filePath = str_replace('C:\Users\eu\Documents\ProjetoFinal\public\\', '', $filePath);
+            $filePath = str_replace('\\', '/', $filePath);
+        @endphp
+        <img src="/{{$filePath}}" >
         <form action="{{ url('invitations/' . $invitation->id .'/submit') }}" method="POST">
             @csrf
             <button type="submit" class="int-send-btn">
