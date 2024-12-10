@@ -1060,7 +1060,7 @@ class EventController extends Controller
     public function search(Request $request)
     {
         $query = Event::query();
-    
+
         // Apenas eventos com data posterior ou igual à atual
         $query->where('start_date', '>=', now()->toDateString());
     
@@ -1090,14 +1090,14 @@ class EventController extends Controller
                 $query->where('number_of_participants', '>=', 50);
             } elseif ($availability === 'Todos') {
                 $query->where('number_of_participants', '>=', 0);
-            }   
+            }
         }
     
         $events = $query->get();
     
         if ($events->isEmpty()) {
             session()->flash('no_results', 'Não foram encontrados eventos para os parâmetros de pesquisa fornecidos.');
-            $events = Event::where('type', 'publico')->where('start_date', '>=', now()->toDateString())->get();
+            Event::where('start_date', '>=', now()->toDateString())->get();
         }
     
         return view('pages.events.public', compact('events'));
