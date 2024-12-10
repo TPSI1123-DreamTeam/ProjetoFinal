@@ -64,7 +64,9 @@
         @endforeach
     </tbody>
 </table>
+
 @vite('resources/js/orderTable.js')
+
 {{-- <div class="pagination-user-list">
     {{ $events -> links()}}
 </div> --}}
