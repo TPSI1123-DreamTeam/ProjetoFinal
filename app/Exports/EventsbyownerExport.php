@@ -20,18 +20,3 @@ class EventsbyownerExport implements FromArray{
         return $this->newExcelArray;
     }
 }
-
-// class EventsbyownerExport implements FromQuery
-// {
-//     use Exportable;
-
-//     public function __construct(int $userId)
-//     {
-//         $this->userId = $userId;
-//     }
-
-//     public function query()
-//     {
-//         return Event::query()->where('owner_id', $this->userId);
-//     }
-// }

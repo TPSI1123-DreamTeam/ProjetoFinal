@@ -65,11 +65,12 @@
             <label for="campo6" class="text-sm font-medium text-gray-700" >Estado</label>
             <select name="event_status" id="event_status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="" readonly>Selecione o estado</option>
-                <option value="ativo"     @if(isset($formFields['event_status']) && $formFields['event_status'] == 'ativo') selected @endif >Ativo</option>
-                <option value="recusado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'recusado') selected @endif>Recusado</option>
-                <option value="pendente"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'pendente') selected @endif>Pendente</option>
+                <option value="ativo"     @if(isset($formFields['event_status']) && $formFields['event_status'] == 'ativo')     selected @endif>Ativo</option>
+                <option value="recusado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'recusado')  selected @endif>Recusado</option>
+                <option value="pendente"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'pendente')  selected @endif>Pendente</option>
                 <option value="cancelado" @if(isset($formFields['event_status']) && $formFields['event_status'] == 'cancelado') selected @endif>Cancelado</option>
                 <option value="concluido" @if(isset($formFields['event_status']) && $formFields['event_status'] == 'concluido') selected @endif>Concluido</option>
+                <option value="aprovado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'aprovado')  selected @endif>Aprovado</option>
             </select>
         </div>
 
@@ -91,6 +92,7 @@
                 Pesquisar
             </button>
             <input type="hidden" name="pending" id="pending" value=""/>
+            <a href=/events/create/" class="event-button-export right">Criar Evento</a>
         </div>
     </form>
 </div>
@@ -100,6 +102,7 @@
         Exportar Lista
     </button>
 </form>
+
  <table>
      <thead>
          <tr>
