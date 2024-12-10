@@ -1108,7 +1108,7 @@ class EventController extends Controller
     {
         $AuthUser = Auth::user();
 
-        if($AuthUser->role_id === 4 ){
+        if($AuthUser->role_id === 4 || $AuthUser->role_id === 3 ){
 
             //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
             $eventIdsArray  = explode(',', $request->event_ids);
@@ -1136,7 +1136,7 @@ class EventController extends Controller
                 $key++;
             }
 
-            return Excel::download(new EventsByParticipantExport($excelArray), 'ParticipantEventList.xlsx');
+            return Excel::download(new EventsByParticipantExport($excelArray), 'EventList.xlsx');
         }
     }
 

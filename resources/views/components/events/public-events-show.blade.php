@@ -23,7 +23,7 @@
     <div class="card-wrapper">
         <ul class="card-list swiper-wrapper">
         @foreach($events as $event)
-            @if($event->start_date >= $today && $event->event_status === 'ativo')
+            @if($event->start_date >= $today && $event->event_status === 'aprovado')
                 <li class="card-item swiper-slide">
                 <a href="#" class="card-link" 
                 eventId="{{$event->id}}" 
@@ -38,7 +38,7 @@
                <img src="{{ asset('images/' . $event->image) }}" alt="Evento" class="card-image">
             </a>
         </li>
-        @endif
+            @endif
         @endforeach
         </ul>
         <div class="swiper-pagination"></div>
