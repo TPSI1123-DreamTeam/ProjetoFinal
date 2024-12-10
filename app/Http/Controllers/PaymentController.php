@@ -28,7 +28,7 @@ class PaymentController extends Controller
     public function checkout(Request $request, Event $event)
     {
         // API Key do Stripe
-        \Stripe\Stripe::setApiKey(env('STRIPE_TEST_SK'));
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         // event id and value to pay
         $user   = auth()->user();
@@ -185,7 +185,7 @@ class PaymentController extends Controller
     public function checkoutevent(Request $request, Event $event)
     {
         // API Key do Stripe
-        \Stripe\Stripe::setApiKey(env('STRIPE_TEST_SK'));
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
         // event id and value to pay
         $user   = auth()->user();
