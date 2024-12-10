@@ -451,7 +451,7 @@ class EventController extends Controller
     public function store(StoreEventRequest $request)
     {
         // Fields validations now will be returned from  StoreEventRequest
-        $owner_id = Auth::user()->id;
+        $owner = Auth::user();
 
         $event = Event::create([
             'name'                   => $request->name,
@@ -459,7 +459,7 @@ class EventController extends Controller
             'localization'           => $request->localization,
             'start_date'             => $request->start_date,
             'end_date'               => $request->end_date,
-            'owner_id'               => $owner_id,
+            'owner_id'               => $owner->id,
             'category_id'            => $request->category_id,
             'type'                   => $request->type,
             'amount'                 => "0.00",
@@ -485,6 +485,11 @@ class EventController extends Controller
             $update->save();
         }
 
+        if($owner->role_id == 4 && $event->id > 0){
+            $user = User::find($owner->id);
+            $user->role_id = 3;
+            $user->save();
+        }
 
 
         return redirect('/dashboard')->with('success', 'Evento criado com sucesso!')->with('class', 'bg-green-500 text-white');
