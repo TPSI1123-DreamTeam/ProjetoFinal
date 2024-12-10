@@ -33,14 +33,6 @@
                 <form action="{{ route('login') }}" method="POST" class="login-form">
                     @csrf
                     <div class="form-group">
-                        <a type="button" class="google-login-button" href="/login/google">
-                            Entrar com o Google <i class='bx bxl-google'></i>
-                        </a>
-                    </div>
-                    <div class="or-divider">
-                        <span>Ou</span>
-                    </div>
-                    <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Digite o seu email" required>
                     </div>
