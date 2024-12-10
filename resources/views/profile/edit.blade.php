@@ -33,6 +33,5 @@
     </div>
 </div>
 
-    @vite('resources/js/hidder.js')
 @endsection
 
