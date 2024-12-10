@@ -51,7 +51,7 @@ const eventStatusCounts = eventsData.reduce((acc, event) => {
     return acc;
 }, {});
 // Valores padrão caso algum status não esteja presente nos dados
-const statusLabels = ["ativo", "recusado", "pendente", "cancelado", "concluido"];
+const statusLabels = ["ativo", "recusado", "pendente", "cancelado", "concluido","aprovado"];
 const statusCounts = statusLabels.map(status => eventStatusCounts[status] || 0);
 
 // Função para gerar as opções do gráfico

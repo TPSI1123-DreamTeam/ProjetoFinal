@@ -26,18 +26,7 @@
     </div>    
     <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
         <div class="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3">
-            <dl>
-                <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Lucros</dt>
-                <dd class="leading-none text-3xl font-bold text-gray-900 dark:text-white">5.405,00€</dd>
-            </dl>
-            <div>
-                <span class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
-                    <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
-                    </svg>
-                    Percentagem 23.5%
-                </span>
-            </div>
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pe-1">Análise Financeira</h5>    
         </div>
         <div id="bar-chart"></div> 
     </div>
@@ -62,14 +51,14 @@ const eventStatusCounts = eventsData.reduce((acc, event) => {
     return acc;
 }, {});
 // Valores padrão caso algum status não esteja presente nos dados
-const statusLabels = ["ativo", "recusado", "pendente", "cancelado", "concluido"];
+const statusLabels = ["ativo", "recusado", "pendente", "cancelado", "concluido","aprovado"];
 const statusCounts = statusLabels.map(status => eventStatusCounts[status] || 0);
 
 // Função para gerar as opções do gráfico
 const getChartOptions = () => {
     return {
         series: statusCounts, // Use os valores dinâmicos
-        colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694", "#28A745"],
+        colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694", "#28A745","#E77788","#28A745"],
         chart: {
             height: 320,
             width: "100%",
@@ -169,8 +158,8 @@ const getMonthYear = (dateStr) => {
 const fixedMonths = ["2024-08", "2024-09", "2024-10", "2024-11", "2024-12","2025-01"];
 
 // Categorias de status
-const group1Statuses = ["ativo", "recusado", "pendente", "concluido"];
-const group2Statuses = ["cancelado"];
+const group1Statuses = ["pendente","ativo","aprovado","concluido"];
+const group2Statuses = ["cancelado", "recusado"];
 
 // Inicializar objeto com meses fixos
 const monthlyAmounts = fixedMonths.reduce((acc, month) => {
