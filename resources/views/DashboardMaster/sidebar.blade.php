@@ -31,7 +31,7 @@
                 @case(1) {{-- Admin  --}}
                     <li><a href="{{ route('users') }}">Lista de Utilizadores&nbsp; <span>&gt;</span></a></li>
                     <li><a href="{{ url('/events/admin') }}">Lista de Eventos&nbsp; <span>&gt;</span></a></li>
-                    <li><a href="{{ url('/events/admin/report') }}">Relatorios&nbsp; <span>&gt;</span></a></li>
+                    <li><a href="{{ url('/events/admin/report') }}">Relatórios&nbsp; <span>&gt;</span></a></li>
                     @break
                 @case(2)  {{-- Manager  --}}
                     <li><a href="{{ url('/events/manager') }}">Gerir Eventos&nbsp; <span>&gt;</span></a></li>

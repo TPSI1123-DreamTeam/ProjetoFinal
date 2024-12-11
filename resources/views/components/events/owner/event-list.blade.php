@@ -1,6 +1,14 @@
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"  rel="stylesheet" />
 
+@if(session('status'))
+            <div id="success-notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg opacity-0 transform transition-all duration-300 z-50">
+                {{ session('status') }}
+            </div>
+        @endif
+
+
+
 <div class="event-wrapper">
     <div class="title-hidder-div">
         <h1>Lista de Eventos</h1>
@@ -147,9 +155,6 @@
                 @else
 
                     @if( $event->event_status == 'cancelado' && $event->start_date > date('Y-m-d') )
-                    <a  href="{{ url('events/manager/' . $event->id) }}" >
-                        <button class="show-btn">Ver</button>
-                    </a>
                     <form action="{{ route('events.updatestatus', $event->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
@@ -157,7 +162,7 @@
                             <button class="activate-btn" type="submit">Ativar</button>
                         </a>
                     </form>
-                    @endif()
+                    @endif
 
                     <button class="edit-button"   hidden title="Somente pode editar enquanto estiver pendente">Editar</button>
                     <button class="cancel-button" hidden title="Somente pode cancelar enquanto estiver pendente">Cancelar</button>
@@ -182,3 +187,23 @@
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 @vite('resources/js/formListEvents.js')
 @vite('resources/js/orderTable.js')
+
+<script>
+        // Função para exibir a notificação e removê-la após 3 segundos
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const notification = document.getElementById('success-notification');
+            if (notification) {
+                // Avisa para a notificação aparecer suavemente
+                setTimeout(() => {
+                    notification.classList.remove('opacity-0');
+                    notification.classList.add('opacity-100');
+                }, 100);
+
+                // Depois de 3 segundos, remove a notificação
+                setTimeout(() => {
+                    notification.classList.remove('opacity-100');
+                    notification.classList.add('opacity-0');
+                }, 3000);
+            }
+        });
+</script>

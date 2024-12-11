@@ -880,6 +880,13 @@ class EventController extends Controller
             $event->save();
 
             return redirect('/events/manager/')->with('status','Evento ativo com sucesso!')->with('class', 'alert-success');
+        } elseif($AuthUser->role_id === 3 )
+        {
+            $event               = Event::find($event->id);
+            $event->event_status = "pendente";
+            $event->save();
+
+            return redirect('/events/owner/')->with('status','Evento ativo com sucesso!')->with('class', 'alert-success');
         }
 
         return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-danger');
