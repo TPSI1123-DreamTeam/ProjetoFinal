@@ -482,6 +482,7 @@ class EventController extends Controller
             'start_time'             => $request->start_time,
             'end_time'               => $request->end_time,
             'number_of_participants' => $request->number_of_participants,
+            'contact'                => $request->contact,
             'event_confirmation'     => false,
             'services_default_array' => json_encode($request->suppliers)
         ]);
@@ -652,6 +653,7 @@ class EventController extends Controller
             $event->number_of_participants = $request->number_of_participants;
             $event->services_default_array = json_encode($request->suppliers);
             $event->ticket_amount          = $request->ticket_amount;
+            $event->contact                = $request->contact;
 
             if($AuthUser->id === $event->manager_id){
                 $event->amount = $request->amount;
@@ -719,10 +721,8 @@ class EventController extends Controller
 
     public function eventsbyparticipant()
     {
-        $user   = auth()->user();
-        $events = $user->events()->paginate(5);
-        // dd($events);
-        // $allEvents = $user->events()->distinct()->get();
+        $user      = auth()->user();
+        $events    = $user->events()->paginate(5);
         $allEvents = Category::all();
 
         return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);

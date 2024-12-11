@@ -56,7 +56,7 @@
         </ul>
     </div>
     <div class="buttons-dashboard">
-        <form method="GET" action="{{ url('/') }}">
+        <form method="GET" action="{{ url('/event/public') }}">
             <button type="submit" class="logout-button">Voltar</button>
         </form>
         <form method="POST" action="{{ route('logout') }}">

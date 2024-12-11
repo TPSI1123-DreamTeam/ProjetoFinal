@@ -69,6 +69,15 @@ class UserSeeder extends Seeder
             'role_id'    => 3               
         ]);
 
+        $user = User::create([
+            'name'       => 'Norberto Moreira',
+            'email'      => 'norberto@atec.pt',
+            'phone'      => (string) fake()->numberBetween(912345678, 936456789),
+            'password'   => Hash::make('123123123'),
+            'image'      => 'noimageuser.png',
+            'role_id'    => 3               
+        ]);
+
         for ($i = 0; $i < 50; $i++) {
 
             $participant = User::create([

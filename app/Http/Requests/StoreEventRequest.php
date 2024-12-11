@@ -32,7 +32,8 @@ class StoreEventRequest extends FormRequest
             'category_id'            => 'required|integer',
             'type'                   => 'required|string|max:255',
             'number_of_participants' => 'required|integer',           
-            'suppliers'              => 'nullable'
+            'suppliers'              => 'nullable',
+            'contact'                => 'nullable'
         ];
     }
 }
