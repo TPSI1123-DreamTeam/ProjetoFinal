@@ -21,9 +21,4 @@ class Participant extends Model
         'confirmation'
     ];
 
-
-    // public function events(): BelongsToMany{
-
-    //     return $this->belongsToMany(Event::class);
-    // }
 }

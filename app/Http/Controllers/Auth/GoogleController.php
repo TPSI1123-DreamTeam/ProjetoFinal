@@ -45,7 +45,7 @@ class GoogleController extends Controller
     }
     public function showDobForm()
     {
-        return view('auth.dob'); // meter a view aqui gil
+        return view('auth.dob'); 
     }
 
     public function storeDob(Request $request)

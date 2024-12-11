@@ -14,9 +14,6 @@ class ParticipantSeeder extends Seeder
      */
     public function run(): void
     {
-        // Participant::factory()
-        // ->count(200)
-        // ->create();
 
         for ($i = 0; $i < 2000; $i++) {
 
@@ -27,7 +24,6 @@ class ParticipantSeeder extends Seeder
                 'confirmation' => (string) fake()->numberBetween(0, 1),
             ]);
 
-            //$events = Event::find(rand(1,11));
             $events = Event::inRandomOrder()->take(rand(1, 3))->pluck('id');
             $participant->events()->attach($events);
         }
