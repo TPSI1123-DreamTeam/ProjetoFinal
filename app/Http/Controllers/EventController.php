@@ -1145,4 +1145,97 @@ class EventController extends Controller
         }
     }
 
+    public function searchEventsByAdmin(Request $request)
+    {
+        // Obter todas as categorias para o formulário de filtro
+        $Category = Category::all();
+
+        // Iniciar a query com todos os eventos
+        $events = Event::query();
+
+        // Filtros opcionais
+        if ($request->has('event_name') && $request->event_name !== null) {
+            $events->where('name', 'like', '%' . $request->event_name . '%');
+        }
+
+        if ($request->has('participants1') && $request->participants1 !== null && $request->participants2 === null) {
+            $events->where('number_of_participants', '>=', intval($request->participants1));
+        }
+
+        if ($request->has('participants2') && $request->participants2 !== null && $request->participants1 === null) {
+            $events->where('number_of_participants', '<=', intval($request->participants2));
+        }
+
+        if ($request->participants2 !== null && $request->participants1 !== null) {
+            $events->whereBetween('number_of_participants', [
+                intval($request->participants1), 
+                intval($request->participants2)
+            ]);
+        }
+
+        if ($request->has('category_id') && $request->category_id !== null) {
+            $events->where('category_id', $request->category_id);
+        }
+
+        if ($request->has('event_status') && $request->event_status !== null) {
+            $events->where('event_status', $request->event_status);
+        }
+
+        if ($request->has('amount1') && $request->amount1 !== null && $request->amount2 === null) {
+            $events->where('amount', '>=', $request->amount1);
+        }
+
+        if ($request->has('amount2') && $request->amount2 !== null && $request->amount1 === null) {
+            $events->where('amount', '<=', $request->amount2);
+        }
+
+        if ($request->amount2 !== null && $request->amount1 !== null) {
+            $events->whereBetween('amount', [
+                floatval($request->amount1), 
+                floatval($request->amount2)
+            ]);
+        }
+
+        if ($request->has('datepicker1') && $request->datepicker1 !== null && $request->datepicker2 === null) {
+            $events->where('start_date', '>=', $request->datepicker1);
+        }
+
+        if ($request->has('datepicker2') && $request->datepicker2 !== null && $request->datepicker1 === null) {
+            $events->where('start_date', '<=', $request->datepicker2);
+        }
+
+        if ($request->datepicker2 !== null && $request->datepicker1 !== null) {
+            $events->whereBetween('start_date', [
+                $request->datepicker1, 
+                $request->datepicker2
+            ]);
+        }
+
+        // Ordenação padrão
+        $events->orderBy('start_date', 'desc');
+
+        // Paginação
+        $events = $events->paginate(10);
+
+        // Campos do formulário para manter os filtros na view
+        $formFields = [
+            'event_name'    => $request->event_name,
+            'participants1' => $request->participants1,
+            'participants2' => $request->participants2,
+            'category_id'   => $request->category_id,
+            'amount1'       => $request->amount1,
+            'amount2'       => $request->amount2,
+            'event_status'  => $request->event_status,
+            'datepicker1'   => $request->datepicker1,
+            'datepicker2'   => $request->datepicker2,
+        ];
+
+        // Retornar a view com os dados
+        return view('pages.events.admin.index', [
+            'events' => $events, 
+            'Category' => $Category, 
+            'formFields' => $formFields
+        ]);
+    }
+    
 }

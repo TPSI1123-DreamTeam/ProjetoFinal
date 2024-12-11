@@ -188,6 +188,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/searchEventsByOwner', [EventController::class,'searchEventsByOwner']);
     Route::get('/searchEventsByManager', [EventController::class,'searchEventsByManager']);
     Route::get('/searchEventsToApprove', [EventController::class,'searchEventsToApprove']);
+    Route::get('/searchEventsByAdmin', [EventController::class, 'searchEventsByAdmin']);
     ///// ::::: END OF AUTH ROUTES :::::: ///////
 });
 
