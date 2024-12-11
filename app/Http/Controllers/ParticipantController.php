@@ -95,7 +95,7 @@ class ParticipantController extends Controller
 
     public function export(Request $request)
     {
-        $url = $request->server('PATH_INFO'); dd($url);
+        $url = $request->server('PATH_INFO'); dd($request);
         if (preg_match('/\/(\d+)$/', $url, $matches)) {
             $number = (int) $matches[1];            
         }
