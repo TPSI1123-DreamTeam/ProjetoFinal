@@ -19,8 +19,8 @@ class PaymentController extends Controller
     {
 
         $user      = auth()->user();
-        $payments  = Payment::where('user_id', $user->id)->paginate(10);
-        $allEvents = Payment::where('user_id', $user->id)->paginate(10);
+        $payments  = Payment::where('user_id', $user->id)->orderBy('date', 'desc')->paginate(10);
+        $allEvents = Payment::where('user_id', $user->id)->orderBy('date', 'desc')->paginate(10);
 
         return view('pages.payments.index', ['payments' => $payments, 'user' => $user, 'allEvents' => $allEvents]);
     }
