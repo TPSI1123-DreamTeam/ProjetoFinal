@@ -7,6 +7,23 @@
             </div>
         @endif
 
+<div class="search-bar">
+    <form action="{{ route('users') }}" method="GET">
+        <!-- Pesquisa por nome ou email -->
+        <input type="text" name="search" placeholder="Pesquisar por nome ou email" value="{{ request('search') }}">
+
+        <!-- Dropdown de função -->
+        <select name="role_id">
+            <option value="">Todas as Funções</option>
+            <option value="1" {{ request('role_id') == 1 ? 'selected' : '' }}>Administrador</option>
+            <option value="2" {{ request('role_id') == 2 ? 'selected' : '' }}>Gestor</option>
+            <option value="3" {{ request('role_id') == 3 ? 'selected' : '' }}>Proprietário</option>
+            <option value="4" {{ request('role_id') == 4 ? 'selected' : '' }}>Participante</option>
+        </select>
+        <button type="submit">Pesquisar</button>
+    </form>
+</div>
+
 <div class="linha-divisoria"></div>
 <table>
     <thead>
