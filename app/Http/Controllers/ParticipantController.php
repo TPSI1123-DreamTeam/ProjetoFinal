@@ -223,9 +223,9 @@ class ParticipantController extends Controller
 
     public function searchEvents(Request $request)
     {
-        //dd($request);
+       // dd($request);
         if ($request->search == "Escolha o evento para listar participantes...") {
-            return redirect()->back();
+            return redirect()->to('/participants')->with('error','Selecione uma opção válida');
         }
         $ownerId = Auth::user()->id;
         $query   = Event::query();
@@ -297,15 +297,15 @@ class ParticipantController extends Controller
         $number = $request->phoneNumber;
         $email = $request->email;
         $trueId = $request->trueId;
-    
+
         if (empty($name) || empty($number) || empty($email)) {
             return redirect()->route('participants.index', ['event_id' => $trueId])
                              ->with('error', 'Preencha todos os campos obrigatórios!');
         }
-    
+
         $user = User::where('email', $email)->first();
         $event = Event::where('id', $trueId)->first();
-    
+
         if ($user) {
             $isInEvent = $user->events()->where('event_id', $trueId)->exists();
             if ($isInEvent) {
@@ -325,7 +325,7 @@ class ParticipantController extends Controller
                 'email' => $email,
                 'password' => bcrypt('Teste123#'), // Melhor prática
             ]);
-    
+
             $event->users()->syncWithoutDetaching([$userModel->id]);
             return redirect()->route('participants.index', ['event_id' => $trueId])
                              ->with('warning', 'Participante registado e associado ao evento! Forneça a senha "Teste123#" ao participante para que possa aceder à sua conta.');

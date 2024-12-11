@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="d-flex align-items-center mt-5">
-        <h1>Formulário para o evento</h1>   
+        <h1>Formulário para o evento</h1>
     </div>
     <br>
 
@@ -17,12 +17,12 @@
         <div class="form-row">
 
             <div class="form-group col-md-6">
-                <label for="inputEmail4">Nome do Evento</label> 
+                <label for="inputEmail4">Nome do Evento</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="Nome do Evento" class="form-control @error('localization') is-invalid @enderror" required>
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-            </div>   
+            </div>
 
             <div class="form-group col-md-4">
                 <label for="inputlocalization">Localização</label>
@@ -50,20 +50,20 @@
                 @enderror
             </div>
 
-            <div class="form-group col-md-5">               
+            <div class="form-group col-md-5">
                 <label class="" for="inputGroupSelect01">Categoria</label>
                 <select id="type" name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
                     <option disabled>Selecione a categoria:</option>
                     @foreach ($categories as $item)
                         <option value="{{ $item->id }}" @if( isset($category) && $item->id == $category->id) selected @endif >{{ $item->description }}</option>
                     @endforeach
-                </select>  
+                </select>
                 @error('category_id')
                     <div class="alert alert-danger">{{ $message }}</div>
-                @enderror     
+                @enderror
             </div>
         </div>
-        
+
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="inputAddress2">Data Inicio do Evento</label>
@@ -108,6 +108,8 @@
             @enderror
         </div>
 
+        <label for="supplier">Fornecedores:</label>
+
         @foreach($SupplierType as $type)
 
             @if( ( $loop->iteration % 2) !== 0)
@@ -115,28 +117,28 @@
             @endif
 
             <div class="form-group col-md-6">
-                <input type="checkbox" id="suppliers[]" name="suppliers[]" value="{{  $type->id }}"> {{  $type->name }}              
+                <input type="checkbox" id="suppliers[]" name="suppliers[]" value="{{  $type->id }}"> {{  $type->name }}
             </div>
 
             @if( ( $loop->iteration % 2) === 0)
             </div>
             @endif
 
-        @endforeach    
+        @endforeach
 
-        <div class="input-group mt-3">          
-            <div class="custom-file">              
+        <div class="input-group mt-3">
+            <div class="custom-file">
                 <label for="image">Imagem:</label>
-                <input  type="file" id="image" name="image" class="form-control @error('image') is-invalid @enderror"> 
+                <input  type="file" id="image" name="image" class="form-control @error('image') is-invalid @enderror">
                 @error('image')
                     <div class="alert alert-danger">{{ $message }}</div>
-                @enderror               
-            </div>     
-        </div> 
+                @enderror
+            </div>
+        </div>
 
         <div>
             <a href="/event/private"> <button type="button" class="btn btn-secondary mt-5 mb-5">Voltar</button></a>
-            <button type="submit" class="btn btn-success mt-5 mb-5">Registar Evento</button>       
+            <button type="submit" class="btn btn-success mt-5 mb-5">Registar Evento</button>
         </div>
     </form>
 </div>
