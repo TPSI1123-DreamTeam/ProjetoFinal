@@ -393,11 +393,13 @@ class EventController extends Controller
     {
         $AuthUser = Auth::user();
 
-        if($AuthUser->role_id == 1 ){
-
+        if($AuthUser->role_id == 1 )
+        {
             $events =  Event::paginate(10);
             $suppliers = Supplier::all();
-            return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers]);
+            $Category = Category::all();
+            $formFields = null;
+            return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers, 'Category' => $Category, 'formFields' => $formFields]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
         }
@@ -731,10 +733,14 @@ class EventController extends Controller
     public function admin()
     {
         $AuthUser = Auth::user();
+        
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id === 1 ){
             $events = Event::all();
-            return view('pages.events.admin', ['events' => $events]);
+            $Category = Category::all();
+            $formFields = null;
+            return view('pages.events.admin', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
+
         }
     }
 
@@ -1147,10 +1153,9 @@ class EventController extends Controller
 
     public function searchEventsByAdmin(Request $request)
     {
-        // Obter todas as categorias para o formulário de filtro
+
         $Category = Category::all();
 
-        // Iniciar a query com todos os eventos
         $events = Event::query();
 
         // Filtros opcionais

@@ -28,6 +28,19 @@
 
         </div>
 
+        <!-- Campo 4 -->
+        <div class="flex items-center space-x-2 col-span-1">
+            <label for="category_id" class="text-sm font-medium text-gray-700">Categoria</label>
+            <select name="category_id" id="category_id" class="select-event-state">
+                <option value="" readonly>Selecione a categoria</option>
+                @foreach ($Category as $item)
+                    <option value="{{ $item->id }}"
+                    @if(isset($formFields['category_id']) && $formFields['category_id'] == $item->id) selected @endif
+                    >{{ $item->description }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <!-- Campo 2 e 3-->
         <div class="flex items-center space-x-2">
             <label for="participantes" class="text-sm font-medium text-gray-700">Custo</label>
@@ -80,9 +93,9 @@
         <tr>
             <th>Nº</th>
             <th>Nome do Evento</th>
+            <th>Categoria</th>
             <th>Participantes</th>
-            <th>Data</th>
-            <th>Hora de Ínicio</th>
+            <th>Data do Evento</th>
             <th>Custo Estimado</th>
             <th>Estado do Evento</th>
         </tr>
@@ -92,9 +105,9 @@
         <tr>
             <td data-cell="número">{{ $loop->iteration }}</td>
             <td data-cell="nome">{{ $event->name }}</td>
+            <td data-cell="descrição">{{ $event->category->description }}</td>
             <td data-cell="participantes">{{ @count($event->users) }}</td>
-            <td data-cell="data">{{ date('Y-m-d', strtotime($event->start_date)) }}</td>
-            <td data-cell="hora de inicio">{{ date('H:i', strtotime($event->start_time)) }}</td>
+            <td data-cell="data">{{ date('d-m-Y', strtotime($event->start_date)) }}</td>
             <td data-cell="custo estimado">{{ $event->amount }}€</td>
             <td data-cell="estado">{{ $event->event_status }}</td>
         </tr>
