@@ -34,7 +34,6 @@
         </button>
     </div>
     </form>
-
     <div class="action-buttons">
         <form id="exportEventsForm" method="GET" action="{{ route('events.exportbyparticipant') }}">
             <input type="hidden" name="event_ids" id="event_ids" value="{{ implode(',', $events->pluck('id')->toArray()) }}">
@@ -42,7 +41,13 @@
                 Exportar Lista
             </button>
         </form>
+        <form method="GET" action="/event/public/">
+            <button type="submit" class="edit-profile-btn right" id="export">
+                Comprar Evento
+            </button>
+        </form>
     </div>
+
 
 <table>
     <thead>
