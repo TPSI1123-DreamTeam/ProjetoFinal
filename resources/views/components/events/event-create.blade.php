@@ -126,8 +126,17 @@
 
         @endforeach
 
-        <div class="input-group mt-3">
-            <div class="custom-file">
+        <div class="form-group col-md-12">
+            <label for="inputAddress">Email de contacto</label>
+            <input type="text-area" class="form-control @error('contact') is-invalid @enderror" name="contact"  id="contact" placeholder="Email de Contacto" value="{{ old('contact') }}" required>
+            @error('contact')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <br>
+        <div class="input-group mt-3">          
+            <div class="custom-file">              
                 <label for="image">Imagem:</label>
                 <input  type="file" id="image" name="image" class="form-control @error('image') is-invalid @enderror">
                 @error('image')

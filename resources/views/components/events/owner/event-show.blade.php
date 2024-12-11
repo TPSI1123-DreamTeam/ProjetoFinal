@@ -38,11 +38,15 @@
             </div>
             <div class="end_date">
                 <label for="inputAddress2">Data do Fim do Vento</label>
-                <input type="date" class="" name="end_date" id="end_date" value="{{   $event->end_date }}" disabled>
+                <input type="date" class="" name="end_date" id="end_date" value="{{ $event->end_date }}" disabled>
             </div>
             <div class="end_time">
                 <label for="inputAddress2">Hora</label>
                 <input type="time" class="" name="end_time" id="end_time" value="{{  date('H:i', strtotime($event->end_time)) }}" disabled>
+            </div>
+            <div class="email">
+                <label for="contact">Contacto</label>
+                <input type="email" class="" name="contact" id="contact" value="{{  $event->contact }}" disabled>
             </div>
         </div>
         <div class="event-type">

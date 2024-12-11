@@ -29,6 +29,10 @@
                 value="{{ $event->number_of_participants }}" min="30" max="100000" 
                 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
             </div>
+            <div class="email">
+                <label for="inputAddress2">Contacto</label>
+                <input type="email" class="" name="contact" id="contact" value="{{ $event->contact }}" disabled>
+            </div>
             <div class="event-description">
                 <label for="description">Descrição do Evento</label>
                 <input type="text-area" class="form-control" name="description"  id="description"  value="{{ $event->description }}">

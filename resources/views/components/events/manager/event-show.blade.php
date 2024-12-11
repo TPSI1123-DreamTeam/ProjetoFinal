@@ -23,6 +23,10 @@
                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" 
                     disabled>
             </div>
+            <div class="email">
+                <label for="inputAddress2">Contacto</label>
+                <input type="email" class="" name="contact" id="contact" value="{{ $event->contact }}" disabled>
+            </div>
             <div class="event-description">
                 <label for="description">Descrição do Evento</label>
                 <textarea name="description" id="description" disabled>{{ $event->description }}</textarea>
@@ -56,7 +60,7 @@
             <div>
                 <label for="end_time">Hora</label>
                 <input type="time" name="end_time" id="end_time" value="{{ $event->end_time }}" disabled>
-            </div>
+            </div>          
         </div>
         <div class="checkbox-group">
             @php
