@@ -27,9 +27,6 @@ class InvitationMail extends Mailable
     {
         $this->details = $details;
         $this->attachedFIle = $attachedFile;
-       // dd($details);
-       // $this->attachedFile = $details->image;
-
     }
     /**
      * Get the message envelope.

@@ -19,12 +19,3 @@ endDate.addEventListener('change', function () {
     }
 });
 
-// Definir o mínimo inicial para Start Date
-//startDate.min = new Date().toISOString().split('T')[0];
-
-// Validar hora do End Time em relação ao Start Time
-// const startTime = document.getElementById('start_time');
-// const endTime = document.getElementById('end_time');
-// startTime.addEventListener('change', function () {
-//     endTime.min = startTime.value;
-// });

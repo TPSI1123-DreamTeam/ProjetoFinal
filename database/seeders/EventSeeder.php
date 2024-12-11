@@ -20,7 +20,7 @@ class EventSeeder extends Seeder
         $arrayCategory = [
             0 => [
                 'name'        => 'Concerto',
-                'description' => 'Concertos inesquecíveis, emoções ao vivo! 
+                'description' => 'Concertos inesquecíveis, emoções ao vivo!
 Transformamos a sua ideia num espetáculo único e vibrante. Especializados na organização de concertos, cuidamos de cada detalhe para garantir uma experiência memorável tanto para o público como para os artistas.
 Desde a escolha do local, som e iluminação de alta qualidade, cenografia, logística, segurança, até à gestão de bilheteira e promoção, oferecemos uma solução completa e personalizada. Trabalhamos em estreita colaboração com artistas, produtores e equipas técnicas para criar um evento dinâmico e cativante, onde a música seja o verdadeiro protagonista.
 Combinando criatividade, profissionalismo e paixão pela música, garantimos que o seu concerto seja um sucesso e deixe uma marca inesquecível em cada espetador.
@@ -31,7 +31,7 @@ Deixe-nos criar o palco perfeito para a magia acontecer.',
             ],
             1 => [
                 'name'        => 'Casamento',
-                'description' => 'Organizamos o teu casamento dos sonhos, cuidando de todos os detalhes para que o teu grande dia seja perfeito e livre de stress! 
+                'description' => 'Organizamos o teu casamento dos sonhos, cuidando de todos os detalhes para que o teu grande dia seja perfeito e livre de stress!
 Desde a escolha do local, decoração, catering, fotografia, até à gestão do cronograma do evento, a nossa equipa especializada oferece um serviço personalizado e dedicado, adaptado aos seus desejos e estilo.
 Deixe-nos transformar a sua visão em realidade e tornar o seu casamento num evento memorável, repleto de emoções e momentos únicos.',
                 'image'       => '/private/Casamento.png',
@@ -40,7 +40,7 @@ Deixe-nos transformar a sua visão em realidade e tornar o seu casamento num eve
             ],
             2 => [
                 'name'        => 'Workshop',
-                'description' => 'Workshops dinâmicos e inspiradores para experiências transformadoras! 
+                'description' => 'Workshops dinâmicos e inspiradores para experiências transformadoras!
 Especializamo-nos na criação de workshops envolventes, pensados para proporcionar aprendizagens práticas e momentos de conexão. Seja qual for o tema ou área de interesse, cuidamos de todos os detalhes para garantir um ambiente profissional e motivador.
 Combinando organização impecável, atenção aos detalhes e um toque criativo, garantimos workshops que inspiram, educam e geram impacto duradouro.
 Transforme ideias em ação. Juntos, criamos experiências que fazem a diferença.',
@@ -50,7 +50,7 @@ Transforme ideias em ação. Juntos, criamos experiências que fazem a diferenç
             ],
             3 => [
                 'name' => 'Teatro',
-                'description' => 'Teatro que emociona e encanta! 
+                'description' => 'Teatro que emociona e encanta!
 Planeamos e organizamos espetáculos teatrais únicos, cuidando de cada detalhe – desde a escolha do espaço, iluminação, som, cenografia, até à promoção e logística. Criamos uma experiência imersiva que dá vida às histórias e cativa o público do início ao fim.
 Transforme a sua produção num espetáculo memorável!',
                 'image'       => '/private/teatro1.jpg',
@@ -59,8 +59,8 @@ Transforme a sua produção num espetáculo memorável!',
             ],
             4 => [
                 'name' => 'Festival',
-                'description' => 'Festivais que celebram momentos inesquecíveis! 
-Organizamos festivais vibrantes e envolventes, cuidando de tudo, desde o planeamento logístico, palcos, som, iluminação, segurança, até à experiência do público. 
+                'description' => 'Festivais que celebram momentos inesquecíveis!
+Organizamos festivais vibrantes e envolventes, cuidando de tudo, desde o planeamento logístico, palcos, som, iluminação, segurança, até à experiência do público.
 Criamos eventos que combinam criatividade, energia e organização impecável, garantindo que cada instante seja memorável para todos os participantes.
 Transforme a sua visão num festival de emoções únicas!',
                 'image'       => '',
@@ -69,7 +69,7 @@ Transforme a sua visão num festival de emoções únicas!',
             ],
             5 => [
                 'name' => 'Evento Corporativo',
-                'description' => 'Eventos corporativos que refletem a essência da sua empresa! 
+                'description' => 'Eventos corporativos que refletem a essência da sua empresa!
 Transformamos a sua visão em realidade, criando eventos corporativos profissionais e impactantes que promovem a sua marca e fortalecem as suas conexões. Desde conferências, lançamentos de produtos, workshops, jantares de gala até team building, cuidamos de todos os detalhes para garantir uma experiência sem falhas.
 Combinando criatividade, organização impecável e atenção ao detalhe, garantimos que o seu evento corporativo se destaque e deixe uma impressão duradoura nos participantes.
 Eleve a sua marca e celebre o sucesso com eventos memoráveis.',
@@ -79,7 +79,7 @@ Eleve a sua marca e celebre o sucesso com eventos memoráveis.',
             ],
             6 => [
                 'name' => 'Evento Privado',
-                'description' => 'Eventos corporativos que refletem a essência da sua empresa!A sua festa, do jeito que sempre sonhou! 
+                'description' => 'Eventos corporativos que refletem a essência da sua empresa!A sua festa, do jeito que sempre sonhou!
 Transformamos a sua celebração num evento único e inesquecível. Seja um aniversário, um jantar especial, uma reunião de amigos ou uma festa temática, cuidamos de todos os detalhes para criar uma experiência memorável.
 Desde a escolha do local, decoração personalizada, catering de alta qualidade, música, entretenimento e muito mais, trabalhamos consigo para dar vida à sua visão. Garantimos que cada momento seja pensado para refletir a sua personalidade e criar um ambiente acolhedor e divertido para os seus convidados.
 Festeje com estilo, crie memórias para a vida.',
@@ -100,25 +100,25 @@ Festeje com estilo, crie memórias para a vida.',
         ];
 
         $arrayEventStatus = [
-            0 => "pendente", 
-            1 => "ativo", 
-            2 => "aprovado", 
-            3 => "ativo", 
-            4 => "aprovado", 
-            5 => "pendente" 
+            0 => "pendente",
+            1 => "ativo",
+            2 => "aprovado",
+            3 => "ativo",
+            4 => "aprovado",
+            5 => "pendente"
         ];
 
 
         $arrayEventStatus1 = [
-            0 => "concluido", 
-            1 => "cancelado", 
-            2 => "concluido", 
-            3 => "recusado", 
-            4 => "concluido", 
-            5 => "concluido" 
+            0 => "concluido",
+            1 => "cancelado",
+            2 => "concluido",
+            3 => "recusado",
+            4 => "concluido",
+            5 => "concluido"
         ];
 
-        
+
         $startDateaArray = [
             0 => '2024-07-01',
             1 => '2024-08-01',
@@ -149,28 +149,28 @@ Festeje com estilo, crie memórias para a vida.',
 
                 $categoryRandom = rand(0,6);
                 $managerRandom  = rand(0,1);
-                $typeRandom     = 0; 
+                $typeRandom     = 0;
                 if( in_array($arrayCategory[$categoryRandom]['id'], $exceptionNotCreatePayment) ){
-                    $typeRandom = 1;  
+                    $typeRandom = 1;
                 }
 
                 $date           = fake()->dateTimeBetween($startDateaArray[$j], $endDateaArray[$j]);
                 $randomAmount   = rand(1000,20000);
                 $randomUsers    = intval($arrayCategory[$categoryRandom]['quantity']);
                 $ticketAmount   = ($randomAmount / $randomUsers) * 5;
-                $startTime      = rand(10,23).":00:00";                  
+                $startTime      = rand(10,23).":00:00";
 
                 if($j<5){
-                    $eventStatus = $arrayEventStatus1[rand(0,5)];  
+                    $eventStatus = $arrayEventStatus1[rand(0,5)];
                 }else{
-                    $eventStatus = $arrayEventStatus[rand(0,5)]; 
+                    $eventStatus = $arrayEventStatus[rand(0,5)];
                 }
 
                 if($eventStatus === 'pendente'){
                     $managerId   = 0;
                 }else{
                     $managerId   = $arrayManager[$managerRandom];
-                }             
+                }
 
                 $fakerCity = fake()->city();
                 $owner_id  = rand(4,5);
@@ -190,7 +190,7 @@ Festeje com estilo, crie memórias para a vida.',
                     'name'                   => $arrayCategory[$categoryRandom]['name'],
                     'category_id'            => $arrayCategory[$categoryRandom]['id'],
                     'image'                  => $seederImage,
-                    'description'            => $arrayCategory[$categoryRandom]['description'], //fake()->realText(rand(500,700)),
+                    'description'            => $arrayCategory[$categoryRandom]['description'],
                     'localization'           => $fakerCity,
                     'start_date'             => $date,
                     'start_time'             => $startTime,
@@ -199,16 +199,16 @@ Festeje com estilo, crie memórias para a vida.',
                     'amount'                 => $randomAmount,
                     'ticket_amount'          => $ticketAmount,
                     'owner_id'               => $owner_id,
-                    'manager_id'             => $managerId,               
+                    'manager_id'             => $managerId,
                     'number_of_participants' => $randomUsers,
                     'event_status'           => $eventStatus
-                ]);        
-    
+                ]);
+
                 $users = User::inRandomOrder()->take($randomUsers)->pluck('id');
                 $event->users()->attach($users);
 
-                
-                if($eventStatus === 'concluido' || $eventStatus === 'aprovado' || $eventStatus === 'ativo'){             
+
+                if($eventStatus === 'concluido' || $eventStatus === 'aprovado' || $eventStatus === 'ativo'){
 
                     if( !in_array($arrayCategory[$categoryRandom]['id'], $exceptionNotCreatePayment) ){
 
@@ -233,7 +233,7 @@ Festeje com estilo, crie memórias para a vida.',
                             ->where('event_id', $event->id)
                             ->where('user_id', $userId)
                             ->update([
-                                'confirmation' => true                            
+                                'confirmation' => true
                             ]);
                         }
 
@@ -245,7 +245,7 @@ Festeje com estilo, crie memórias para a vida.',
                     if( $eventStatus === 'concluido' || $eventStatus === 'aprovado' ) {
 
                         // CREATE CURRENT ACCOUNT EVENT PAYMENT
-                        $payment = Payment::create([  
+                        $payment = Payment::create([
                             'stripe_id'  => Hash::make(rand(1,500)),
                             'user_id'    => $owner_id,
                             'event_id'   => $event->id,
@@ -256,44 +256,43 @@ Festeje com estilo, crie memórias para a vida.',
                             'type'       => 'event_payment',
                             'created_at' => now(),
                             'updated_at' => now()
-                        ]);   
-    
-                        //$paymentId = DB::table('payments')->insert($payment);
-    
+                        ]);
+
+                        
                         // CREATE CURRENT ACCOUNT PAYMENT
-                        $currentAccount = [  
-                            'description'            => 'Pagamento Cartão de Crédito - via Stripe',              
+                        $currentAccount = [
+                            'description'            => 'Pagamento Cartão de Crédito - via Stripe',
                             'amount'                 => $randomAmount,
                             'amount_paid'            => $randomAmount,
                             'payment_id'             => $payment->id,
                             'form_of_payment'        => 'credit_card',
                             'event_id'               => $event->id,
-                            'status'                 => 1,               
+                            'status'                 => 1,
                             'currency'               => 'eur',
                             'created_at'             => now(),
                             'updated_at'             => now()
-                        ]; 
-                        
+                        ];
+
                         $currentAccountId = DB::table('current_accounts')->insert($currentAccount);
                     } else{
 
-                        $currentAccount = [  
-                            'description'            => 'Pagamento Cartão de Crédito - via Stripe',              
+                        $currentAccount = [
+                            'description'            => 'Pagamento Cartão de Crédito - via Stripe',
                             'amount'                 => $randomAmount,
                             'amount_paid'            => 0,
                             'payment_id'             => 0,
                             'form_of_payment'        => 'credit_card',
                             'event_id'               => $event->id,
-                            'status'                 => 1,               
+                            'status'                 => 1,
                             'currency'               => 'eur',
                             'created_at'             => now(),
                             'updated_at'             => now()
-                        ]; 
-                        
+                        ];
+
                         $currentAccountId = DB::table('current_accounts')->insert($currentAccount);
-                    }                                   
+                    }
                 }
-            }   
+            }
         }
     }
 }
