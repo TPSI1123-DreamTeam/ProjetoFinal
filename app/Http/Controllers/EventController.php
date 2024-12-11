@@ -428,8 +428,14 @@ class EventController extends Controller
      * Display a listing of the resource.
      */
     public function private()
-    {
-        $events = Event::where('type', 'privado')->get();
+    {     
+        $eventIds = Event::whereNotNull('category_id')
+            ->groupBy('category_id')
+            ->select(DB::raw('MAX(id) as id'))
+            ->pluck('id');
+    
+        $events = Event::whereIn('id', $eventIds)->get();
+    
         return view('pages.events.private', ['events' => $events]);
     }
 

@@ -145,7 +145,7 @@ Festeje com estilo, crie memórias para a vida.',
 
         for ($j = 0; $j < 7; $j++) {
 
-            for ($i = 0; $i < 30; $i++) {
+            for ($i = 0; $i < 20; $i++) {
 
                 $categoryRandom = rand(0,6);
                 $managerRandom  = rand(0,1);
