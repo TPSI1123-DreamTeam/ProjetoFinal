@@ -94,6 +94,22 @@ tbody tr td a button {
     margin-right: 0.5px !important;
 }
 
+.select-event-state {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    transition: all 0.3s ease;
+}
+
 .event-button-search,
 .event-button-pending,
 .event-button-export {

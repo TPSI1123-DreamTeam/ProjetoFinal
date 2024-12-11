@@ -99,6 +99,44 @@ td form input {
     align-items: center;
 }
 
+.search-bar {
+    display: flex;
+    margin-bottom: 15px;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-bar select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    transition: all 0.3s ease;
+}
+
+.submit-search-users {
+    border-radius: 10px;
+    background-color: #EB5B38;
+    color: white;
+    padding: 5px;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.submit-search-div {
+    display: flex;
+}
+
 @media (max-width: 1105px) {
     #password {
         max-width: 60%;
@@ -173,6 +211,22 @@ td form input {
         justify-content: center !important;
         align-items: center !important;
         margin-bottom: 15px !important;
+    }
+}
+
+@media (max-width: 412px) {
+    .search-bar,
+    .search-users-form {
+        max-width: 310px !important;
+    }
+
+    .search-bar select {
+        max-width: 300px !important;
+    }
+
+    .search-bar {
+        margin: 0 auto;
+        margin-bottom: 15px;
     }
 }
 

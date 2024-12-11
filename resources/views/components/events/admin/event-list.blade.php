@@ -43,8 +43,8 @@
         </div>
 
         <div class="flex items-center space-x-2">
-            <label for="campo6" class="text-sm font-medium text-gray-700" >Estado</label>
-            <select name="event_status" id="event_status" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <label for="campo6" class="text-sm font-medium text-gray-700">Estado</label>
+            <select name="event_status" id="event_status" class="select-event-state">
                 <option value="" readonly>Selecione o estado</option>
                 <option value="ativo"     @if(isset($formFields['event_status']) && $formFields['event_status'] == 'ativo') selected @endif >Ativo</option>
                 <option value="recusado"  @if(isset($formFields['event_status']) && $formFields['event_status'] == 'recusado') selected @endif>Recusado</option>            
