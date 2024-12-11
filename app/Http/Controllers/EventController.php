@@ -730,7 +730,7 @@ class EventController extends Controller
     public function eventsbyparticipant()
     {
         $user      = auth()->user();
-        $events    = $user->events()->paginate(5);
+        $events    = $user->events()->orderBy('start_date', 'desc')->paginate(10);
         $allEvents = Category::all();
 
         return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);

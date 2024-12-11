@@ -68,7 +68,7 @@
             <td data-cell="iD">{{ $payment->id }}</td>
             <td data-cell="nome">{{ $payment->name }}</td>
             <td data-cell="preço">{{ $payment->amount }} €</td>
-            <td data-cell="data">{{ $payment->date }}</td>
+            <td data-cell="data">{{ date('d-m-Y', strtotime($payment->date)) }}</td>
             <td data-cell="estado">{{ $payment->status == 'paid' ? 'Pago' : 'Pendente' }}</td>
         </tr>
         @endforeach
