@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\EventsbymanagerExport;
 use App\Exports\EventsByParticipantExport;
+use App\Exports\EventsbyAdminExport;
 
 
 class EventController extends Controller
@@ -393,11 +394,13 @@ class EventController extends Controller
     {
         $AuthUser = Auth::user();
 
-        if($AuthUser->role_id == 1 ){
-
+        if($AuthUser->role_id == 1 )
+        {
             $events =  Event::paginate(10);
             $suppliers = Supplier::all();
-            return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers]);
+            $Category = Category::all();
+            $formFields = null;
+            return view('pages.events.admin.index', ['events' => $events, 'suppliers' => $suppliers, 'Category' => $Category, 'formFields' => $formFields]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
         }
@@ -731,10 +734,14 @@ class EventController extends Controller
     public function admin()
     {
         $AuthUser = Auth::user();
+        
         // user roles is owner and he is the event (to show) owner
         if($AuthUser->role_id === 1 ){
             $events = Event::all();
-            return view('pages.events.admin', ['events' => $events]);
+            $Category = Category::all();
+            $formFields = null;
+            return view('pages.events.admin', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
+
         }
     }
 
@@ -1147,10 +1154,9 @@ class EventController extends Controller
 
     public function searchEventsByAdmin(Request $request)
     {
-        // Obter todas as categorias para o formulário de filtro
+
         $Category = Category::all();
 
-        // Iniciar a query com todos os eventos
         $events = Event::query();
 
         // Filtros opcionais
@@ -1236,6 +1242,68 @@ class EventController extends Controller
             'Category' => $Category, 
             'formFields' => $formFields
         ]);
+    }
+
+    public function exportbyadmin(Request $request)
+    {
+        $AuthUser = Auth::user();
+
+        if($AuthUser->role_id === 1 ){
+
+            //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
+            $eventIdsArray  = explode(',', $request->event_ids);
+            $events = Event::whereIn('id', $eventIdsArray)->get();
+
+            //:: HEADER
+            $excelArray = array();
+            $excelArray[0]["Nº"]                 = "Nº";
+            $excelArray[0]["Nome"]               = "Nome";
+            $excelArray[0]["Localização"]        = "Localização";
+            $excelArray[0]["Data de Início"]     = "Data de Início";
+            $excelArray[0]["Hora de Início"]     = "Hora de Início";
+            $excelArray[0]["Data de Fim"]        = "Data de Início";
+            $excelArray[0]["Hora de Fim"]        = "Hora de Fim";
+            $excelArray[0]["Tipo de Evento"]     = "Tipo de Evento";
+            $excelArray[0]["Custo do Evento"]    = "Custo do Evento";
+            $excelArray[0]["Custo dos Serviços"] = "Custo dos Serviços";
+            $excelArray[0]["Pagamentos"]         = "Pagamentos";
+            $excelArray[0]["Bilhete"]            = "Bilhete";
+            $excelArray[0]["Proprietário"]       = "Proprietário";
+            $excelArray[0]["Categoria"]          = "Categoria";
+            $excelArray[0]["Nº participantes"]   = "Nº participantes";
+            $excelArray[0]["Estado"]             = "Estado"  ;
+            $excelArray[0]["Data da Criação"]    = "Data da Criação";
+
+            $key = 1;
+            foreach ($events as $event) {
+
+                $owner    = User::find($event->owner_id);
+                $category = Category::find($event->category_id);
+
+                $excelArray[$key]["Nº"]                 = $event->id;
+                $excelArray[$key]["Nome"]               = $event->name;
+                $excelArray[$key]["Localização"]        = $event->localization;
+                $excelArray[$key]["Data de Início"]     = $event->start_date;
+                $excelArray[$key]["Hora de Início"]     = $event->start_time;
+                $excelArray[$key]["Data de Fim"]        = $event->end_date;
+                $excelArray[$key]["Hora de Fim"]        = $event->end_time;
+                $excelArray[$key]["Tipo de Evento"]     = $event->type;
+                $excelArray[$key]["Custo do Evento"]    = $event->amount;
+                $excelArray[$key]["Custo dos Serviços"] = $event->services_amount;
+                $excelArray[$key]["Pagamentos"]         = $event->current_account->amount_paid ?? '0';
+                $excelArray[$key]["Bilhete"]            = $event->ticket_amount;
+                $excelArray[$key]["owner_id"]           = $owner->name;
+                $excelArray[$key]["category_id"]        = $category->description;
+                $excelArray[$key]["Nº participantes"]   = $event->number_of_participants;
+                $excelArray[$key]["Estado"]             = $event->event_status;
+                $excelArray[$key]["Data da Criação"]    = date('Y-m-d', strtotime($event->created_at));
+
+                $key++;
+            }
+
+            return Excel::download(new EventsbyAdminExport($excelArray), 'AdminEvents.xlsx');
+
+        }
     }
     
 }
