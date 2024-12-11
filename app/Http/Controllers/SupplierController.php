@@ -44,11 +44,11 @@ class SupplierController extends Controller
         
             // Criação do fornecedor
             $supplier = Supplier::create([
-            'name'  => $request->name,
-            'email' => $request->email,
-            'contact' => $request->contact,
+            'name'             => $request->name,
+            'email'            => $request->email,
+            'contact'          => $request->contact,
             'supplier_type_id' => $request->supplier_type_id,
-            'status' => true
+            'status'           => true
             ]);
 
             if($request->has('image')){
@@ -84,29 +84,30 @@ class SupplierController extends Controller
     {
         $supplierTypes = SupplierType::all();
         return view('pages.suppliers.edit', [
-            'supplier' => $supplier->load('supplierType'), 
+            'supplier'      => $supplier->load('supplierType'), 
             'supplierTypes' => $supplierTypes
         ]);
     }
     /**
      * Update the specified resource in storage.
      */
-        public function update(UpdateSupplierRequest $request, Supplier $supplier)
-        {
+    public function update(UpdateSupplierRequest $request, Supplier $supplier)
+    {
+            
         $validatedData = $request->validated();
 
         // Atualiza os dados do fornecedor
         $supplier->update([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'contact' => $validatedData['contact'],
+            'name'             => $validatedData['name'],
+            'email'            => $validatedData['email'],
+            'contact'          => $validatedData['contact'],
             'supplier_type_id' => $validatedData['supplier_type_id'],
         ]);
 
         return redirect()->route('suppliers.index')
-                         ->with('status', 'Fornecedor atualizado com sucesso!')
-                         ->with('class', 'alert-success');
-        }
+                            ->with('status', 'Fornecedor atualizado com sucesso!')
+                            ->with('class', 'alert-success');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -149,8 +150,8 @@ class SupplierController extends Controller
         $suppliers = $query->paginate(10);
 
         return view('pages.suppliers.index', [
-            'suppliers' => $suppliers,
-            'formFields' => $request->all(),
+            'suppliers'     => $suppliers,
+            'formFields'    => $request->all(),
             'supplierTypes' => $supplierTypes
         ]);
     }
@@ -167,28 +168,28 @@ class SupplierController extends Controller
                 // Cabeçalhos do Excel
                 $excelArray = [];
                 $excelArray[0] = [
-                    "Nº" => "Nº",
-                    "Nome" => "Nome",
-                    "Email" => "Email",
-                    "Contacto" => "Contacto",
+                    "Nº"                 => "Nº",
+                    "Nome"               => "Nome",
+                    "Email"              => "Email",
+                    "Contacto"           => "Contacto",
                     "Tipo de Fornecedor" => "Tipo de Fornecedor",
-                    "Estado" => "Estado",
+                    "Estado"             => "Estado",
                     "Eventos Associados" => "Eventos Associados",
-                    "Data de Criação" => "Data de Criação"
+                    "Data de Criação"    => "Data de Criação"
                 ];
             
                 // Preenchendo os dados
                 $key = 1;
                 foreach ($suppliers as $supplier) {
                     $excelArray[$key] = [
-                        "Nº" => $supplier->id,
-                        "Nome" => $supplier->name,
-                        "Email" => $supplier->email,
-                        "Contacto" => $supplier->contact,
+                        "Nº"                 => $supplier->id,
+                        "Nome"               => $supplier->name,
+                        "Email"              => $supplier->email,
+                        "Contacto"           => $supplier->contact,
                         "Tipo de Fornecedor" => $supplier->supplierType->name ?? 'Não definido',
-                        "Estado" => $supplier->status == 1 ? 'Ativo' : 'Inativo',
+                        "Estado"             => $supplier->status == 1 ? 'Ativo' : 'Inativo',
                         "Eventos Associados" => $supplier->events->pluck('name')->join(', '),
-                        "Data de Criação" => date('Y-m-d', strtotime($supplier->created_at))
+                        "Data de Criação"    => date('Y-m-d', strtotime($supplier->created_at))
                     ];
                     $key++;
                 }

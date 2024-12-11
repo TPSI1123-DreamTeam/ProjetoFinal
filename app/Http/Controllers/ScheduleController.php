@@ -34,43 +34,7 @@ class ScheduleController extends Controller
      */
     public function store(StoreScheduleRequest $request)
     {
-        // $owner_id = Auth::user()->id;
 
-        // $event = Event::create([
-        //     'name'                   => $request->name,
-        //     'description'            => $request->description,
-        //     'localization'           => $request->localization,            
-        //     'start_date'             => $request->start_date,
-        //     'end_date'               => $request->end_date,
-        //     'owner_id'               => $owner_id,
-        //     'category_id'            => $request->category_id, 
-        //     'type'                   => $request->type,
-        //     'amount'                 => "0.00",
-        //     'ticket_amount'          => "0.00",
-        //     'start_time'             => $request->start_time,
-        //     'end_time'               => $request->end_time,
-        //     'number_of_participants' => $request->number_of_participants,
-        //     'event_confirmation'     => false,
-        //     'services_default_array' => json_encode($request->suppliers)
-        // ]);
-
-        // // check and store image
-        // if($request->has('image')){
-        //     $file      = $request->file('image');
-        //     $imageName = time().'.'.$request->image->extension();
-        //     $path      = 'images/events/'.$event->id;
-
-        //     $request->image->move(public_path($path), $imageName);
-
-        //     // save image
-        //     $update = Event::find($event->id);
-        //     $update->image = $imageName;
-        //     $update->save();      
-        // }
-
- 
-
-        return redirect('/dashboard')->with('success', 'Evento criado com sucesso!')->with('class', 'bg-green-500 text-white');
     }
 
     /**

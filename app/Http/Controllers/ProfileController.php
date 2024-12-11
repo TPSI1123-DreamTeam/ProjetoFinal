@@ -15,9 +15,7 @@ class ProfileController extends Controller
      * Display the user's profile form.
      */
     public function edit(Request $request): View
-    {
-        
-        //return view('components.dashboard.dashboard-user')->with(['user' => $user, 'payments' => $payments]);
+    {    
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
@@ -49,11 +47,8 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-
         Auth::logout();
-
         $user->delete();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

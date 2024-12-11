@@ -23,17 +23,11 @@ class InvitationController extends Controller
     public function index()
     {
         $ownerId = Auth::user()->id;
-
         $query   = Event::query();
         $query->where('owner_id',$ownerId);
         $events = $query->get();
-        $trueId = 0; // Colocação da variável $trueId para prevenir erros;
-        // $queryI   = Invitation::query();
-        // $invitation = $queryI->where('event_id',$trueId)->first();
+        $trueId = 0; 
 
-
-      //  $invitations = Invitation::orderBy('id')->paginate(15);
-      //  return view('pages.invitations.index', ['invitations' => $invitations]);
         return view('pages.invitations.index', ['participants' => null, 'invitation' => null, 'events' => $events, 'trueId' => $trueId]);
     }
 
@@ -43,9 +37,9 @@ class InvitationController extends Controller
     public function create(Invitation $invitation, $trueId)
     {
 
-        $event = Event::findOrFail($trueId);
+        $event  = Event::findOrFail($trueId);
         $trueId = $event->id;
-        //dd($trueId);
+
         return view('pages.invitations.create',['invitation' => $invitation, 'trueId' => $trueId]);
     }
 
@@ -65,16 +59,16 @@ class InvitationController extends Controller
                 ]);
 
             if ($request->hasFile('image')) {
+
                 $file = $request->file('image');
                 $imageName = time() . '.' . $file->extension();
-                $file->move(public_path('images\invitations'), $imageName); // Ajuste o caminho conforme necessário
+                $file->move(public_path('images\invitations'), $imageName); 
                 $directory = public_path('images\invitations') . DIRECTORY_SEPARATOR . $imageName;
                 $invitation->image = $imageName;
             }
 
             $invitation->image = $directory;
-            $event->invitation()->save($invitation); // Usa o relacionamento para salvar e associar
-
+            $event->invitation()->save($invitation); 
 
         return redirect('invitations')->with('status','Convite adicionado com sucesso!');
     }
@@ -126,89 +120,57 @@ class InvitationController extends Controller
     }
 
     public function submit(Request $request, $eventId)
-    {
-        // Simulação de envio de Convite para os Participantes
-        // variavél $messages contêm os campos do convite [Por agora o envio requer todos os campos, embora mais
-        // tarde não irá ser necessário, visto que os campos são NULLABLE. Necessário inserir validações para
-        // os campos que não têm dados!!]
+    {        
+        $invitation = $request->invitation;
+        $trueId     = $request->event;
 
-    //     $messages = [
-    //         'title.required' => 'Introduza um título!',
-    //         'body.required' => 'Introduza descrição do convite!',
-    //         'date.email' => 'Introduza a data do evento!',
-    //         'place.required' => 'Introduza o nome do local do evento!',
-    //     ];
-
-    //     // Capture and validate the data
-
-    //     $validatedData = $request->validate([
-    //         'title' => 'required|min:3|max:255',
-    //        'body' => 'required|min:3|max:255',
-    //         'image' => 'required|image|mimes:jpeg,jpg,png,gif',
-    //         'date' => 'required|min:3|max:255',
-    //         'place' => 'required|min:3|max:255',
-    //    ], $messages);
-
-      // $attachedFile = $request->validate([
-        //    'image' => 'required|image|mimes:jpeg,jpg,png,gif',
-      // ]);
-
-        // Process the data (e.g., validation, sending email)
-
-
-        $invitation = $request->invitation; // Id do invitation
-        $trueId = $request->event; // Id do event
-
-        $event = Event::findOrFail($trueId);
+        $event      = Event::findOrFail($trueId);
         $invitation = Invitation::findOrFail($invitation);
-       // dd($invitation);
+
 
         $existingParticipants = $event->users->map(function ($user) {
             return [
-                'nome' => strtolower(trim($user->name)),
-                'telefone' => strtolower(trim($user->phone)),
-                'email' => strtolower(trim($user->email)),
+                'nome'        => strtolower(trim($user->name)),
+                'telefone'    => strtolower(trim($user->phone)),
+                'email'       => strtolower(trim($user->email)),
                 'confirmação' => strtolower(trim($user->pivot->confirmation)),
             ];
         });
 
-      //  dd($existingParticipants);
-
-      $emailUsers = $existingParticipants->pluck('email')->toArray();
-
-      $emailTest = array_splice($emailUsers, 0, 3);
-
-     // dd($invitation);
+        $emailUsers = $existingParticipants->pluck('email')->toArray();
+        $emailTest  = array_splice($emailUsers, 0, 3);
 
         foreach ($emailTest as $key => $email) {
             Mail::to('primetimeventstpsip@gmail.com')->send(new InvitationMail($invitation));
         }
-      //  Mail::to('primetimeventstpsip@gmail.com')->send(new InvitationMail($invitation));
-        // Here you will handle the form submission, like validating input and sending emails.
+
         return redirect('invitations')->with('success', 'Convite Enviado!');
     }
+
 
     public function findEventInvitation(Request $request)
     {
         if ($request->search == "Escolha o evento para listar participantes...") {
             return redirect()->back();
         }
+
         $ownerId = Auth::user()->id;
         $query   = Event::query();
 
         $query->where('owner_id',$ownerId);
 
-        $events = $query->with(['users', 'invitation'])->get();
+        $events       = $query->with(['users', 'invitation'])->get();
         $participants = Event::find($request->search);
+        $trueId       = $participants->id;    
 
-        $trueId = $participants->id;    // $trueId guarda o id do evento escolhido na pesquisa
-        $queryI   = Invitation::query();
-       $invitation = $queryI->where('event_id',$trueId)->first();
+        // $trueId guarda o id do evento escolhido na pesquisa
+        $queryI     = Invitation::query();
+        $invitation = $queryI->where('event_id',$trueId)->first();
 
-       if ($invitation != null) {
-        return view('pages.invitations.index', ['invitation' => $invitation, 'participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
-       } else {
-        return view('pages.invitations.index', ['invitation' => null, 'participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
-       }
+        if ($invitation != null) {
+            return view('pages.invitations.index', ['invitation' => $invitation, 'participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
+        } else {
+            return view('pages.invitations.index', ['invitation' => null, 'participants' => $participants, 'events' => $events, 'trueId' => $trueId]);
+        }
     }
 }

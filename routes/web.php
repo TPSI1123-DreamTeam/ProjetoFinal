@@ -109,7 +109,7 @@ Route::middleware('auth')->group(function () {
     Route::get('export/eventsbyadmin/', [EventController::class, 'exportbyadmin'])->name('events.exportbyadmin');
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
     Route::get('export/eventsbymanager/', [EventController::class, 'exportbymanager'])->name('events.exportbymanager');
-    Route::get('export/eventsbyparticipant/', [EventController::class, 'ExportByParticipant'])->name('events.exportbyparticipant');
+    Route::get('export/eventsbyparticipant/', [EventController::class, 'exportbyparticipant'])->name('events.exportbyparticipant');
     Route::patch('/events/{event}/updatestatus', [EventController::class, 'updatestatus'])->name('events.updatestatus');
     Route::patch('/events/manager/{event}/updatesupplier', [EventController::class, 'updatesupplieronevent'])->name('events.updatesupplieronevent');
     Route::patch('/events/manager/{event}/deletesupplieronevent', [EventController::class, 'deletesupplieronevent'])->name('events.deletesupplieronevent');
