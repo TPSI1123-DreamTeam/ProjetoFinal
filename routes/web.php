@@ -164,6 +164,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
 
     ///// ::::: USERS :::::: ///////
+    Route::get('/users/export',[UserController::class,'downloadUsersList'])->name('users.downloadUsersList');
     Route::get('/users', [UserController::class,'index'])->name('users');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class,'store'])->name('users.store');

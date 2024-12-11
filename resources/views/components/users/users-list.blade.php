@@ -24,6 +24,15 @@
             <button class="submit-search-users" type="submit">Pesquisar</button>
         </div>  
     </form>
+
+    <div class="action-buttons">
+        <form id="exportEventsForm" method="GET" action="{{ route('users.downloadUsersList') }}">
+            <input type="hidden" name="user_ids" id="user_ids" value="{{ implode(',', $users->pluck('id')->toArray()) }}">
+            <button type="submit" class="event-button-export right" id="export">
+                Exportar Lista
+            </button>
+        </form>
+    </div>
 </div>
 
 <div class="linha-divisoria"></div>

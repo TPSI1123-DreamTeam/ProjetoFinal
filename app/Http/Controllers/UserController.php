@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Roles;
 use Illuminate\Support\Facades\Hash;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -67,6 +70,50 @@ class UserController extends Controller
         $users = User::where('name', 'like', '%' . $search . '%')->paginate(10);
         $users = User::where('email', 'like', '%' . $search . '%')->paginate(10);
         return view('pages.users.index', ['users' => $users]);
+    }
+
+    public function downloadUsersList(Request $request)
+    {
+        // Obter os IDs dos pagamentos
+        $userIdsArray = explode(',', $request->user_ids);
+        $users = User::whereIn('id', $userIdsArray)->get();
+
+        // Cabeçalhos do Excel
+        $excelArray = [];
+        $excelArray[0] = [
+            "ID" => "ID",
+            "Nome" => "Nome",
+            "Email" => "Email",
+            "Telefone" => "Telefone",
+            "Função" => "Função"
+        ];
+
+        // Preenchendo os dados
+        $key = 1;
+        foreach ($users as $user) {
+            // Determinar a função com base no role_id
+            $roleName = match ($user->role_id) {
+                1 => 'Admin',
+                2 => 'Manager',
+                3 => 'Proprietário',
+                4 => 'Participante',
+                default => 'Desconhecido',
+            };
+        
+            $excelArray[$key] = [
+                "ID" => $user->id,
+                "Nome" => $user->name,
+                "Email" => $user->email,
+                "Telefone" => $user->phone,
+                "Função" => $roleName,
+            ];
+            $key++;
+        }
+
+        // Fazer o download
+        return Excel::download(new UsersExport($excelArray), 'UsersList.xlsx');
+
+        
     }
 
 }
