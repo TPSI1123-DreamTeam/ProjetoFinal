@@ -83,8 +83,17 @@
                 Pesquisar
             </button>
         </div>
-    </form>
 
+    </form>
+    <div class="action-buttons">
+        <form id="exportEventsForm" method="GET" action="{{ route('events.exportbyadmin') }}">
+            <input type="hidden" name="event_ids" id="event_ids" value="{{ implode(',', $events->pluck('id')->toArray()) }}">
+            <button type="submit" class="event-button-export right" id="export">
+                Exportar Lista
+            </button>
+        </form>
+</div>
+        
 <div class="linha-divisoria-event-manager"></div>
 
 <!-- Tabela de Eventos -->

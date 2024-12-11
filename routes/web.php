@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/eventsFilter',[EventController::class,'eventsFilter']);
 
     //////:::::::EXPORTS::::::::://///
+    Route::get('export/eventsbyadmin/', [EventController::class, 'exportbyadmin'])->name('events.exportbyadmin');
     Route::get('export/eventsbyowner/', [EventController::class, 'exportbyowner'])->name('events.exportbyowner');
     Route::get('export/eventsbymanager/', [EventController::class, 'exportbymanager'])->name('events.exportbymanager');
     Route::get('export/eventsbyparticipant/', [EventController::class, 'ExportByParticipant'])->name('events.exportbyparticipant');
