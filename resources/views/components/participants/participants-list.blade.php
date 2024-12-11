@@ -67,7 +67,7 @@
     </div>
 </form>
 
-@if(isset($participants) && $participants->users && $participants->users->isNotEmpty())
+@if(isset($participants) && $participants->users && $trueId != null)
 <form action="/addParticipant" method="POST" class="add-participant-form">
     @csrf
     <div class="linha-divisoria-participant-list"></div>
@@ -75,7 +75,7 @@
     <label for="pName">Nome</label>
     <input class="choose-event" id="search" name="pName" style="max-width: 350px"/>
     <label for="pName">Nº Telefone</label>
-    <input class="choose-event" id="search" name="phoneNumber" style="max-width: 200px"/>
+    <input class="choose-event" id="search" name="phoneNumber" style="max-width: 200px" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required/>
     <label for="pName">Email</label>
     <input class="choose-event" id="search" name="email" type="email" required style="max-width: 350px" placeholder="exemplo@dominio.com"/>
     <label hidden for="trueId"></label>
@@ -86,6 +86,7 @@
 
 <div class="linha-divisoria-participant-list"></div>
 
+@if(isset($participants) && $participants->users && $trueId != null)
 <h1>Adicionar Participante Através de Excel</h1>
 
 <form method="POST" action="{{url('participants/import/' . $event->id )}}" enctype="multipart/form-data" style="margin-top: 10px" class="add-participant-form">
@@ -97,6 +98,7 @@
         <button class="search-participant-btn">Submeter</button>
     </div>
 </form>
+@endif
 
 <table class="participant-list-table">
     <thead>
