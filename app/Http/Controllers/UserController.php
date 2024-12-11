@@ -57,7 +57,6 @@ class UserController extends Controller
         ]);
 
         $user = User::find($id);
-
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -81,11 +80,11 @@ class UserController extends Controller
         // Cabeçalhos do Excel
         $excelArray = [];
         $excelArray[0] = [
-            "ID" => "ID",
-            "Nome" => "Nome",
-            "Email" => "Email",
+            "ID"       => "ID",
+            "Nome"     => "Nome",
+            "Email"    => "Email",
             "Telefone" => "Telefone",
-            "Função" => "Função"
+            "Função"   => "Função"
         ];
 
         // Preenchendo os dados
@@ -101,19 +100,16 @@ class UserController extends Controller
             };
         
             $excelArray[$key] = [
-                "ID" => $user->id,
-                "Nome" => $user->name,
-                "Email" => $user->email,
+                "ID"       => $user->id,
+                "Nome"     => $user->name,
+                "Email"    => $user->email,
                 "Telefone" => $user->phone,
-                "Função" => $roleName,
+                "Função"   => $roleName,
             ];
             $key++;
         }
 
         // Fazer o download
-        return Excel::download(new UsersExport($excelArray), 'UsersList.xlsx');
-
-        
+        return Excel::download(new UsersExport($excelArray), 'UsersList.xlsx');        
     }
-
 }

@@ -19,24 +19,23 @@ class ContactFormController extends Controller
     {
 
         $messages = [
-            'name.required' => 'Precisamos de saber o seu nome!',
-            'email.required' => 'Não se esqueça do seu email!',
-            'email.email' => 'Por favor introduza um email válido.',
+            'name.required'    => 'Precisamos de saber o seu nome!',
+            'email.required'   => 'Não se esqueça do seu email!',
+            'email.email'      => 'Por favor introduza um email válido.',
             'message.required' => 'Uma mensagem é necessária para submeter o formulário.',
         ];
 
         // Capture and validate the data
-
         $validatedData = $request->validate([
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|email',
+            'name'    => 'required|min:3|max:255',
+            'email'   => 'required|email',
             'message' => 'required|min:10',
         ], $messages);
-        //dd($validatedData);
+    
         
-        // Process the data (e.g., validation, sending email)
-        
+        // Process the data (e.g., validation, sending email)        
         Mail::to('primetimeventstpsip@gmail.com')->send(new ContactMail($validatedData));
+
         // Here you will handle the form submission, like validating input and sending emails.
         return back()->with('success', 'Obrigado pela sua mensagem!');
     }

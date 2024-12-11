@@ -43,9 +43,9 @@ class EventController extends Controller
     */
     public function eventsbyowner(Request $request)
     {
-        $ownerId  = Auth::user()->id;
-        $Category = Category::all();
-        $events   = Event::where('owner_id', $ownerId)->orderBy('start_date', 'desc')->paginate(10);
+        $ownerId    = Auth::user()->id;
+        $Category   = Category::all();
+        $events     = Event::where('owner_id', $ownerId)->orderBy('start_date', 'desc')->paginate(10);
         $formFields = array();
 
         return view('pages.events.owner.index', ['events' => $events, 'Category' => $Category, 'formFields' => $formFields]);
@@ -566,7 +566,6 @@ class EventController extends Controller
             $SupplierType = SupplierType::all();
             $suppliers    = Supplier::all();
 
-
             return view('pages.events.manager.show', ['event' => $event, 'category' => $category, 'suppliers' => $suppliers, 'SupplierType' => $SupplierType]);
         }else{
             return redirect('/dashboard')->with('status','Desculpe, algo correl mal!')->with('class', 'alert-warning');
@@ -807,8 +806,6 @@ class EventController extends Controller
              }
 
              return Excel::download(new EventsbymanagerExport($excelArray), 'OwnerEventReport.xlsx');
-
-            //return (new EventsbyownerExport($AuthUser->id))->download('events.xlsx');
         }
     }
 
@@ -817,8 +814,7 @@ class EventController extends Controller
         $AuthUser = Auth::user();
 
         if($AuthUser->role_id === 2 ){
-
-            //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
+  
             $eventIdsArray  = explode(',', $request->event_ids);
             $events = Event::whereIn('id', $eventIdsArray)->get();
 
@@ -1018,68 +1014,66 @@ class EventController extends Controller
 
     public function eventsFilter(Request $request)
     {
-        $user   = auth()->user();
-     //   $events = $user->events()->distinct()->get();
+        $user      = auth()->user();
         $allEvents = Category::all();
 
-        $name = $request->search;
+        $name      = $request->search;
         $startDate = $request->datepicker1;
-        $endDate = $request->datepicker2;
+        $endDate   = $request->datepicker2;
 
-        if (($startDate == null && $endDate == null) && $name == null)
+        if (($startDate == null && $endDate == null) && $name == null){
 
-            {
             $events = $user->events()->distinct()->paginate(10);
             return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
-            }
+        
+        } elseif (($startDate == null && $endDate == null)) {
 
-            elseif (($startDate == null && $endDate == null))
-            {
-                $events = $user->events()
-                    ->distinct()
-                    ->where('name', 'like', $name)
-                    ->paginate(10);
-             return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
-            }
-
-           elseif (($startDate != null || $endDate != null) && $name != null) {
-
-            if ($startDate == null) {
-                $events = $user->events()
+            $events = $user->events()
                 ->distinct()
                 ->where('name', 'like', $name)
-                ->whereDate('end_date', '=', $endDate)
                 ->paginate(10);
-            } else {
-                $events = $user->events()
-                ->distinct()
-                ->where('name', 'like', $name)
-                ->whereDate('start_date', '=', $startDate)
-                ->paginate(10);
-            }
             return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
-           }
-           elseif (($startDate != null || $endDate != null) && $name == null) {
+
+        } elseif (($startDate != null || $endDate != null) && $name != null) {
 
             if ($startDate == null) {
                 $events = $user->events()
                 ->distinct()
+                ->where('name', 'like', $name)
                 ->whereDate('end_date', '=', $endDate)
                 ->paginate(10);
+
             } else {
+
                 $events = $user->events()
                 ->distinct()
                 ->where('name', 'like', $name)
                 ->whereDate('start_date', '=', $startDate)
                 ->paginate(10);
             }
-                return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
-           }
 
-        // $user   = auth()->user();
-        // $events = $user->events()->distinct()->get();
+            return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
+           
+        } elseif (($startDate != null || $endDate != null) && $name == null) {
 
-        // return view('pages.participants.participant-event-list', ['events' => $events]);
+            if ($startDate == null) {
+                $events = $user->events()
+                ->distinct()
+                ->whereDate('end_date', '=', $endDate)
+                ->paginate(10);
+
+            } else {
+
+                $events = $user->events()
+                ->distinct()
+                ->where('name', 'like', $name)
+                ->whereDate('start_date', '=', $startDate)
+                ->paginate(10);
+
+            }
+            
+            return view('pages.participants.participant-event-list', ['events' => $events, 'allEvents' => $allEvents]);
+        }
     }
 
     public function search(Request $request)
@@ -1109,6 +1103,7 @@ class EventController extends Controller
 
 
         $events = $query->get();
+
         if ($events->isEmpty()) {
             $query = Event::query();
             session()->flash('no_results', 'Não foram encontrados eventos para os parâmetros de pesquisa fornecidos.');
@@ -1122,13 +1117,12 @@ class EventController extends Controller
     }
 
 
-    public function ExportByParticipant(Request $request)
+    public function exportbyparticipant(Request $request)
     {
         $AuthUser = Auth::user();
 
         if($AuthUser->role_id === 4 || $AuthUser->role_id === 3 ){
 
-            //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
             $eventIdsArray  = explode(',', $request->event_ids);
             $events = Event::whereIn('id', $eventIdsArray)->get();
 
@@ -1160,10 +1154,8 @@ class EventController extends Controller
 
     public function searchEventsByAdmin(Request $request)
     {
-
         $Category = Category::all();
-
-        $events = Event::query();
+        $events   = Event::query();
 
         // Filtros opcionais
         if ($request->has('event_name') && $request->event_name !== null) {
@@ -1244,8 +1236,8 @@ class EventController extends Controller
 
         // Retornar a view com os dados
         return view('pages.events.admin.index', [
-            'events' => $events, 
-            'Category' => $Category, 
+            'events'     => $events, 
+            'Category'   => $Category, 
             'formFields' => $formFields
         ]);
     }
@@ -1256,7 +1248,6 @@ class EventController extends Controller
 
         if($AuthUser->role_id === 1 ){
 
-            //$eventIdsString = "22,2,15,21,12,16,3,24,27,6";
             $eventIdsArray  = explode(',', $request->event_ids);
             $events = Event::whereIn('id', $eventIdsArray)->get();
 
@@ -1310,6 +1301,5 @@ class EventController extends Controller
             return Excel::download(new EventsbyAdminExport($excelArray), 'AdminEvents.xlsx');
 
         }
-    }
-    
+    }    
 }
