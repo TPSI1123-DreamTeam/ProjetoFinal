@@ -19,44 +19,71 @@ class EventSeeder extends Seeder
     {
         $arrayCategory = [
             0 => [
-                'description' => 'Concerto',
-                'image'       => 'Corroios.jpg',
+                'name'        => 'Concerto',
+                'description' => 'Concertos inesquecíveis, emoções ao vivo! 
+Transformamos a sua ideia num espetáculo único e vibrante. Especializados na organização de concertos, cuidamos de cada detalhe para garantir uma experiência memorável tanto para o público como para os artistas.
+Desde a escolha do local, som e iluminação de alta qualidade, cenografia, logística, segurança, até à gestão de bilheteira e promoção, oferecemos uma solução completa e personalizada. Trabalhamos em estreita colaboração com artistas, produtores e equipas técnicas para criar um evento dinâmico e cativante, onde a música seja o verdadeiro protagonista.
+Combinando criatividade, profissionalismo e paixão pela música, garantimos que o seu concerto seja um sucesso e deixe uma marca inesquecível em cada espetador.
+Deixe-nos criar o palco perfeito para a magia acontecer.',
+                'image'       => '/private/Concerto-private 1.png',
                 'quantity'    => 200,
                 'id'          => 1
             ],
             1 => [
-                'description' => 'Casamento',
-                'image'       => 'Casamento.png',
+                'name'        => 'Casamento',
+                'description' => 'Organizamos o teu casamento dos sonhos, cuidando de todos os detalhes para que o teu grande dia seja perfeito e livre de stress! 
+Desde a escolha do local, decoração, catering, fotografia, até à gestão do cronograma do evento, a nossa equipa especializada oferece um serviço personalizado e dedicado, adaptado aos seus desejos e estilo.
+Deixe-nos transformar a sua visão em realidade e tornar o seu casamento num evento memorável, repleto de emoções e momentos únicos.',
+                'image'       => '/private/Casamento.png',
                 'quantity'    => 150,
                 'id'          => 2
             ],
             2 => [
-                'description' => 'Workshop',
-                'image'       => 'Workshop1.jpg',
+                'name'        => 'Workshop',
+                'description' => 'Workshops dinâmicos e inspiradores para experiências transformadoras! 
+Especializamo-nos na criação de workshops envolventes, pensados para proporcionar aprendizagens práticas e momentos de conexão. Seja qual for o tema ou área de interesse, cuidamos de todos os detalhes para garantir um ambiente profissional e motivador.
+Combinando organização impecável, atenção aos detalhes e um toque criativo, garantimos workshops que inspiram, educam e geram impacto duradouro.
+Transforme ideias em ação. Juntos, criamos experiências que fazem a diferença.',
+                'image'       => '/private/Workshop1.jpg',
                 'quantity'    => 35,
                 'id'          => 3
             ],
             3 => [
-                'description' => 'Teatro',
-                'image'       => 'teatro1.jpg',
+                'name' => 'Teatro',
+                'description' => 'Teatro que emociona e encanta! 
+Planeamos e organizamos espetáculos teatrais únicos, cuidando de cada detalhe – desde a escolha do espaço, iluminação, som, cenografia, até à promoção e logística. Criamos uma experiência imersiva que dá vida às histórias e cativa o público do início ao fim.
+Transforme a sua produção num espetáculo memorável!',
+                'image'       => '/private/teatro1.jpg',
                 'quantity'    => 50,
                 'id'          => 4
             ],
             4 => [
-                'description' => 'Festival',
-                'image'       => 'RockMusic.jpg',
+                'name' => 'Festival',
+                'description' => 'Festivais que celebram momentos inesquecíveis! 
+Organizamos festivais vibrantes e envolventes, cuidando de tudo, desde o planeamento logístico, palcos, som, iluminação, segurança, até à experiência do público. 
+Criamos eventos que combinam criatividade, energia e organização impecável, garantindo que cada instante seja memorável para todos os participantes.
+Transforme a sua visão num festival de emoções únicas!',
+                'image'       => '',
                 'quantity'    => 300,
                 'id'          => 5
             ],
             5 => [
-                'description' => 'Evento Corporativo',
-                'image'       => 'Workshop-Corporativo.webp',
+                'name' => 'Evento Corporativo',
+                'description' => 'Eventos corporativos que refletem a essência da sua empresa! 
+Transformamos a sua visão em realidade, criando eventos corporativos profissionais e impactantes que promovem a sua marca e fortalecem as suas conexões. Desde conferências, lançamentos de produtos, workshops, jantares de gala até team building, cuidamos de todos os detalhes para garantir uma experiência sem falhas.
+Combinando criatividade, organização impecável e atenção ao detalhe, garantimos que o seu evento corporativo se destaque e deixe uma impressão duradoura nos participantes.
+Eleve a sua marca e celebre o sucesso com eventos memoráveis.',
+                'image'       => '/private/Eventos Corporativos.jpg',
                 'quantity'    => 30,
                 'id'          => 6
             ],
             6 => [
-                'description' => 'Evento Privado',
-                'image'       => 'Festas-Privadas.jpg',
+                'name' => 'Evento Privado',
+                'description' => 'Eventos corporativos que refletem a essência da sua empresa!A sua festa, do jeito que sempre sonhou! 
+Transformamos a sua celebração num evento único e inesquecível. Seja um aniversário, um jantar especial, uma reunião de amigos ou uma festa temática, cuidamos de todos os detalhes para criar uma experiência memorável.
+Desde a escolha do local, decoração personalizada, catering de alta qualidade, música, entretenimento e muito mais, trabalhamos consigo para dar vida à sua visão. Garantimos que cada momento seja pensado para refletir a sua personalidade e criar um ambiente acolhedor e divertido para os seus convidados.
+Festeje com estilo, crie memórias para a vida.',
+                'image'       => '/private/Festas-Privadas.jpg',
                 'quantity'    => 20,
                 'id'          => 7
             ],
@@ -113,11 +140,12 @@ class EventSeeder extends Seeder
             6 => '2025-01-31',
         ];
 
+        $festivalCounter = 0;
         $exceptionNotCreatePayment = array(2,6,7);
 
         for ($j = 0; $j < 7; $j++) {
 
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < 30; $i++) {
 
                 $categoryRandom = rand(0,6);
                 $managerRandom  = rand(0,1);
@@ -147,11 +175,22 @@ class EventSeeder extends Seeder
                 $fakerCity = fake()->city();
                 $owner_id  = rand(4,5);
 
+                if($festivalCounter==10){
+                    $festivalCounter = 0;
+                }
+
+                if( $arrayCategory[$categoryRandom]['id'] !== 5 ){
+                    $seederImage = $arrayCategory[$categoryRandom]['image'];
+                }else{
+                    $seederImage = 'public/festival'.$festivalCounter.'.jpg';
+                    $festivalCounter++;
+                }
+
                 $event = Event::create([
-                    'name'                   => $arrayCategory[$categoryRandom]['description'].' - '.$fakerCity,
+                    'name'                   => $arrayCategory[$categoryRandom]['name'],
                     'category_id'            => $arrayCategory[$categoryRandom]['id'],
-                    'image'                  => $arrayCategory[$categoryRandom]['image'],
-                    'description'            => fake()->realText(rand(500,700)),
+                    'image'                  => $seederImage,
+                    'description'            => $arrayCategory[$categoryRandom]['description'], //fake()->realText(rand(500,700)),
                     'localization'           => $fakerCity,
                     'start_date'             => $date,
                     'start_time'             => $startTime,

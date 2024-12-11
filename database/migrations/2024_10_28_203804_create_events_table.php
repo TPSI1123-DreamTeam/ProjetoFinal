@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable(); 
             $table->text('description')->nullable();   
+            $table->string('contact')->nullable();   
             $table->string('localization')->nullable();   
             $table->date('start_date')->nullable();
             $table->time('start_time')->nullable();
