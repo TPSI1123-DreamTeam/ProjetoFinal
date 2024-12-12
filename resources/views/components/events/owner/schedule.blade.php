@@ -62,9 +62,7 @@
         </table>
 
         <div class="add-supllier-btn">
-            @if(count($event->schedules)>0)
                 <button type="submit" class="update-supplier-event">Atualizar Agenda</button>
-            @endif
             <a href="{{ url('/events/owner/'.$event->id .'/edit') }}" class="go-back-btn-event">Voltar ao evento</a>
         </div>
 
