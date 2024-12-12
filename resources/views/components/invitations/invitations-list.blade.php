@@ -58,7 +58,7 @@
         <p> {{ $invitation->title }}</p>
         @php
             $filePath = $invitation->image;
-            $filePath = str_replace('C:\Users\eu\Documents\ProjetoFinal\public\\', '', $filePath);
+            $filePath = str_replace('C:\Users\Gil_C\Desktop\ProjetoFinal\public\', '', $filePath);
             $filePath = str_replace('\\', '/', $filePath);
         @endphp
         <img src="/{{$filePath}}" >
